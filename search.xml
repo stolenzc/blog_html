@@ -834,6 +834,63 @@
       </tags>
   </entry>
   <entry>
+    <title>HTTPS加密原理</title>
+    <url>/blog/2022/https/</url>
+    <content><![CDATA[<h2 id="HTTPS传输的加密使用"><a href="#HTTPS传输的加密使用" class="headerlink" title="HTTPS传输的加密使用"></a>HTTPS传输的加密使用</h2><p>https在进行内容传输的时候使用的是对称加密</p>
+<p>https在进行证书验证阶段使用的是非对称加密</p>
+<h2 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h2><ul>
+<li>默认端口，HTTP是80，HTTPS是443</li>
+<li>传输协议，http是超文本传输协议，属于明文传输；https是安全的超文本传输协议，是经过SSL加密后的传输协议</li>
+<li>安全性，https使用了TLS/SSL，比http更安全</li>
+<li>证书，https需要申请ca证书</li>
+<li>HTTPS的加密是在传输层完成的，因为SSL是位于传输层的，TLS的前身是SSL。</li>
+</ul>
+<h2 id="HTTP的通信过程"><a href="#HTTP的通信过程" class="headerlink" title="HTTP的通信过程"></a>HTTP的通信过程</h2><p>作为标准的C/S模型，http协议总是由客户端发起，服务器进行响应。</p>
+<ol>
+<li>DNS解析，域名系统DNS将域名解析成IP地址</li>
+<li>建立TCP连接，进行TCP的三次握手</li>
+<li>浏览器发送请求</li>
+<li>服务器响应浏览器，向浏览器发送数据</li>
+<li>通信完成，TCP连接关闭</li>
+</ol>
+<h2 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h2><p>https主要在http的2和3之间，建立了一个加密的连接，这个连接使用了TLS/SSL协议，它是一个安全的传输协议，它的加密使用了对称加密，而不是非对称加密。</p>
+<p>通信过程如下 ：</p>
+<ol>
+<li>DNS解析，域名系统DNS将域名解析成IP地址</li>
+<li>客户端和服务器端通过TCP建立连接，并发送https请求。</li>
+<li>客户端发起TLS握手，向服务端发送<code>ClientHello</code>消息，<ul>
+<li>客户端支持的SSL/TLS版本</li>
+<li>客户端支持的加密套件，比如RSA加密算法</li>
+<li>会话session id，（如果有的值的话，服务器端会复用对应的握手信息，避免短时间内重复握手）</li>
+<li>客户端随机数，用于生成随机密钥</li>
+</ul>
+</li>
+<li>服务器收到<code>ClientHello</code>消息，向客户端发送<code>ServerHello</code>消息<ul>
+<li>服务器所能支持的最高SSL/TLS版本</li>
+<li>服务器选择的加密套件列表，比如RSA加密算法</li>
+<li>服务器随机数，用于生成随机密钥</li>
+<li>服务器的ca证书</li>
+</ul>
+</li>
+<li>客户端收到<code>ServerHello</code>后，会对收到的证书进行验证。包括验证证书机构、有效期等，验证证书的合法性验证</li>
+<li>验证成功后，Client生成随机数，用于密钥交换过程。客户端会从数字证书中取出服务器的公钥，然后使用它加密报文该随机数，发送到服务器</li>
+<li>服务器使用私钥解密。获取客户端发送的随机数</li>
+<li>客户端使用这三个随机数一起计算出对称加密密钥，同理服务端也可以计算出这个加密密钥。客户端和服务端都计算出加密密钥<code>master secret</code></li>
+<li>客户端用<code>master secret</code>加密了一条握手完成的消息发送给服务器</li>
+<li>服务器端也回发了一条用<code>master secret</code>加密的握手完成的消息</li>
+<li>服务器将发送的内容用<code>master secret</code>加密，然后发送给客户端</li>
+<li>客户端使用<code>master secret</code>解密收到的消息</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>TCP</tag>
+        <tag>HTTPS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MacOS使用</title>
     <url>/blog/2020/mac/</url>
     <content><![CDATA[<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table>
