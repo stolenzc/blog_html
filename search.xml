@@ -258,6 +258,132 @@
       </tags>
   </entry>
   <entry>
+    <title>DRF的Serializer</title>
+    <url>/2020/drf_serializer/</url>
+    <content><![CDATA[<p>快速搞懂DRF并方便的使用<a id="more"></a></p>
+<h2 id="名词释义："><a href="#名词释义：" class="headerlink" title="名词释义："></a>名词释义：</h2><p>序列化：模型转换为json，即对象-字典-json</p>
+<p>反序列化：json转换为模型，即json-字典-对象</p>
+<h2 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h2><p>默认使用模型中的字段约束进行校验，自定义字段约束参考<a href="https://www.django-rest-framework.org/api-guide/fields/" target="_blank" rel="noopener">Serializer fields</a></p>
+<p>常用的约束包括：</p>
+<ol>
+<li>通用参数</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>read_only = True</code></td>
+<td>当前字段只能进行序列化输出（用于不需要反序列化输入的字段）</td>
+</tr>
+<tr>
+<td><code>write_only = True</code></td>
+<td>当前字段只能进行反序列化输入，不进行序列化输出</td>
+</tr>
+<tr>
+<td><code>required = True</code></td>
+<td>在反序列化时是必填字段，默认为True</td>
+</tr>
+<tr>
+<td><code>allow_null = False</code></td>
+<td>当前字段是否允许传None，默认是False（必填字段False，反之则True）</td>
+</tr>
+<tr>
+<td><code>allow_blank = False</code></td>
+<td>当前字段是否运行为空，默认是False（必填字段False，反之则True）</td>
+</tr>
+<tr>
+<td><code>default = xx</code></td>
+<td>指定在反序列化时，当前字段没值时所使用的默认值</td>
+</tr>
+<tr>
+<td><code>validators=校验器</code></td>
+<td>当前字段所使用的校验器（下面介绍常用的）</td>
+</tr>
+<tr>
+<td><code>error_messages</code></td>
+<td>包含错误key-value的字段（下面会举例）</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>当前字段在前端的api页面中所显示的字段名称</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>选项参数</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>max_length</code></td>
+<td>字段最大长度</td>
+</tr>
+<tr>
+<td><code>min_length</code></td>
+<td>字段最小长度</td>
+</tr>
+<tr>
+<td><code>trim_whitespace</code></td>
+<td>是否截断空字符串</td>
+</tr>
+<tr>
+<td><code>max_value</code></td>
+<td>字段最大值</td>
+</tr>
+<tr>
+<td><code>min_value</code></td>
+<td>字段最小值</td>
+</tr>
+</tbody></table>
+<h2 id="字段校验-反序列化"><a href="#字段校验-反序列化" class="headerlink" title="字段校验(反序列化)"></a>字段校验(反序列化)</h2><p>对单个字段校验使用的是<code>validate_&lt;filed_name&gt;</code>，如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> User.objects.filter(name=value):</span><br><span class="line">		<span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名已存在'</span>)</span><br><span class="line">	<span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+
+<p>对所有字段校验使用的是<code>validate</code>，如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self,attr)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> attr[<span class="string">'name'</span>] <span class="keyword">or</span> attr[<span class="string">'email'</span>]:</span><br><span class="line">        <span class="keyword">return</span> attr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名或邮箱至少填一个'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>校验顺序：</p>
+<ol>
+<li>参数限定校验，（失败则不会向下校验）</li>
+<li>单字段校验（无论成功或失败都会继续校验）</li>
+<li>多字段校验</li>
+</ol>
+<p>校验数据的使用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定需要校验的数据</span></span><br><span class="line">serializer = self.serializer_class(data=request.data)</span><br><span class="line"><span class="comment"># 进行字段校验，如果失败则会报错</span></span><br><span class="line">serializer.is_valid(raise_exception=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 获取校验未通过的提示</span></span><br><span class="line">serializer.errors</span><br><span class="line"><span class="comment"># 获取校验通过的数据</span></span><br><span class="line">serializer.validated_date</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>指定序列化字段：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">    model = User</span><br><span class="line">    <span class="comment"># 指定字段使用元组，所有字段使用"__all__"</span></span><br><span class="line">    fields = (<span class="string">'name'</span>, <span class="string">'age'</span>,)</span><br><span class="line">    <span class="comment"># 指定只能序列化，无法反序列化的字段</span></span><br><span class="line">    read_only_fields = (<span class="string">'created_at'</span>, <span class="string">'updated_at'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>指定单个字段进行自定义序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">password = serializers.SerializerMethodField()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_password</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="comment"># instance为当前的实例，即view中的get_object()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"******"</span></span><br></pre></td></tr></table></figure>
+
+<p>对所有字段进行自定义序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_representation</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dict()</span><br></pre></td></tr></table></figure>
+
+<p>view使用序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对data进行序列化，data为queryset或者object，如果是queryset，需要加上many=True</span></span><br><span class="line">serializer = self.serializer_class(data, many=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 返回一个OrderedDict，转换为列表即可得到指定的值</span></span><br><span class="line">result_dict = serializer.data</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库写入操作"><a href="#数据库写入操作" class="headerlink" title="数据库写入操作"></a>数据库写入操作</h2><p>serializer提供了create和update的功能，分别对应post请求和put/patch请求。如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, instance, validated_data)</span>:</span></span><br><span class="line">    instance.update(**validated_data)</span><br><span class="line">    instance.updated_at = timezone.now()</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, validated_data)</span>:</span></span><br><span class="line">    instance = User(**validated_data)</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p><a href="https://www.jianshu.com/p/36b5c410b357" target="_blank" rel="noopener">Django_rest framework_序列化器和自定义校验</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Edge上手</title>
     <url>/2020/edge/</url>
     <content><![CDATA[<p>记录一些Edge插件和用法<a id="more"></a></p>
@@ -1613,8 +1739,8 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Django</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2988,132 +3114,6 @@
       </categories>
       <tags>
         <tag>WSL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DRF的Serializer</title>
-    <url>/2020/drf_serializer/</url>
-    <content><![CDATA[<p>快速搞懂DRF并方便的使用<a id="more"></a></p>
-<h2 id="名词释义："><a href="#名词释义：" class="headerlink" title="名词释义："></a>名词释义：</h2><p>序列化：模型转换为json，即对象-字典-json</p>
-<p>反序列化：json转换为模型，即json-字典-对象</p>
-<h2 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h2><p>默认使用模型中的字段约束进行校验，自定义字段约束参考<a href="https://www.django-rest-framework.org/api-guide/fields/" target="_blank" rel="noopener">Serializer fields</a></p>
-<p>常用的约束包括：</p>
-<ol>
-<li>通用参数</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>read_only = True</code></td>
-<td>当前字段只能进行序列化输出（用于不需要反序列化输入的字段）</td>
-</tr>
-<tr>
-<td><code>write_only = True</code></td>
-<td>当前字段只能进行反序列化输入，不进行序列化输出</td>
-</tr>
-<tr>
-<td><code>required = True</code></td>
-<td>在反序列化时是必填字段，默认为True</td>
-</tr>
-<tr>
-<td><code>allow_null = False</code></td>
-<td>当前字段是否允许传None，默认是False（必填字段False，反之则True）</td>
-</tr>
-<tr>
-<td><code>allow_blank = False</code></td>
-<td>当前字段是否运行为空，默认是False（必填字段False，反之则True）</td>
-</tr>
-<tr>
-<td><code>default = xx</code></td>
-<td>指定在反序列化时，当前字段没值时所使用的默认值</td>
-</tr>
-<tr>
-<td><code>validators=校验器</code></td>
-<td>当前字段所使用的校验器（下面介绍常用的）</td>
-</tr>
-<tr>
-<td><code>error_messages</code></td>
-<td>包含错误key-value的字段（下面会举例）</td>
-</tr>
-<tr>
-<td><code>label</code></td>
-<td>当前字段在前端的api页面中所显示的字段名称</td>
-</tr>
-</tbody></table>
-<ol start="2">
-<li>选项参数</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>max_length</code></td>
-<td>字段最大长度</td>
-</tr>
-<tr>
-<td><code>min_length</code></td>
-<td>字段最小长度</td>
-</tr>
-<tr>
-<td><code>trim_whitespace</code></td>
-<td>是否截断空字符串</td>
-</tr>
-<tr>
-<td><code>max_value</code></td>
-<td>字段最大值</td>
-</tr>
-<tr>
-<td><code>min_value</code></td>
-<td>字段最小值</td>
-</tr>
-</tbody></table>
-<h2 id="字段校验-反序列化"><a href="#字段校验-反序列化" class="headerlink" title="字段校验(反序列化)"></a>字段校验(反序列化)</h2><p>对单个字段校验使用的是<code>validate_&lt;filed_name&gt;</code>，如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> User.objects.filter(name=value):</span><br><span class="line">		<span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名已存在'</span>)</span><br><span class="line">	<span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
-
-<p>对所有字段校验使用的是<code>validate</code>，如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self,attr)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> attr[<span class="string">'name'</span>] <span class="keyword">or</span> attr[<span class="string">'email'</span>]:</span><br><span class="line">        <span class="keyword">return</span> attr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名或邮箱至少填一个'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>校验顺序：</p>
-<ol>
-<li>参数限定校验，（失败则不会向下校验）</li>
-<li>单字段校验（无论成功或失败都会继续校验）</li>
-<li>多字段校验</li>
-</ol>
-<p>校验数据的使用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定需要校验的数据</span></span><br><span class="line">serializer = self.serializer_class(data=request.data)</span><br><span class="line"><span class="comment"># 进行字段校验，如果失败则会报错</span></span><br><span class="line">serializer.is_valid(raise_exception=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 获取校验未通过的提示</span></span><br><span class="line">serializer.errors</span><br><span class="line"><span class="comment"># 获取校验通过的数据</span></span><br><span class="line">serializer.validated_date</span><br></pre></td></tr></table></figure>
-
-<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>指定序列化字段：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">    model = User</span><br><span class="line">    <span class="comment"># 指定字段使用元组，所有字段使用"__all__"</span></span><br><span class="line">    fields = (<span class="string">'name'</span>, <span class="string">'age'</span>,)</span><br><span class="line">    <span class="comment"># 指定只能序列化，无法反序列化的字段</span></span><br><span class="line">    read_only_fields = (<span class="string">'created_at'</span>, <span class="string">'updated_at'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>指定单个字段进行自定义序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">password = serializers.SerializerMethodField()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_password</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="comment"># instance为当前的实例，即view中的get_object()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"******"</span></span><br></pre></td></tr></table></figure>
-
-<p>对所有字段进行自定义序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_representation</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dict()</span><br></pre></td></tr></table></figure>
-
-<p>view使用序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对data进行序列化，data为queryset或者object，如果是queryset，需要加上many=True</span></span><br><span class="line">serializer = self.serializer_class(data, many=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 返回一个OrderedDict，转换为列表即可得到指定的值</span></span><br><span class="line">result_dict = serializer.data</span><br></pre></td></tr></table></figure>
-
-<h2 id="数据库写入操作"><a href="#数据库写入操作" class="headerlink" title="数据库写入操作"></a>数据库写入操作</h2><p>serializer提供了create和update的功能，分别对应post请求和put/patch请求。如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, instance, validated_data)</span>:</span></span><br><span class="line">    instance.update(**validated_data)</span><br><span class="line">    instance.updated_at = timezone.now()</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, validated_data)</span>:</span></span><br><span class="line">    instance = User(**validated_data)</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p><a href="https://www.jianshu.com/p/36b5c410b357" target="_blank" rel="noopener">Django_rest framework_序列化器和自定义校验</a></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Django</tag>
       </tags>
   </entry>
 </search>

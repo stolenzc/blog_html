@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="💡VIM从入门到精通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VIM">
+<meta property="og:url" content="https://blog.stolenzc.com/2020/vim/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="💡VIM从入门到精通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-05T07:24:10.000Z">
+<meta property="article:modified_time" content="2020-10-05T07:24:10.000Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="VIM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2020/vim/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>VIM | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/vim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VIM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-05 15:24:10" itemprop="dateCreated datePublished" datetime="2020-10-05T15:24:10+08:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>💡VIM从入门到精通 <a id="more"></a></p>
+<h2 id="1-汇总操作"><a href="#1-汇总操作" class="headerlink" title="1. 汇总操作"></a>1. 汇总操作</h2><h3 id="退出VIM"><a href="#退出VIM" class="headerlink" title="退出VIM"></a>退出VIM</h3><p>通过命令行模式退出</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:q</code></td>
+<td>退出</td>
+<td><code>:q!</code></td>
+<td>强制退出，不保存</td>
+</tr>
+<tr>
+<td><code>:wq</code></td>
+<td>保存并退出</td>
+<td><code>:wq!</code></td>
+<td>强制保存并退出</td>
+</tr>
+<tr>
+<td><code>:w &lt;文件路径&gt;</code></td>
+<td>另存为</td>
+<td><code>:saveas 文件路径</code></td>
+<td>另存为</td>
+</tr>
+<tr>
+<td><code>:x</code></td>
+<td>保存并退出</td>
+<td><code>shift + zz</code></td>
+<td>保存并退出</td>
+</tr>
+</tbody></table>
+<h3 id="普通模式进入命令行模式"><a href="#普通模式进入命令行模式" class="headerlink" title="普通模式进入命令行模式"></a>普通模式进入命令行模式</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>i</code></td>
+<td>在当前光标处进行编辑</td>
+<td><code>I</code></td>
+<td>在行首插入</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>在光标后插入编辑</td>
+<td><code>A</code></td>
+<td>在行末插入</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>在当前行后插入一个新行</td>
+<td><code>O</code></td>
+<td>在当前行前插入一个新行</td>
+</tr>
+</tbody></table>
+<h2 id="2-普通模式"><a href="#2-普通模式" class="headerlink" title="2. 普通模式"></a>2. 普通模式</h2><h3 id="移动游标"><a href="#移动游标" class="headerlink" title="移动游标"></a>移动游标</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>h</code></td>
+<td>左</td>
+<td><code>l</code></td>
+<td>右（小写 L）</td>
+</tr>
+<tr>
+<td><code>j</code></td>
+<td>下</td>
+<td><code>k</code></td>
+<td>上</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>移动到上一个单词</td>
+<td><code>w</code></td>
+<td>移动到下一个单词</td>
+</tr>
+</tbody></table>
+<h3 id="删除内容"><a href="#删除内容" class="headerlink" title="删除内容"></a>删除内容</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x</code></td>
+<td>删除游标所在的字符</td>
+<td><code>X</code></td>
+<td>删除游标所在前一个字符</td>
+</tr>
+<tr>
+<td><code>Delete</code></td>
+<td>同<code>x</code></td>
+<td><code>dd</code></td>
+<td>删除整行</td>
+</tr>
+<tr>
+<td><code>d$</code>或<code>D</code></td>
+<td>删除至行尾</td>
+<td><code>d^</code></td>
+<td>删除至行首</td>
+</tr>
+<tr>
+<td><code>dG</code></td>
+<td>删除到文档结尾处</td>
+<td><code>d1G</code></td>
+<td>删至文档首部</td>
+</tr>
+<tr>
+<td><code>dw</code>或<code>daw</code></td>
+<td>删除一个单词（不适用中文）(delete a word)</td>
+<td><code>:%d</code></td>
+<td>删除所有</td>
+</tr>
+</tbody></table>
+<h3 id="重复命令"><a href="#重复命令" class="headerlink" title="重复命令"></a>重复命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.</code></td>
+<td>重复上一次操作</td>
+<td><code>10x</code></td>
+<td>删除10个连续字符</td>
+</tr>
+<tr>
+<td><code>3dd</code></td>
+<td>删除3行文本</td>
+<td><code>dnw</code></td>
+<td>删除n个单词</td>
+</tr>
+</tbody></table>
+<h3 id="快速跳转"><a href="#快速跳转" class="headerlink" title="快速跳转"></a>快速跳转</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gg</code></td>
+<td>游标移动到到第一行</td>
+<td><code>G</code>(Shift+g)</td>
+<td>到最后一行</td>
+</tr>
+<tr>
+<td><code>Ctrl + o</code></td>
+<td>回到上次光标所在位置</td>
+<td><code>nG</code>(n Shift+g)</td>
+<td>游标移动到第 n 行</td>
+</tr>
+</tbody></table>
+<h3 id="行内跳转"><a href="#行内跳转" class="headerlink" title="行内跳转"></a>行内跳转</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>e</code></td>
+<td>到当前单词的结尾</td>
+<td><code>w</code></td>
+<td>到下一个单词的开头</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>到前一个单词的开头</td>
+<td><code>ge</code></td>
+<td>到前一个单词的结尾</td>
+</tr>
+<tr>
+<td><code>0</code>或<code>^</code></td>
+<td>到行头</td>
+<td><code>$</code></td>
+<td>到行尾</td>
+</tr>
+<tr>
+<td><code>f&lt;字母&gt;</code></td>
+<td>向后搜索&lt;字母&gt;并跳转到第一个匹配的位置(非常实用)</td>
+<td><code>F&lt;字母&gt;</code></td>
+<td>向前搜索&lt;字母&gt;并跳转到第一个匹配的位置</td>
+</tr>
+<tr>
+<td><code>t&lt;字母&gt;</code></td>
+<td>向后搜索&lt;字母&gt;并跳转到第一个匹配位置之前的一个字母(不常用)</td>
+<td><code>T&lt;字母&gt;</code></td>
+<td>向前搜索&lt;字母&gt;并跳转到第一个匹配位置之后的一个字母(不常用)</td>
+</tr>
+</tbody></table>
+<h3 id="复制和粘贴"><a href="#复制和粘贴" class="headerlink" title="复制和粘贴"></a>复制和粘贴</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>y</code></td>
+<td>复制</td>
+<td><code>dd</code></td>
+<td>剪切</td>
+</tr>
+<tr>
+<td><code>yy</code></td>
+<td>复制整行</td>
+<td><code>3yy</code></td>
+<td>复制三行</td>
+</tr>
+<tr>
+<td><code>y^</code>或<code>y0</code></td>
+<td>复制至行首，不含光标字符</td>
+<td><code>y$</code></td>
+<td>复制至行未，含光标所在</td>
+</tr>
+<tr>
+<td><code>yw</code></td>
+<td>复制一个单词</td>
+<td><code>y2w</code></td>
+<td>复制两个单词</td>
+</tr>
+<tr>
+<td><code>yG</code></td>
+<td>复制至文本末</td>
+<td><code>y1G</code></td>
+<td>复制至文本开头</td>
+</tr>
+<tr>
+<td><code>p</code>（小写）</td>
+<td>粘贴至光标后</td>
+<td><code>P</code>（大写）</td>
+<td>粘贴至光标前</td>
+</tr>
+</tbody></table>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>r</code>+&lt;待替换字母&gt;</td>
+<td>将游标所在字母替换为指定字母</td>
+<td><code>R</code></td>
+<td>连续替换，直到按下<code>Esc</code></td>
+</tr>
+<tr>
+<td><code>cc</code></td>
+<td>替换整行，即删除游标所在行，并进入插入模式</td>
+<td><code>cw</code></td>
+<td>替换一个单词，即删除一个单词，并进入插入模式</td>
+</tr>
+<tr>
+<td><code>C</code>(大写)</td>
+<td>替换游标以后至行末</td>
+<td><code>~</code></td>
+<td>反转游标所在字母大小写</td>
+</tr>
+<tr>
+<td><code>u</code>{n}</td>
+<td>撤销一次或 n 次操作（undo）</td>
+<td><code>U</code>(大写)</td>
+<td>撤销当前行的所有修改</td>
+</tr>
+<tr>
+<td><code>Ctrl+r</code></td>
+<td>redo，即撤销 undo 的操作</td>
+<td><code>:%!sort</code></td>
+<td>对内容排序(将一行内容看成一个字符串，然后按字符串大小进行排序)</td>
+</tr>
+</tbody></table>
+<p>命令底行模式替换公式：</p>
+<p><code>:起始位置,终止位置s/被替换对象/替换内容/参数</code></p>
+<blockquote>
+<p>起始位置：默认为1，<code>.</code>代表当前位置</p>
+<p>终止位置：默认为<code>$</code>，可以使用具体的行号，<code>+2</code>表示向后两行</p>
+<p>参数：<code>g</code> 全局匹配，<code>i</code> 忽略大小写，<code>c</code> 替换时提示，<code>e</code> 忽略错误</p>
+<p>示例：<code>:s/foo/bar/g</code> 全局将foo替换为bar，<code>:5,12s/foo/bar/g</code> 替换5到12行，<code>:.,+2s/foo/bar/g</code> 替换当前位置到后两行，<code>:&#39;&lt;,&#39;&gt;s/foo/bar/g</code> 可视模式下替换选中区域</p>
+</blockquote>
+<h3 id="快速缩进"><a href="#快速缩进" class="headerlink" title="快速缩进"></a>快速缩进</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&gt;&gt;</code></td>
+<td>向右缩进</td>
+<td><code>&lt;&lt;</code></td>
+<td>向左回退</td>
+</tr>
+</tbody></table>
+<h3 id="快速查找"><a href="#快速查找" class="headerlink" title="快速查找"></a>快速查找</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/</code></td>
+<td>向下查找</td>
+<td><code>?</code></td>
+<td>向上查找</td>
+</tr>
+<tr>
+<td><code>\*</code></td>
+<td>查找游标所在处的单词，向下查找</td>
+<td><code>\#</code></td>
+<td>查找游标所在处的单词，向上查找</td>
+</tr>
+<tr>
+<td><code>g\*</code></td>
+<td>查找游标所在处的单词，向下查找，部分符合即可</td>
+<td><code>g\#</code></td>
+<td>查找游标所在处的单词，向上查找，部分符合即可</td>
+</tr>
+</tbody></table>
+<p>备注：n为向下找，N为向上找，查找内容支持正则表达式，但是表示次数的符号前需要使用<code>\</code>，如<code>:/\d\{2,3}</code>，<code>:/a\+</code></p>
+<h2 id="3-命令行模式"><a href="#3-命令行模式" class="headerlink" title="3. 命令行模式"></a>3. 命令行模式</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:ce</code></td>
+<td>（center）文本居中</td>
+</tr>
+<tr>
+<td><code>:ri</code></td>
+<td>（right）文本有对齐</td>
+</tr>
+<tr>
+<td><code>:le</code></td>
+<td>（left）文本左对齐</td>
+</tr>
+<tr>
+<td><code>:noh</code></td>
+<td>退出搜索</td>
+</tr>
+<tr>
+<td><code>:set hls</code></td>
+<td>设置搜索高亮</td>
+</tr>
+<tr>
+<td><code>:set shiftwidth=n</code></td>
+<td>设置缩进和回退字符数</td>
+</tr>
+<tr>
+<td><code>:set nu</code></td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td><code>:set autoindent(ai)</code></td>
+<td>设置自动缩进</td>
+</tr>
+<tr>
+<td><code>:set autowrite(aw)</code></td>
+<td>设置自动存档</td>
+</tr>
+<tr>
+<td><code>:set background=dark/light</code></td>
+<td>设置背景风格</td>
+</tr>
+<tr>
+<td><code>:set backup(bk)</code></td>
+<td>设置自动备份</td>
+</tr>
+<tr>
+<td><code>:set cindent(cin)</code></td>
+<td>设置C语言风格缩进</td>
+</tr>
+<tr>
+<td><code>:set</code>或<code>:se</code></td>
+<td>显示所有修改过的配置</td>
+</tr>
+<tr>
+<td><code>:set all</code></td>
+<td>显示所有设定值</td>
+</tr>
+<tr>
+<td><code>:set &lt;option&gt;?</code></td>
+<td>显示option的设定值</td>
+</tr>
+<tr>
+<td><code>:set nooption</code></td>
+<td>取消当前设定值</td>
+</tr>
+<tr>
+<td><code>:syntax on</code></td>
+<td>设置语法高亮</td>
+</tr>
+<tr>
+<td><code>:set tabstop=4</code>或<code>:set ts=4</code></td>
+<td>设置tab键对应的空格数</td>
+</tr>
+<tr>
+<td><code>:set expandtab</code></td>
+<td>设置tab自动替换为空格</td>
+</tr>
+<tr>
+<td><code>:set nohls</code>或<code>:nohlsearch</code></td>
+<td>设置不高亮选中单词</td>
+</tr>
+<tr>
+<td><code>:set clipboard+=unnamed</code></td>
+<td>设置与当前设备共享剪贴板</td>
+</tr>
+<tr>
+<td><code>:set cul</code>/<code>:set cuc</code></td>
+<td>设置高亮行/列</td>
+</tr>
+<tr>
+<td><code>imap &lt;F4&gt; if __name__ == &#39;__main__&#39;:</code></td>
+<td>设置快捷键映射</td>
+</tr>
+<tr>
+<td><code>inoremap _main if __name__ == &#39;__main__&#39;:</code></td>
+<td>设置不递归调用映射</td>
+</tr>
+<tr>
+<td><code>:set pastetoggle</code></td>
+<td>粘贴切换（粘贴中自动缩进的问题）</td>
+</tr>
+<tr>
+<td><code>:set ruler</code></td>
+<td>设置显示光标位置</td>
+</tr>
+</tbody></table>
+<h2 id="4-高级功能"><a href="#4-高级功能" class="headerlink" title="4. 高级功能"></a>4. 高级功能</h2><h3 id="多文件编辑"><a href="#多文件编辑" class="headerlink" title="多文件编辑"></a>多文件编辑</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vim 1.txt 2.txt</code></td>
+<td>同时打开多个文件</td>
+</tr>
+<tr>
+<td><code>vim -d 1.txt 2.txt</code></td>
+<td>比较多个文件</td>
+</tr>
+<tr>
+<td><code>:n</code>/<code>:N</code></td>
+<td>切换到下/上一个文件</td>
+</tr>
+<tr>
+<td><code>:n!</code>/<code>:N!</code></td>
+<td>强制切换到下/上一个文件，之前的文件输入不保存</td>
+</tr>
+<tr>
+<td><code>:e 3.txt</code></td>
+<td>再打开一个文件</td>
+</tr>
+<tr>
+<td><code>:e#</code></td>
+<td>回到前一个文件</td>
+</tr>
+<tr>
+<td><code>:ls</code></td>
+<td>列出以前编辑过的文档</td>
+</tr>
+<tr>
+<td><code>:b 2.txt</code>或编号</td>
+<td>直接跳转到该文件进行编辑</td>
+</tr>
+<tr>
+<td><code>:bd 2.txt</code>或编号</td>
+<td>删除以前编辑过的列表中的文件项目</td>
+</tr>
+<tr>
+<td><code>e! 4.txt</code></td>
+<td>新打开文件，并放弃正在编辑的内容</td>
+</tr>
+<tr>
+<td><code>:f</code></td>
+<td>显示正在编辑的文件名</td>
+</tr>
+<tr>
+<td><code>f new.txt</code></td>
+<td>给正在编辑的文件重命名</td>
+</tr>
+<tr>
+<td><code>vim -r</code> <code>:ewcover 1.txt</code></td>
+<td>因断电等原因没有保存的文件恢复方式</td>
+</tr>
+</tbody></table>
+<h3 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>v</code></td>
+<td>进入可视模式，光标走过位置被选中，再次按<code>v</code>取消</td>
+</tr>
+<tr>
+<td><code>Shift+v</code></td>
+<td>进入可视模式，按行进行选中，再次按<code>Shift+v</code>取消</td>
+</tr>
+<tr>
+<td><code>Ctrl+v</code></td>
+<td>进入可视模式，按矩形区域进行选中，再次按<code>Ctrl+v</code>取消</td>
+</tr>
+<tr>
+<td><code>d</code></td>
+<td>可视模式下删除选区内容</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>可视模式下复制选取内容</td>
+</tr>
+</tbody></table>
+<h3 id="视窗操作"><a href="#视窗操作" class="headerlink" title="视窗操作"></a>视窗操作</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:new</code></td>
+<td>打开一个新的水平视窗</td>
+</tr>
+<tr>
+<td><code>vsp 2.txt</code></td>
+<td>打开新的垂直分屏视窗来编辑 1.txt</td>
+</tr>
+<tr>
+<td><code>:sp 1.txt</code></td>
+<td>打开新的水平分屏视窗来编辑 1.txt</td>
+</tr>
+<tr>
+<td><code>Ctrl+w s</code></td>
+<td>将当前窗口分割成两个水平的窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+w v</code></td>
+<td>将当前窗口分割成两个垂直的窗口</td>
+</tr>
+<tr>
+<td><code>Ctrl+w q</code></td>
+<td>即 :q 结束分割出来的视窗。如果在新视窗中有输入需要使用强制符！即:q!</td>
+</tr>
+<tr>
+<td><code>Ctrl+w o</code></td>
+<td>打开一个视窗并隐藏之前的所有视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w j</code></td>
+<td>移至下面视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w k</code></td>
+<td>移至上面视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w h</code></td>
+<td>移至左边视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w l</code></td>
+<td>移至右边视窗</td>
+</tr>
+<tr>
+<td><code>Ctrl+w J</code></td>
+<td>将当前视窗移至下面</td>
+</tr>
+<tr>
+<td><code>Ctrl+w K</code></td>
+<td>将当前视窗移至上面</td>
+</tr>
+<tr>
+<td><code>Ctrl+w H</code></td>
+<td>将当前视窗移至左边</td>
+</tr>
+<tr>
+<td><code>Ctrl+w L</code></td>
+<td>将当前视窗移至右边</td>
+</tr>
+<tr>
+<td><code>Ctrl+w -</code></td>
+<td>减小视窗的高度</td>
+</tr>
+<tr>
+<td><code>Ctrl+w +</code></td>
+<td>增加视窗的高度</td>
+</tr>
+</tbody></table>
+<h3 id="给文件加密"><a href="#给文件加密" class="headerlink" title="给文件加密"></a>给文件加密</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vim -x 文件名</code></td>
+<td>输入您的密码，确认密码。下次打开就会要求输入密码</td>
+</tr>
+</tbody></table>
+<h3 id="执行外部命令"><a href="#执行外部命令" class="headerlink" title="执行外部命令"></a>执行外部命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:!ls</code></td>
+<td>显示当前目录的内容</td>
+</tr>
+<tr>
+<td><code>:!rm FILENSME</code></td>
+<td>删除名为FILENAME的文件</td>
+</tr>
+<tr>
+<td><code>w FILENAME</code></td>
+<td>将当前正在编辑的文件另存为FILENAME的文件</td>
+</tr>
+</tbody></table>
+<h3 id="帮助系统"><a href="#帮助系统" class="headerlink" title="帮助系统"></a>帮助系统</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>F1</code></td>
+<td>普通模式打开vim预设的帮助文档</td>
+</tr>
+<tr>
+<td><code>:h shiftwidth</code></td>
+<td>打开名为shiftwidth的帮助文件</td>
+</tr>
+<tr>
+<td><code>:ver</code>或<code>:version</code></td>
+<td>显示版本号及参数</td>
+</tr>
+</tbody></table>
+<h3 id="录制宏"><a href="#录制宏" class="headerlink" title="录制宏"></a>录制宏</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>q+任意字母</code></td>
+<td>开始录制宏，再次按q取消录制</td>
+</tr>
+<tr>
+<td><code>@+录制前输入的字母</code></td>
+<td>播放宏</td>
+</tr>
+</tbody></table>
+<h2 id="5-操作实例"><a href="#5-操作实例" class="headerlink" title="5. 操作实例"></a>5. 操作实例</h2><h3 id="录制宏-1"><a href="#录制宏-1" class="headerlink" title="录制宏"></a>录制宏</h3><p>步骤：</p>
+<blockquote>
+<ol>
+<li>在底行模式下输入<code>qa</code>后敲回车。其中a表示该宏的名称，可以自定义其他名称</li>
+<li>接下来进行vim的操作，该操作会被完整的录制下来。</li>
+<li>做完操作后回到底行模式按<code>q</code>结束录制。</li>
+<li>如果需要播放就使用<code>@a</code>，a表示录制之前给宏取的名字。</li>
+</ol>
+</blockquote>
+<p>实际使用示例：</p>
+<p>在安装ArchLinux的时候，有一步需要将所有中国的镜像源提取到最前面去，但是所有中国的镜像源又分布在文件不同的位置，此时就可以使用VIM的宏来进行操作</p>
+<blockquote>
+<ol>
+<li>在normal模式下按<code>qa</code>，然后敲回车</li>
+<li>然后输入<code>/China</code>从当前行向下查找China字符</li>
+<li>在找到的地方使用<code>2dd</code>剪切两行，<code>4gg</code>跳到第四行，<code>p</code>进行粘贴</li>
+<li>按<code>q</code>结束录制</li>
+<li>再输入<code>@a</code>就会重复2、3步骤</li>
+</ol>
+</blockquote>
+<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><p>注释：</p>
+<blockquote>
+<ol>
+<li><code>ctrl+v</code> - 进入可视化块模式</li>
+<li>上下移动光标选中需要注释的代码</li>
+<li><code>I</code>(大i) - 进入插入模式</li>
+<li>输入注释符号</li>
+<li>按<code>ese</code>键完成</li>
+</ol>
+</blockquote>
+<p>取消注释：</p>
+<blockquote>
+<ol>
+<li><code>ctrl+v</code> - 进入可视化块模式</li>
+<li>上下移动光标选中需要注释的代码</li>
+<li>按小<code>d</code>即可取消注释</li>
+</ol>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VIM/" rel="tag"># VIM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/mac/" rel="prev" title="MacOS使用">
+      <i class="fa fa-chevron-left"></i> MacOS使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/node/" rel="next" title="Node使用及其管理">
+      Node使用及其管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80OTkwMy8yNjM5NA"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-汇总操作"><span class="nav-number">1.</span> <span class="nav-text">1. 汇总操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#退出VIM"><span class="nav-number">1.1.</span> <span class="nav-text">退出VIM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通模式进入命令行模式"><span class="nav-number">1.2.</span> <span class="nav-text">普通模式进入命令行模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-普通模式"><span class="nav-number">2.</span> <span class="nav-text">2. 普通模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动游标"><span class="nav-number">2.1.</span> <span class="nav-text">移动游标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除内容"><span class="nav-number">2.2.</span> <span class="nav-text">删除内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复命令"><span class="nav-number">2.3.</span> <span class="nav-text">重复命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速跳转"><span class="nav-number">2.4.</span> <span class="nav-text">快速跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行内跳转"><span class="nav-number">2.5.</span> <span class="nav-text">行内跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和粘贴"><span class="nav-number">2.6.</span> <span class="nav-text">复制和粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换"><span class="nav-number">2.7.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速缩进"><span class="nav-number">2.8.</span> <span class="nav-text">快速缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速查找"><span class="nav-number">2.9.</span> <span class="nav-text">快速查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-命令行模式"><span class="nav-number">3.</span> <span class="nav-text">3. 命令行模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-高级功能"><span class="nav-number">4.</span> <span class="nav-text">4. 高级功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多文件编辑"><span class="nav-number">4.1.</span> <span class="nav-text">多文件编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视模式"><span class="nav-number">4.2.</span> <span class="nav-text">可视模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视窗操作"><span class="nav-number">4.3.</span> <span class="nav-text">视窗操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给文件加密"><span class="nav-number">4.4.</span> <span class="nav-text">给文件加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行外部命令"><span class="nav-number">4.5.</span> <span class="nav-text">执行外部命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#帮助系统"><span class="nav-number">4.6.</span> <span class="nav-text">帮助系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录制宏"><span class="nav-number">4.7.</span> <span class="nav-text">录制宏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-操作实例"><span class="nav-number">5.</span> <span class="nav-text">5. 操作实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#录制宏-1"><span class="nav-number">5.1.</span> <span class="nav-text">录制宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行注释"><span class="nav-number">5.2.</span> <span class="nav-text">多行注释</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">71k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:09</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
