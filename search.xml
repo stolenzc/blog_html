@@ -1621,6 +1621,137 @@
       </tags>
   </entry>
   <entry>
+    <title>OAuth2.0认证</title>
+    <url>/2022/oauth2/</url>
+    <content><![CDATA[<h2 id="OAuth介绍"><a href="#OAuth介绍" class="headerlink" title="OAuth介绍"></a>OAuth介绍</h2><p><a href="https://datatracker.ietf.org/doc/html/rfc6749" target="_blank" rel="noopener">OAuth2.0官方文档</a></p>
+<ul>
+<li>Open Standard Authorization (OAuth)</li>
+<li>OAuth是一个网络开放协议。为保证用户资源的安全授权提供了简易的标准</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>简单：不管是OAUTH服务提供者还是应用开发者，都很易于理解与使用</li>
+<li>安全：没有涉及到用户密钥等信息，更安全更灵活</li>
+<li>开放：任何服务提供商都可以实现OAUTH，任何软件开发商都可以使用OAuth</li>
+</ul>
+<h2 id="OAuth2-0"><a href="#OAuth2-0" class="headerlink" title="OAuth2.0"></a>OAuth2.0</h2><ul>
+<li>2012年10月，OAuth 2.0协议正式发布为RFC 6749</li>
+<li>OAuth协议的下一版本，但不向后兼容OAuth 1.0</li>
+<li>OAuth 2.0关注客户端开发者的简易性，同时为Web应用，桌面应用和手机，和起居室设备提供专门的认证流程</li>
+</ul>
+<h2 id="OAuth2-0角色"><a href="#OAuth2-0角色" class="headerlink" title="OAuth2.0角色"></a>OAuth2.0角色</h2><p>resource owner: 资源所有者，指的是用户</p>
+<p>resource server: 资源服务器，指的是应用服务器</p>
+<p>client: 客户端，指的是应用</p>
+<p>authorization server: 授权服务器，指的是应用服务器</p>
+<h2 id="OAuth2-0流程"><a href="#OAuth2-0流程" class="headerlink" title="OAuth2.0流程"></a>OAuth2.0流程</h2><pre><code>+--------+                               +---------------+
+|        |--(A)- Authorization Request -&gt;|   Resource    |
+|        |                               |     Owner     |
+|        |&lt;-(B)-- Authorization Grant ---|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(C)-- Authorization Grant --&gt;| Authorization |
+| Client |                               |     Server    |
+|        |&lt;-(D)----- Access Token -------|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(E)----- Access Token ------&gt;|    Resource   |
+|        |                               |     Server    |
+|        |&lt;-(F)--- Protected Resource ---|               |
++--------+                               +---------------+</code></pre><p>A: 客户端向资源所有者请求授权。这授权请求可以直接向资源所有者提出，或者最好通过授权间接服务器作为中介</p>
+<p>B: 客户端收到授权授权，这是一个代表资源所有者授权的凭证</p>
+<p>C: 客户端通过身份验证请求访问令牌 授权服务器并提供授权许可</p>
+<p>D: 授权服务器对客户端进行身份验证并验证授权，如果有效，则颁发访问令牌</p>
+<p>E: 客户端向资源请求受保护的资源 服务器并通过提供访问令牌进行身份验证</p>
+<p>F: 资源服务器验证访问令牌，如果有效，则提供资源</p>
+<h2 id="OAuth2-0授权类型"><a href="#OAuth2-0授权类型" class="headerlink" title="OAuth2.0授权类型"></a>OAuth2.0授权类型</h2><ul>
+<li>授权码（Authorization Code）</li>
+<li>隐藏式（implicit）</li>
+<li>密码式（password）</li>
+<li>客户端凭证（client credentials）</li>
+</ul>
+<h3 id="授权码授权类型（Authorization-Code）"><a href="#授权码授权类型（Authorization-Code）" class="headerlink" title="授权码授权类型（Authorization Code）"></a>授权码授权类型（Authorization Code）</h3><p>第三方应用先申请一个授权码，再通过授权码获取访问令牌。适合有后端的应用，比如网站应用。</p>
+<p>scope参数</p>
+<p>步骤：</p>
+<ol>
+<li>A网站提供一个链接，链接中包含本网站的跳转地址、网站的身份（client_id或app_key），点击后跳转到B网站</li>
+<li>B网站进行登陆，登陆成功后，跳转到A网站，并且在URL中携带一个授权码</li>
+<li>A网站拿到授权码，在后端携带授权码来请求A网站的接口（携带授权码、appkey、secretkey）</li>
+<li>B站收到请求，验证授权码，如果验证成功，则返回访问令牌，重刷令牌（access_token, refresh_token）</li>
+</ol>
+<p>通常请求格式为: <code>https://stolenzc.com/oauth/authorize?response_type=code&amp;appkey=appkey&amp;redirect_uri=redirect_uri&amp;scope=scope</code></p>
+<ul>
+<li>response_type: 授权类型，必须为code</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>redirect_uri: 申请成功后网站的回跳地址</li>
+<li>scope: 网站的范围，可以为空，为空则表示全部范围，可以为多个范围，用逗号分隔</li>
+</ul>
+<p>响应格式: 在回跳地址中携带授权码，比如：<code>https://stolenzc.com/callback?code=1234567890</code></p>
+<p>后台再请求令牌的格式: <code>https://stolenzc.com/oauth/token?appkey=appkey&amp;appsecret=appsecret&amp;grant_type=authorization_code&amp;code=code&amp;redirect_uri=redirect_uri</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为authorization_code</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>appsecret: 网站的身份，为应用在网站申请的appsecret,appsecret为保密的，所以只能在后端请求</li>
+<li>code: 授权码</li>
+<li>redirect_uri: 验证成功后授权方带上token数据请求该uri地址传递token数据</li>
+</ul>
+<h3 id="隐藏式授权类型（implicit）"><a href="#隐藏式授权类型（implicit）" class="headerlink" title="隐藏式授权类型（implicit）"></a>隐藏式授权类型（implicit）</h3><p>第三方应用请求接口直接获取访问令牌。适合没有后端的应用，比如移动应用。</p>
+<p>步骤：</p>
+<ol>
+<li>A网站提供一个链接，链接中包含本网站的跳转地址、网站的身份（client_id或app_key），点击后跳转到B网站</li>
+<li>B网站进行登陆，登陆成功后，跳转到A网站，并且在URL中以锚点的形式携带一个访问令牌</li>
+</ol>
+<p>通常请求格式为: <code>https://stolenzc.com/oauth/authorize?response_type=token&amp;appkey=appkey&amp;redirect_uri=redirect_uri&amp;scope=scope</code></p>
+<ul>
+<li>response_type: 授权类型，必须为token</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>redirect_uri: 申请成功后网站的回跳地址</li>
+<li>scope: 网站的范围，可以为空，为空则表示全部范围，可以为多个范围，用逗号分隔</li>
+</ul>
+<h3 id="密码式授权类型（password）"><a href="#密码式授权类型（password）" class="headerlink" title="密码式授权类型（password）"></a>密码式授权类型（password）</h3><p>第三方应用拿到用户账号密码，直接用账号密码获取令牌</p>
+<ol>
+<li>A网站要求用户提供账号和密码，拿到后A网站直接向B网站请求令牌</li>
+<li>B网站验证密码后，直接返回令牌，不需要进行跳转</li>
+</ol>
+<p>请求令牌的格式: <code>https://stolenzc.com/oauth/token?appkey=appkey&amp;grant_type=password&amp;username=username&amp;password=password</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为password</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>username: 用户名</li>
+<li>password: 密码</li>
+</ul>
+<h3 id="凭证式授权类型（client-credentials）"><a href="#凭证式授权类型（client-credentials）" class="headerlink" title="凭证式授权类型（client credentials）"></a>凭证式授权类型（client credentials）</h3><p>凭证式适用于没有前端的命令行应用，通常是多个用户享用一个令牌，通常针对第三方应用，不是针对用户的。</p>
+<ol>
+<li>A应用在命令行向B应用发出接口请求，只需要携带appkey和secretkey即可</li>
+<li>B应用验证通过后，直接返回令牌</li>
+</ol>
+<p>请求令牌的格式: <code>https://stolenzc.com/oauth/token?grant_type=client_credentials&amp;appkey=appkey&amp;secretkey=secretkey</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为client_credentials</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>secretkey: 网站的身份，为应用在网站申请的appsecret</li>
+</ul>
+<h2 id="使用令牌和令牌过期"><a href="#使用令牌和令牌过期" class="headerlink" title="使用令牌和令牌过期"></a>使用令牌和令牌过期</h2><p>后续请求资源的时候，需要将令牌放在请求头中携带</p>
+<p>通常在申请令牌的时候，会同时返回一个refresh_token，用来在token失效的时候，重新申请一个新的令牌。</p>
+<p>重刷令牌的格式: <code>https://stolenzc.com/oauth/token?grant_type=refresh_token&amp;appkey=appkey&amp;secretkey=secretkey&amp;refresh_token=refresh_token</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为refresh_token</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>secretkey: 网站的身份，为应用在网站申请的appsecret</li>
+<li>refresh_token: 重刷令牌</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>认证</tag>
+        <tag>token</tag>
+        <tag>登陆</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python中时间操作</title>
     <url>/2021/python_datetime/</url>
     <content><![CDATA[<blockquote>

@@ -18,20 +18,22 @@
     var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="详细介绍一些Git的工作流程步骤和相关的命令">
+  <meta name="description" content="OAuth2.0认证方式与流程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub 开发流程">
-<meta property="og:url" content="https://blog.stolenzc.com/2020/git/index.html">
+<meta property="og:title" content="OAuth2.0认证">
+<meta property="og:url" content="https://blog.stolenzc.com/2022/oauth2/index.html">
 <meta property="og:site_name" content="stolen&#39;s blog">
-<meta property="og:description" content="详细介绍一些Git的工作流程步骤和相关的命令">
+<meta property="og:description" content="OAuth2.0认证方式与流程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-15T07:18:23.000Z">
-<meta property="article:modified_time" content="2021-01-16T07:18:23.000Z">
+<meta property="article:published_time" content="2022-05-23T15:00:20.000Z">
+<meta property="article:modified_time" content="2022-05-23T15:00:20.000Z">
 <meta property="article:author" content="stolen">
-<meta property="article:tag" content="Git">
+<meta property="article:tag" content="认证">
+<meta property="article:tag" content="token">
+<meta property="article:tag" content="登陆">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.stolenzc.com/2020/git/">
+<link rel="canonical" href="https://blog.stolenzc.com/2022/oauth2/">
 
 
 <script id="page-configurations">
@@ -44,7 +46,7 @@
   };
 </script>
 
-  <title>GitHub 开发流程 | stolen's blog</title>
+  <title>OAuth2.0认证 | stolen's blog</title>
   
 
 
@@ -193,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/git/">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2022/oauth2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -206,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          GitHub 开发流程
+          OAuth2.0认证
         </h1>
 
         <div class="post-meta">
@@ -216,15 +218,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-05-15 15:18:23" itemprop="dateCreated datePublished" datetime="2020-05-15T15:18:23+08:00">2020-05-15</time>
+              <time title="创建时间：2022-05-23 23:00:20" itemprop="dateCreated datePublished" datetime="2022-05-23T23:00:20+08:00">2022-05-23</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 15:18:23" itemprop="dateModified" datetime="2021-01-16T15:18:23+08:00">2021-01-16</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -248,15 +243,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>6 分钟</span>
             </span>
+            <div class="post-description">OAuth2.0认证方式与流程</div>
 
         </div>
       </header>
@@ -267,102 +263,124 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>详细介绍一些Git的工作流程步骤和相关的命令<a id="more"></a></p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>GitHub flow算是一种相对简单的Git工作流程，主要步骤为下：</p>
-<p>其中上游分仓库称为upstream，远端仓库称为origin。</p>
+        <h2 id="OAuth介绍"><a href="#OAuth介绍" class="headerlink" title="OAuth介绍"></a>OAuth介绍</h2><p><a href="https://datatracker.ietf.org/doc/html/rfc6749" target="_blank" rel="noopener">OAuth2.0官方文档</a></p>
+<ul>
+<li>Open Standard Authorization (OAuth)</li>
+<li>OAuth是一个网络开放协议。为保证用户资源的安全授权提供了简易的标准</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>简单：不管是OAUTH服务提供者还是应用开发者，都很易于理解与使用</li>
+<li>安全：没有涉及到用户密钥等信息，更安全更灵活</li>
+<li>开放：任何服务提供商都可以实现OAUTH，任何软件开发商都可以使用OAuth</li>
+</ul>
+<h2 id="OAuth2-0"><a href="#OAuth2-0" class="headerlink" title="OAuth2.0"></a>OAuth2.0</h2><ul>
+<li>2012年10月，OAuth 2.0协议正式发布为RFC 6749</li>
+<li>OAuth协议的下一版本，但不向后兼容OAuth 1.0</li>
+<li>OAuth 2.0关注客户端开发者的简易性，同时为Web应用，桌面应用和手机，和起居室设备提供专门的认证流程</li>
+</ul>
+<h2 id="OAuth2-0角色"><a href="#OAuth2-0角色" class="headerlink" title="OAuth2.0角色"></a>OAuth2.0角色</h2><p>resource owner: 资源所有者，指的是用户</p>
+<p>resource server: 资源服务器，指的是应用服务器</p>
+<p>client: 客户端，指的是应用</p>
+<p>authorization server: 授权服务器，指的是应用服务器</p>
+<h2 id="OAuth2-0流程"><a href="#OAuth2-0流程" class="headerlink" title="OAuth2.0流程"></a>OAuth2.0流程</h2><pre><code>+--------+                               +---------------+
+|        |--(A)- Authorization Request -&gt;|   Resource    |
+|        |                               |     Owner     |
+|        |&lt;-(B)-- Authorization Grant ---|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(C)-- Authorization Grant --&gt;| Authorization |
+| Client |                               |     Server    |
+|        |&lt;-(D)----- Access Token -------|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(E)----- Access Token ------&gt;|    Resource   |
+|        |                               |     Server    |
+|        |&lt;-(F)--- Protected Resource ---|               |
++--------+                               +---------------+</code></pre><p>A: 客户端向资源所有者请求授权。这授权请求可以直接向资源所有者提出，或者最好通过授权间接服务器作为中介</p>
+<p>B: 客户端收到授权授权，这是一个代表资源所有者授权的凭证</p>
+<p>C: 客户端通过身份验证请求访问令牌 授权服务器并提供授权许可</p>
+<p>D: 授权服务器对客户端进行身份验证并验证授权，如果有效，则颁发访问令牌</p>
+<p>E: 客户端向资源请求受保护的资源 服务器并通过提供访问令牌进行身份验证</p>
+<p>F: 资源服务器验证访问令牌，如果有效，则提供资源</p>
+<h2 id="OAuth2-0授权类型"><a href="#OAuth2-0授权类型" class="headerlink" title="OAuth2.0授权类型"></a>OAuth2.0授权类型</h2><ul>
+<li>授权码（Authorization Code）</li>
+<li>隐藏式（implicit）</li>
+<li>密码式（password）</li>
+<li>客户端凭证（client credentials）</li>
+</ul>
+<h3 id="授权码授权类型（Authorization-Code）"><a href="#授权码授权类型（Authorization-Code）" class="headerlink" title="授权码授权类型（Authorization Code）"></a>授权码授权类型（Authorization Code）</h3><p>第三方应用先申请一个授权码，再通过授权码获取访问令牌。适合有后端的应用，比如网站应用。</p>
+<p>scope参数</p>
+<p>步骤：</p>
 <ol>
-<li>首先从upstream仓库fork代码到远端仓库，然后将远端仓库克隆到本地。</li>
-<li>给本地仓库添加一个upstream仓库，方便同步最新代码</li>
-<li>从本地的master（或者develop，根据公司要求）创建一个功能开发分支切换到功能开发分支上进行功能的开发。</li>
-<li>开发完成后，将代码提交并推送到origin</li>
-<li>在origin上发起一个pull request请求，代码将会发送给审查者review。</li>
+<li>A网站提供一个链接，链接中包含本网站的跳转地址、网站的身份（client_id或app_key），点击后跳转到B网站</li>
+<li>B网站进行登陆，登陆成功后，跳转到A网站，并且在URL中携带一个授权码</li>
+<li>A网站拿到授权码，在后端携带授权码来请求A网站的接口（携带授权码、appkey、secretkey）</li>
+<li>B站收到请求，验证授权码，如果验证成功，则返回访问令牌，重刷令牌（access_token, refresh_token）</li>
 </ol>
-<p>Git flow是一个更规范实用的Git工作流。</p>
+<p>通常请求格式为: <code>https://stolenzc.com/oauth/authorize?response_type=code&amp;appkey=appkey&amp;redirect_uri=redirect_uri&amp;scope=scope</code></p>
+<ul>
+<li>response_type: 授权类型，必须为code</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>redirect_uri: 申请成功后网站的回跳地址</li>
+<li>scope: 网站的范围，可以为空，为空则表示全部范围，可以为多个范围，用逗号分隔</li>
+</ul>
+<p>响应格式: 在回跳地址中携带授权码，比如：<code>https://stolenzc.com/callback?code=1234567890</code></p>
+<p>后台再请求令牌的格式: <code>https://stolenzc.com/oauth/token?appkey=appkey&amp;appsecret=appsecret&amp;grant_type=authorization_code&amp;code=code&amp;redirect_uri=redirect_uri</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为authorization_code</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>appsecret: 网站的身份，为应用在网站申请的appsecret,appsecret为保密的，所以只能在后端请求</li>
+<li>code: 授权码</li>
+<li>redirect_uri: 验证成功后授权方带上token数据请求该uri地址传递token数据</li>
+</ul>
+<h3 id="隐藏式授权类型（implicit）"><a href="#隐藏式授权类型（implicit）" class="headerlink" title="隐藏式授权类型（implicit）"></a>隐藏式授权类型（implicit）</h3><p>第三方应用请求接口直接获取访问令牌。适合没有后端的应用，比如移动应用。</p>
+<p>步骤：</p>
 <ol>
-<li>从远端仓库克隆工作分支到本地，然后本地切换到自己的开发分支上</li>
-<li>进行功能开发，开发完成后合并到主开发分支</li>
-<li>如果升级就从开发分支先合并到release分支，release再合并到线上分支</li>
-<li>如果遇到紧急bug修复，创建hotfix分支，修复后分别合并到线上和开发分支</li>
+<li>A网站提供一个链接，链接中包含本网站的跳转地址、网站的身份（client_id或app_key），点击后跳转到B网站</li>
+<li>B网站进行登陆，登陆成功后，跳转到A网站，并且在URL中以锚点的形式携带一个访问令牌</li>
 </ol>
-<h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ol>
-<li><p><code>git clone 仓库地址</code> - 克隆远端仓库到本地，通常情况下只会克隆master</p>
-<blockquote>
-<p>  –depth=1 - 只克隆最新提交内容，不克隆历史记录</p>
-</blockquote>
-</li>
-<li><p><code>git remote add upstream git@github.com:fe/github-flow.git</code> - 添加upstream仓库</p>
-</li>
-<li><p><code>git checkout -b 开发分支名 基于的分支名</code> - 创建并切换到开发分支，默认基于master分支</p>
-<blockquote>
-<p><code>git checkout -b product origin/product</code> - 基于远端分支创建新的分支</p>
-</blockquote>
-</li>
-<li><p><code>git rebase -i 合并多个提交的前一个提交编码</code> - 将多个提交合并为一个提交</p>
-<blockquote>
-<p>  p/pick - 为保留该提交</p>
-<p>  s/squash  - 保留提交记录，并将提交合并到之前的提交上</p>
-<p>  d/drop - 删除该提交记录</p>
-</blockquote>
-<p><code>git pull upstream master --rebase</code> - 长时间未同步时同步上游代码保持本地与上游代码一致</p>
-</li>
-</ol>
-<h2 id="升级流程"><a href="#升级流程" class="headerlink" title="升级流程"></a>升级流程</h2><p>Github flow升级</p>
+<p>通常请求格式为: <code>https://stolenzc.com/oauth/authorize?response_type=token&amp;appkey=appkey&amp;redirect_uri=redirect_uri&amp;scope=scope</code></p>
+<ul>
+<li>response_type: 授权类型，必须为token</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>redirect_uri: 申请成功后网站的回跳地址</li>
+<li>scope: 网站的范围，可以为空，为空则表示全部范围，可以为多个范围，用逗号分隔</li>
+</ul>
+<h3 id="密码式授权类型（password）"><a href="#密码式授权类型（password）" class="headerlink" title="密码式授权类型（password）"></a>密码式授权类型（password）</h3><p>第三方应用拿到用户账号密码，直接用账号密码获取令牌</p>
 <ol>
-<li><p>本地打tag，然后推送到upstream的master</p>
-<p><code>git tag 标签内容</code> - 打标签</p>
-<p><code>git push upstream 标签内容</code> - 将标签推送到远端</p>
-</li>
-<li><p>upstream的master提一个pr到upstream的product</p>
-</li>
+<li>A网站要求用户提供账号和密码，拿到后A网站直接向B网站请求令牌</li>
+<li>B网站验证密码后，直接返回令牌，不需要进行跳转</li>
 </ol>
-<p>Git flow升级</p>
+<p>请求令牌的格式: <code>https://stolenzc.com/oauth/token?appkey=appkey&amp;grant_type=password&amp;username=username&amp;password=password</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为password</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>username: 用户名</li>
+<li>password: 密码</li>
+</ul>
+<h3 id="凭证式授权类型（client-credentials）"><a href="#凭证式授权类型（client-credentials）" class="headerlink" title="凭证式授权类型（client credentials）"></a>凭证式授权类型（client credentials）</h3><p>凭证式适用于没有前端的命令行应用，通常是多个用户享用一个令牌，通常针对第三方应用，不是针对用户的。</p>
 <ol>
-<li><p>develop提pr到master分支</p>
-</li>
-<li><p>本地pull master的分支</p>
-</li>
-<li><p>本地打tag，推送到远端触发升级</p>
-<blockquote>
-<p><code>git tag 标签内容</code> - 本地打标签</p>
-<p><code>git push upstream 标签名</code> - 推送到远端分支</p>
-</blockquote>
-</li>
+<li>A应用在命令行向B应用发出接口请求，只需要携带appkey和secretkey即可</li>
+<li>B应用验证通过后，直接返回令牌</li>
 </ol>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="在命令行显示git分支"><a href="#在命令行显示git分支" class="headerlink" title="在命令行显示git分支"></a>在命令行显示git分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git_branch</span></span>() &#123;      git branch 2&gt; /dev/null | sed -e <span class="string">'/^[^]/d'</span> -e <span class="string">'s/ (.*)/(\1)/'</span> &#125;</span><br><span class="line"><span class="built_in">export</span> PS1=<span class="string">"\u@[\033[32m]\w[\033[33m]\$(git_branch)[\033[00m]\$ "</span></span><br></pre></td></tr></table></figure>
-
-<p>如果希望立即生效，在命令行执行一下代码即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source $HOME&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<h3 id="git中文文件名显示问题"><a href="#git中文文件名显示问题" class="headerlink" title="git中文文件名显示问题"></a>git中文文件名显示问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath false</span><br></pre></td></tr></table></figure>
-
-<h3 id="遇到conflict处理"><a href="#遇到conflict处理" class="headerlink" title="遇到conflict处理"></a>遇到conflict处理</h3><p>当使用<code>git pull upstream master --rebase</code>的时候，可能会遇到conflict的问题。处理办法：</p>
-<blockquote>
-<ol>
-<li>遇到conflict时，分支会自动切换到临时分支上，并且在冲突地方给出提示。</li>
-<li>手动进行冲突处理</li>
-<li>使用<code>git add .</code>将重新处理的添加到暂存区</li>
-<li>使用<code>git rebase --continue</code>恢复到之前到分支上，完成处理</li>
-</ol>
-</blockquote>
-<h3 id="其他git命令"><a href="#其他git命令" class="headerlink" title="其他git命令"></a>其他git命令</h3><p><code>git branch -m oldName newName</code> - 分支重命名</p>
-<p><code>git branch -d/-D 分支名</code> - 删除分支</p>
-<p><code>git branch -a</code> - 查看所有本地分支和远端分支</p>
-<p><code>git remote -v</code> - 查看所有远端仓库地址</p>
-<p><code>git push origin --delete 分支名</code> - 删除远端分支</p>
-<p><code>git config --list</code> - 查看本机git用户信息</p>
-<blockquote>
-<p><code>git config user.name</code></p>
-<p><code>git config user.email</code></p>
-</blockquote>
-<p><code>git commit --amend --reset-author</code> - 修改commit提交作者</p>
-<p><code>git commit --date=&quot;周 月 日 时间 年 +0800&quot; -am &quot;提交&quot;</code> - 指定commit时间和内容</p>
-<p><code>git commit --amend --date=&quot;Thu Aug 9 23:04:57 2018 -0700&quot;</code> - 修改commit时间</p>
-<p><code>git show</code> - 查看最近一次提交的变更</p>
-<blockquote>
-<p><code>git show -5</code> - 查看最近五次提交的变更</p>
-<p><code>git show commit_id</code> - 查看指定提交的变更</p>
-</blockquote>
-<p><code>git remote update origin --prune</code> - Git刷新分支</p>
+<p>请求令牌的格式: <code>https://stolenzc.com/oauth/token?grant_type=client_credentials&amp;appkey=appkey&amp;secretkey=secretkey</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为client_credentials</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>secretkey: 网站的身份，为应用在网站申请的appsecret</li>
+</ul>
+<h2 id="使用令牌和令牌过期"><a href="#使用令牌和令牌过期" class="headerlink" title="使用令牌和令牌过期"></a>使用令牌和令牌过期</h2><p>后续请求资源的时候，需要将令牌放在请求头中携带</p>
+<p>通常在申请令牌的时候，会同时返回一个refresh_token，用来在token失效的时候，重新申请一个新的令牌。</p>
+<p>重刷令牌的格式: <code>https://stolenzc.com/oauth/token?grant_type=refresh_token&amp;appkey=appkey&amp;secretkey=secretkey&amp;refresh_token=refresh_token</code></p>
+<ul>
+<li>grant_type: 授权类型，必须为refresh_token</li>
+<li>appkey: 网站的身份，为应用在网站申请的appkey</li>
+<li>secretkey: 网站的身份，为应用在网站申请的appsecret</li>
+<li>refresh_token: 重刷令牌</li>
+</ul>
 
     </div>
 
@@ -382,7 +400,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Git/" rel="tag"># Git</a>
+              <a href="/tags/%E8%AE%A4%E8%AF%81/" rel="tag"># 认证</a>
+              <a href="/tags/token/" rel="tag"># token</a>
+              <a href="/tags/%E7%99%BB%E9%99%86/" rel="tag"># 登陆</a>
           </div>
 
         
@@ -391,13 +411,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/python_issue/" rel="prev" title="Python下遇到的一些故障">
-      <i class="fa fa-chevron-left"></i> Python下遇到的一些故障
+    <a href="/2022/https/" rel="prev" title="HTTPS加密原理">
+      <i class="fa fa-chevron-left"></i> HTTPS加密原理
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/swagger/" rel="next" title="Swagger编写API文档的YMAL文件语法">
-      Swagger编写API文档的YMAL文件语法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -461,7 +478,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关命令"><span class="nav-number">2.</span> <span class="nav-text">相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级流程"><span class="nav-number">3.</span> <span class="nav-text">升级流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在命令行显示git分支"><span class="nav-number">4.1.</span> <span class="nav-text">在命令行显示git分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git中文文件名显示问题"><span class="nav-number">4.2.</span> <span class="nav-text">git中文文件名显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到conflict处理"><span class="nav-number">4.3.</span> <span class="nav-text">遇到conflict处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他git命令"><span class="nav-number">4.4.</span> <span class="nav-text">其他git命令</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth介绍"><span class="nav-number">1.</span> <span class="nav-text">OAuth介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2-0"><span class="nav-number">2.</span> <span class="nav-text">OAuth2.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2-0角色"><span class="nav-number">3.</span> <span class="nav-text">OAuth2.0角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2-0流程"><span class="nav-number">4.</span> <span class="nav-text">OAuth2.0流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2-0授权类型"><span class="nav-number">5.</span> <span class="nav-text">OAuth2.0授权类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#授权码授权类型（Authorization-Code）"><span class="nav-number">5.1.</span> <span class="nav-text">授权码授权类型（Authorization Code）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏式授权类型（implicit）"><span class="nav-number">5.2.</span> <span class="nav-text">隐藏式授权类型（implicit）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码式授权类型（password）"><span class="nav-number">5.3.</span> <span class="nav-text">密码式授权类型（password）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凭证式授权类型（client-credentials）"><span class="nav-number">5.4.</span> <span class="nav-text">凭证式授权类型（client credentials）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用令牌和令牌过期"><span class="nav-number">6.</span> <span class="nav-text">使用令牌和令牌过期</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
