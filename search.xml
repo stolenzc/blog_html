@@ -1059,6 +1059,10 @@
 <li>脚本内容填写 <code>date &quot;+%Y-%m-%d %H:%M:%S&quot;</code></li>
 <li>保存 -&gt; 设置快捷键</li>
 </ol>
+<h3 id="最小化软件和恢复最小化软件"><a href="#最小化软件和恢复最小化软件" class="headerlink" title="最小化软件和恢复最小化软件"></a>最小化软件和恢复最小化软件</h3><p><code>command m</code> - 最小化当前窗口</p>
+<p><code>command option m</code> - 最小化当前软件所有窗口</p>
+<p><code>command Tab</code> 选中软件后松开 <code>Tab</code> 按键，再按 <code>option</code> 按键，松开 <code>command</code> 按键即可恢复最小化软件</p>
+<p><code>command Tab</code> 选中软件后松开 <code>Tab</code> 按键，再按 <code>option</code> 按键后再按 <code>enter</code> 按键即可恢复最小化软件</p>
 <h2 id="使用问题"><a href="#使用问题" class="headerlink" title="使用问题"></a>使用问题</h2><h3 id="鼠标滚轮方向反着"><a href="#鼠标滚轮方向反着" class="headerlink" title="鼠标滚轮方向反着"></a>鼠标滚轮方向反着</h3><p>将<code>系统偏好设置&gt;鼠标&gt;滚动方向</code>前面的勾去掉即可，该操作会影响触控板的划动方向，替代方式可以使用scroll reverser软件</p>
 <h3 id="Finder进入根目录"><a href="#Finder进入根目录" class="headerlink" title="Finder进入根目录"></a>Finder进入根目录</h3><p>进入<code>访达&gt;偏好设置&gt;边栏</code>中，将硬盘前面选择为勾即可</p>
 <h3 id="安装HomeBrew"><a href="#安装HomeBrew" class="headerlink" title="安装HomeBrew"></a>安装HomeBrew</h3><p>本命令中使用到的镜像源全部为国内的镜像源</p>
