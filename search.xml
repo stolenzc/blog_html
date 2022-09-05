@@ -3123,53 +3123,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows必备的软件和安装方法</title>
-    <url>/2020/windows_software_manual/</url>
-    <content><![CDATA[<p>软件合集<a id="more"></a></p>
-<h2 id="Listary"><a href="#Listary" class="headerlink" title="Listary"></a>Listary</h2><p>Listary是一款Windows下非常好用的搜索工具，不论是搜文件，搜软件，速度都极快。下载地址：<a href="https://www.listary.com/" target="_blank" rel="noopener">官网</a></p>
-<p>软件分为免费版和pro版，从个人使用来说，免费版已经足够使用了，使用双击Ctrl唤出搜索框，然后输入查找内容。该程序本质上来说只是搜索文件，但可以查找到软件的启动文件从而实现软件查找。还可以自定义配置，比如我在<code>关键字&gt;自定义</code>中定义了<code>psa</code>，设置路径为<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code>，并且勾选以管理员身份运行，那么在搜索框中输入psa就可以直接启动管理员身份的powershell。</p>
-<h2 id="QuickLook"><a href="#QuickLook" class="headerlink" title="QuickLook"></a>QuickLook</h2><p>这也是一个继承Mac优秀体验的软件，通过空格键对文件进行快速预览，源码地址：<a href="https://github.com/QL-Win/QuickLook" target="_blank" rel="noopener">QuickLook</a>，相同功能的还有<a href="http://1218.io/" target="_blank" rel="noopener">Seer</a></p>
-<p>QuickLook有个小问题，看html文件没法查看源代码，而是显示的渲染后的页面。但Seer是直接查看源代码。但不知道为什么，本人更喜欢QuickLook这款软件。</p>
-<p>QuickLook和Seer都没法直接查看office文件，需要安装相应的插件，而且安装了相应的插件后，预览速度也非常慢。这一点都没有什么好的解决办法。</p>
-<h2 id="Listen1"><a href="#Listen1" class="headerlink" title="Listen1"></a>Listen1</h2><p>Listen1是一款开源的多平台听歌软件，源代码地址：<a href="https://github.com/listen1/listen1_desktop" target="_blank" rel="noopener">Listen1桌面版</a>、<a href="https://github.com/listen1/listen1_chrome_extension" target="_blank" rel="noopener">Listen1浏览器插件版</a></p>
-<p>说明：这款软件目前还能使用，但是虾米音乐的部分内容已经没法用了，最近的一次代码提交也是五个月之前（2019-11），所以可能这款软件已经成为了历史，不过依然还是能听QQ音乐、网易云音乐、酷狗音乐、酷我音乐、咪咕音乐的歌曲</p>
-<p>重要说明：该软件不支持缓存歌曲，所有歌曲均需要联网在线听。</p>
-<h2 id="Geek"><a href="#Geek" class="headerlink" title="Geek"></a>Geek</h2><p>Geek是一款非常优秀的软件卸载工具，下载地址：<a href="https://geekuninstaller.com/" target="_blank" rel="noopener">官网</a></p>
-<p>软件分为免费版和付费版，但我试用了付费版发现还没有免费版好用，该软件可以自动标记出新安装的软件，卸载完成后，会进行文件残留扫描和注册表清理，相对于控制面板中进行卸载能更彻底，</p>
-<p>重要说明：本人使用该软件卸载Windows Store app的时候，卸载完的app回自动恢复，推荐卸载Windows自带的app还是使用Win10设置或者使用Powershell进行卸载。</p>
-<h2 id="Velocity"><a href="#Velocity" class="headerlink" title="Velocity"></a>Velocity</h2><p>Velocity是一款Windows下的开发文档查询手册，文档来源也是dash的源，下载地址<a href="https://velocity.silverlakesoftware.com/" target="_blank" rel="noopener">Velocity官网</a>，相同的还有<a href="https://zealdocs.org/" target="_blank" rel="noopener">Zeal</a></p>
-<p>两款软件大部分的docsets都来自于dash，Velocity支持第三方用户上传的docsets，例如可以下载djangorestframework手册，Zeal是通过第三方网站<a href="https://zealusercontributions.now.sh/" target="_blank" rel="noopener">Zeal User Contributions</a>来支持第三方手册的。Velocity的界面不如Zeal美观，而且两款软件下载docsets的速度都异常缓慢。此处推荐搭配网页版手册查询站使用<a href="https://devdocs.io/" target="_blank" rel="noopener">Dev Docs</a></p>
-<p>Velocity并不是一款完全免费的软件，未付费使用会时常弹出8秒的弹框，但是不影响功能上的使用。</p>
-<h2 id="FastCopy"><a href="#FastCopy" class="headerlink" title="FastCopy"></a>FastCopy</h2><p>FastCopy是一款Windows下快速复制和备份的软件，下载地址：<a href="https://mapaler.github.io/FastCopy-M/" target="_blank" rel="noopener">官方网址</a></p>
-<p>FastCopy最实用的场景为进程需要对大量琐碎文件进行备份。如果使用完全拷贝会花费大量的时间，如果进行差异拷贝，则同名文件不会进行拷贝，FastCopy可以按照文件的大小和最后修改时间进行备份，修改过的文件就拷贝，未修改过的文件就不拷贝，这样可以在极短的时间内进行全量备份。</p>
-<h2 id="HeidiSQL"><a href="#HeidiSQL" class="headerlink" title="HeidiSQL"></a>HeidiSQL</h2><p>HeidiSQL是一款程序员必备的SQL图形化客户端软件，下载地址：<a href="https://www.heidisql.com/" target="_blank" rel="noopener">HeidiSQL官网</a></p>
-<p>HeidiSQL是一款免费的SQL图形化软件，支持MySQL、MariaDB、Microsoft SQL server、PostgreSQL。界面美观，功能强大、免费好用。</p>
-<h2 id="Termius"><a href="#Termius" class="headerlink" title="Termius"></a>Termius</h2><p>Termius是一款跨平台的SSH连接客户端，下载地址：<a href="https://www.termius.com/" target="_blank" rel="noopener">Termius官网</a></p>
-<p>Termius最大的特点就是简洁美观，该软件可以免费使用。多个命令行窗口管理，还可以配置本地命令行工具，直接在软件内使用本机的命令行，配合多窗口管理，可以告别开多个cmd或powershell的时代。多窗口管理微软也推出了一款软件：<a href="https://github.com/Microsoft/Terminal" target="_blank" rel="noopener">Windows Terminal</a>，安装推荐使用Microsoft Store</p>
-<h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>Postman是一款接口测试工具，提供了丰富的请求方式和便捷的参数传递方式，下载地址：<a href="https://www.postman.com/" target="_blank" rel="noopener">Postman官网</a></p>
-<p>这里还推荐一款国内的接口测试工具，叫做<a href="https://www.apipost.cn/" target="_blank" rel="noopener">ApiPost</a>，纯中文支持，内存占用也比Postman小</p>
-<h2 id="PotPlayer"><a href="#PotPlayer" class="headerlink" title="PotPlayer"></a>PotPlayer</h2><p>超级好用的一款Windows本地视频播放器，下载地址：<a href="http://potplayer.daum.net/" target="_blank" rel="noopener">PotPlayer官网</a>（该地址为墙外地址）</p>
-<p>作为本地视频播放器，国内也有不少，最出名的要数暴风影音、新版QQ影音。暴风影音有个最大的问题就是倍速播放声音会失真，QQ影音使用过一段时间，但总感觉用着不顺手，特别是快进和快退。当然不看本地视频内容这些软件就都没必要了。</p>
-<h2 id="IDM"><a href="#IDM" class="headerlink" title="IDM"></a>IDM</h2><p>Windows下最好用的下载器，下载地址：<a href="http://www.internetdownloadmanager.com/" target="_blank" rel="noopener">IDM官网</a>，备用网址：<a href="https://stolenzc.lanzous.com/iJOKXhcxlpi" target="_blank" rel="noopener">IDM6.36</a></p>
-<p>该软件并不是免费软件，30天免费试用后需要购买才能继续使用，<a href="https://stolenzc.lanzous.com/iXytqhcxloh" target="_blank" rel="noopener">trial reset软件</a>可以将试用时间重新调为30天，以此一直用下去。</p>
-<p>也可以使用<a href="https://stolenzc.lanzous.com/ioy0lhcxlng" target="_blank" rel="noopener">Patch软件</a>，按照安装说明注册，该方法通常更加稳定。</p>
-<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>这个软件不用介绍，最强大的编辑器，懂的自然懂，下载地址：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VScode官网</a>（访问速度经常感人）</p>
-<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>会对Markdown文件进行实时渲染的软件，用来看Markdown通常是最好的选择，下载地址：<a href="https://typora.io/" target="_blank" rel="noopener">Typora官网</a></p>
-<h2 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h2><p>Python开发利器。如果是Python开发者，选它就对了，下载地址：<a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noopener">Pycharm官网</a></p>
-<h2 id="Edge"><a href="#Edge" class="headerlink" title="Edge"></a>Edge</h2><p>微软最新出品的基于chromium内核的浏览器，比Chrome更好用，支持同步，能直接访问扩展商店，多平台支持（当前还缺少Linux的支持），下载地址：<a href="https://www.microsoft.com/zh-cn/edge" target="_blank" rel="noopener">Edge稳定版</a>、<a href="https://www.microsoftedgeinsider.com/zh-cn/download/" target="_blank" rel="noopener">Edge开发版</a></p>
-<h2 id="m3u8-ffmpeg"><a href="#m3u8-ffmpeg" class="headerlink" title="m3u8+ffmpeg"></a>m3u8+ffmpeg</h2><p>该软件的介绍主要是为了补充IDM的功能，IDM拥有强大的站点抓取功能，许多在线观看的视频都能抓取到下载链接，但是现在出现了一种直播格式m3u8，该格式主要是将视频文件分为了许多ts文件，从而禁止视频的下载。此处提供的<code>N_m3u8DL-CLI_v2.6.3.exe</code>主要作用是解析m3u8文件，将其中的ts文件全部下载下来；<code>ffmpeg.exe</code>文件主要就是将所有的ts文件整合为一个视频文件，方便管理观看。</p>
-<p><strong>重要说明：</strong><code>ffmpeg.exe</code>文件需要放在<code>N_m3u8DL-CLI_v2.6.3.exe</code>同级目录下或者配置在环境变量中。</p>
-<p>下载地址：<a href="https://stolenzc.lanzous.com/iYYvohcxlqj" target="_blank" rel="noopener">m3u8-download</a></p>
-<p>源码地址：<a href="https://github.com/nilaoda/N_m3u8DL-CLI" target="_blank" rel="noopener">N_m3u8DL-CLI</a></p>
-]]></content>
-      <categories>
-        <category>系统入门</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows Terminal使用技巧</title>
     <url>/2020/windows_terminal/</url>
     <content><![CDATA[<p>Windows Terminal的一些使用教程和配置教程<a id="more"></a></p>
@@ -3249,6 +3202,53 @@
       </categories>
       <tags>
         <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows必备的软件和安装方法</title>
+    <url>/2020/windows_software_manual/</url>
+    <content><![CDATA[<p>软件合集<a id="more"></a></p>
+<h2 id="Listary"><a href="#Listary" class="headerlink" title="Listary"></a>Listary</h2><p>Listary是一款Windows下非常好用的搜索工具，不论是搜文件，搜软件，速度都极快。下载地址：<a href="https://www.listary.com/" target="_blank" rel="noopener">官网</a></p>
+<p>软件分为免费版和pro版，从个人使用来说，免费版已经足够使用了，使用双击Ctrl唤出搜索框，然后输入查找内容。该程序本质上来说只是搜索文件，但可以查找到软件的启动文件从而实现软件查找。还可以自定义配置，比如我在<code>关键字&gt;自定义</code>中定义了<code>psa</code>，设置路径为<code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code>，并且勾选以管理员身份运行，那么在搜索框中输入psa就可以直接启动管理员身份的powershell。</p>
+<h2 id="QuickLook"><a href="#QuickLook" class="headerlink" title="QuickLook"></a>QuickLook</h2><p>这也是一个继承Mac优秀体验的软件，通过空格键对文件进行快速预览，源码地址：<a href="https://github.com/QL-Win/QuickLook" target="_blank" rel="noopener">QuickLook</a>，相同功能的还有<a href="http://1218.io/" target="_blank" rel="noopener">Seer</a></p>
+<p>QuickLook有个小问题，看html文件没法查看源代码，而是显示的渲染后的页面。但Seer是直接查看源代码。但不知道为什么，本人更喜欢QuickLook这款软件。</p>
+<p>QuickLook和Seer都没法直接查看office文件，需要安装相应的插件，而且安装了相应的插件后，预览速度也非常慢。这一点都没有什么好的解决办法。</p>
+<h2 id="Listen1"><a href="#Listen1" class="headerlink" title="Listen1"></a>Listen1</h2><p>Listen1是一款开源的多平台听歌软件，源代码地址：<a href="https://github.com/listen1/listen1_desktop" target="_blank" rel="noopener">Listen1桌面版</a>、<a href="https://github.com/listen1/listen1_chrome_extension" target="_blank" rel="noopener">Listen1浏览器插件版</a></p>
+<p>说明：这款软件目前还能使用，但是虾米音乐的部分内容已经没法用了，最近的一次代码提交也是五个月之前（2019-11），所以可能这款软件已经成为了历史，不过依然还是能听QQ音乐、网易云音乐、酷狗音乐、酷我音乐、咪咕音乐的歌曲</p>
+<p>重要说明：该软件不支持缓存歌曲，所有歌曲均需要联网在线听。</p>
+<h2 id="Geek"><a href="#Geek" class="headerlink" title="Geek"></a>Geek</h2><p>Geek是一款非常优秀的软件卸载工具，下载地址：<a href="https://geekuninstaller.com/" target="_blank" rel="noopener">官网</a></p>
+<p>软件分为免费版和付费版，但我试用了付费版发现还没有免费版好用，该软件可以自动标记出新安装的软件，卸载完成后，会进行文件残留扫描和注册表清理，相对于控制面板中进行卸载能更彻底，</p>
+<p>重要说明：本人使用该软件卸载Windows Store app的时候，卸载完的app回自动恢复，推荐卸载Windows自带的app还是使用Win10设置或者使用Powershell进行卸载。</p>
+<h2 id="Velocity"><a href="#Velocity" class="headerlink" title="Velocity"></a>Velocity</h2><p>Velocity是一款Windows下的开发文档查询手册，文档来源也是dash的源，下载地址<a href="https://velocity.silverlakesoftware.com/" target="_blank" rel="noopener">Velocity官网</a>，相同的还有<a href="https://zealdocs.org/" target="_blank" rel="noopener">Zeal</a></p>
+<p>两款软件大部分的docsets都来自于dash，Velocity支持第三方用户上传的docsets，例如可以下载djangorestframework手册，Zeal是通过第三方网站<a href="https://zealusercontributions.now.sh/" target="_blank" rel="noopener">Zeal User Contributions</a>来支持第三方手册的。Velocity的界面不如Zeal美观，而且两款软件下载docsets的速度都异常缓慢。此处推荐搭配网页版手册查询站使用<a href="https://devdocs.io/" target="_blank" rel="noopener">Dev Docs</a></p>
+<p>Velocity并不是一款完全免费的软件，未付费使用会时常弹出8秒的弹框，但是不影响功能上的使用。</p>
+<h2 id="FastCopy"><a href="#FastCopy" class="headerlink" title="FastCopy"></a>FastCopy</h2><p>FastCopy是一款Windows下快速复制和备份的软件，下载地址：<a href="https://mapaler.github.io/FastCopy-M/" target="_blank" rel="noopener">官方网址</a></p>
+<p>FastCopy最实用的场景为进程需要对大量琐碎文件进行备份。如果使用完全拷贝会花费大量的时间，如果进行差异拷贝，则同名文件不会进行拷贝，FastCopy可以按照文件的大小和最后修改时间进行备份，修改过的文件就拷贝，未修改过的文件就不拷贝，这样可以在极短的时间内进行全量备份。</p>
+<h2 id="HeidiSQL"><a href="#HeidiSQL" class="headerlink" title="HeidiSQL"></a>HeidiSQL</h2><p>HeidiSQL是一款程序员必备的SQL图形化客户端软件，下载地址：<a href="https://www.heidisql.com/" target="_blank" rel="noopener">HeidiSQL官网</a></p>
+<p>HeidiSQL是一款免费的SQL图形化软件，支持MySQL、MariaDB、Microsoft SQL server、PostgreSQL。界面美观，功能强大、免费好用。</p>
+<h2 id="Termius"><a href="#Termius" class="headerlink" title="Termius"></a>Termius</h2><p>Termius是一款跨平台的SSH连接客户端，下载地址：<a href="https://www.termius.com/" target="_blank" rel="noopener">Termius官网</a></p>
+<p>Termius最大的特点就是简洁美观，该软件可以免费使用。多个命令行窗口管理，还可以配置本地命令行工具，直接在软件内使用本机的命令行，配合多窗口管理，可以告别开多个cmd或powershell的时代。多窗口管理微软也推出了一款软件：<a href="https://github.com/Microsoft/Terminal" target="_blank" rel="noopener">Windows Terminal</a>，安装推荐使用Microsoft Store</p>
+<h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>Postman是一款接口测试工具，提供了丰富的请求方式和便捷的参数传递方式，下载地址：<a href="https://www.postman.com/" target="_blank" rel="noopener">Postman官网</a></p>
+<p>这里还推荐一款国内的接口测试工具，叫做<a href="https://www.apipost.cn/" target="_blank" rel="noopener">ApiPost</a>，纯中文支持，内存占用也比Postman小</p>
+<h2 id="PotPlayer"><a href="#PotPlayer" class="headerlink" title="PotPlayer"></a>PotPlayer</h2><p>超级好用的一款Windows本地视频播放器，下载地址：<a href="http://potplayer.daum.net/" target="_blank" rel="noopener">PotPlayer官网</a>（该地址为墙外地址）</p>
+<p>作为本地视频播放器，国内也有不少，最出名的要数暴风影音、新版QQ影音。暴风影音有个最大的问题就是倍速播放声音会失真，QQ影音使用过一段时间，但总感觉用着不顺手，特别是快进和快退。当然不看本地视频内容这些软件就都没必要了。</p>
+<h2 id="IDM"><a href="#IDM" class="headerlink" title="IDM"></a>IDM</h2><p>Windows下最好用的下载器，下载地址：<a href="http://www.internetdownloadmanager.com/" target="_blank" rel="noopener">IDM官网</a>，备用网址：<a href="https://stolenzc.lanzous.com/iJOKXhcxlpi" target="_blank" rel="noopener">IDM6.36</a></p>
+<p>该软件并不是免费软件，30天免费试用后需要购买才能继续使用，<a href="https://stolenzc.lanzous.com/iXytqhcxloh" target="_blank" rel="noopener">trial reset软件</a>可以将试用时间重新调为30天，以此一直用下去。</p>
+<p>也可以使用<a href="https://stolenzc.lanzous.com/ioy0lhcxlng" target="_blank" rel="noopener">Patch软件</a>，按照安装说明注册，该方法通常更加稳定。</p>
+<h2 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a>VScode</h2><p>这个软件不用介绍，最强大的编辑器，懂的自然懂，下载地址：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VScode官网</a>（访问速度经常感人）</p>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>会对Markdown文件进行实时渲染的软件，用来看Markdown通常是最好的选择，下载地址：<a href="https://typora.io/" target="_blank" rel="noopener">Typora官网</a></p>
+<h2 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h2><p>Python开发利器。如果是Python开发者，选它就对了，下载地址：<a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noopener">Pycharm官网</a></p>
+<h2 id="Edge"><a href="#Edge" class="headerlink" title="Edge"></a>Edge</h2><p>微软最新出品的基于chromium内核的浏览器，比Chrome更好用，支持同步，能直接访问扩展商店，多平台支持（当前还缺少Linux的支持），下载地址：<a href="https://www.microsoft.com/zh-cn/edge" target="_blank" rel="noopener">Edge稳定版</a>、<a href="https://www.microsoftedgeinsider.com/zh-cn/download/" target="_blank" rel="noopener">Edge开发版</a></p>
+<h2 id="m3u8-ffmpeg"><a href="#m3u8-ffmpeg" class="headerlink" title="m3u8+ffmpeg"></a>m3u8+ffmpeg</h2><p>该软件的介绍主要是为了补充IDM的功能，IDM拥有强大的站点抓取功能，许多在线观看的视频都能抓取到下载链接，但是现在出现了一种直播格式m3u8，该格式主要是将视频文件分为了许多ts文件，从而禁止视频的下载。此处提供的<code>N_m3u8DL-CLI_v2.6.3.exe</code>主要作用是解析m3u8文件，将其中的ts文件全部下载下来；<code>ffmpeg.exe</code>文件主要就是将所有的ts文件整合为一个视频文件，方便管理观看。</p>
+<p><strong>重要说明：</strong><code>ffmpeg.exe</code>文件需要放在<code>N_m3u8DL-CLI_v2.6.3.exe</code>同级目录下或者配置在环境变量中。</p>
+<p>下载地址：<a href="https://stolenzc.lanzous.com/iYYvohcxlqj" target="_blank" rel="noopener">m3u8-download</a></p>
+<p>源码地址：<a href="https://github.com/nilaoda/N_m3u8DL-CLI" target="_blank" rel="noopener">N_m3u8DL-CLI</a></p>
+]]></content>
+      <categories>
+        <category>系统入门</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
 </search>
