@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Node on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/tags/node/</link>
+    <description>Recent content in Node on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 13 Oct 2020 22:04:16 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/node/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node使用及其管理</title>
+      <link>https://blog.stolenzc.com/2020/node/</link>
+      <pubDate>Tue, 13 Oct 2020 22:04:16 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/node/</guid>
+      <description>Node使用和管理相关方法和命令 nvm 安装 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash nvm配置源 sudo find / -name nvm.sh - 找到nvm.sh文件的位置。通常在 ~/nvm/nvm.sh 下 找到 NVM_NODEJS_ORG_MIRROR 将后面的地址改为http</description>
+    </item>
+    
+  </channel>
+</rss>

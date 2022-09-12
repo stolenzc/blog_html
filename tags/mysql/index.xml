@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MySQL on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/tags/mysql/</link>
+    <description>Recent content in MySQL on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 09 Nov 2020 09:03:05 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL索引原理</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_improve/</link>
+      <pubDate>Mon, 09 Nov 2020 09:03:05 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_improve/</guid>
+      <description>MySQL索引相关内容 存储引擎 数据结构可视化查看 聚合索引和分散索引 B+树结构 hash索引 特点：对索引对key值进行一次hash计算就可以定位</description>
+    </item>
+    
+    <item>
+      <title>MySQL基础</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 15:15:50 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_basic/</guid>
+      <description>总结MySQL基础知识，不涉及数据库CRUD基础语法 SQL名词 DQL（Data Query Language）：数据查询语言，指Select语句，通常会</description>
+    </item>
+    
+  </channel>
+</rss>

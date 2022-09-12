@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/tags/python/</link>
+    <description>Recent content in Python on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 10 Apr 2021 11:08:42 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python中时间操作</title>
+      <link>https://blog.stolenzc.com/2021/python_datetime/</link>
+      <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
+      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+    </item>
+    
+    <item>
+      <title>DRF的Serializer</title>
+      <link>https://blog.stolenzc.com/2020/drf_serializer/</link>
+      <pubDate>Thu, 21 May 2020 00:27:57 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/drf_serializer/</guid>
+      <description>快速搞懂DRF并方便的使用 名词释义： 序列化：模型转换为json，即对象-字典-json 反序列化：json转换为模型，即json-字典-对象 字</description>
+    </item>
+    
+    <item>
+      <title>Python下遇到的一些故障</title>
+      <link>https://blog.stolenzc.com/2020/python_issue/</link>
+      <pubDate>Thu, 14 May 2020 22:04:16 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/python_issue/</guid>
+      <description>收集一些使用Python会遇到的问题，该文章持续更新 mysqlclient安装失败 Ubuntu下安装mysqlclient需要依次安装以下包</description>
+    </item>
+    
+  </channel>
+</rss>

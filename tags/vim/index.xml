@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>VIM on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/tags/vim/</link>
+    <description>Recent content in VIM on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 05 Oct 2020 15:24:10 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VIM</title>
+      <link>https://blog.stolenzc.com/2020/vim/</link>
+      <pubDate>Mon, 05 Oct 2020 15:24:10 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vim/</guid>
+      <description>💡VIM从入门到精通 1. 汇总操作 退出VIM 通过命令行模式退出 命令 说明 命令 说明 :q 退出 :q! 强制退出，不保存 :wq 保存并退出 :wq! 强制保存并退出 :w &amp;lt;文件</description>
+    </item>
+    
+  </channel>
+</rss>

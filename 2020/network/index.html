@@ -1,276 +1,242 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+<html lang="zh" dir="auto">
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="网络相关技术点">
-<meta property="og:url" content="https://blog.stolenzc.com/2020/network/index.html">
-<meta property="og:site_name" content="stolen&#39;s blog">
-<meta property="og:description" content="介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-03T13:31:29.000Z">
-<meta property="article:modified_time" content="2020-05-03T13:31:29.000Z">
-<meta property="article:author" content="stolen">
-<meta property="article:tag" content="TCP">
-<meta name="twitter:card" content="summary">
-
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>网络相关技术点 | stolen&#39;s blog</title>
+<meta name="keywords" content="TCP">
+<meta name="description" content="介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示">
+<meta name="author" content="">
 <link rel="canonical" href="https://blog.stolenzc.com/2020/network/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
+<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
+<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="网络相关技术点" />
+<meta property="og:description" content="介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.stolenzc.com/2020/network/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-03T21:31:29+00:00" />
+<meta property="article:modified_time" content="2020-05-03T21:31:29+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="网络相关技术点"/>
+<meta name="twitter:description" content="介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示"/>
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://blog.stolenzc.com/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "网络相关技术点",
+      "item": "https://blog.stolenzc.com/2020/network/"
+    }
+  ]
+}
 </script>
-
-  <title>网络相关技术点 | stolen's blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络相关技术点",
+  "name": "网络相关技术点",
+  "description": "介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示",
+  "keywords": [
+    "TCP"
+  ],
+  "articleBody": "介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。\nTCP连接过程 状态码含义：\nSYN(synchronous) - 表示建立连接\nACK(acknowledgment) - 表示响应\nFIN(finish) - 表示关闭连接\nRST(reset) - 表示重置\nPSH(push) - 表示有Data传送\nURG(urgent) - 表示紧急\nSequence Number - 顺序号码\nAcknowledge Number - 确认号码\n三次握手：\n主机A发送位码为syn=1，随机产生seq number=1234567的数据包到服务器，主机B由SYN=1知道，A要求建立联机。 主机B收到请求后要确认联机信息，向A发送ack number=(主机A的seq+1)，syn=1，ack=1，随机产生seq=7654321的包。 主机A收到后检查ack number是否正确，即第一次发送的seq number+1，以及位码ack是否为1，若正确，主机A会再发送ack number=(主机B的seq+1)，ack=1，主机B收到后确认seq值与ack=1则连接建立成功。 四次挥手：\n主机A发送位码为fin=1，seq number=(前面已经传送过来的数据的最后一个字节的序号加1)并发送，主机B由fin=1知道A要关闭连接。 主机B返回ack=1，ack number=(主机A的seq=1)，随机产生seq number=1234567。然后等待主机B的socket服务关闭。 主机B的socket服务关闭后，向主机A发送fin=1，ack=1，ack number=(主机A的seq=1)，seq number=(前面已经传送过来的数据的最后一个字节的序号加1)并发送。 主机A收到主机B的fin后，返回ACK=1，ack number=(最后一次发送过来的seq number加1) TCP和UDP的区别 UDP TCP 是否连接 无连接 面向连接 是否可靠 不可靠传输，不使用流量控制和拥塞控制 可靠传输，使用流量控制和拥塞控制 连接对象个数 支持一对一，一对多，多对一和多对多交互通信 只能是一对一通信 传输方式 面向报文 面向字节流 首部开销 首部开销小，仅8字节 首部最小20字节，最大60字节 适用场景 适用于实时应用（IP电话、视频会议、直播等） 适用于要求可靠传输的应用，例如问卷传输 TCP向上层提供面向连接的可靠服务，UDP向上层提供无连接不可靠服务\n虽然UDP并没有TCP传输来的准确，但是也能在很多实用性要求高的地方有所作为\n对数据准确性要求高，速度可以相对较慢的，可以选用TCP\nSocket socket是一种应用程序接口，一般指的是网络中一个连接的两端，socket中通常封装了TCP和UDP的通信方式，直接使用socket就可以进行TCP或UDP的对话。\nSOCK_STREAM - 可靠数据传输，基于TCP\nSOCK_DGRAM - 不可靠数据传输，基于UDP\nHTTP HTTP是一个基于TCP协议的超文本传输协议。\n请求体结构：\n请求行 - 请求体 - 空行 - 消息体\n1 2 3 4 5 GET / HTTP/1.1 Host: www.baidu.com Connection: keep-alive Cache-Control: max-age=0 ...... 响应体结构：\n响应头 - 响应体 - 空行 - 消息体\n1 2 3 4 5 HTTP/1.1 200 OK Bdpagetype: 2 Bdqid: 0xb6dda1710004f934 Cache-Control: private ...... HTTP 0.9\n只有GET请求\n服务器只能回应HTML格式的字符串\nHTTP 1.0\n增加了POST和HEAD请求\n可以发送任何格式的内容\n每次通信都必须包括头信息\n状态码（status code）、多字符集支持、多部分发送（multi-part type）、权限（authorization）、缓存（cache）、内容编码（content encoding）等。\nHTTP 1.1\n持久连接：Connection: keep-alive\n管道机制：同一个TCP连接里面，客户端可以同时发送多个请求。\nContent-Length 字段：声明本次回应的数据长度。\n分块传输编码：Transfer-Encoding: chunked，对不定长度的内容使用分块传输\n新增了许多动词方法：PUT、PATCH、HEAD、 OPTIONS、DELETE。\n新增了Host字段，用来指定服务器的域名\nHTTP 2\n二进制协议：将HTTP 1.1中数据头为文本，数据体为文本或二进制，改为全为二进制，统称为帧（frame）：头信息帧和数据帧。\n多功：在一个连接里，客户端和浏览器都可以同时发送多个请求或回应，而且不用按照顺序一一对应，这样就避免了\"队头堵塞\"。\n数据流：将每个请求或回应的所有数据包，称为一个数据流（stream）。每个数据流都有一个独一无二的编号。数据包发送的时候，都必须标记数据流ID，用来区分它属于哪个数据流。另外还规定，客户端发出的数据流，ID一律为奇数，服务器发出的，ID为偶数。\n头信息压缩：头信息使用gzip或compress压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。\n服务器推送：允许服务器未经请求，主动向客户端发送资源，这叫做服务器推送（server push）。\n参考链接：互联网协议入门（一）、互联网协议入门（二）、HTTP 协议入门\nHTTP和HTTPS HTTPS是在HTTP的基础上对传输的内容进行了加密。\nHTTPS传输就是在HTTP的传输过程上添加了ssl校验\n客户端发出请求：支持的协议版本，比如TLS 1.0版；一个客户端生成的随机数，稍后用于生成\"对话密钥\"；支持的加密方法，比如RSA公钥加密； 支持的压缩方法。\n服务器回应：确认使用的加密通信协议版本，比如TLS 1.0版本；一个服务器生成的随机数，稍后用于生成\"对话密钥\"；确认使用的加密方法，比如RSA公钥加密；服务器证书。\n客户端回应：客户端验证服务器证书有效后，向服务器发送三个信息：一个随机数。该随机数用服务器公钥加密，防止被窃听；编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；客户端握手结束通知，表示客户端的握手阶段已经结束。\n服务器的最后回应：将客户机发送的随机数解密后，向客户机发送两个信息：编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；服务器握手结束通知，表示服务器的握手阶段已经结束。\n至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用\"会话密钥\"加密内容。\n参考内容：SSL/TLS协议运行机制的概述\nHTTP状态码 状态码 状态码英文名称 中文描述 100 Continue 继续。客户端应继续其请求 101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议 状态码 状态码英文名称 中文描述 200 OK 请求成功，一般用于GET与POST请求 201 Created 已创建，成功请求并创建了新的资源 202 Accepted 已接受，已经接受请求，但未处理完成 203 Non-Authoritative Information 非授权信息。请求成功。服务器已成功处理了请求，但返回的信息可能来自另一来源。 204 No Content 无内容。服务器成功处理，但未返回内容。 205 Reset Content 重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。 206 Partial Content 部分内容，服务器成功处理了部分GET请求 状态码 状态码英文名称 中文描述 300 Multiple Choices 多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端选择 301 Moved Permanently 永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI 302 Found 临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI 303 See Other 查看其它地址。与301类似。使用GET和POST请求查看 304 Not Modified 所请求的资源未修改，服务器不会返回任何资源。客户端通过一个头信息指定日期之后修改的资源 305 Use Proxy 使用代理。所请求的资源必须通过代理访问 306 Unused 已经被废弃的HTTP状态码 307 Temporary Redirect 临时重定向。与302类似。使用GET请求重定向 状态码 状态码英文名称 中文描述 400 Bad Request 客户端请求的语法错误，服务器无法理解 401 Unauthorized 请求要求用户的身份认证 402 Payment Required 保留，将来使用 403 Forbidden 服务器理解请求客户端的请求，但是拒绝执行此请求 404 Not Found 服务器无法根据客户端的请求找到资源（网页） 405 Method Not Allowed 客户端请求中的方法被禁止 406 Not Acceptable 服务器无法根据客户端请求的内容特性完成请求 407 Proxy Authentication Required 请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权 408 Request Time-out 服务器等待客户端发送的请求时间过长，超时 409 Conflict 服务器完成客户端的 PUT 请求时可能返回此代码，服务器处理请求时发生了冲突 410 Gone 客户端请求的资源已经不存在。通常标识资源以前有现在被永久删除了 411 Length Required 服务器无法处理客户端发送的不带Content-Length的请求信息 412 Precondition Failed 客户端请求信息的先决条件错误 413 Request Entity Too Large 由于请求的实体过大，服务器无法处理，因此拒绝请求 414 Request-URI Too Large 请求的URI过长（URI通常为网址），服务器无法处理 415 Unsupported Media Type 服务器无法处理请求附带的媒体格式 416 Requested range not satisfiable 客户端请求的范围无效 417 Expectation Failed 服务器无法满足Expect的请求头信息 状态码 状态码英文名称 中文描述 500 Internal Server Error 服务器内部错误，无法完成请求 501 Not Implemented 服务器不支持请求的功能，无法完成请求 502 Bad Gateway 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应 503 Service Unavailable 由于超载或系统维护，服务器暂时的无法处理客户端的请求 504 Gateway Time-out 充当网关或代理的服务器，未及时从远端服务器获取请求 505 HTTP Version not supported 服务器不支持请求的HTTP协议的版本，无法完成处理 参考内容：HTTP状态码\n",
+  "wordCount" : "3672",
+  "inLanguage": "zh",
+  "datePublished": "2020-05-03T21:31:29Z",
+  "dateModified": "2020-05-03T21:31:29Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.stolenzc.com/2020/network/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "stolen's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.stolenzc.com/images/blog.png"
+    }
   }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+}
+</script>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
+</script>
 
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="stolen's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          网络相关技术点
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-03 21:31:29" itemprop="dateCreated datePublished" datetime="2020-05-03T21:31:29+08:00">2020-05-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
+                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
+                    height="35">stolen&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-      </header>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.stolenzc.com/tags/" title="标签">
+                    <span><i class='fa fa-tags'></i>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/categories/" title="分类">
+                    <span><i class='fa fa-th'></i>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/archives/" title="归档">
+                    <span><i class='fa fa-archive'></i>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span><i class='fa fa-search'></i>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/about/" title="关于">
+                    <span><i class='fa fa-user'></i>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.stolenzc.com">主页</a>&nbsp;»&nbsp;<a href="https://blog.stolenzc.com/post/">Posts</a></div>
+    <h1 class="post-title">
+      网络相关技术点
+    </h1>
+    <div class="post-meta"><span title='2020-05-03 21:31:29 +0000 UTC'>2020-05-03</span>&nbsp;·&nbsp;8 分钟
 
-      
-        <p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。<a id="more"></a></p>
-<h2 id="TCP连接过程"><a href="#TCP连接过程" class="headerlink" title="TCP连接过程"></a>TCP连接过程</h2><p>状态码含义：</p>
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#tcp%e8%bf%9e%e6%8e%a5%e8%bf%87%e7%a8%8b" aria-label="TCP连接过程">TCP连接过程</a></li>
+                <li>
+                    <a href="#tcp%e5%92%8cudp%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="TCP和UDP的区别">TCP和UDP的区别</a></li>
+                <li>
+                    <a href="#socket" aria-label="Socket">Socket</a></li>
+                <li>
+                    <a href="#http" aria-label="HTTP">HTTP</a></li>
+                <li>
+                    <a href="#http%e5%92%8chttps" aria-label="HTTP和HTTPS">HTTP和HTTPS</a></li>
+                <li>
+                    <a href="#http%e7%8a%b6%e6%80%81%e7%a0%81" aria-label="HTTP状态码">HTTP状态码</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。<!-- more --></p>
+<h2 id="tcp连接过程">TCP连接过程<a hidden class="anchor" aria-hidden="true" href="#tcp连接过程">#</a></h2>
+<p>状态码含义：</p>
 <blockquote>
-<p>  SYN(synchronous) - 表示建立连接</p>
-<p>  ACK(acknowledgment) - 表示响应</p>
-<p>  FIN(finish) - 表示关闭连接</p>
-<p>  RST(reset) - 表示重置</p>
-<p>  PSH(push) - 表示有Data传送</p>
-<p>  URG(urgent) - 表示紧急</p>
-<p>  Sequence Number - 顺序号码</p>
-<p>  Acknowledge Number - 确认号码</p>
+<p>SYN(synchronous) - 表示建立连接</p>
+<p>ACK(acknowledgment) - 表示响应</p>
+<p>FIN(finish) - 表示关闭连接</p>
+<p>RST(reset) - 表示重置</p>
+<p>PSH(push) - 表示有Data传送</p>
+<p>URG(urgent) - 表示紧急</p>
+<p>Sequence Number - 顺序号码</p>
+<p>Acknowledge Number - 确认号码</p>
 </blockquote>
 <p>三次握手：</p>
 <ol>
@@ -285,7 +251,8 @@
 <li>主机B的socket服务关闭后，向主机A发送fin=1，ack=1，ack number=(主机A的seq=1)，seq number=(前面已经传送过来的数据的最后一个字节的序号加1)并发送。</li>
 <li>主机A收到主机B的fin后，返回ACK=1，ack number=(最后一次发送过来的seq number加1)</li>
 </ol>
-<h2 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h2><table>
+<h2 id="tcp和udp的区别">TCP和UDP的区别<a hidden class="anchor" aria-hidden="true" href="#tcp和udp的区别">#</a></h2>
+<table>
 <thead>
 <tr>
 <th></th>
@@ -293,7 +260,8 @@
 <th>TCP</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>是否连接</td>
 <td>无连接</td>
 <td>面向连接</td>
@@ -323,613 +291,561 @@
 <td>适用于实时应用（IP电话、视频会议、直播等）</td>
 <td>适用于要求可靠传输的应用，例如问卷传输</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
-<li><p>TCP向上层提供面向连接的可靠服务，UDP向上层提供无连接不可靠服务</p>
+<li>
+<p>TCP向上层提供面向连接的可靠服务，UDP向上层提供无连接不可靠服务</p>
 </li>
-<li><p>虽然UDP并没有TCP传输来的准确，但是也能在很多实用性要求高的地方有所作为</p>
+<li>
+<p>虽然UDP并没有TCP传输来的准确，但是也能在很多实用性要求高的地方有所作为</p>
 </li>
-<li><p>对数据准确性要求高，速度可以相对较慢的，可以选用TCP</p>
+<li>
+<p>对数据准确性要求高，速度可以相对较慢的，可以选用TCP</p>
 </li>
 </ul>
-<h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p>socket是一种应用程序接口，一般指的是网络中一个连接的两端，socket中通常封装了TCP和UDP的通信方式，直接使用socket就可以进行TCP或UDP的对话。</p>
+<h2 id="socket">Socket<a hidden class="anchor" aria-hidden="true" href="#socket">#</a></h2>
+<p>socket是一种应用程序接口，一般指的是网络中一个连接的两端，socket中通常封装了TCP和UDP的通信方式，直接使用socket就可以进行TCP或UDP的对话。</p>
 <blockquote>
-<p>  SOCK_STREAM - 可靠数据传输，基于TCP</p>
-<p>  SOCK_DGRAM - 不可靠数据传输，基于UDP</p>
+<p>SOCK_STREAM - 可靠数据传输，基于TCP</p>
+<p>SOCK_DGRAM - 不可靠数据传输，基于UDP</p>
 </blockquote>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>HTTP是一个基于TCP协议的超文本传输协议。</p>
+<h2 id="http">HTTP<a hidden class="anchor" aria-hidden="true" href="#http">#</a></h2>
+<p>HTTP是一个基于TCP协议的超文本传输协议。</p>
 <p>请求体结构：</p>
 <p>请求行 - 请求体 - 空行 - 消息体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: www.baidu.com</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p>响应体结构：</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>GET / HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: www.baidu.com
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Cache-Control: max-age=0
+</span></span><span style="display:flex;"><span>......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>响应体结构：</p>
 <p>响应头 - 响应体 - 空行 - 消息体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Bdpagetype: 2</span><br><span class="line">Bdqid: 0xb6dda1710004f934</span><br><span class="line">Cache-Control: private</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<p><strong>HTTP 0.9</strong></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>HTTP/1.1 200 OK
+</span></span><span style="display:flex;"><span>Bdpagetype: 2
+</span></span><span style="display:flex;"><span>Bdqid: 0xb6dda1710004f934
+</span></span><span style="display:flex;"><span>Cache-Control: private
+</span></span><span style="display:flex;"><span>......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>HTTP 0.9</strong></p>
 <blockquote>
-<p>  只有GET请求</p>
-<p>  服务器只能回应HTML格式的字符串</p>
+<p>只有GET请求</p>
+<p>服务器只能回应HTML格式的字符串</p>
 </blockquote>
 <p><strong>HTTP 1.0</strong></p>
 <blockquote>
-<p>  增加了POST和HEAD请求</p>
-<p>  可以发送任何格式的内容</p>
-<p>  每次通信都必须包括头信息</p>
-<p>  状态码（status code）、多字符集支持、多部分发送（multi-part type）、权限（authorization）、缓存（cache）、内容编码（content encoding）等。</p>
+<p>增加了POST和HEAD请求</p>
+<p>可以发送任何格式的内容</p>
+<p>每次通信都必须包括头信息</p>
+<p>状态码（status code）、多字符集支持、多部分发送（multi-part type）、权限（authorization）、缓存（cache）、内容编码（content encoding）等。</p>
 </blockquote>
 <p><strong>HTTP 1.1</strong></p>
 <blockquote>
-<p>  持久连接：Connection: keep-alive</p>
-<p>  管道机制：同一个TCP连接里面，客户端可以同时发送多个请求。</p>
-<p>  Content-Length 字段：声明本次回应的数据长度。</p>
-<p>  分块传输编码：Transfer-Encoding: chunked，对不定长度的内容使用分块传输</p>
-<p>  新增了许多动词方法：<code>PUT</code>、<code>PATCH</code>、<code>HEAD</code>、 <code>OPTIONS</code>、<code>DELETE</code>。</p>
-<p>  新增了Host字段，用来指定服务器的域名</p>
+<p>持久连接：Connection: keep-alive</p>
+<p>管道机制：同一个TCP连接里面，客户端可以同时发送多个请求。</p>
+<p>Content-Length 字段：声明本次回应的数据长度。</p>
+<p>分块传输编码：Transfer-Encoding: chunked，对不定长度的内容使用分块传输</p>
+<p>新增了许多动词方法：<code>PUT</code>、<code>PATCH</code>、<code>HEAD</code>、 <code>OPTIONS</code>、<code>DELETE</code>。</p>
+<p>新增了Host字段，用来指定服务器的域名</p>
 </blockquote>
 <p><strong>HTTP 2</strong></p>
 <blockquote>
-<p>  二进制协议：将HTTP 1.1中数据头为文本，数据体为文本或二进制，改为全为二进制，统称为帧（frame）：头信息帧和数据帧。</p>
-<p>  多功：在一个连接里，客户端和浏览器都可以同时发送多个请求或回应，而且不用按照顺序一一对应，这样就避免了”队头堵塞”。</p>
-<p>  数据流：将每个请求或回应的所有数据包，称为一个数据流（stream）。每个数据流都有一个独一无二的编号。数据包发送的时候，都必须标记数据流ID，用来区分它属于哪个数据流。另外还规定，客户端发出的数据流，ID一律为奇数，服务器发出的，ID为偶数。</p>
-<p>  头信息压缩：头信息使用<code>gzip</code>或<code>compress</code>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
-<p>  服务器推送：允许服务器未经请求，主动向客户端发送资源，这叫做服务器推送（server push）。</p>
+<p>二进制协议：将HTTP 1.1中数据头为文本，数据体为文本或二进制，改为全为二进制，统称为帧（frame）：头信息帧和数据帧。</p>
+<p>多功：在一个连接里，客户端和浏览器都可以同时发送多个请求或回应，而且不用按照顺序一一对应，这样就避免了&quot;队头堵塞&quot;。</p>
+<p>数据流：将每个请求或回应的所有数据包，称为一个数据流（stream）。每个数据流都有一个独一无二的编号。数据包发送的时候，都必须标记数据流ID，用来区分它属于哪个数据流。另外还规定，客户端发出的数据流，ID一律为奇数，服务器发出的，ID为偶数。</p>
+<p>头信息压缩：头信息使用<code>gzip</code>或<code>compress</code>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
+<p>服务器推送：允许服务器未经请求，主动向客户端发送资源，这叫做服务器推送（server push）。</p>
 </blockquote>
-<p>参考链接：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门（一）</a>、<a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html" target="_blank" rel="noopener">互联网协议入门（二）</a>、<a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">HTTP 协议入门</a></p>
-<h2 id="HTTP和HTTPS"><a href="#HTTP和HTTPS" class="headerlink" title="HTTP和HTTPS"></a>HTTP和HTTPS</h2><p>HTTPS是在HTTP的基础上对传输的内容进行了加密。</p>
+<p>参考链接：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html">互联网协议入门（一）</a>、<a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html">互联网协议入门（二）</a>、<a href="http://www.ruanyifeng.com/blog/2016/08/http.html">HTTP 协议入门</a></p>
+<h2 id="http和https">HTTP和HTTPS<a hidden class="anchor" aria-hidden="true" href="#http和https">#</a></h2>
+<p>HTTPS是在HTTP的基础上对传输的内容进行了加密。</p>
 <p>HTTPS传输就是在HTTP的传输过程上添加了ssl校验</p>
 <ol>
-<li><p><strong>客户端发出请求</strong>：支持的协议版本，比如TLS 1.0版；一个客户端生成的随机数，稍后用于生成”对话密钥”；支持的加密方法，比如RSA公钥加密； 支持的压缩方法。</p>
+<li>
+<p><strong>客户端发出请求</strong>：支持的协议版本，比如TLS 1.0版；一个客户端生成的随机数，稍后用于生成&quot;对话密钥&quot;；支持的加密方法，比如RSA公钥加密； 支持的压缩方法。</p>
 </li>
-<li><p><strong>服务器回应</strong>：确认使用的加密通信协议版本，比如TLS 1.0版本；一个服务器生成的随机数，稍后用于生成”对话密钥”；确认使用的加密方法，比如RSA公钥加密；服务器证书。</p>
+<li>
+<p><strong>服务器回应</strong>：确认使用的加密通信协议版本，比如TLS 1.0版本；一个服务器生成的随机数，稍后用于生成&quot;对话密钥&quot;；确认使用的加密方法，比如RSA公钥加密；服务器证书。</p>
 </li>
-<li><p><strong>客户端回应</strong>：客户端验证服务器证书有效后，向服务器发送三个信息：一个随机数。该随机数用服务器公钥加密，防止被窃听；编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；客户端握手结束通知，表示客户端的握手阶段已经结束。</p>
+<li>
+<p><strong>客户端回应</strong>：客户端验证服务器证书有效后，向服务器发送三个信息：一个随机数。该随机数用服务器公钥加密，防止被窃听；编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；客户端握手结束通知，表示客户端的握手阶段已经结束。</p>
 </li>
-<li><p><strong>服务器的最后回应</strong>：将客户机发送的随机数解密后，向客户机发送两个信息：编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；服务器握手结束通知，表示服务器的握手阶段已经结束。</p>
+<li>
+<p><strong>服务器的最后回应</strong>：将客户机发送的随机数解密后，向客户机发送两个信息：编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送；服务器握手结束通知，表示服务器的握手阶段已经结束。</p>
 </li>
-<li><p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用”会话密钥”加密内容。</p>
+<li>
+<p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用&quot;会话密钥&quot;加密内容。</p>
 </li>
 </ol>
-<p>参考内容：<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a></p>
-<h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><table>
-<thead>
-<tr>
-<th align="center">状态码</th>
-<th align="left">状态码英文名称</th>
-<th align="left">中文描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">100</td>
-<td align="left">Continue</td>
-<td align="left">继续。客户端应继续其请求</td>
-</tr>
-<tr>
-<td align="center">101</td>
-<td align="left">Switching Protocols</td>
-<td align="left">切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议</td>
-</tr>
-</tbody></table>
+<p>参考内容：<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html">SSL/TLS协议运行机制的概述</a></p>
+<h2 id="http状态码">HTTP状态码<a hidden class="anchor" aria-hidden="true" href="#http状态码">#</a></h2>
 <table>
 <thead>
 <tr>
-<th align="center">状态码</th>
-<th align="left">状态码英文名称</th>
-<th align="left">中文描述</th>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">状态码英文名称</th>
+<th style="text-align:left">中文描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">200</td>
-<td align="left">OK</td>
-<td align="left">请求成功，一般用于GET与POST请求</td>
+<tbody>
+<tr>
+<td style="text-align:center">100</td>
+<td style="text-align:left">Continue</td>
+<td style="text-align:left">继续。客户端应继续其请求</td>
 </tr>
 <tr>
-<td align="center">201</td>
-<td align="left">Created</td>
-<td align="left">已创建，成功请求并创建了新的资源</td>
+<td style="text-align:center">101</td>
+<td style="text-align:left">Switching Protocols</td>
+<td style="text-align:left">切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议</td>
 </tr>
-<tr>
-<td align="center">202</td>
-<td align="left">Accepted</td>
-<td align="left">已接受，已经接受请求，但未处理完成</td>
-</tr>
-<tr>
-<td align="center">203</td>
-<td align="left">Non-Authoritative Information</td>
-<td align="left">非授权信息。请求成功。服务器已成功处理了请求，但返回的信息可能来自另一来源。</td>
-</tr>
-<tr>
-<td align="center">204</td>
-<td align="left">No Content</td>
-<td align="left">无内容。服务器成功处理，但未返回内容。</td>
-</tr>
-<tr>
-<td align="center">205</td>
-<td align="left">Reset Content</td>
-<td align="left">重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。</td>
-</tr>
-<tr>
-<td align="center">206</td>
-<td align="left">Partial Content</td>
-<td align="left">部分内容，服务器成功处理了部分GET请求</td>
-</tr>
-</tbody></table>
+</tbody>
+</table>
 <table>
 <thead>
 <tr>
-<th align="center">状态码</th>
-<th align="left">状态码英文名称</th>
-<th align="left">中文描述</th>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">状态码英文名称</th>
+<th style="text-align:left">中文描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">300</td>
-<td align="left">Multiple Choices</td>
-<td align="left">多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端选择</td>
+<tbody>
+<tr>
+<td style="text-align:center">200</td>
+<td style="text-align:left">OK</td>
+<td style="text-align:left">请求成功，一般用于GET与POST请求</td>
 </tr>
 <tr>
-<td align="center">301</td>
-<td align="left">Moved Permanently</td>
-<td align="left">永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI</td>
+<td style="text-align:center">201</td>
+<td style="text-align:left">Created</td>
+<td style="text-align:left">已创建，成功请求并创建了新的资源</td>
 </tr>
 <tr>
-<td align="center">302</td>
-<td align="left">Found</td>
-<td align="left">临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</td>
+<td style="text-align:center">202</td>
+<td style="text-align:left">Accepted</td>
+<td style="text-align:left">已接受，已经接受请求，但未处理完成</td>
 </tr>
 <tr>
-<td align="center">303</td>
-<td align="left">See Other</td>
-<td align="left">查看其它地址。与301类似。使用GET和POST请求查看</td>
+<td style="text-align:center">203</td>
+<td style="text-align:left">Non-Authoritative Information</td>
+<td style="text-align:left">非授权信息。请求成功。服务器已成功处理了请求，但返回的信息可能来自另一来源。</td>
 </tr>
 <tr>
-<td align="center">304</td>
-<td align="left">Not Modified</td>
-<td align="left">所请求的资源未修改，服务器不会返回任何资源。客户端通过一个头信息指定日期之后修改的资源</td>
+<td style="text-align:center">204</td>
+<td style="text-align:left">No Content</td>
+<td style="text-align:left">无内容。服务器成功处理，但未返回内容。</td>
 </tr>
 <tr>
-<td align="center">305</td>
-<td align="left">Use Proxy</td>
-<td align="left">使用代理。所请求的资源必须通过代理访问</td>
+<td style="text-align:center">205</td>
+<td style="text-align:left">Reset Content</td>
+<td style="text-align:left">重置内容。服务器处理成功，用户终端（例如：浏览器）应重置文档视图。</td>
 </tr>
 <tr>
-<td align="center">306</td>
-<td align="left">Unused</td>
-<td align="left">已经被废弃的HTTP状态码</td>
+<td style="text-align:center">206</td>
+<td style="text-align:left">Partial Content</td>
+<td style="text-align:left">部分内容，服务器成功处理了部分GET请求</td>
 </tr>
-<tr>
-<td align="center">307</td>
-<td align="left">Temporary Redirect</td>
-<td align="left">临时重定向。与302类似。使用GET请求重定向</td>
-</tr>
-</tbody></table>
+</tbody>
+</table>
 <table>
 <thead>
 <tr>
-<th align="center">状态码</th>
-<th align="left">状态码英文名称</th>
-<th align="left">中文描述</th>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">状态码英文名称</th>
+<th style="text-align:left">中文描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">400</td>
-<td align="left">Bad Request</td>
-<td align="left">客户端请求的语法错误，服务器无法理解</td>
+<tbody>
+<tr>
+<td style="text-align:center">300</td>
+<td style="text-align:left">Multiple Choices</td>
+<td style="text-align:left">多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端选择</td>
 </tr>
 <tr>
-<td align="center">401</td>
-<td align="left">Unauthorized</td>
-<td align="left">请求要求用户的身份认证</td>
+<td style="text-align:center">301</td>
+<td style="text-align:left">Moved Permanently</td>
+<td style="text-align:left">永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI</td>
 </tr>
 <tr>
-<td align="center">402</td>
-<td align="left">Payment Required</td>
-<td align="left">保留，将来使用</td>
+<td style="text-align:center">302</td>
+<td style="text-align:left">Found</td>
+<td style="text-align:left">临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI</td>
 </tr>
 <tr>
-<td align="center">403</td>
-<td align="left">Forbidden</td>
-<td align="left">服务器理解请求客户端的请求，但是拒绝执行此请求</td>
+<td style="text-align:center">303</td>
+<td style="text-align:left">See Other</td>
+<td style="text-align:left">查看其它地址。与301类似。使用GET和POST请求查看</td>
 </tr>
 <tr>
-<td align="center">404</td>
-<td align="left">Not Found</td>
-<td align="left">服务器无法根据客户端的请求找到资源（网页）</td>
+<td style="text-align:center">304</td>
+<td style="text-align:left">Not Modified</td>
+<td style="text-align:left">所请求的资源未修改，服务器不会返回任何资源。客户端通过一个头信息指定日期之后修改的资源</td>
 </tr>
 <tr>
-<td align="center">405</td>
-<td align="left">Method Not Allowed</td>
-<td align="left">客户端请求中的方法被禁止</td>
+<td style="text-align:center">305</td>
+<td style="text-align:left">Use Proxy</td>
+<td style="text-align:left">使用代理。所请求的资源必须通过代理访问</td>
 </tr>
 <tr>
-<td align="center">406</td>
-<td align="left">Not Acceptable</td>
-<td align="left">服务器无法根据客户端请求的内容特性完成请求</td>
+<td style="text-align:center">306</td>
+<td style="text-align:left">Unused</td>
+<td style="text-align:left">已经被废弃的HTTP状态码</td>
 </tr>
 <tr>
-<td align="center">407</td>
-<td align="left">Proxy Authentication Required</td>
-<td align="left">请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权</td>
+<td style="text-align:center">307</td>
+<td style="text-align:left">Temporary Redirect</td>
+<td style="text-align:left">临时重定向。与302类似。使用GET请求重定向</td>
 </tr>
-<tr>
-<td align="center">408</td>
-<td align="left">Request Time-out</td>
-<td align="left">服务器等待客户端发送的请求时间过长，超时</td>
-</tr>
-<tr>
-<td align="center">409</td>
-<td align="left">Conflict</td>
-<td align="left">服务器完成客户端的 PUT 请求时可能返回此代码，服务器处理请求时发生了冲突</td>
-</tr>
-<tr>
-<td align="center">410</td>
-<td align="left">Gone</td>
-<td align="left">客户端请求的资源已经不存在。通常标识资源以前有现在被永久删除了</td>
-</tr>
-<tr>
-<td align="center">411</td>
-<td align="left">Length Required</td>
-<td align="left">服务器无法处理客户端发送的不带Content-Length的请求信息</td>
-</tr>
-<tr>
-<td align="center">412</td>
-<td align="left">Precondition Failed</td>
-<td align="left">客户端请求信息的先决条件错误</td>
-</tr>
-<tr>
-<td align="center">413</td>
-<td align="left">Request Entity Too Large</td>
-<td align="left">由于请求的实体过大，服务器无法处理，因此拒绝请求</td>
-</tr>
-<tr>
-<td align="center">414</td>
-<td align="left">Request-URI Too Large</td>
-<td align="left">请求的URI过长（URI通常为网址），服务器无法处理</td>
-</tr>
-<tr>
-<td align="center">415</td>
-<td align="left">Unsupported Media Type</td>
-<td align="left">服务器无法处理请求附带的媒体格式</td>
-</tr>
-<tr>
-<td align="center">416</td>
-<td align="left">Requested range not satisfiable</td>
-<td align="left">客户端请求的范围无效</td>
-</tr>
-<tr>
-<td align="center">417</td>
-<td align="left">Expectation Failed</td>
-<td align="left">服务器无法满足Expect的请求头信息</td>
-</tr>
-</tbody></table>
+</tbody>
+</table>
 <table>
 <thead>
 <tr>
-<th align="center">状态码</th>
-<th align="left">状态码英文名称</th>
-<th align="left">中文描述</th>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">状态码英文名称</th>
+<th style="text-align:left">中文描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">500</td>
-<td align="left">Internal Server Error</td>
-<td align="left">服务器内部错误，无法完成请求</td>
+<tbody>
+<tr>
+<td style="text-align:center">400</td>
+<td style="text-align:left">Bad Request</td>
+<td style="text-align:left">客户端请求的语法错误，服务器无法理解</td>
 </tr>
 <tr>
-<td align="center">501</td>
-<td align="left">Not Implemented</td>
-<td align="left">服务器不支持请求的功能，无法完成请求</td>
+<td style="text-align:center">401</td>
+<td style="text-align:left">Unauthorized</td>
+<td style="text-align:left">请求要求用户的身份认证</td>
 </tr>
 <tr>
-<td align="center">502</td>
-<td align="left">Bad Gateway</td>
-<td align="left">作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</td>
+<td style="text-align:center">402</td>
+<td style="text-align:left">Payment Required</td>
+<td style="text-align:left">保留，将来使用</td>
 </tr>
 <tr>
-<td align="center">503</td>
-<td align="left">Service Unavailable</td>
-<td align="left">由于超载或系统维护，服务器暂时的无法处理客户端的请求</td>
+<td style="text-align:center">403</td>
+<td style="text-align:left">Forbidden</td>
+<td style="text-align:left">服务器理解请求客户端的请求，但是拒绝执行此请求</td>
 </tr>
 <tr>
-<td align="center">504</td>
-<td align="left">Gateway Time-out</td>
-<td align="left">充当网关或代理的服务器，未及时从远端服务器获取请求</td>
+<td style="text-align:center">404</td>
+<td style="text-align:left">Not Found</td>
+<td style="text-align:left">服务器无法根据客户端的请求找到资源（网页）</td>
 </tr>
 <tr>
-<td align="center">505</td>
-<td align="left">HTTP Version not supported</td>
-<td align="left">服务器不支持请求的HTTP协议的版本，无法完成处理</td>
+<td style="text-align:center">405</td>
+<td style="text-align:left">Method Not Allowed</td>
+<td style="text-align:left">客户端请求中的方法被禁止</td>
 </tr>
-</tbody></table>
-<p>参考内容：<a href="https://www.runoob.com/http/http-status-codes.html" target="_blank" rel="noopener">HTTP状态码</a></p>
+<tr>
+<td style="text-align:center">406</td>
+<td style="text-align:left">Not Acceptable</td>
+<td style="text-align:left">服务器无法根据客户端请求的内容特性完成请求</td>
+</tr>
+<tr>
+<td style="text-align:center">407</td>
+<td style="text-align:left">Proxy Authentication Required</td>
+<td style="text-align:left">请求要求代理的身份认证，与401类似，但请求者应当使用代理进行授权</td>
+</tr>
+<tr>
+<td style="text-align:center">408</td>
+<td style="text-align:left">Request Time-out</td>
+<td style="text-align:left">服务器等待客户端发送的请求时间过长，超时</td>
+</tr>
+<tr>
+<td style="text-align:center">409</td>
+<td style="text-align:left">Conflict</td>
+<td style="text-align:left">服务器完成客户端的 PUT 请求时可能返回此代码，服务器处理请求时发生了冲突</td>
+</tr>
+<tr>
+<td style="text-align:center">410</td>
+<td style="text-align:left">Gone</td>
+<td style="text-align:left">客户端请求的资源已经不存在。通常标识资源以前有现在被永久删除了</td>
+</tr>
+<tr>
+<td style="text-align:center">411</td>
+<td style="text-align:left">Length Required</td>
+<td style="text-align:left">服务器无法处理客户端发送的不带Content-Length的请求信息</td>
+</tr>
+<tr>
+<td style="text-align:center">412</td>
+<td style="text-align:left">Precondition Failed</td>
+<td style="text-align:left">客户端请求信息的先决条件错误</td>
+</tr>
+<tr>
+<td style="text-align:center">413</td>
+<td style="text-align:left">Request Entity Too Large</td>
+<td style="text-align:left">由于请求的实体过大，服务器无法处理，因此拒绝请求</td>
+</tr>
+<tr>
+<td style="text-align:center">414</td>
+<td style="text-align:left">Request-URI Too Large</td>
+<td style="text-align:left">请求的URI过长（URI通常为网址），服务器无法处理</td>
+</tr>
+<tr>
+<td style="text-align:center">415</td>
+<td style="text-align:left">Unsupported Media Type</td>
+<td style="text-align:left">服务器无法处理请求附带的媒体格式</td>
+</tr>
+<tr>
+<td style="text-align:center">416</td>
+<td style="text-align:left">Requested range not satisfiable</td>
+<td style="text-align:left">客户端请求的范围无效</td>
+</tr>
+<tr>
+<td style="text-align:center">417</td>
+<td style="text-align:left">Expectation Failed</td>
+<td style="text-align:left">服务器无法满足Expect的请求头信息</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">状态码英文名称</th>
+<th style="text-align:left">中文描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">500</td>
+<td style="text-align:left">Internal Server Error</td>
+<td style="text-align:left">服务器内部错误，无法完成请求</td>
+</tr>
+<tr>
+<td style="text-align:center">501</td>
+<td style="text-align:left">Not Implemented</td>
+<td style="text-align:left">服务器不支持请求的功能，无法完成请求</td>
+</tr>
+<tr>
+<td style="text-align:center">502</td>
+<td style="text-align:left">Bad Gateway</td>
+<td style="text-align:left">作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</td>
+</tr>
+<tr>
+<td style="text-align:center">503</td>
+<td style="text-align:left">Service Unavailable</td>
+<td style="text-align:left">由于超载或系统维护，服务器暂时的无法处理客户端的请求</td>
+</tr>
+<tr>
+<td style="text-align:center">504</td>
+<td style="text-align:left">Gateway Time-out</td>
+<td style="text-align:left">充当网关或代理的服务器，未及时从远端服务器获取请求</td>
+</tr>
+<tr>
+<td style="text-align:center">505</td>
+<td style="text-align:left">HTTP Version not supported</td>
+<td style="text-align:left">服务器不支持请求的HTTP协议的版本，无法完成处理</td>
+</tr>
+</tbody>
+</table>
+<p>参考内容：<a href="https://www.runoob.com/http/http-status-codes.html">HTTP状态码</a></p>
 
-    </div>
 
-    
-    
-    
-
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/TCP/" rel="tag"># TCP</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/edge/" rel="prev" title="Edge上手">
-      <i class="fa fa-chevron-left"></i> Edge上手
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/windows_cmder/" rel="next" title="Windows批处理命令">
-      Windows批处理命令 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    
-  <div class="comments">
-    <div id="lv-container" data-id="city" data-uid="MTAyMC80OTkwMy8yNjM5NA"></div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP连接过程"><span class="nav-number">1.</span> <span class="nav-text">TCP连接过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UDP的区别"><span class="nav-number">2.</span> <span class="nav-text">TCP和UDP的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket"><span class="nav-number">3.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">4.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP和HTTPS"><span class="nav-number">5.</span> <span class="nav-text">HTTP和HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">6.</span> <span class="nav-text">HTTP状态码</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">35</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">10</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">30</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.stolenzc.com/tags/tcp/">TCP</a></li>
     </ul>
-  </div>
+<nav class="paginav">
+  <a class="prev" href="https://blog.stolenzc.com/2020/windows_cmder/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>Windows批处理命令</span>
+  </a>
+  <a class="next" href="https://blog.stolenzc.com/2020/test_mysql_basic/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>MySQL基础</span>
+  </a>
+</nav>
 
-      </div>
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9&amp;url=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f&amp;hashtags=TCP">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f&amp;title=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9&amp;summary=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9&amp;source=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f&title=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9%20-%20https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络相关技术点 on telegram"
+        href="https://telegram.me/share/url?text=%e7%bd%91%e7%bb%9c%e7%9b%b8%e5%85%b3%e6%8a%80%e6%9c%af%e7%82%b9&amp;url=https%3a%2f%2fblog.stolenzc.com%2f2020%2fnetwork%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+  </footer>
+</article>
     </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
-    <span title="站点总字数">75k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">2:16</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
 <script>
-NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
-  window.livereOptions = {
-    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
-  };
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-});
-</script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
 </body>
+
 </html>
