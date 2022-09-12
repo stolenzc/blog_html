@@ -10,9 +10,11 @@
 <meta name="description" content="详细介绍一些Git的工作流程步骤和相关的命令 流程 GitHub flow算是一种相对简单的Git工作流程，主要步骤为下： 其中上游分仓库称为upstream">
 <meta name="author" content="">
 <link rel="canonical" href="https://blog.stolenzc.com/2020/git/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.40573d180b208ab15c3bf0a170c2ac86aa8ccf179f96f939352198fbee79100e.css" integrity="sha256-QFc9GAsgirFcO/ChcMKshqqMzxeflvk5NSGY&#43;&#43;55EA4=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 <link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
@@ -200,37 +202,98 @@
     <div class="post-meta"><span title='2020-05-15 15:18:23 +0000 UTC'>2020-05-15</span>&nbsp;·&nbsp;3 分钟
 
 </div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">目录</span>
-        </summary>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#%e6%b5%81%e7%a8%8b" aria-label="流程">流程</a></li>
-                <li>
-                    <a href="#%e7%9b%b8%e5%85%b3%e5%91%bd%e4%bb%a4" aria-label="相关命令">相关命令</a></li>
-                <li>
-                    <a href="#%e5%8d%87%e7%ba%a7%e6%b5%81%e7%a8%8b" aria-label="升级流程">升级流程</a></li>
-                <li>
-                    <a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" aria-label="常见问题">常见问题</a><ul>
-                        
-                <li>
-                    <a href="#%e5%9c%a8%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%98%be%e7%a4%bagit%e5%88%86%e6%94%af" aria-label="在命令行显示git分支">在命令行显示git分支</a></li>
-                <li>
-                    <a href="#git%e4%b8%ad%e6%96%87%e6%96%87%e4%bb%b6%e5%90%8d%e6%98%be%e7%a4%ba%e9%97%ae%e9%a2%98" aria-label="git中文文件名显示问题">git中文文件名显示问题</a></li>
-                <li>
-                    <a href="#%e9%81%87%e5%88%b0conflict%e5%a4%84%e7%90%86" aria-label="遇到conflict处理">遇到conflict处理</a></li>
-                <li>
-                    <a href="#%e5%85%b6%e4%bb%96git%e5%91%bd%e4%bb%a4" aria-label="其他git命令">其他git命令</a>
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e6%b5%81%e7%a8%8b" aria-label="流程">流程</a></li>
+                    <li>
+                        <a href="#%e7%9b%b8%e5%85%b3%e5%91%bd%e4%bb%a4" aria-label="相关命令">相关命令</a></li>
+                    <li>
+                        <a href="#%e5%8d%87%e7%ba%a7%e6%b5%81%e7%a8%8b" aria-label="升级流程">升级流程</a></li>
+                    <li>
+                        <a href="#%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" aria-label="常见问题">常见问题</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%9c%a8%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%98%be%e7%a4%bagit%e5%88%86%e6%94%af" aria-label="在命令行显示git分支">在命令行显示git分支</a></li>
+                    <li>
+                        <a href="#git%e4%b8%ad%e6%96%87%e6%96%87%e4%bb%b6%e5%90%8d%e6%98%be%e7%a4%ba%e9%97%ae%e9%a2%98" aria-label="git中文文件名显示问题">git中文文件名显示问题</a></li>
+                    <li>
+                        <a href="#%e9%81%87%e5%88%b0conflict%e5%a4%84%e7%90%86" aria-label="遇到conflict处理">遇到conflict处理</a></li>
+                    <li>
+                        <a href="#%e5%85%b6%e4%bb%96git%e5%91%bd%e4%bb%a4" aria-label="其他git命令">其他git命令</a>
+                    </li>
+                </ul>
                 </li>
-            </ul>
-            </li>
-            </ul>
-        </div>
-    </details>
-</div>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
 
   <div class="post-content"><p>详细介绍一些Git的工作流程步骤和相关的命令<!-- more --></p>
 <h2 id="流程">流程<a hidden class="anchor" aria-hidden="true" href="#流程">#</a></h2>
