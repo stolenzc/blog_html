@@ -70,23 +70,5 @@
       <description>准备工具 Auto.js手机app 电脑开发推荐使用VScode 开发步骤 VScode编辑js脚本文件 VScode点击查看&amp;gt;命令面板输入au</description>
     </item>
     
-    <item>
-      <title>Hexo&#43;Next部署博客配置及注意事项</title>
-      <link>https://blog.stolenzc.com/2020/hexo_next/</link>
-      <pubDate>Tue, 14 Apr 2020 09:44:12 +0000</pubDate>
-      
-      <guid>https://blog.stolenzc.com/2020/hexo_next/</guid>
-      <description>Hexo + Next搭建博客是许多人搭建博客的第一选择，但是要想搭建好博客，让其按照自己的想法进行展示，许多网上的资料要不就是老版本的，要不就是拷贝</description>
-    </item>
-    
-    <item>
-      <title>Hexo博客搭建</title>
-      <link>https://blog.stolenzc.com/2020/hexo/</link>
-      <pubDate>Sat, 11 Apr 2020 21:01:24 +0000</pubDate>
-      
-      <guid>https://blog.stolenzc.com/2020/hexo/</guid>
-      <description>利用github/gitee和node.js快捷进行个人博客的搭建。 1. 环境准备 git安装 Windows：进入git官网下载Windows安装</description>
-    </item>
-    
   </channel>
 </rss>

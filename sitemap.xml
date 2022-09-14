@@ -3,18 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.stolenzc.com/categories/</loc>
-    <lastmod>2022-05-27T22:29:57+00:00</lastmod>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
-    <loc>https://blog.stolenzc.com/2022/oauth2/</loc>
-    <lastmod>2022-05-27T22:29:57+00:00</lastmod>
+    <loc>https://blog.stolenzc.com/tags/hugo/</loc>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/2022/hugo/</loc>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/post/</loc>
-    <lastmod>2022-05-27T22:29:57+00:00</lastmod>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/</loc>
-    <lastmod>2022-05-27T22:29:57+00:00</lastmod>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/tags/</loc>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/categories/%E5%BB%BA%E7%AB%99/</loc>
+    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/2022/oauth2/</loc>
     <lastmod>2022-05-27T22:29:57+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/tags/token/</loc>
