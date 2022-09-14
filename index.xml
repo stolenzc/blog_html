@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/</link>
+    <description>Recent content on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 May 2022 22:29:57 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OAuth2.0认证</title>
+      <link>https://blog.stolenzc.com/2022/oauth2/</link>
+      <pubDate>Fri, 27 May 2022 22:29:57 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/oauth2/</guid>
+      <description>OAuth2.0认证方式与流程</description>
+    </item>
+    
+    <item>
+      <title>HTTPS加密原理</title>
+      <link>https://blog.stolenzc.com/2022/https/</link>
+      <pubDate>Mon, 16 May 2022 23:00:20 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/https/</guid>
+      <description>https加密原理</description>
+    </item>
+    
+    <item>
+      <title>Python中时间操作</title>
+      <link>https://blog.stolenzc.com/2021/python_datetime/</link>
+      <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
+      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+    </item>
+    
+    <item>
+      <title>网络技术提升</title>
+      <link>https://blog.stolenzc.com/2021/test_network_improve/</link>
+      <pubDate>Thu, 08 Apr 2021 10:30:07 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2021/test_network_improve/</guid>
+      <description>网络互联模型 层数 OSI七层参考模型 TCP/IP协议模型 学习研究模型 请求过程数据封装 7 应用层(Application) 应用层(Applicat</description>
+    </item>
+    
+    <item>
+      <title>Software Manual</title>
+      <link>https://blog.stolenzc.com/2020/software_manual/</link>
+      <pubDate>Wed, 16 Dec 2020 20:33:44 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/software_manual/</guid>
+      <description>通用跨平台软件介绍和一些配置 Hyper 简介：一款界面美观的terminal命令行工具，基于Electorn开发，三大桌面平台均支持，而且支持插件安装</description>
+    </item>
+    
+    <item>
+      <title>MySQL索引原理</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_improve/</link>
+      <pubDate>Mon, 09 Nov 2020 09:03:05 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_improve/</guid>
+      <description>MySQL索引相关内容 存储引擎 数据结构可视化查看 聚合索引和分散索引 B+树结构 hash索引 特点：对索引对key值进行一次hash计算就可以定位</description>
+    </item>
+    
+    <item>
+      <title>Node使用及其管理</title>
+      <link>https://blog.stolenzc.com/2020/node/</link>
+      <pubDate>Tue, 13 Oct 2020 22:04:16 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/node/</guid>
+      <description>Node使用和管理相关方法和命令 nvm 安装 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash nvm配置源 sudo find / -name nvm.sh - 找到nvm.sh文件的位置。通常在 ~/nvm/nvm.sh 下 找到 NVM_NODEJS_ORG_MIRROR 将后面的地址改为http</description>
+    </item>
+    
+    <item>
+      <title>VIM</title>
+      <link>https://blog.stolenzc.com/2020/vim/</link>
+      <pubDate>Mon, 05 Oct 2020 15:24:10 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vim/</guid>
+      <description>💡VIM从入门到精通 1. 汇总操作 退出VIM 通过命令行模式退出 命令 说明 命令 说明 :q 退出 :q! 强制退出，不保存 :wq 保存并退出 :wq! 强制保存并退出 :w &amp;lt;文件</description>
+    </item>
+    
+    <item>
+      <title>MacOS使用</title>
+      <link>https://blog.stolenzc.com/2020/mac/</link>
+      <pubDate>Sat, 23 May 2020 09:20:20 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/mac/</guid>
+      <description>mac系统上快捷键、软件、命令、问题等</description>
+    </item>
+    
+    <item>
+      <title>VSCode的使用</title>
+      <link>https://blog.stolenzc.com/2020/vscode/</link>
+      <pubDate>Fri, 22 May 2020 16:01:38 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vscode/</guid>
+      <description>VSCode插件和配置介绍，以及一些遇到的使用问题解决方法</description>
+    </item>
+    
+    <item>
+      <title>DRF的Serializer</title>
+      <link>https://blog.stolenzc.com/2020/drf_serializer/</link>
+      <pubDate>Thu, 21 May 2020 00:27:57 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/drf_serializer/</guid>
+      <description>快速搞懂DRF并方便的使用 名词释义 序列化：模型转换为json，即对象-字典-json 反序列化：json转换为模型，即json-字典-对象 字段</description>
+    </item>
+    
+    <item>
+      <title>Swagger编写API文档的YMAL文件语法</title>
+      <link>https://blog.stolenzc.com/2020/swagger/</link>
+      <pubDate>Sun, 17 May 2020 09:55:48 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/swagger/</guid>
+      <description>使用Swagger编写接口文档语法示例 官方openapi3.0规范访问：About Swagger Specification 1 2 3 4 5 swagger: &amp;#34;2.0&amp;#34; info: description: &amp;#34;this is a api for authenticating users and binding cloud accounts.&amp;#34; version: &amp;#34;1.0.0&amp;#34; title: &amp;#34;Auth api&amp;#34; swagger: “</description>
+    </item>
+    
+    <item>
+      <title>GitHub 开发流程</title>
+      <link>https://blog.stolenzc.com/2020/github_flow/</link>
+      <pubDate>Fri, 15 May 2020 15:18:23 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/github_flow/</guid>
+      <description>详细介绍一些Git的工作流程步骤和相关的命令 流程 GitHub flow算是一种相对简单的Git工作流程，主要步骤为下： 其中上游分仓库称为upstream</description>
+    </item>
+    
+    <item>
+      <title>Python下遇到的一些故障</title>
+      <link>https://blog.stolenzc.com/2020/python_issue/</link>
+      <pubDate>Thu, 14 May 2020 22:04:16 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/python_issue/</guid>
+      <description>收集一些使用Python会遇到的问题，该文章持续更新 mysqlclient安装失败 Ubuntu下安装mysqlclient需要依次安装以下包</description>
+    </item>
+    
+    <item>
+      <title>Docker的安装及其日常使用</title>
+      <link>https://blog.stolenzc.com/2020/docker/</link>
+      <pubDate>Fri, 08 May 2020 23:18:03 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/docker/</guid>
+      <description>Docker的安装配置和命令使用</description>
+    </item>
+    
+    <item>
+      <title>VirtualBox Headless后台运行Linux</title>
+      <link>https://blog.stolenzc.com/2020/virtualbox_headless/</link>
+      <pubDate>Fri, 08 May 2020 13:16:21 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/virtualbox_headless/</guid>
+      <description>Windows下可能最好的Linux系统使用解决方案。 前言 如何在Windows上优雅的使用Linux，一直是一个困惑我的问题。WSL虽好，但</description>
+    </item>
+    
+    <item>
+      <title>VBA小计</title>
+      <link>https://blog.stolenzc.com/2020/vba/</link>
+      <pubDate>Thu, 07 May 2020 10:36:26 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vba/</guid>
+      <description>记录一次EXCEL录制宏使用VBA实现自定义的功能</description>
+    </item>
+    
+    <item>
+      <title>Windows批处理命令</title>
+      <link>https://blog.stolenzc.com/2020/windows_cmder/</link>
+      <pubDate>Tue, 05 May 2020 09:46:22 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/windows_cmder/</guid>
+      <description>适用于Windows批处理的一些命令，方便读写一些bat脚本</description>
+    </item>
+    
+    <item>
+      <title>网络相关技术点</title>
+      <link>https://blog.stolenzc.com/2020/network/</link>
+      <pubDate>Sun, 03 May 2020 21:31:29 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/network/</guid>
+      <description>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示</description>
+    </item>
+    
+    <item>
+      <title>MySQL基础</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 15:15:50 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_basic/</guid>
+      <description>总结MySQL基础知识，不涉及数据库CRUD基础语法 SQL名词 DQL（Data Query Language）：数据查询语言，指Select语句，通常会</description>
+    </item>
+    
+    <item>
+      <title>Edge上手</title>
+      <link>https://blog.stolenzc.com/2020/edge/</link>
+      <pubDate>Fri, 01 May 2020 11:24:32 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/edge/</guid>
+      <description>记录一些Edge插件和用法 插件 iGG谷歌访问助手 安装地址：iGG谷歌访问助手 该插件可以通过Edge商店安装，安装该助手可以访问到google</description>
+    </item>
+    
+    <item>
+      <title>GitHub使用方法</title>
+      <link>https://blog.stolenzc.com/2020/github_use/</link>
+      <pubDate>Mon, 27 Apr 2020 20:35:40 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/github_use/</guid>
+      <description>使用GitHub的一些技巧 GitHub加速访问 1. 修改host文件达到加速目的 以下方法被写在一个python文件中，可以直接使用github f</description>
+    </item>
+    
+    <item>
+      <title>Windows Terminal使用技巧</title>
+      <link>https://blog.stolenzc.com/2020/windows_terminal/</link>
+      <pubDate>Sun, 26 Apr 2020 14:19:41 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/windows_terminal/</guid>
+      <description>Windows Terminal的一些使用教程和配置教程 配置教程 详细配置参阅Windows Terminal Settings Schema 有关中文翻译参阅 Global 1 2 3 4 5 6 7 8 9 10 11 12 13 { // 默认的命令</description>
+    </item>
+    
+    <item>
+      <title>Auto.js自动化脚本开发</title>
+      <link>https://blog.stolenzc.com/2020/autojs/</link>
+      <pubDate>Sat, 25 Apr 2020 22:58:32 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/autojs/</guid>
+      <description>安卓自动化脚本开发工具介绍</description>
+    </item>
+    
+    <item>
+      <title>Windows10中AMD显卡开机黑屏问题</title>
+      <link>https://blog.stolenzc.com/2020/window_issue/</link>
+      <pubDate>Fri, 24 Apr 2020 22:40:30 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/window_issue/</guid>
+      <description>分享一些Windows在使用时遇到的一些问题和一些解决办法</description>
+    </item>
+    
+    <item>
+      <title>Windows必备的软件和安装方法</title>
+      <link>https://blog.stolenzc.com/2020/windows_software_manual/</link>
+      <pubDate>Tue, 21 Apr 2020 10:56:06 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/windows_software_manual/</guid>
+      <description>软件合集 Listary Listary是一款Windows下非常好用的搜索工具，不论是搜文件，搜软件，速度都极快。下载地址：官网 软件分为免费版和pro版，</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu使用手册</title>
+      <link>https://blog.stolenzc.com/2020/ubuntu/</link>
+      <pubDate>Mon, 20 Apr 2020 08:37:59 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/ubuntu/</guid>
+      <description>便捷查询Ubuntu的一些命令和使用的一些问题 常用操作 更新软件源 管理员权限编辑/etc/apt/sources.list 阿里云的源、清华大学</description>
+    </item>
+    
+    <item>
+      <title>Windows系统配置</title>
+      <link>https://blog.stolenzc.com/2020/windows_config/</link>
+      <pubDate>Sat, 18 Apr 2020 21:10:30 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/windows_config/</guid>
+      <description>分享一些实用的Windows技巧，让Windows更好用</description>
+    </item>
+    
+    <item>
+      <title>Windows启用WSL2</title>
+      <link>https://blog.stolenzc.com/2020/wsl/</link>
+      <pubDate>Fri, 17 Apr 2020 10:41:21 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/wsl/</guid>
+      <description>Windows升级2004后，切换WSL1和WSL2的方法 系统版本 Windows：Windows10 2004 19041.207 Linux：Ubuntu 18.04LTS 20190521build 切换WS</description>
+    </item>
+    
+    <item>
+      <title>Hexo&#43;Next部署博客配置及注意事项</title>
+      <link>https://blog.stolenzc.com/2020/hexo_next/</link>
+      <pubDate>Tue, 14 Apr 2020 09:44:12 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/hexo_next/</guid>
+      <description>Hexo + Next搭建博客是许多人搭建博客的第一选择，但是要想搭建好博客，让其按照自己的想法进行展示，许多网上的资料要不就是老版本的，要不就是拷贝</description>
+    </item>
+    
+    <item>
+      <title>Hexo博客搭建</title>
+      <link>https://blog.stolenzc.com/2020/hexo/</link>
+      <pubDate>Sat, 11 Apr 2020 21:01:24 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/hexo/</guid>
+      <description>利用github/gitee和node.js快捷进行个人博客的搭建。 1. 环境准备 git安装 Windows：进入git官网下载Windows安装</description>
+    </item>
+    
+    <item>
+      <title>标签</title>
+      <link>https://blog.stolenzc.com/tags/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/tags/</guid>
+      <description>tags</description>
+    </item>
+    
+    <item>
+      <title>分类</title>
+      <link>https://blog.stolenzc.com/categories/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/categories/</guid>
+      <description>categories</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://blog.stolenzc.com/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/about/</guid>
+      <description>about</description>
+    </item>
+    
+    
+    
+  </channel>
+</rss>

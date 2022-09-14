@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>技术提升 on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/</link>
+    <description>Recent content in 技术提升 on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 08 Apr 2021 10:30:07 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网络技术提升</title>
+      <link>https://blog.stolenzc.com/2021/test_network_improve/</link>
+      <pubDate>Thu, 08 Apr 2021 10:30:07 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2021/test_network_improve/</guid>
+      <description>网络互联模型 层数 OSI七层参考模型 TCP/IP协议模型 学习研究模型 请求过程数据封装 7 应用层(Application) 应用层(Applicat</description>
+    </item>
+    
+    <item>
+      <title>MySQL索引原理</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_improve/</link>
+      <pubDate>Mon, 09 Nov 2020 09:03:05 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_improve/</guid>
+      <description>MySQL索引相关内容 存储引擎 数据结构可视化查看 聚合索引和分散索引 B+树结构 hash索引 特点：对索引对key值进行一次hash计算就可以定位</description>
+    </item>
+    
+    <item>
+      <title>Node使用及其管理</title>
+      <link>https://blog.stolenzc.com/2020/node/</link>
+      <pubDate>Tue, 13 Oct 2020 22:04:16 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/node/</guid>
+      <description>Node使用和管理相关方法和命令 nvm 安装 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash nvm配置源 sudo find / -name nvm.sh - 找到nvm.sh文件的位置。通常在 ~/nvm/nvm.sh 下 找到 NVM_NODEJS_ORG_MIRROR 将后面的地址改为http</description>
+    </item>
+    
+    <item>
+      <title>VIM</title>
+      <link>https://blog.stolenzc.com/2020/vim/</link>
+      <pubDate>Mon, 05 Oct 2020 15:24:10 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vim/</guid>
+      <description>💡VIM从入门到精通 1. 汇总操作 退出VIM 通过命令行模式退出 命令 说明 命令 说明 :q 退出 :q! 强制退出，不保存 :wq 保存并退出 :wq! 强制保存并退出 :w &amp;lt;文件</description>
+    </item>
+    
+    <item>
+      <title>Swagger编写API文档的YMAL文件语法</title>
+      <link>https://blog.stolenzc.com/2020/swagger/</link>
+      <pubDate>Sun, 17 May 2020 09:55:48 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/swagger/</guid>
+      <description>使用Swagger编写接口文档语法示例 官方openapi3.0规范访问：About Swagger Specification 1 2 3 4 5 swagger: &amp;#34;2.0&amp;#34; info: description: &amp;#34;this is a api for authenticating users and binding cloud accounts.&amp;#34; version: &amp;#34;1.0.0&amp;#34; title: &amp;#34;Auth api&amp;#34; swagger: “</description>
+    </item>
+    
+    <item>
+      <title>VBA小计</title>
+      <link>https://blog.stolenzc.com/2020/vba/</link>
+      <pubDate>Thu, 07 May 2020 10:36:26 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/vba/</guid>
+      <description>记录一次EXCEL录制宏使用VBA实现自定义的功能</description>
+    </item>
+    
+    <item>
+      <title>网络相关技术点</title>
+      <link>https://blog.stolenzc.com/2020/network/</link>
+      <pubDate>Sun, 03 May 2020 21:31:29 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/network/</guid>
+      <description>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示</description>
+    </item>
+    
+    <item>
+      <title>MySQL基础</title>
+      <link>https://blog.stolenzc.com/2020/test_mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 15:15:50 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/test_mysql_basic/</guid>
+      <description>总结MySQL基础知识，不涉及数据库CRUD基础语法 SQL名词 DQL（Data Query Language）：数据查询语言，指Select语句，通常会</description>
+    </item>
+    
+  </channel>
+</rss>

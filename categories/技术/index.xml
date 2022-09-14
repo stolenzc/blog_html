@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>技术 on stolen&#39;s blog</title>
+    <link>https://blog.stolenzc.com/categories/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on stolen&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 27 May 2022 22:29:57 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OAuth2.0认证</title>
+      <link>https://blog.stolenzc.com/2022/oauth2/</link>
+      <pubDate>Fri, 27 May 2022 22:29:57 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/oauth2/</guid>
+      <description>OAuth2.0认证方式与流程</description>
+    </item>
+    
+    <item>
+      <title>HTTPS加密原理</title>
+      <link>https://blog.stolenzc.com/2022/https/</link>
+      <pubDate>Mon, 16 May 2022 23:00:20 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/https/</guid>
+      <description>https加密原理</description>
+    </item>
+    
+    <item>
+      <title>Python中时间操作</title>
+      <link>https://blog.stolenzc.com/2021/python_datetime/</link>
+      <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
+      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+    </item>
+    
+    <item>
+      <title>DRF的Serializer</title>
+      <link>https://blog.stolenzc.com/2020/drf_serializer/</link>
+      <pubDate>Thu, 21 May 2020 00:27:57 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/drf_serializer/</guid>
+      <description>快速搞懂DRF并方便的使用 名词释义 序列化：模型转换为json，即对象-字典-json 反序列化：json转换为模型，即json-字典-对象 字段</description>
+    </item>
+    
+    <item>
+      <title>GitHub 开发流程</title>
+      <link>https://blog.stolenzc.com/2020/github_flow/</link>
+      <pubDate>Fri, 15 May 2020 15:18:23 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/github_flow/</guid>
+      <description>详细介绍一些Git的工作流程步骤和相关的命令 流程 GitHub flow算是一种相对简单的Git工作流程，主要步骤为下： 其中上游分仓库称为upstream</description>
+    </item>
+    
+    <item>
+      <title>Docker的安装及其日常使用</title>
+      <link>https://blog.stolenzc.com/2020/docker/</link>
+      <pubDate>Fri, 08 May 2020 23:18:03 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/docker/</guid>
+      <description>Docker的安装配置和命令使用</description>
+    </item>
+    
+    <item>
+      <title>Auto.js自动化脚本开发</title>
+      <link>https://blog.stolenzc.com/2020/autojs/</link>
+      <pubDate>Sat, 25 Apr 2020 22:58:32 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/autojs/</guid>
+      <description>安卓自动化脚本开发工具介绍</description>
+    </item>
+    
+    <item>
+      <title>Hexo&#43;Next部署博客配置及注意事项</title>
+      <link>https://blog.stolenzc.com/2020/hexo_next/</link>
+      <pubDate>Tue, 14 Apr 2020 09:44:12 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/hexo_next/</guid>
+      <description>Hexo + Next搭建博客是许多人搭建博客的第一选择，但是要想搭建好博客，让其按照自己的想法进行展示，许多网上的资料要不就是老版本的，要不就是拷贝</description>
+    </item>
+    
+    <item>
+      <title>Hexo博客搭建</title>
+      <link>https://blog.stolenzc.com/2020/hexo/</link>
+      <pubDate>Sat, 11 Apr 2020 21:01:24 +0000</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2020/hexo/</guid>
+      <description>利用github/gitee和node.js快捷进行个人博客的搭建。 1. 环境准备 git安装 Windows：进入git官网下载Windows安装</description>
+    </item>
+    
+  </channel>
+</rss>
