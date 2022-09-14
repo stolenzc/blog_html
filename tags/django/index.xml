@@ -13,7 +13,7 @@
       <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
-      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+      <description>说明：以 classmethod 开头表示类方法，不以 classmethod 开头表示对象方法 datetime.timezone class datetime.timezone(offset, name=None) offset需要指定一个timedelta对象，表示与UTC时间的差值，范围在 -timedelta(hours=24) 到 timedelta(hours=24)</description>
     </item>
     
     <item>

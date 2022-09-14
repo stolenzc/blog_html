@@ -13,7 +13,7 @@
       <pubDate>Mon, 16 May 2022 23:00:20 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2022/https/</guid>
-      <description>https加密原理</description>
+      <description>HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区</description>
     </item>
     
   </channel>

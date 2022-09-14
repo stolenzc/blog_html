@@ -13,7 +13,7 @@
       <pubDate>Fri, 27 May 2022 22:29:57 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2022/oauth2/</guid>
-      <description>OAuth2.0认证方式与流程</description>
+      <description>OAuth介绍 OAuth2.0官方文档 Open Standard Authorization (OAuth) OAuth是一个网络开放协议。为保证用户资源的安全授权提供了简易的标准 特点： 简单：不管是OAU</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Mon, 16 May 2022 23:00:20 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2022/https/</guid>
-      <description>https加密原理</description>
+      <description>HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
-      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+      <description>说明：以 classmethod 开头表示类方法，不以 classmethod 开头表示对象方法 datetime.timezone class datetime.timezone(offset, name=None) offset需要指定一个timedelta对象，表示与UTC时间的差值，范围在 -timedelta(hours=24) 到 timedelta(hours=24)</description>
     </item>
     
     <item>
@@ -58,7 +58,7 @@
       <pubDate>Fri, 08 May 2020 23:18:03 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/docker/</guid>
-      <description>Docker的安装配置和命令使用</description>
+      <description>安装 Ubuntu安装 sudo apt update - 更新软件包 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common - 安装可能用到的依赖 curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add - - 添加阿里云源的密钥 sudo add-apt-repository &amp;quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&amp;quot; - 添加阿里云源</description>
     </item>
     
     <item>
@@ -67,7 +67,7 @@
       <pubDate>Sat, 25 Apr 2020 22:58:32 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/autojs/</guid>
-      <description>安卓自动化脚本开发工具介绍</description>
+      <description>准备工具 Auto.js手机app 电脑开发推荐使用VScode 开发步骤 VScode编辑js脚本文件 VScode点击查看&amp;gt;命令面板输入au</description>
     </item>
     
     <item>

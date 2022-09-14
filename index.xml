@@ -13,7 +13,7 @@
       <pubDate>Fri, 27 May 2022 22:29:57 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2022/oauth2/</guid>
-      <description>OAuth2.0认证方式与流程</description>
+      <description>OAuth介绍 OAuth2.0官方文档 Open Standard Authorization (OAuth) OAuth是一个网络开放协议。为保证用户资源的安全授权提供了简易的标准 特点： 简单：不管是OAU</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Mon, 16 May 2022 23:00:20 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2022/https/</guid>
-      <description>https加密原理</description>
+      <description>HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2021/python_datetime/</guid>
-      <description>记录Python中内置的时间日期模块和Django中的timezone部分操作</description>
+      <description>说明：以 classmethod 开头表示类方法，不以 classmethod 开头表示对象方法 datetime.timezone class datetime.timezone(offset, name=None) offset需要指定一个timedelta对象，表示与UTC时间的差值，范围在 -timedelta(hours=24) 到 timedelta(hours=24)</description>
     </item>
     
     <item>
@@ -85,7 +85,7 @@
       <pubDate>Sat, 23 May 2020 09:20:20 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/mac/</guid>
-      <description>mac系统上快捷键、软件、命令、问题等</description>
+      <description>快捷键 按键 行为 按键 行为 command + shift + 3 系统截屏，并保存到桌面 command + control + a 微信截屏（需要设置） command + fn + F3 显示桌面 command + tab 快速切换应用 command + tab + alt + enter 打开最</description>
     </item>
     
     <item>
@@ -94,7 +94,7 @@
       <pubDate>Fri, 22 May 2020 16:01:38 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/vscode/</guid>
-      <description>VSCode插件和配置介绍，以及一些遇到的使用问题解决方法</description>
+      <description>基础配置 settings.json（首选项，打开设置）的配置： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 { &amp;#34;editor.fontSize&amp;#34;: 18, &amp;#34;editor.wordWrap&amp;#34;: &amp;#34;on&amp;#34;, &amp;#34;editor.rulers&amp;#34;: [ 100 ], &amp;#34;editor.renderControlCharacters&amp;#34;: true, &amp;#34;editor.renderWhitespace&amp;#34;: &amp;#34;all&amp;#34;, &amp;#34;terminal.integrated.cursorBlinking&amp;#34;: true, &amp;#34;terminal.integrated.cursorStyle&amp;#34;: &amp;#34;line&amp;#34;,</description>
     </item>
     
     <item>
@@ -139,7 +139,7 @@
       <pubDate>Fri, 08 May 2020 23:18:03 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/docker/</guid>
-      <description>Docker的安装配置和命令使用</description>
+      <description>安装 Ubuntu安装 sudo apt update - 更新软件包 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common - 安装可能用到的依赖 curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add - - 添加阿里云源的密钥 sudo add-apt-repository &amp;quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&amp;quot; - 添加阿里云源</description>
     </item>
     
     <item>
@@ -157,7 +157,7 @@
       <pubDate>Thu, 07 May 2020 10:36:26 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/vba/</guid>
-      <description>记录一次EXCEL录制宏使用VBA实现自定义的功能</description>
+      <description>教程使用环境 Windows10 insider 2004 19041.208 Microsoft office 专业增强版 2019 录制宏方法 在Excel中依次选择视图&amp;gt;宏&amp;gt;录制宏，填入名称和快捷键即可开始录制，会记录下接下</description>
     </item>
     
     <item>
@@ -166,7 +166,7 @@
       <pubDate>Tue, 05 May 2020 09:46:22 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/windows_cmder/</guid>
-      <description>适用于Windows批处理的一些命令，方便读写一些bat脚本</description>
+      <description>基本命令 echo 语法：echo [on/off] [message] 说明：打开关闭回显，或显示输出消息，后面不加参数则显示当前回显设置， 示例： 1 2 @echo off echo hello,world 备注：回显表示终端会显示当</description>
     </item>
     
     <item>
@@ -220,7 +220,7 @@
       <pubDate>Sat, 25 Apr 2020 22:58:32 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/autojs/</guid>
-      <description>安卓自动化脚本开发工具介绍</description>
+      <description>准备工具 Auto.js手机app 电脑开发推荐使用VScode 开发步骤 VScode编辑js脚本文件 VScode点击查看&amp;gt;命令面板输入au</description>
     </item>
     
     <item>
@@ -229,7 +229,7 @@
       <pubDate>Fri, 24 Apr 2020 22:40:30 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/window_issue/</guid>
-      <description>分享一些Windows在使用时遇到的一些问题和一些解决办法</description>
+      <description>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法 AMD显卡开机黑屏 升级W</description>
     </item>
     
     <item>
@@ -256,7 +256,7 @@
       <pubDate>Sat, 18 Apr 2020 21:10:30 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/windows_config/</guid>
-      <description>分享一些实用的Windows技巧，让Windows更好用</description>
+      <description>关闭Windows Defender 定位到注册表计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Servic</description>
     </item>
     
     <item>

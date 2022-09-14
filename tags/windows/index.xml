@@ -13,7 +13,7 @@
       <pubDate>Tue, 05 May 2020 09:46:22 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/windows_cmder/</guid>
-      <description>适用于Windows批处理的一些命令，方便读写一些bat脚本</description>
+      <description>基本命令 echo 语法：echo [on/off] [message] 说明：打开关闭回显，或显示输出消息，后面不加参数则显示当前回显设置， 示例： 1 2 @echo off echo hello,world 备注：回显表示终端会显示当</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Fri, 24 Apr 2020 22:40:30 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/window_issue/</guid>
-      <description>分享一些Windows在使用时遇到的一些问题和一些解决办法</description>
+      <description>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法 AMD显卡开机黑屏 升级W</description>
     </item>
     
     <item>
@@ -40,7 +40,7 @@
       <pubDate>Sat, 18 Apr 2020 21:10:30 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/windows_config/</guid>
-      <description>分享一些实用的Windows技巧，让Windows更好用</description>
+      <description>关闭Windows Defender 定位到注册表计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Servic</description>
     </item>
     
   </channel>

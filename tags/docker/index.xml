@@ -13,7 +13,7 @@
       <pubDate>Fri, 08 May 2020 23:18:03 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/docker/</guid>
-      <description>Docker的安装配置和命令使用</description>
+      <description>安装 Ubuntu安装 sudo apt update - 更新软件包 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common - 安装可能用到的依赖 curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add - - 添加阿里云源的密钥 sudo add-apt-repository &amp;quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&amp;quot; - 添加阿里云源</description>
     </item>
     
   </channel>

@@ -13,7 +13,7 @@
       <pubDate>Fri, 22 May 2020 16:01:38 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/2020/vscode/</guid>
-      <description>VSCode插件和配置介绍，以及一些遇到的使用问题解决方法</description>
+      <description>基础配置 settings.json（首选项，打开设置）的配置： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 { &amp;#34;editor.fontSize&amp;#34;: 18, &amp;#34;editor.wordWrap&amp;#34;: &amp;#34;on&amp;#34;, &amp;#34;editor.rulers&amp;#34;: [ 100 ], &amp;#34;editor.renderControlCharacters&amp;#34;: true, &amp;#34;editor.renderWhitespace&amp;#34;: &amp;#34;all&amp;#34;, &amp;#34;terminal.integrated.cursorBlinking&amp;#34;: true, &amp;#34;terminal.integrated.cursorStyle&amp;#34;: &amp;#34;line&amp;#34;,</description>
     </item>
     
   </channel>
