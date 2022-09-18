@@ -6,7 +6,16 @@
     <description>Recent content in Posts on stolen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Sep 2022 22:04:23 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 23:27:38 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python3.8 新特性</title>
+      <link>https://blog.stolenzc.com/2022/python_3_8_feature/</link>
+      <pubDate>Sun, 18 Sep 2022 23:27:38 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/python_3_8_feature/</guid>
+      <description>简介 Python3.8 发布于2019年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.8 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.8 添加dea</description>
+    </item>
+    
     <item>
       <title>Python3.7 新特性</title>
       <link>https://blog.stolenzc.com/2022/python_3_7_feature/</link>
