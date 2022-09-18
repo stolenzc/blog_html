@@ -6,7 +6,16 @@
     <description>Recent content in Posts on stolen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 14 Sep 2022 08:28:59 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 16:48:39 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python3.6 新特性</title>
+      <link>https://blog.stolenzc.com/2022/python_3_6_feature/</link>
+      <pubDate>Sun, 18 Sep 2022 16:48:39 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/python_3_6_feature/</guid>
+      <description>简介 Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.6 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.6 添加dea</description>
+    </item>
+    
     <item>
       <title>Hugo博客搭建</title>
       <link>https://blog.stolenzc.com/2022/hugo/</link>

@@ -6,7 +6,16 @@
     <description>Recent content in Tags on stolen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 14 Sep 2022 08:28:59 +0000</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 16:48:39 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python</title>
+      <link>https://blog.stolenzc.com/tags/python/</link>
+      <pubDate>Sun, 18 Sep 2022 16:48:39 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/tags/python/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Hugo</title>
       <link>https://blog.stolenzc.com/tags/hugo/</link>
@@ -67,15 +76,6 @@
       <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
       
       <guid>https://blog.stolenzc.com/tags/django/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://blog.stolenzc.com/tags/python/</link>
-      <pubDate>Sat, 10 Apr 2021 11:08:42 +0000</pubDate>
-      
-      <guid>https://blog.stolenzc.com/tags/python/</guid>
       <description></description>
     </item>
     

@@ -3,21 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.stolenzc.com/categories/</loc>
-    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/post/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/tags/python/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/categories/python/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/2022/python_3_6_feature/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.stolenzc.com/tags/</loc>
+    <lastmod>2022-09-18T16:48:39+08:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/tags/hugo/</loc>
     <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/2022/hugo/</loc>
-    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.stolenzc.com/post/</loc>
-    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.stolenzc.com/</loc>
-    <lastmod>2022-09-14T08:28:59+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.stolenzc.com/tags/</loc>
     <lastmod>2022-09-14T08:28:59+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/categories/%E5%BB%BA%E7%AB%99/</loc>
@@ -48,9 +57,6 @@
     <lastmod>2022-05-16T23:00:20+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/tags/django/</loc>
-    <lastmod>2021-04-10T11:08:42+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.stolenzc.com/tags/python/</loc>
     <lastmod>2021-04-10T11:08:42+00:00</lastmod>
   </url><url>
     <loc>https://blog.stolenzc.com/2021/python_datetime/</loc>
