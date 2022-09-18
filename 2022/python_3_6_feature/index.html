@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Python3.6 新特性 | stolen&#39;s blog</title>
-<meta name="keywords" content="Python">
+<meta name="keywords" content="Feature">
 <meta name="description" content="简介 Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.6 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.6 添加dea">
 <meta name="author" content="">
 <link rel="canonical" href="https://blog.stolenzc.com/2022/python_3_6_feature/">
@@ -98,7 +98,7 @@
   "name": "Python3.6 新特性",
   "description": "简介 Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.6 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.6 添加dea",
   "keywords": [
-    "Python"
+    "Feature"
   ],
   "articleBody": "简介 Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能\n官方新特性链接 Python3.6 新特性\n安装 此处主要介绍在Ubuntu下安装 Python3.6\n添加deadsnakes源 sudo add-apt-repository ppa:deadsnakes/ppa sudo apt-get update 安装 Python3.6 sudo apt install python3.6-full 安装 Python3.6 的pip python3.6 -m ensurepip --upgrade f-string Python3.6 引入了一种 f-string 的方式来格式化字符串\n1 2 3 4 5 6 7 8 9 10 11 12 name = \"Fred\" f\"He said his name is {name}.\" # 输出： # He said his name is Fred. width = 10 precision = 4 value = 12.34567 f\"result: {value:{width}.{precision}}\" # 输出： # result: 12.35 # 备注：小数点也占10位中的一个字符宽度 变量注释的语法 在 Python3.5 中，引入了类型标注 Type Hint ，在 Python3.6 中又加入了函数参数的标注，包括实参和行参的标注\n1 2 3 4 5 6 7 8 from typing import List,Dict primes: List[int] = [] captain: str # 仅做类型标注，不初始化值 class Starship: stats: Dict[str, int] = {} 数字文字中的下划线 Python3.6 中在数字值之间使用下划线改善可读性\n1 num = 1_000_000_000_000_000 注意：\n单个下划线允许用在数码之间和任何数制指示符之后 不可以两个下划线连在一起 字符串格式化可以用 _ 或 _d 来用下划线表示千分位分隔符 f'{100000000:_}' 输出: 100_000_000 f'{100000000:_d}' 输出: 100_000_000 _b 、 _o 、 _x 可以让数字以二进制、八进制、十进制、十六进制每隔4个数码分割 f'{100000000:_x}' 输出: 5f5_e100 f'{128:_b}' 输出: 1000_0000 secrets 生成安全随机数字 Python3.6 中新增的 secrets 模块的主要目的是提供一种简单的方法来可靠地生成适用于管理秘密的加密强伪随机值，例如帐户身份验证、令牌等。\n1 2 3 4 5 6 import secrets secrets.token_bytes(16) # b'\\x12Z\\xebb\\xa0\\xab\\xca\\xc3W\\xbe\\xfdCFr\\x86\\xcd' secrets.token_hex(16) # a890afe1433b3044e1316fd7aa23787f 在 Python3.6 以下的版本则推荐使用 os.urandom()\n异步生成器 在 Python3.5 中引入了 async 和 await ，但是在 Python3.5 中无法在一个函数中同时使用 await 和 yield ，在 Python3.6 解决了这个问题\n1 2 3 4 5 async def ticker(delay, to): \"\"\"Yield numbers from 0 to *to* every *delay* seconds.\"\"\" for i in range(to): yield i await asyncio.sleep(delay) 异步推导 添加了对在列表、集合与字典推导式和生成器表达式中使用 async for 的支持\n1 result = [i async for i in aiter() if i % 2] await 表达式也在所有种类的推导式中得到支持\n1 result = [await fun() for fun in funcs if await condition()] 其他 将 Windows 文件系统编码和控制台编码都更改为 UTF-8 重新实现了字典 dict，使其内存使用减少了 20%-25% ",
   "wordCount" : "710",
@@ -474,9 +474,14 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://blog.stolenzc.com/tags/python/">Python</a></li>
+      <li><a href="https://blog.stolenzc.com/tags/feature/">Feature</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://blog.stolenzc.com/2022/python_3_7_feature/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>Python3.7 新特性</span>
+  </a>
   <a class="next" href="https://blog.stolenzc.com/2022/hugo/">
     <span class="title">下一页 »</span>
     <br>
