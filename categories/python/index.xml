@@ -6,7 +6,25 @@
     <description>Recent content in Python on stolen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Sep 2022 23:27:38 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Sep 2022 23:27:40 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python_3_10_feature</title>
+      <link>https://blog.stolenzc.com/2022/python_3_10_feature/</link>
+      <pubDate>Mon, 19 Sep 2022 23:27:40 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/python_3_10_feature/</guid>
+      <description>简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.10 添加dea</description>
+    </item>
+    
+    <item>
+      <title>Python3.9 新特性</title>
+      <link>https://blog.stolenzc.com/2022/python_3_9_feature/</link>
+      <pubDate>Mon, 19 Sep 2022 22:08:59 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/python_3_9_feature/</guid>
+      <description>简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.9 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.9 添加dead</description>
+    </item>
+    
     <item>
       <title>Python3.8 新特性</title>
       <link>https://blog.stolenzc.com/2022/python_3_8_feature/</link>

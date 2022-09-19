@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Python3.9 新特性 | stolen&#39;s blog</title>
+<meta name="keywords" content="Feature">
+<meta name="description" content="简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.9 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.9 添加dead">
+<meta name="author" content="">
+<link rel="canonical" href="https://blog.stolenzc.com/2022/python_3_9_feature/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
+<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
+<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Python3.9 新特性" />
+<meta property="og:description" content="简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.9 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.9 添加dead" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.stolenzc.com/2022/python_3_9_feature/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-19T22:08:59+08:00" />
+<meta property="article:modified_time" content="2022-09-19T22:08:59+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python3.9 新特性"/>
+<meta name="twitter:description" content="简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.9 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.9 添加dead"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://blog.stolenzc.com/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Python3.9 新特性",
+      "item": "https://blog.stolenzc.com/2022/python_3_9_feature/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Python3.9 新特性",
+  "name": "Python3.9 新特性",
+  "description": "简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.9 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.9 添加dead",
+  "keywords": [
+    "Feature"
+  ],
+  "articleBody": "简介 Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能\n官方新特性链接 Python3.9 新特性\n安装 此处主要介绍在Ubuntu下安装 Python3.9\n添加deadsnakes源 sudo add-apt-repository ppa:deadsnakes/ppa sudo apt-get update 安装 Python3.9 sudo apt install python3.9-full 安装 Python3.9 的pip python3.9 -m ensurepip --upgrade 字典合并与更新运算符 合并 (|) 与更新 (|=) 运算符已被加入内置的 dict 类。 它们为现有的 dict.update 和 {**d1, **d2} 字典合并方法提供了补充。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 x = {\"key1\": \"value1 from x\", \"key2\": \"value2 from x\"} y = {\"key2\": \"value2 from y\", \"key3\": \"value3 from y\"} # 合并 # z = {**x, **y} z = x | y # 如果两个字典都存在key，则保留后面的key的值， # z: {'key1': 'value1 from x', 'key2': 'value2 from y', 'key3': 'value3 from y'} # 更新 # x.update(y) x |= y # x: {'key1': 'value1 from x', 'key2': 'value2 from y', 'key3': 'value3 from y'} # 将y中的值更新到x中 放宽对装饰器的语法限制 在之前版本的 Python 中对于装饰器的语法是有所限制的，Python 3.9 终于将这一限制放宽任意，任何表达式都可以用在装饰器中。\n之前的装饰器语法\ndecorator: '@' dotted_name [ '(' [arglist] ')' ] NEWLINE\nPython3.9 的装饰器语法\ndecorator: '@' namedexpr_test NEWLINE\n旧版装饰器\n1 2 3 4 5 6 7 8 9 10 11 def upper(func): def wrapper(*args): return func(*args).upper() return wrapper @upper def hello(name): return f'hello {name}' hello('johnson') # HELLO JOHNSON 新版装饰器\n1 2 3 4 5 6 @lambda func:(lambda *args:func(*args).upper()) def hello(name): return f'hello {name}' hello('johnson') # HELLO JOHNSON 新增用于移除前缀和后缀的字符串方法 增加了 str.removeprefix(prefix) 和 str.removesuffix(suffix) 用于方便地从字符串移除不需要的前缀或后缀。另外 bytes 和 bytearray 以及 collections.UserString 也增加了对应的方法\n1 2 3 4 str_hello = 'hello, world!' no_prefix = str_hello.removeprefix('hello,') no_suffix = str_hello.removesuffix('world!') # 该方法不会修改原始字符串，只会返回新的字符串 标准多项集中的类型标注泛型 dict 、 list、 set、 tuple 用于取代 typing 中的 Dict、 List、 Set、 Tuple\n之前的版本\n1 2 3 4 5 from typing import List def greet_all(names: List[str]) -\u003e None: for name in names: print(\"Hello\", name) Python3.9 版本\n1 2 3 def greet_all(names: list[str]) -\u003e None: for name in names: print(\"Hello\", name) file 属性将是一个绝对路径 1 2 3 4 5 6 7 8 # /home/stolen/test.py print(__file__) # Python3.8 输出 # test.py # Python3.9 输出 # /home/stolen/test.py datetime 模块的改进 isocalendar() 方法现在返回 namedtuple (具名元组) ，这样可以通过属性也能访问到该值\n1 2 3 4 5 6 7 8 9 10 11 import datetime today = datetime.date.today().isocalendar() print(today) # Python3.8 # (2022, 38, 1) # Python3.9 # datetime.IsoCalendarDate(year=2022, week=38, weekday=1) # today.week -\u003e 38 math 模块的改进 math.gcd(*integers) 求最大公约数的函数允许传入超过2个参数\n1 2 3 4 5 6 7 8 9 10 import math result = math.gcd(6, 9, 12, 15, 18) print(result) # Python3.8 # TypeError: gcd expected 2 arguments, got 5 # Python3.9 # 3 math.lcm(*integer) 新增计算最小公倍数函数\n1 2 3 4 5 6 7 8 9 10 import math result = math.lcm(6, 9, 12, 15, 18) print(result) # Python3.8 # AttributeError: module 'math' has no attribute 'lcm' # Python3.9 # 180 ",
+  "wordCount" : "822",
+  "inLanguage": "zh",
+  "datePublished": "2022-09-19T22:08:59+08:00",
+  "dateModified": "2022-09-19T22:08:59+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.stolenzc.com/2022/python_3_9_feature/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "stolen's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.stolenzc.com/images/blog.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
+                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
+                    height="35">stolen&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.stolenzc.com/" title="主页">
+                    <span><i class='fa fa-home'>&ensp;</i>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/tags/" title="标签">
+                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/categories/" title="分类">
+                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/archives/" title="归档">
+                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.stolenzc.com/about/" title="关于">
+                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Python3.9 新特性
+    </h1>
+    <div class="post-meta"><span title='2022-09-19 22:08:59 +0800 +0800'>2022-09-19</span>&nbsp;·&nbsp;822 字
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e7%ae%80%e4%bb%8b" aria-label="简介">简介</a></li>
+                    <li>
+                        <a href="#%e5%ae%89%e8%a3%85" aria-label="安装">安装</a></li>
+                    <li>
+                        <a href="#%e5%ad%97%e5%85%b8%e5%90%88%e5%b9%b6%e4%b8%8e%e6%9b%b4%e6%96%b0%e8%bf%90%e7%ae%97%e7%ac%a6" aria-label="字典合并与更新运算符">字典合并与更新运算符</a></li>
+                    <li>
+                        <a href="#%e6%94%be%e5%ae%bd%e5%af%b9%e8%a3%85%e9%a5%b0%e5%99%a8%e7%9a%84%e8%af%ad%e6%b3%95%e9%99%90%e5%88%b6" aria-label="放宽对装饰器的语法限制">放宽对装饰器的语法限制</a></li>
+                    <li>
+                        <a href="#%e6%96%b0%e5%a2%9e%e7%94%a8%e4%ba%8e%e7%a7%bb%e9%99%a4%e5%89%8d%e7%bc%80%e5%92%8c%e5%90%8e%e7%bc%80%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%96%b9%e6%b3%95" aria-label="新增用于移除前缀和后缀的字符串方法">新增用于移除前缀和后缀的字符串方法</a></li>
+                    <li>
+                        <a href="#%e6%a0%87%e5%87%86%e5%a4%9a%e9%a1%b9%e9%9b%86%e4%b8%ad%e7%9a%84%e7%b1%bb%e5%9e%8b%e6%a0%87%e6%b3%a8%e6%b3%9b%e5%9e%8b" aria-label="标准多项集中的类型标注泛型">标准多项集中的类型标注泛型</a></li>
+                    <li>
+                        <a href="#__file__-%e5%b1%9e%e6%80%a7%e5%b0%86%e6%98%af%e4%b8%80%e4%b8%aa%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" aria-label="file 属性将是一个绝对路径"><strong>file</strong> 属性将是一个绝对路径</a></li>
+                    <li>
+                        <a href="#datetime-%e6%a8%a1%e5%9d%97%e7%9a%84%e6%94%b9%e8%bf%9b" aria-label="datetime 模块的改进">datetime 模块的改进</a></li>
+                    <li>
+                        <a href="#math-%e6%a8%a1%e5%9d%97%e7%9a%84%e6%94%b9%e8%bf%9b" aria-label="math 模块的改进">math 模块的改进</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="简介">简介<a hidden class="anchor" aria-hidden="true" href="#简介">#</a></h2>
+<p>Python3.9 发布于2020年10月5日，这儿总结一下改版本引入的一些新功能</p>
+<p>官方新特性链接 <a href="https://docs.python.org/zh-cn/3.9/whatsnew/3.9.html">Python3.9 新特性</a></p>
+<h2 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h2>
+<p>此处主要介绍在Ubuntu下安装 Python3.9</p>
+<ol>
+<li>添加deadsnakes源
+<ul>
+<li><code>sudo add-apt-repository ppa:deadsnakes/ppa</code></li>
+<li><code>sudo apt-get update</code></li>
+</ul>
+</li>
+<li>安装 Python3.9
+<ul>
+<li><code>sudo apt install python3.9-full</code></li>
+</ul>
+</li>
+<li>安装 Python3.9 的pip
+<ul>
+<li><code>python3.9 -m ensurepip --upgrade</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="字典合并与更新运算符">字典合并与更新运算符<a hidden class="anchor" aria-hidden="true" href="#字典合并与更新运算符">#</a></h2>
+<p>合并 (<code>|</code>) 与更新 (<code>|=</code>) 运算符已被加入内置的 dict 类。 它们为现有的 <code>dict.update</code> 和 <code>{**d1, **d2}</code> 字典合并方法提供了补充。</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x = {<span style="color:#0ff;font-weight:bold">&#34;key1&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;value1 from x&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;key2&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;value2 from x&#34;</span>}
+</span></span><span style="display:flex;"><span>y = {<span style="color:#0ff;font-weight:bold">&#34;key2&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;value2 from y&#34;</span>, <span style="color:#0ff;font-weight:bold">&#34;key3&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;value3 from y&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 合并</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># z = {**x, **y}</span>
+</span></span><span style="display:flex;"><span>z = x | y
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 如果两个字典都存在key，则保留后面的key的值，</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># z: {&#39;key1&#39;: &#39;value1 from x&#39;, &#39;key2&#39;: &#39;value2 from y&#39;, &#39;key3&#39;: &#39;value3 from y&#39;}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 更新</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># x.update(y)</span>
+</span></span><span style="display:flex;"><span>x |= y
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># x: {&#39;key1&#39;: &#39;value1 from x&#39;, &#39;key2&#39;: &#39;value2 from y&#39;, &#39;key3&#39;: &#39;value3 from y&#39;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 将y中的值更新到x中</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="放宽对装饰器的语法限制">放宽对装饰器的语法限制<a hidden class="anchor" aria-hidden="true" href="#放宽对装饰器的语法限制">#</a></h2>
+<p>在之前版本的 Python 中对于装饰器的语法是有所限制的，Python 3.9 终于将这一限制放宽任意，任何表达式都可以用在装饰器中。</p>
+<p>之前的装饰器语法</p>
+<p><code>decorator: '@' dotted_name [ '(' [arglist] ')' ] NEWLINE</code></p>
+<p>Python3.9 的装饰器语法</p>
+<p><code>decorator: '@' namedexpr_test NEWLINE</code></p>
+<p>旧版装饰器</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> upper(func):
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">def</span> wrapper(*args):
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">return</span> func(*args).upper()
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> wrapper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@upper
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> hello(name):
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#39;hello </span><span style="color:#0ff;font-weight:bold">{</span>name<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello(<span style="color:#0ff;font-weight:bold">&#39;johnson&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># HELLO JOHNSON</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新版装饰器</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>@lambda func:(<span style="color:#fff;font-weight:bold">lambda</span> *args:func(*args).upper())
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> hello(name):
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#39;hello </span><span style="color:#0ff;font-weight:bold">{</span>name<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello(<span style="color:#0ff;font-weight:bold">&#39;johnson&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># HELLO JOHNSON</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="新增用于移除前缀和后缀的字符串方法">新增用于移除前缀和后缀的字符串方法<a hidden class="anchor" aria-hidden="true" href="#新增用于移除前缀和后缀的字符串方法">#</a></h2>
+<p>增加了 <code>str.removeprefix(prefix)</code> 和 <code>str.removesuffix(suffix)</code> 用于方便地从字符串移除不需要的前缀或后缀。另外 <code>bytes</code> 和 <code>bytearray</code> 以及 <code>collections.UserString</code> 也增加了对应的方法</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>str_hello = <span style="color:#0ff;font-weight:bold">&#39;hello, world!&#39;</span>
+</span></span><span style="display:flex;"><span>no_prefix = str_hello.removeprefix(<span style="color:#0ff;font-weight:bold">&#39;hello,&#39;</span>)
+</span></span><span style="display:flex;"><span>no_suffix = str_hello.removesuffix(<span style="color:#0ff;font-weight:bold">&#39;world!&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 该方法不会修改原始字符串，只会返回新的字符串</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="标准多项集中的类型标注泛型">标准多项集中的类型标注泛型<a hidden class="anchor" aria-hidden="true" href="#标准多项集中的类型标注泛型">#</a></h2>
+<p><code>dict</code> 、 <code>list</code>、 <code>set</code>、 <code>tuple</code> 用于取代 typing 中的 <code>Dict</code>、 <code>List</code>、 <code>Set</code>、 <code>Tuple</code></p>
+<p>之前的版本</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">from</span> typing <span style="color:#fff;font-weight:bold">import</span> List
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> greet_all(names: List[<span style="color:#fff;font-weight:bold">str</span>]) -&gt; <span style="color:#fff;font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> name in names:
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;Hello&#34;</span>, name)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Python3.9 版本</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> greet_all(names: <span style="color:#fff;font-weight:bold">list</span>[<span style="color:#fff;font-weight:bold">str</span>]) -&gt; <span style="color:#fff;font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> name in names:
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;Hello&#34;</span>, name)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="__file__-属性将是一个绝对路径"><strong>file</strong> 属性将是一个绝对路径<a hidden class="anchor" aria-hidden="true" href="#__file__-属性将是一个绝对路径">#</a></h2>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#007f7f"># /home/stolen/test.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(__file__)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.8 输出</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># test.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9 输出</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># /home/stolen/test.py</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="datetime-模块的改进">datetime 模块的改进<a hidden class="anchor" aria-hidden="true" href="#datetime-模块的改进">#</a></h2>
+<p>isocalendar() 方法现在返回 namedtuple (具名元组) ，这样可以通过属性也能访问到该值</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> datetime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>today = datetime.date.today().isocalendar()
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(today)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.8</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># (2022, 38, 1)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># datetime.IsoCalendarDate(year=2022, week=38, weekday=1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># today.week -&gt; 38</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="math-模块的改进">math 模块的改进<a hidden class="anchor" aria-hidden="true" href="#math-模块的改进">#</a></h2>
+<p><code>math.gcd(*integers)</code> 求最大公约数的函数允许传入超过2个参数</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>result = math.gcd(<span style="color:#ff0;font-weight:bold">6</span>, <span style="color:#ff0;font-weight:bold">9</span>, <span style="color:#ff0;font-weight:bold">12</span>, <span style="color:#ff0;font-weight:bold">15</span>, <span style="color:#ff0;font-weight:bold">18</span>)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(result)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.8</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># TypeError: gcd expected 2 arguments, got 5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>math.lcm(*integer)</code> 新增计算最小公倍数函数</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>result = math.lcm(<span style="color:#ff0;font-weight:bold">6</span>, <span style="color:#ff0;font-weight:bold">9</span>, <span style="color:#ff0;font-weight:bold">12</span>, <span style="color:#ff0;font-weight:bold">15</span>, <span style="color:#ff0;font-weight:bold">18</span>)
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(result)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.8</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># AttributeError: module &#39;math&#39; has no attribute &#39;lcm&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 180</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.stolenzc.com/tags/feature/">Feature</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://blog.stolenzc.com/2022/python_3_10_feature/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>Python_3_10_feature</span>
+  </a>
+  <a class="next" href="https://blog.stolenzc.com/2022/python_3_8_feature/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>Python3.8 新特性</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
