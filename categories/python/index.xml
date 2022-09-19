@@ -6,7 +6,16 @@
     <description>Recent content in Python on stolen&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 19 Sep 2022 23:27:40 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Sep 2022 23:37:25 +0800</lastBuildDate><atom:link href="https://blog.stolenzc.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python_3_11_feature</title>
+      <link>https://blog.stolenzc.com/2022/python_3_11_feature/</link>
+      <pubDate>Mon, 19 Sep 2022 23:37:25 +0800</pubDate>
+      
+      <guid>https://blog.stolenzc.com/2022/python_3_11_feature/</guid>
+      <description>简介 Python3.11 预计在2022年10月3日发布，但可能会延期到12月份发布，主要更新了错误提示、异常处理和类型系统进行了更新 Python3.11 在性能方面较 Python3.10 快大约10</description>
+    </item>
+    
     <item>
       <title>Python_3_10_feature</title>
       <link>https://blog.stolenzc.com/2022/python_3_10_feature/</link>
