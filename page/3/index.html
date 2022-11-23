@@ -1,363 +1,1504 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
-
+<html lang="zh-CN">
 <head>
-	<meta name="generator" content="Hugo 0.103.1" /><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>stolen&#39;s blog</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
 
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://blog.stolenzc.com/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
+<link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
-<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://blog.stolenzc.com/index.xml">
-<link rel="alternate" type="application/json" href="https://blog.stolenzc.com/index.json">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-            .list {
-                background: var(--theme);
-            }
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
+  <meta name="description" content="一个热爱技术的Python开发者">
+<meta property="og:type" content="website">
+<meta property="og:title" content="stolen&#39;s blog">
+<meta property="og:url" content="https://blog.stolenzc.com/page/3/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="一个热爱技术的Python开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="stolen">
+<meta name="twitter:card" content="summary">
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
+<link rel="canonical" href="https://blog.stolenzc.com/page/3/">
 
-    </style>
-</noscript><meta property="og:title" content="stolen&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.stolenzc.com/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="stolen&#39;s blog"/>
-<meta name="twitter:description" content=""/>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "stolen's blog",
-  "url": "https://blog.stolenzc.com",
-  "description": "",
-  "thumbnailUrl": "https://blog.stolenzc.com/images/blog.png",
-  "sameAs": [
-      "https://github.com/stolenzc", "mailto:stolenzc@88.com"
-  ]
-}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
 </script>
+
+  <title>stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
-                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
-                    height="35">stolen&#39;s blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://blog.stolenzc.com/" title="主页">
-                    <span class="active"><i class='fa fa-home'>&ensp;</i>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/tags/" title="标签">
-                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/categories/" title="分类">
-                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/archives/" title="归档">
-                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/about/" title="关于">
-                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Python下遇到的一些故障
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>收集一些使用Python会遇到的问题，该文章持续更新 mysqlclient安装失败 Ubuntu下安装mysqlclient需要依次安装以下包...</p>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
-  <footer class="entry-footer"><span title='2020-05-14 22:04:16 +0000 UTC'>2020-05-14</span>&nbsp;·&nbsp;187 字</footer>
-  <a class="entry-link" aria-label="post link to Python下遇到的一些故障" href="https://blog.stolenzc.com/2020/python_issue/"></a>
-</article>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Docker的安装及其日常使用
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>安装 Ubuntu安装 sudo apt update - 更新软件包 sudo apt -y install apt-transport-https ca-certificates curl software-properties-common - 安装可能用到的依赖 curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add - - 添加阿里云源的密钥 sudo add-apt-repository &#34;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&#34; - 添加阿里云源...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-08 23:18:03 +0000 UTC'>2020-05-08</span>&nbsp;·&nbsp;2694 字</footer>
-  <a class="entry-link" aria-label="post link to Docker的安装及其日常使用" href="https://blog.stolenzc.com/2020/docker/"></a>
-</article>
+  <div class="site-meta">
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>VirtualBox Headless后台运行Linux
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Windows下可能最好的Linux系统使用解决方案。 前言 如何在Windows上优雅的使用Linux，一直是一个困惑我的问题。WSL虽好，但...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-08 13:16:21 +0000 UTC'>2020-05-08</span>&nbsp;·&nbsp;1236 字</footer>
-  <a class="entry-link" aria-label="post link to VirtualBox Headless后台运行Linux" href="https://blog.stolenzc.com/2020/virtualbox_headless/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>VBA小计
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>教程使用环境 Windows10 insider 2004 19041.208 Microsoft office 专业增强版 2019 录制宏方法 在Excel中依次选择视图&gt;宏&gt;录制宏，填入名称和快捷键即可开始录制，会记录下接下...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-07 10:36:26 +0000 UTC'>2020-05-07</span>&nbsp;·&nbsp;672 字</footer>
-  <a class="entry-link" aria-label="post link to VBA小计" href="https://blog.stolenzc.com/2020/vba/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows批处理命令
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>基本命令 echo 语法：echo [on/off] [message] 说明：打开关闭回显，或显示输出消息，后面不加参数则显示当前回显设置， 示例： 1 2 @echo off echo hello,world 备注：回显表示终端会显示当...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-05 09:46:22 +0000 UTC'>2020-05-05</span>&nbsp;·&nbsp;891 字</footer>
-  <a class="entry-link" aria-label="post link to Windows批处理命令" href="https://blog.stolenzc.com/2020/windows_cmder/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>网络相关技术点
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。 TCP连接过程 状态码含义： SYN(synchronous) - 表示建立连接 ACK(acknowledgment) - 表示...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-03 21:31:29 +0000 UTC'>2020-05-03</span>&nbsp;·&nbsp;3672 字</footer>
-  <a class="entry-link" aria-label="post link to 网络相关技术点" href="https://blog.stolenzc.com/2020/network/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>MySQL基础
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>总结MySQL基础知识，不涉及数据库CRUD基础语法 SQL名词 DQL（Data Query Language）：数据查询语言，指Select语句，通常会...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-01 15:15:50 +0000 UTC'>2020-05-01</span>&nbsp;·&nbsp;2330 字</footer>
-  <a class="entry-link" aria-label="post link to MySQL基础" href="https://blog.stolenzc.com/2020/test_mysql_basic/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Edge上手
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>记录一些Edge插件和用法 插件 iGG谷歌访问助手 安装地址：iGG谷歌访问助手 该插件可以通过Edge商店安装，安装该助手可以访问到google...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-01 11:24:32 +0000 UTC'>2020-05-01</span>&nbsp;·&nbsp;1499 字</footer>
-  <a class="entry-link" aria-label="post link to Edge上手" href="https://blog.stolenzc.com/2020/edge/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>GitHub使用方法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>使用GitHub的一些技巧 GitHub加速访问 1. 修改host文件达到加速目的 以下方法被写在一个python文件中，可以直接使用github f...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-27 20:35:40 +0000 UTC'>2020-04-27</span>&nbsp;·&nbsp;1567 字</footer>
-  <a class="entry-link" aria-label="post link to GitHub使用方法" href="https://blog.stolenzc.com/2020/github_use/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows Terminal使用技巧
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Windows Terminal的一些使用教程和配置教程 配置教程 详细配置参阅Windows Terminal Settings Schema 有关中文翻译参阅 Global 1 2 3 4 5 6 7 8 9 10 11 12 13 { // 默认的命令...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-26 14:19:41 +0000 UTC'>2020-04-26</span>&nbsp;·&nbsp;661 字</footer>
-  <a class="entry-link" aria-label="post link to Windows Terminal使用技巧" href="https://blog.stolenzc.com/2020/windows_terminal/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://blog.stolenzc.com/page/2/">
-      «&nbsp;上一页&nbsp;2/4
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
-    <a class="next" href="https://blog.stolenzc.com/page/4/">下一页&nbsp;4/4&nbsp;»
-    </a>
-  </nav>
-</footer>
-    </main>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
     
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/git/" class="post-title-link" itemprop="url">GitHub 开发流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 15:18:23" itemprop="dateCreated datePublished" datetime="2020-05-15T15:18:23+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 15:18:23" itemprop="dateModified" datetime="2021-01-16T15:18:23+08:00">2021-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>详细介绍一些Git的工作流程步骤和相关的命令
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/git/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/github_flow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/github_flow/" class="post-title-link" itemprop="url">GitHub 开发流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 15:18:23" itemprop="dateCreated datePublished" datetime="2020-05-15T15:18:23+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 15:18:23" itemprop="dateModified" datetime="2021-01-16T15:18:23+08:00">2021-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>详细介绍一些Git的工作流程步骤和相关的命令
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/github_flow/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/python_issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/python_issue/" class="post-title-link" itemprop="url">Python下遇到的一些故障</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-14 22:04:16" itemprop="dateCreated datePublished" datetime="2020-05-14T22:04:16+08:00">2020-05-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%85%E9%9A%9C%E9%81%BF%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">故障避坑</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>495</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>收集一些使用Python会遇到的问题，该文章持续更新
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/python_issue/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/docker/" class="post-title-link" itemprop="url">Docker的安装及其日常使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 23:18:03" itemprop="dateCreated datePublished" datetime="2020-05-08T23:18:03+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-22 12:35:08" itemprop="dateModified" datetime="2021-04-22T12:35:08+08:00">2021-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Ubuntu安装</p>
+<ol>
+<li><code>sudo apt update</code> - 更新软件包</li>
+<li><code>sudo apt -y install apt-transport-https ca-certificates curl software-properties-common</code> - 安装可能用到的依赖</li>
+<li><code>curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</code> - 添加阿里云源的密钥</li>
+<li><code>sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</code> - 添加阿里云源信息</li>
+<li><code>sudo apt update</code> - 更新索引库</li>
+<li><code>sudo apt-get remove docker docker-engine docker.io</code> - 如果存在docker需要先删除</li>
+<li><code>sudo apt install docker-ce</code> - 安装docker</li>
+</ol>
+<p>Centos安装</p>
+<ol>
+<li><code>uname -r</code> - 查看内核版本(centos7 64位要求3.10+，centos6 64位要求2.6+)</li>
+<li><code>yum update</code> - 更新底层库文件</li>
+<li><code>yum erase -y docker docker-common docker-engine</code> - 移除可能存在的旧版docker</li>
+<li><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code> - 安装工具包和依赖项</li>
+<li><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code> - 添加docker-ce源</li>
+<li><code>yum makecache fast</code> - 做本地缓存，加快安装速度</li>
+<li><code>yum -y install docker-ce</code> - yum安装docker</li>
+<li><code>systemctl start docker</code> - 启动docker</li>
+<li><code>systemctl enable docker</code> - 设置开机自启动</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置主要就是更换docker源</p>
+<p>Linux下更改国内镜像在<code>/etc/docker/daemon.json</code>中添加以下代码</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">        <span class="string">"http://hub-mirror.c.163.com"</span>,</span><br><span class="line">        <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="http://hub.daocloud.io/" target="_blank" rel="noopener">daocloud</a>也可以下载镜像，且有较详细的配置参数</p>
+</blockquote>
+<p>配置私服拉取镜像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/docker/daemon.json</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">  <span class="attr">"registry-mirrors":</span> <span class="string">["https://registry.docker-cn.com"],</span></span><br><span class="line">  <span class="attr">"insecure-registries":</span> <span class="string">["ip:port"]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以访问<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像服务</a>，注册后获取镜像加速地址</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="普通命令"><a href="#普通命令" class="headerlink" title="普通命令"></a>普通命令</h3><ul>
+<li><code>docker version</code> - 查看docker版本</li>
+<li><code>docker info</code> - 查看详细信息</li>
+<li><code>docker network create isolated</code> - 创建docker网络</li>
+</ul>
+<h3 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h3><ul>
+<li><code>docker pull 镜像名</code> - 下载镜像</li>
+<li><code>docker images</code> - 查看所有本地的镜像</li>
+<li><code>docker search 镜像名</code> - 查找镜像</li>
+<li><code>docker rmi 镜像id/镜像名</code> - 删除镜像</li>
+<li><code>docker save -o 导出的路径 镜像id</code> - 导出镜像到文件</li>
+<li><code>docker load -i 镜像文件</code> - 加载本地到镜像文件</li>
+<li><code>docker tag 镜像id 镜像名:镜像版本</code> - 重命名镜像</li>
+<li><code>docker tag 旧镜像名:旧版本 新镜像名:新版本</code> - 复制一个镜像</li>
+<li><code>docker push 地址名/仓库名/镜像名:版本名</code> - 推送镜像</li>
+</ul>
+<h3 id="容器管理"><a href="#容器管理" class="headerlink" title="容器管理"></a>容器管理</h3><ul>
+<li><p><code>docker run -d -p 80:80 --name mynginx --rm nginx:latest [command]</code> - 创建并运行容器，</p>
+<ul>
+<li><code>-d</code> - 后台运行</li>
+<li><code>-i</code> - 启动一个可交互的容器，并持续打开标准输入</li>
+<li><code>-t</code> - 终端关联到容器的标准输入输出上</li>
+<li><code>-p port1:port2</code> - 指定端口 外部端口:内部端口</li>
+<li><code>-v/--volume 外部文件夹:内部文件夹</code> - 数据卷操作，将外部文件夹映射到容器内部文件夹</li>
+<li><code>--link 容器名:自定义网络别名</code> - 给容器网络设置别名</li>
+<li><code>--name 容器名字</code> - 给创建的容器命名</li>
+<li><code>-e 环境变量名=环境变量值</code> - 设置容器全局变量</li>
+<li><code>--rm</code> - 为停止容器的时候容器自动删除</li>
+<li><code>镜像名:版本号</code> - 指定镜像和版本，latest为最新版本，默认不写也为最新版本</li>
+<li><code>command</code> - 表示运行容器时的启动命令</li>
+</ul>
+</li>
+<li><p><code>docker ps [-qa]</code> - 查看正在运行到容器</p>
+<ul>
+<li><code>-q</code> - 只查看容器到标识</li>
+<li><code>-a</code> - 查看全部到容器，包括未运行到容器</li>
+</ul>
+</li>
+<li><p><code>docker logs -f 容器id</code> - 查看容器到日志</p>
+<ul>
+<li><code>-f</code> - 可以滚动到查看日志到最后几行</li>
+</ul>
+</li>
+<li><p><code>docker exec -it 容器ID/容器名 bash</code> - 进入到容器内部命令行</p>
+</li>
+<li><p><code>docker stop 容器名称/容器id</code> - 停止正在运行的容器</p>
+</li>
+<li><p><code>docker stop $(docker ps -qa)</code> - 停止所有的容器</p>
+</li>
+<li><p><code>docker rm -f 容器id</code> - 删除容器</p>
+<ul>
+<li><code>-f</code> - 强制删除容器（包括正在运行的容器）</li>
+</ul>
+</li>
+<li><p><code>docker start 容器名称</code> - 运行已经创建的容器</p>
+</li>
+<li><p><code>docker restart 容器名称</code> - 重启正在运行的容器</p>
+</li>
+<li><p><code>docker cp 文件名 容器id:容器内部路径</code> - 拷贝文件到容器中</p>
+</li>
+<li><p><code>docker container ls -a</code> - 查看所有的容器，不加-a表示正在运行的容器</p>
+</li>
+<li><p><code>docker container prune</code> - 清空所有容器</p>
+</li>
+<li><p><code>docker inspect 容器id</code> - 获取容器底层信息</p>
+<ul>
+<li><code>IPAddress</code> - ip地址</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><ul>
+<li><p><code>docker volume create 数据卷名称</code> - 创建数据卷</p>
+<ul>
+<li>创建数据卷之后，默认会存放在/var/lib/docker/volumes/数据卷名称/_data</li>
+</ul>
+</li>
+<li><p><code>docker volume inspect 数据卷名称</code> - 查看数据卷详细信息</p>
+</li>
+<li><p><code>docker volumes ls</code> - 查看全部数据卷</p>
+</li>
+<li><p><code>docker volumes rm 数据卷名称</code> - 删除数据卷</p>
+</li>
+<li><p><code>docker run -v 数据卷名称:容器内部路径 镜像id</code> - 映射数据卷，会自动复制容器的文件到宿主机文件夹</p>
+</li>
+<li><p><code>docker run -v 宿主机路径:容器内部路径 镜像id</code> - 直接指定一个路径作为数据卷的存放地址，这个地址是空的</p>
+</li>
+</ul>
+<h3 id="自定义docker镜像"><a href="#自定义docker镜像" class="headerlink" title="自定义docker镜像"></a>自定义docker镜像</h3><ol>
+<li><p>创建一个Dockerfile文件，并指定自定义镜像</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: 注释，指令大小写不敏感，但是建议指令大写，内容小写</span></span><br><span class="line"><span class="keyword">FROM</span>: 指定当前自定义镜像依赖的环境，dockerfile第一条非注释的命令必须是<span class="keyword">from</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash">: 将相对路径下的内容复制到镜像中</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash">: 将文件写入到镜像中（和copy的区别是copy是运行镜像时拷贝文件，add是构建镜像时拷贝进入）</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash">: 生命镜像到默认目录</span></span><br><span class="line"><span class="keyword">USER</span>: 镜像中的启动用户名</span><br><span class="line"><span class="keyword">RUN</span><span class="bash">: 构建镜像时执行命令</span></span><br><span class="line"><span class="keyword">ENV</span>: 指定镜像中的环境变量</span><br><span class="line"><span class="keyword">CMD</span><span class="bash">: 需要执行的命令（在workdir下执行，可以写多个，以最后一个为准）</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash">: 如果dockerfile中没有run命令，则运行镜像中 /entrypoint.sh 文件，注意需要给执行权限</span></span><br><span class="line"><span class="keyword">ARG</span>: 用于指定传递给构建运行时的变量</span><br><span class="line"><span class="keyword">EXPOSE</span>: 指定于外界交互的端口</span><br><span class="line"><span class="keyword">LABEL</span><span class="bash">: 用于为镜像添加元数据</span></span><br><span class="line">  <span class="keyword">maintainer</span>: 维护者信息</span><br><span class="line">  version: 版本信息</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>制作镜像<code>docker build -t 镜像名称:[tag] .</code></p>
+<ul>
+<li><code>-t</code> - 指定版本</li>
+<li><code>.</code> - 表示将当前目录下的文件编译为镜像</li>
+</ul>
+</li>
+<li><p>docker commit和docker build的区别</p>
+<p><code>docker commit 容器id 自定义镜像名字</code> - 将容器打包成镜像<br><code>docker build -t 镜像名称:[tag] .</code> - 通过dockerfile创建镜像</p>
+</li>
+</ol>
+<h3 id="Docker-compoes"><a href="#Docker-compoes" class="headerlink" title="Docker-compoes"></a>Docker-compoes</h3><ol>
+<li>下载docker-compose文件，直接从github下载对应文件，修改文件的可执行权限并配置环境变量即可使用</li>
+<li>编写docker-compose.yml文件</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span>          <span class="comment"># 指定版本号，该配置为固定配置，根据不同的docker-compose决定</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">mysql:</span>              <span class="comment"># 服务的名称</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span>   <span class="comment"># 表示只要docker启动了，容器就一起启动</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7</span>  <span class="comment"># 指定镜像</span></span><br><span class="line">    <span class="attr">continer_name:</span> <span class="string">mysql</span>  <span class="comment"># 指定容器的名称</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">3306</span><span class="string">:3306</span>     <span class="comment"># 指定端口号映射</span></span><br><span class="line">    <span class="attr">envirement:</span>       <span class="comment"># 指定环境变量</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/volumes/mysql/data:/var/lib/mysql</span>   <span class="comment"># 指定数据卷</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="推送镜像到阿里云"><a href="#推送镜像到阿里云" class="headerlink" title="推送镜像到阿里云"></a>推送镜像到阿里云</h2><ol>
+<li>首先在阿里云创建命名空间，相当于仓库名</li>
+<li><code>docker login --username=王大锤 registry.cn-hangzhou.aliyuncs.com</code> 本地登录阿里云</li>
+<li><code>docker tag 旧镜像名:旧版本 新镜像名:新版本</code> 修改镜像名称<br><strong>注意</strong>：新镜像名需要按照：<code>阿里云地址/阿里云创建到命名空间/自定义名称或者阿里云创建的仓库名:版本</code>的格式</li>
+<li><code>docker push 新镜像名:版本号</code>推送到阿里云镜像仓库</li>
+<li><code>docker pull 新镜像名:版本号</code>将远端到镜像拉到本地</li>
+</ol>
+<h2 id="常见容器创建命令"><a href="#常见容器创建命令" class="headerlink" title="常见容器创建命令"></a>常见容器创建命令</h2><p><code>docker run -d -p 6379:6379 --name redis-master redis:latest redis-server --requirepass 1qaz2wsx</code> - 创建一个redis容器并设置密码为1qaz2wsx</p>
+<p><code>docker run -d -p 6380:6379 --link redis-master:redis-master --name redis-slave-1 redis:latest redis-server --slaveof redis-master 6379 --masterauth 1qaz2wsx</code> - 创建一个redis从机容器，并关联名称为redis-server的主机</p>
+<p><code>docker run -d -p 3306:3306 -v /root/docker/mysql/conf:/etc/mysql/mysql.conf.d -v /root/docker/mysql/data:/var/lib/mysql --name mysql57 -e &quot;MYSQL_ROOT_PASSWORD=123456&quot; mysql:5.7.29</code> - 创建一个MySQL的容器设置数据库密码为123456并将做数据备份</p>
+<h2 id="常见故障"><a href="#常见故障" class="headerlink" title="常见故障"></a>常见故障</h2><h3 id="docker启动后命令无法使用"><a href="#docker启动后命令无法使用" class="headerlink" title="docker启动后命令无法使用"></a>docker启动后命令无法使用</h3><p>报错：Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get <code>http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/json</code>: dial unix /var/run/docker.sock: connect: permission denied</p>
+<p>原因：docker进程使用Unix Socket而不是TCP端口。而默认情况下，Unix socket属于root用户，需要root权限才能访问。</p>
+<p>解决办法：</p>
+<ol>
+<li>获取root权限使用docker</li>
+<li>docker守护进程启动的时候，会默认赋予名字为docker的用户组读写Unix socket的权限，因此只要创建docker用户组，并将当前用户加入到docker用户组中，那么当前用户就有权限访问Unix socket了，进而也就可以执行docker相关命令</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker     <span class="comment">#添加docker用户组</span></span><br><span class="line">sudo gpasswd -a <span class="variable">$USER</span> docker     <span class="comment">#将登陆用户加入到docker用户组中</span></span><br><span class="line">newgrp docker     <span class="comment">#更新用户组</span></span><br><span class="line">docker ps    <span class="comment">#测试docker命令是否可以使用sudo正常使用</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/virtualbox_headless/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/virtualbox_headless/" class="post-title-link" itemprop="url">VirtualBox Headless后台运行Linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 13:16:21" itemprop="dateCreated datePublished" datetime="2020-05-08T13:16:21+08:00">2020-05-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%B8%8A%E6%89%8B/" itemprop="url" rel="index"><span itemprop="name">软件上手</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Windows下可能最好的Linux系统使用解决方案。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/virtualbox_headless/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/vba/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/vba/" class="post-title-link" itemprop="url">VBA小计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-07 10:36:26" itemprop="dateCreated datePublished" datetime="2020-05-07T10:36:26+08:00">2020-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-18 22:21:58" itemprop="dateModified" datetime="2020-12-18T22:21:58+08:00">2020-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>950</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="教程使用环境"><a href="#教程使用环境" class="headerlink" title="教程使用环境"></a>教程使用环境</h2><ul>
+<li>Windows10 insider 2004 19041.208</li>
+<li>Microsoft office 专业增强版 2019</li>
+</ul>
+<h2 id="录制宏方法"><a href="#录制宏方法" class="headerlink" title="录制宏方法"></a>录制宏方法</h2><p>在Excel中依次选择<code>视图&gt;宏&gt;录制宏</code>，填入名称和快捷键即可开始录制，会记录下接下来对excel表格的所有操作，对菜单操作不会记录；操作完后，点击<code>视图&gt;宏&gt;结束录制</code>，即可完成录制；可以通过查看录制进入Visual Basic for Application编辑界面</p>
+<h2 id="语法解释"><a href="#语法解释" class="headerlink" title="语法解释"></a>语法解释</h2><ul>
+<li><code>Dim a as Integer</code> - 定义变量</li>
+<li><code>a = 5</code> - 给变量赋值</li>
+<li><code>For i=5 to 30...Next</code> - for循环语句</li>
+<li><code>If 条件 then ... end if</code> - 条件判断语句</li>
+<li><code>selection.offset(x, y)</code> - 在当前选中的单元格基础上横跨y列，纵跨x行选中单元格。直接操作是操作其值。</li>
+<li><code>Selection.Row</code> - 获取当前行的行号</li>
+<li><code>Selection.Column</code> - 获取当前列的列号</li>
+<li><code>sheet1.cells(x, y)</code> - 通过行号和列号直接定位单元格，直接操作是对值进行操作。</li>
+</ul>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>以下代码实现了一个从第四行到第十一行对角线循环填充的功能</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 宏<span class="number">1</span>()</span><br><span class="line"><span class="comment">'</span></span><br><span class="line"><span class="comment">' 宏1 宏</span></span><br><span class="line"><span class="comment">'</span></span><br><span class="line"><span class="comment">' 快捷键: Ctrl+k</span></span><br><span class="line"><span class="comment">'</span></span><br><span class="line">    <span class="keyword">Dim</span> r As Integer</span><br><span class="line">    <span class="keyword">Dim</span> c As Integer</span><br><span class="line">    <span class="keyword">Dim</span> value As <span class="built_in">String</span></span><br><span class="line">    r = Selection.Row</span><br><span class="line">    c = Selection.Column</span><br><span class="line">    value = Selection.Offset(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">30</span>    </span><br><span class="line">        r = r + <span class="number">1</span></span><br><span class="line">        <span class="keyword">If</span> r &gt; <span class="number">11</span> <span class="keyword">Then</span></span><br><span class="line">        r = <span class="number">4</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span>    </span><br><span class="line">        Sheet1.Cells(r, j + c) = value</span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="全局使用"><a href="#全局使用" class="headerlink" title="全局使用"></a>全局使用</h2><p>创建宏的时候，如果需要全局使用该宏，需要用一下方法操作：</p>
+<ol>
+<li>创建时选择保存在<code>个人宏工作簿</code></li>
+<li>录制下宏操作，选择停止录制。</li>
+<li>如果需要编辑VBS代码，需要先选择<code>视图&gt;窗口&gt;取消隐藏</code>，会自动打开一个PERSONAL.XLSB的文件，在该文件中点击<code>查看宏&gt;编辑</code>即可进入VBS编辑界面。</li>
+<li>编辑完成后，保存退出宏界面，然后在PERSONAL.XLSB文件中选择<code>视图&gt;窗口&gt;隐藏</code>，该文件就会隐藏。</li>
+<li>在初始文件中就可以使用该宏，退出的时候，会弹窗是否保存PERSONAL.XLSB文件，选择保存即可。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/windows_cmder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/windows_cmder/" class="post-title-link" itemprop="url">Windows批处理命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 09:46:22" itemprop="dateCreated datePublished" datetime="2020-05-05T09:46:22+08:00">2020-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">系统入门</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>语法：<code>echo [on/off] [message]</code></p>
+<p>说明：打开关闭回显，或显示输出消息，后面不加参数则显示当前回显设置，</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo hello,world</span><br></pre></td></tr></table></figure>
+
+<p>备注：回显表示终端会显示当前这条命令内容，在命令前加@可以让当前命令不显示回显，只执行结果</p>
+<h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><p>语法：<code>rem 注释内容</code></p>
+<p>说明：注释掉后面的内容，不会执行，但是如果未关闭回显，该行内容会在终端显示</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rem 你好</span><br><span class="line">:: 你好</span><br></pre></td></tr></table></figure>
+
+<p>备注：rem会回显该行命令，::不会回显该行命令</p>
+<h3 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h3><p>语法：<code>pause</code></p>
+<p>说明：通常为暂停程序执行，在终端上显示按任意键继续…</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo hello,world</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><p>语法：<code>call [文件路径] [:label] [parameter]</code></p>
+<p>说明：调用执行另一个bat文件，文件路径用绝对路径应该从磁盘开始，如<code>C:\Users\stolenzc\Desktop\hello.bat</code>，可以使用标签进行跳转，功能类似goto，但是使用标签前面必须加冒号，也可以向bat文件传参，另一个bat文件通过传参顺序<code>%1</code>、<code>%2</code>、<code>%3</code>取参数。</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">call :label1 hello world</span><br><span class="line">echo 1</span><br><span class="line">:label1</span><br><span class="line">echo %2 %1</span><br><span class="line">rem 执行结果：world hello 1 echo打开状态</span><br><span class="line">------------分割线-----------------</span><br><span class="line">call C:\Users\stolenzc\Desktop\hello.bat</span><br></pre></td></tr></table></figure>
+
+<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p>语法：<code>start 程序文件名或dos命令</code></p>
+<p>说明：调用外部程序，所有DOS命令和命令行程序都可以在start后执行</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start calc.exe</span><br><span class="line">start shutdown -s -t 1000</span><br></pre></td></tr></table></figure>
+
+<h3 id="goto"><a href="#goto" class="headerlink" title="goto"></a>goto</h3><p>语法：<code>goto 标签</code></p>
+<p>说明：跳转到标签处继续向下执行</p>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:1</span><br><span class="line">start</span><br><span class="line">goto 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>语法：<code>set a=5</code>、<code>set a=</code></p>
+<p>说明：显示、设置或删除变量。</p>
+<p>参数：</p>
+<ul>
+<li>/A - 指定等号右边的字符串为数字表达式</li>
+<li>/P - 用户输入内容赋值给变量，等号右边可以设置输入提示</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set a=5</span><br><span class="line">echo %a%</span><br><span class="line">set a=</span><br><span class="line">echo %a%</span><br><span class="line">rem 执行结果：5 ECHO处于打开状态</span><br></pre></td></tr></table></figure>
+
+<p>备注：<code>set a=</code>表示删除变量，如果要使用变量前后需要加%</p>
+<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><p><code>@</code> - 本条命令在终端中关闭回显</p>
+<p><code>&gt;</code> - 将输出内容写入到文件中去</p>
+<p><code>&gt;&gt;</code> - 将输出内容追加到文件中去</p>
+<p><code>&lt;</code> - 将输入信息来源指定为设备或文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set /p ifo=&lt;a.txt</span><br></pre></td></tr></table></figure>
+
+<p><code>|</code> - 将管道前面的输出作为后面命令的输入</p>
+<p><code>^</code> - 将特殊符号进行转义，如<code>| &amp; &gt; &lt;</code></p>
+<p><code>%</code> - 转义<code>%</code>，如<code>%%</code>将输出<code>%</code></p>
+<p><code>&amp;</code> - 连接多个命令，前面无论成功失败都执行后面的</p>
+<p><code>&amp;&amp;</code> - 连接多个命令，前面成功时执行后面的</p>
+<p><code>||</code> - 连接多个命令，前面失败时执行后面的</p>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/network/" class="post-title-link" itemprop="url">网络相关技术点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-03 21:31:29" itemprop="dateCreated datePublished" datetime="2020-05-03T21:31:29+08:00">2020-05-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/network/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/edge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/edge/" class="post-title-link" itemprop="url">Edge上手</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-01 11:24:32" itemprop="dateCreated datePublished" datetime="2020-05-01T11:24:32+08:00">2020-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 22:14:14" itemprop="dateModified" datetime="2021-01-16T22:14:14+08:00">2021-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">软件</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>记录一些Edge插件和用法
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/edge/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
 
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-
+  }
 </script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-</script>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:12</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
-
 </html>

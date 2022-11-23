@@ -1,337 +1,1372 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
-
+<html lang="zh-CN">
 <head>
-	<meta name="generator" content="Hugo 0.103.1" /><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>stolen&#39;s blog</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
 
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://blog.stolenzc.com/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
+<link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
-<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://blog.stolenzc.com/index.xml">
-<link rel="alternate" type="application/json" href="https://blog.stolenzc.com/index.json">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-            .list {
-                background: var(--theme);
-            }
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
+  <meta name="description" content="一个热爱技术的Python开发者">
+<meta property="og:type" content="website">
+<meta property="og:title" content="stolen&#39;s blog">
+<meta property="og:url" content="https://blog.stolenzc.com/page/4/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="一个热爱技术的Python开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="stolen">
+<meta name="twitter:card" content="summary">
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
+<link rel="canonical" href="https://blog.stolenzc.com/page/4/">
 
-    </style>
-</noscript><meta property="og:title" content="stolen&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.stolenzc.com/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="stolen&#39;s blog"/>
-<meta name="twitter:description" content=""/>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "stolen's blog",
-  "url": "https://blog.stolenzc.com",
-  "description": "",
-  "thumbnailUrl": "https://blog.stolenzc.com/images/blog.png",
-  "sameAs": [
-      "https://github.com/stolenzc", "mailto:stolenzc@88.com"
-  ]
-}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
 </script>
+
+  <title>stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
-                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
-                    height="35">stolen&#39;s blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://blog.stolenzc.com/" title="主页">
-                    <span class="active"><i class='fa fa-home'>&ensp;</i>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/tags/" title="标签">
-                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/categories/" title="分类">
-                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/archives/" title="归档">
-                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/about/" title="关于">
-                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Auto.js自动化脚本开发
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>准备工具 Auto.js手机app 电脑开发推荐使用VScode 开发步骤 VScode编辑js脚本文件 VScode点击查看&gt;命令面板输入au...</p>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
-  <footer class="entry-footer"><span title='2020-04-25 22:58:32 +0000 UTC'>2020-04-25</span>&nbsp;·&nbsp;2240 字</footer>
-  <a class="entry-link" aria-label="post link to Auto.js自动化脚本开发" href="https://blog.stolenzc.com/2020/autojs/"></a>
-</article>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows10中AMD显卡开机黑屏问题
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法 AMD显卡开机黑屏 升级W...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-24 22:40:30 +0000 UTC'>2020-04-24</span>&nbsp;·&nbsp;409 字</footer>
-  <a class="entry-link" aria-label="post link to Windows10中AMD显卡开机黑屏问题" href="https://blog.stolenzc.com/2020/window_issue/"></a>
-</article>
+  <div class="site-meta">
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows必备的软件和安装方法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>软件合集 Listary Listary是一款Windows下非常好用的搜索工具，不论是搜文件，搜软件，速度都极快。下载地址：官网 软件分为免费版和pro版，...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-21 10:56:06 +0000 UTC'>2020-04-21</span>&nbsp;·&nbsp;2627 字</footer>
-  <a class="entry-link" aria-label="post link to Windows必备的软件和安装方法" href="https://blog.stolenzc.com/2020/windows_software_manual/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Ubuntu使用手册
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>便捷查询Ubuntu的一些命令和使用的一些问题 常用操作 更新软件源 管理员权限编辑/etc/apt/sources.list 阿里云的源、清华大学...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-20 08:37:59 +0000 UTC'>2020-04-20</span>&nbsp;·&nbsp;748 字</footer>
-  <a class="entry-link" aria-label="post link to Ubuntu使用手册" href="https://blog.stolenzc.com/2020/ubuntu/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows系统配置
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>关闭Windows Defender 定位到注册表计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Servic...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-18 21:10:30 +0000 UTC'>2020-04-18</span>&nbsp;·&nbsp;1361 字</footer>
-  <a class="entry-link" aria-label="post link to Windows系统配置" href="https://blog.stolenzc.com/2020/windows_config/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Windows启用WSL2
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Windows升级2004后，切换WSL1和WSL2的方法 系统版本 Windows：Windows10 2004 19041.207 Linux：Ubuntu 18.04LTS 20190521build 切换WS...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-17 10:41:21 +0000 UTC'>2020-04-17</span>&nbsp;·&nbsp;586 字</footer>
-  <a class="entry-link" aria-label="post link to Windows启用WSL2" href="https://blog.stolenzc.com/2020/wsl/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Hexo&#43;Next部署博客配置及注意事项
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Hexo &#43; Next搭建博客是许多人搭建博客的第一选择，但是要想搭建好博客，让其按照自己的想法进行展示，许多网上的资料要不就是老版本的，要不就是拷贝...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-14 09:44:12 +0000 UTC'>2020-04-14</span>&nbsp;·&nbsp;2806 字</footer>
-  <a class="entry-link" aria-label="post link to Hexo&#43;Next部署博客配置及注意事项" href="https://blog.stolenzc.com/2020/hexo_next/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Hexo博客搭建
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>利用github/gitee和node.js快捷进行个人博客的搭建。 1. 环境准备 git安装 Windows：进入git官网下载Windows安装...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-04-11 21:01:24 +0000 UTC'>2020-04-11</span>&nbsp;·&nbsp;1220 字</footer>
-  <a class="entry-link" aria-label="post link to Hexo博客搭建" href="https://blog.stolenzc.com/2020/hexo/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://blog.stolenzc.com/page/3/">
-      «&nbsp;上一页&nbsp;3/4
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
-  </nav>
-</footer>
-    </main>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
     
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/github/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/github/" class="post-title-link" itemprop="url">GitHub使用方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-27 20:35:40" itemprop="dateCreated datePublished" datetime="2020-04-27T20:35:40+08:00">2020-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 19:55:44" itemprop="dateModified" datetime="2021-01-16T19:55:44+08:00">2021-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">软件</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用GitHub的一些技巧
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/github/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/github_use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/github_use/" class="post-title-link" itemprop="url">GitHub使用方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-27 20:35:40" itemprop="dateCreated datePublished" datetime="2020-04-27T20:35:40+08:00">2020-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-16 19:55:44" itemprop="dateModified" datetime="2021-01-16T19:55:44+08:00">2021-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">软件</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用GitHub的一些技巧
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/github_use/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/windows_terminal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/windows_terminal/" class="post-title-link" itemprop="url">Windows Terminal使用技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-26 14:19:41" itemprop="dateCreated datePublished" datetime="2020-04-26T14:19:41+08:00">2020-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%B8%8A%E6%89%8B/" itemprop="url" rel="index"><span itemprop="name">软件上手</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Windows Terminal的一些使用教程和配置教程
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/windows_terminal/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/autojs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/autojs/" class="post-title-link" itemprop="url">Auto.js自动化脚本开发</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-25 22:58:32" itemprop="dateCreated datePublished" datetime="2020-04-25T22:58:32+08:00">2020-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-22 09:23:02" itemprop="dateModified" datetime="2021-04-22T09:23:02+08:00">2021-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h2><p><a href="https://stolenzc.lanzoui.com/iwN5Vhcxlkd" target="_blank" rel="noopener">Auto.js手机app</a></p>
+<p>电脑开发推荐使用<a href="/2020/vscode">VScode</a></p>
+<h2 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h2><p>VScode编辑js脚本文件</p>
+<p>VScode点击<code>查看&gt;命令面板</code>输入<code>auto.js:start server</code>启动服务；手机打开auto.js然后左滑打开连接电脑，输入电脑的ip地址（局域网地址），连接成功后VScode右下角会有弹出连接成功显示；电脑按<code>F5</code>键就可以将当前活动页代码发送到手机上执行。</p>
+<h2 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h2><p>VScode：</p>
+<ul>
+<li><code>auto.js:Start Server</code> - 启动远程操作服务</li>
+<li><code>auto.js:Stop Server</code> - 停止远程操作服务</li>
+<li><code>auto.js:Run</code> / <code>F5</code> - 在手机上运行当前活动页程序</li>
+<li><code>auto.js:Stop</code> - 在手机上停止当前活动页脚本</li>
+<li><code>auto.js:StopAll</code> - 停止手机上运行的所有脚本</li>
+<li><code>auto.js:Save</code> - 将当前文件保存到手机默认目录下</li>
+<li><code>auto.js:Run Project</code> - 在手机上运行项目</li>
+<li><code>auto.js:Save Project</code> - 在手机上保存项目</li>
+</ul>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><p>详细参考命令到<a href="https://hyb1996.github.io/AutoJs-Docs/#/" target="_blank" rel="noopener">Auto.js文档</a></p>
+<p><strong>注意</strong>：此处仅仅介绍本人用过的命令</p>
+<h3 id="一般全局函数"><a href="#一般全局函数" class="headerlink" title="一般全局函数"></a>一般全局函数</h3><ul>
+<li><code>sleep(n)</code> - 暂停运行n毫秒的时间</li>
+<li><code>home()</code> - 相当于点击安卓的home按键</li>
+<li><code>back()</code> - 相当于点击安卓的back按键</li>
+<li><code>toast(message)</code> - 以气泡显示信息message几秒，安卓一般为2秒</li>
+<li><code>exit()</code> - 立刻停止脚本运行</li>
+<li><code>setScreenMetrics(x, y)</code> - 设置屏幕分辨率</li>
+</ul>
+<h3 id="点击"><a href="#点击" class="headerlink" title="点击"></a>点击</h3><ul>
+<li><code>click(x, y)</code> - 点击指定的像素点</li>
+<li><code>click(text[, i])</code> - 点击文本，入过有多个，则点击第i个，i从0开始数，不指定则会将所有的文本点击一次，返回是否全部成功</li>
+<li><code>while(!click(&quot;扫一扫&quot;));</code> - 点击扫一扫，从文本处向其父视图寻找，直至发现一个可点击的部件为止。</li>
+<li><code>swipe(x1, y1, x2, y2, duration)</code> - 从(x1, y1)滑动到(x2, y2)，持续时间为duration毫秒</li>
+<li><code>press(x, y, duration)</code> - 长按(x, y)点，持续时间为duration毫秒</li>
+</ul>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li><code>launchApp(appName)</code> - 指定应用名启动应用，如“支付宝”</li>
+<li><code>launch(packageName)</code> - 指定应用的包名启动应用，如“com.eg.android.AlipayGphone”，该方法启动应用更快</li>
+</ul>
+<h3 id="图片和颜色"><a href="#图片和颜色" class="headerlink" title="图片和颜色"></a>图片和颜色</h3><ul>
+<li><code>requestScreenCapture([landscape])</code> - 获取截图权限，返回是否具有权限；landscape为false, 则表示竖屏截图; true为横屏截图；该方法只用执行一次</li>
+<li><code>captureScreen()</code> - 截取屏幕，返回一个image对象</li>
+<li><code>images.pixel(image, x, y)</code> - 返回image图片(x, y)位置的ARGB值，用0xAARRGGBB表示</li>
+<li><code>images.findColor(image, color, options)</code> - 区域找色，image中找color颜色，options为一个类似python字典的对象，region为区域，指定左上角x，y和区域的宽和高，threshold为颜色相似度，0为相同，255为所有颜色都相似，默认为4</li>
+<li><code>images.findColorInRegion(img, color, x, y[, width, height, threshold])</code> - 用法同findColor</li>
+<li><code>images.findImage(img, template[, options])</code> - 以图找图，img为原图，template为模板图，options和findColor用法相似；threshold图片相似度，取值范围为0~1的浮点数。默认值为0.9。region找图区域，用法和findColor一样，level默认不设置，会自动调整图片大小。</li>
+<li><code>images.findImageInRegion(img, template, x, y[, width, height, threshold])</code> - 用法和findImage一样</li>
+<li><code>colors.toString(color)</code> - 将颜色值转换为字符串</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>监控我的支付宝蚂蚁庄园是否有小鸡偷吃的脚本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"auto"</span>;</span><br><span class="line"><span class="comment">// 设置分辨率</span></span><br><span class="line">setScreenMetrics(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line"><span class="comment">// 获取竖屏截图权限</span></span><br><span class="line">requestScreenCapture(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">main();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    app.launch(<span class="string">"com.eg.android.AlipayGphone"</span>);</span><br><span class="line">    sleep(<span class="number">2000</span>);</span><br><span class="line">    <span class="comment">// 判断是否是主页</span></span><br><span class="line">    <span class="keyword">while</span>(!check_alipay_home())&#123;</span><br><span class="line">        back();</span><br><span class="line">        sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// check_ant_home();</span></span><br><span class="line">    watched_me();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查并进入支付宝首页</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_alipay_home</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> scan = text(<span class="string">'首页'</span>).findOnce();</span><br><span class="line">    <span class="keyword">var</span> pay = text(<span class="string">'理财'</span>).findOnce();</span><br><span class="line">    <span class="keyword">if</span>(scan != <span class="literal">null</span> &amp;&amp; pay != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!click(<span class="string">"首页"</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否进入了蚂蚁界面</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_ant_home</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!click(<span class="string">"蚂蚁庄园"</span>));</span><br><span class="line">    sleep(<span class="number">800</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> img = captureScreen();</span><br><span class="line">        <span class="keyword">var</span> color1 = images.pixel(img, <span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line">        <span class="keyword">var</span> colors1 = colors.toString(color1);</span><br><span class="line">        <span class="keyword">if</span>(colors1 == <span class="string">"#ffb7eaff"</span>)&#123;</span><br><span class="line">            sleep(<span class="number">500</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            sleep(<span class="number">500</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监控我的蚂蚁庄园</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">watched_me</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="comment">// 进入蚂蚁庄园主页</span></span><br><span class="line">        check_ant_home();</span><br><span class="line">        <span class="comment">// 获取截图</span></span><br><span class="line">        <span class="keyword">var</span> img = captureScreen();</span><br><span class="line">        <span class="comment">// 判断左右是否有小鸡</span></span><br><span class="line">        <span class="keyword">var</span> color1 = images.pixel(img, <span class="number">400</span>, <span class="number">1300</span>);</span><br><span class="line">        <span class="keyword">var</span> color2 = images.pixel(img, <span class="number">850</span>, <span class="number">1300</span>);</span><br><span class="line">        <span class="keyword">var</span> colors1 = colors.toString(color1);</span><br><span class="line">        <span class="keyword">var</span> colors2 = colors.toString(color2);</span><br><span class="line">        <span class="comment">// 如果有小鸡来了，播放歌曲后退出</span></span><br><span class="line">        <span class="keyword">if</span>(colors1==<span class="string">"#ff000000"</span> || colors2==<span class="string">"#ff000000"</span>)&#123;</span><br><span class="line">            media.playMusic(<span class="string">"/storage/emulated/0/MIUI/.ringtone/五月天 我不愿让你一个人_&amp;_5b2e2bd6-6230-45c4-a1a5-e2a6bcdcd4b2.mp3"</span>);</span><br><span class="line">            sleep(<span class="number">30000</span>);</span><br><span class="line">            exit();</span><br><span class="line">        &#125;</span><br><span class="line">        toast(colors1 + colors2)</span><br><span class="line">        back();</span><br><span class="line">        sleep(<span class="number">700</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>监控蚂蚁庄园前三名是否有小鸡偷吃的脚本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"auto"</span>;</span><br><span class="line"><span class="comment">// 设置分辨率</span></span><br><span class="line">setScreenMetrics(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line"><span class="comment">// 获取竖屏截图权限</span></span><br><span class="line">requestScreenCapture(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">main();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    app.launch(<span class="string">"com.eg.android.AlipayGphone"</span>);</span><br><span class="line">    sleep(<span class="number">2000</span>);</span><br><span class="line">    <span class="comment">// 判断是否是主页</span></span><br><span class="line">    <span class="keyword">while</span>(!check_alipay_home())&#123;</span><br><span class="line">        back();</span><br><span class="line">        sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// check_ant_home();</span></span><br><span class="line">    watched_other();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查并进入支付宝首页</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_alipay_home</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> scan = text(<span class="string">'首页'</span>).findOnce();</span><br><span class="line">    <span class="keyword">var</span> pay = text(<span class="string">'理财'</span>).findOnce();</span><br><span class="line">    <span class="keyword">if</span>(scan != <span class="literal">null</span> &amp;&amp; pay != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!click(<span class="string">"首页"</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否进入了蚂蚁界面</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_ant_home</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!click(<span class="string">"蚂蚁庄园"</span>));</span><br><span class="line">    sleep(<span class="number">800</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> img = captureScreen();</span><br><span class="line">        <span class="keyword">var</span> color1 = images.pixel(img, <span class="number">100</span>, <span class="number">200</span>);</span><br><span class="line">        <span class="keyword">var</span> colors1 = colors.toString(color1);</span><br><span class="line">        <span class="keyword">if</span>(colors1 == <span class="string">"#ffb7eaff"</span>)&#123;</span><br><span class="line">            sleep(<span class="number">500</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            sleep(<span class="number">500</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">watched_other</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    check_ant_home();</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="comment">// 点击小鸡庄园的好友</span></span><br><span class="line">        click(<span class="number">156</span>,<span class="number">1721</span>);</span><br><span class="line">        sleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="comment">// 截图</span></span><br><span class="line">        <span class="keyword">var</span> img = captureScreen();</span><br><span class="line">        <span class="comment">// 监控第一位好友</span></span><br><span class="line">        <span class="keyword">var</span> color1 = images.pixel(img,<span class="number">940</span>,<span class="number">1380</span>);</span><br><span class="line">        <span class="keyword">var</span> colors1 = colors.toString(color1);</span><br><span class="line">        <span class="comment">// 监控第二位好友</span></span><br><span class="line">        <span class="keyword">var</span> color2 = images.pixel(img,<span class="number">940</span>,<span class="number">1570</span>);</span><br><span class="line">        <span class="keyword">var</span> colors2 = colors.toString(color2);</span><br><span class="line">        <span class="comment">// 监控第三个好友</span></span><br><span class="line">        <span class="keyword">var</span> color3 = images.pixel(img,<span class="number">940</span>,<span class="number">1760</span>);</span><br><span class="line">        <span class="keyword">var</span> colors3 = colors.toString(color3);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断是否有小鸡来了，有小鸡来了像素点的值为#ff333333</span></span><br><span class="line">        <span class="keyword">if</span>(colors1==<span class="string">"#ff333333"</span> ||colors2==<span class="string">"#ff333333"</span> ||colors3==<span class="string">"#ff333333"</span> )&#123;</span><br><span class="line">            media.playMusic(<span class="string">"/storage/emulated/0/MIUI/.ringtone/五月天 我不愿让你一个人_&amp;_5b2e2bd6-6230-45c4-a1a5-e2a6bcdcd4b2.mp3"</span>);</span><br><span class="line">            sleep(<span class="number">30000</span>);</span><br><span class="line">            exit();</span><br><span class="line">        &#125;</span><br><span class="line">        toast(colors1 + colors2 + colors3)</span><br><span class="line">        back();</span><br><span class="line">        sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/window_issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/window_issue/" class="post-title-link" itemprop="url">Windows10中AMD显卡开机黑屏问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-24 22:40:30" itemprop="dateCreated datePublished" datetime="2020-04-24T22:40:30+08:00">2020-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%85%E9%9A%9C%E9%81%BF%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">故障避坑</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>417</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法</p>
+<h2 id="AMD显卡开机黑屏"><a href="#AMD显卡开机黑屏" class="headerlink" title="AMD显卡开机黑屏"></a>AMD显卡开机黑屏</h2><p>升级Windows10后，许多搭载AMD显卡的老机器开机的时候会有一到两分钟的黑屏时间，究其原因就是ulps导致的，一般解决办法有一下两种，一下办法提到的工具打包在<a href="https://stolenzc.lanzous.com/iwqk9hcxlve" target="_blank" rel="noopener">win10-amd_黑屏文件</a>：</p>
+<p>方法一：</p>
+<ol>
+<li>在控制面版中卸载AMD的显卡程序</li>
+<li>卸载完毕后，从win10设置-更新和安全-恢复-高级启动-立即重新启动中进入安全模式</li>
+<li>在安全模式中使用DDU，单机清除并重启（clear and restart）</li>
+<li>开机后，打开wushowhide.diagcab文件，选择hide updatas</li>
+<li>重新安装最新显卡驱动</li>
+</ol>
+<p>方法二：</p>
+<ol>
+<li>运行ULPS中的disable注册表文件</li>
+<li>选择重启（注意：不是关机，是重启）</li>
+<li>在桌面右键-显示卡属性-电源-可切换显示卡全局设置-还有其他省电方法，将前面的勾去掉</li>
+<li>先关机，再开机，在电源设置中将快速启动关闭。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/windows_software_manual/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/windows_software_manual/" class="post-title-link" itemprop="url">Windows必备的软件和安装方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-21 10:56:06" itemprop="dateCreated datePublished" datetime="2020-04-21T10:56:06+08:00">2020-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">系统入门</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>软件合集
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/windows_software_manual/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/ubuntu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/ubuntu/" class="post-title-link" itemprop="url">Ubuntu使用手册</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 08:37:59" itemprop="dateCreated datePublished" datetime="2020-04-20T08:37:59+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-25 20:51:56" itemprop="dateModified" datetime="2020-11-25T20:51:56+08:00">2020-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>便捷查询Ubuntu的一些命令和使用的一些问题
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/ubuntu/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/gwf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/gwf/" class="post-title-link" itemprop="url">科学上网法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 09:31:45" itemprop="dateCreated datePublished" datetime="2020-04-19T09:31:45+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%A0%E5%AF%86%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">加密手册</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>515</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          有东西被加密了, 请输入密码查看.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/gwf/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/windows_config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/windows_config/" class="post-title-link" itemprop="url">Windows系统配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 21:10:30" itemprop="dateCreated datePublished" datetime="2020-04-18T21:10:30+08:00">2020-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">系统入门</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="关闭Windows-Defender"><a href="#关闭Windows-Defender" class="headerlink" title="关闭Windows Defender"></a>关闭Windows Defender</h2><p>定位到注册表<code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SecurityHealthService</code>将start的值改为4即可。</p>
+<h2 id="仅关闭defender实时保护"><a href="#仅关闭defender实时保护" class="headerlink" title="仅关闭defender实时保护"></a>仅关闭defender实时保护</h2><p>注册表<code>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender</code>中新建DisableAntiSpyware，并双击赋值为1</p>
+<h2 id="右下角时间显示秒"><a href="#右下角时间显示秒" class="headerlink" title="右下角时间显示秒"></a>右下角时间显示秒</h2><ol>
+<li>定位到<code>计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced</code><br> 新建“DWORD 值”键入 ShowSecondsInSystemClock，修改“值”为1</li>
+<li>重启电脑</li>
+</ol>
+<h2 id="锁屏界面设置显示秒"><a href="#锁屏界面设置显示秒" class="headerlink" title="锁屏界面设置显示秒"></a>锁屏界面设置显示秒</h2><ol>
+<li><p>控制面板中’更改时间日期、数字格式&gt;格式-其他设置&gt;时间-时间格式-短格式:H:mm:ss</p>
+</li>
+<li><p>重启电脑</p>
+</li>
+</ol>
+<h2 id="完全控制面板"><a href="#完全控制面板" class="headerlink" title="完全控制面板"></a>完全控制面板</h2><p>新建文件夹命名为:<code>GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}</code></p>
+<h2 id="更改字体"><a href="#更改字体" class="headerlink" title="更改字体"></a>更改字体</h2><p>定位到<code>\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts</code>:(<code>Microsoft YaHei &amp; Microsoft YaHei UI (TrueType)</code>)和(<code>Microsoft YaHei Bold &amp; Microsoft YaHei UI Bold(TrueType)</code>)改为自己喜欢的字体即可.</p>
+<h2 id="关闭资源管理器多余的图标"><a href="#关闭资源管理器多余的图标" class="headerlink" title="关闭资源管理器多余的图标"></a>关闭资源管理器多余的图标</h2><ol>
+<li>打开注册表编辑器</li>
+<li>搜索并定位到 <code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions</code>，此时你会看到很多长字符串；</li>
+<li>我们的目的就是找出其中代表6个置顶文件夹的字符串，然后将其子项“PropertyBag”中的“ThisPCPolicy”由show改为Hide即可，具体对应关系如下：<ul>
+<li>图片：<code>{0ddd015d-b06c-45d5-8c4c-f59713854639}＼PropertyBag</code></li>
+<li>视频：<code>{35286a68-3c57-41a1-bbb1-0eae73d76c95}＼PropertyBag</code></li>
+<li>下载：<code>{7d83ee9b-2244-4e70-b1f5-5393042af1e4}＼PropertyBag</code></li>
+<li>音乐：<code>{a0c69a99-21c8-4671-8703-7934162fcf1d}＼PropertyBag</code></li>
+<li>桌面：<code>{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}＼PropertyBag</code></li>
+<li>文档：<code>{f42ee2d3-909f-4907-8871-4c22fc0bf756}＼PropertyBag</code></li>
+</ul>
+</li>
+<li>删除3D对象，<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\</code><br>找到<code>{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}</code>，删除它</li>
+</ol>
+<h2 id="卸载自带软件"><a href="#卸载自带软件" class="headerlink" title="卸载自带软件"></a>卸载自带软件</h2><p>以管理员身份运行powershell执行命令</p>
+<p><code>Get-AppxPackage | Select Name, PackageFullName</code> - 获取软件包名</p>
+<p>人脉：<code>get-appxpackage *Microsoft.People* | remove-appxpackage</code></p>
+<p>获取帮助：<code>get-appxpackage *Microsoft.GetHelp* | remove-appxpackage</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
 
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-
+  }
 </script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-</script>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:12</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
-
 </html>

@@ -1,307 +1,276 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>HTTPS加密原理 | stolen&#39;s blog</title>
-<meta name="keywords" content="TCP, HTTPS">
-<meta name="description" content="HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区">
-<meta name="author" content="">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="HTTPS传输的加密使用https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区别 默认端口，HTTP是80，HTTPS是443 传输协议，http是超文本传输协议，属于明文传输；https是安全的超文本传输协议，是经过SSL加密后的传输协议 安全性，https使用了TLS&#x2F;SSL，比http更安全 证书，https需要申请ca证书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS加密原理">
+<meta property="og:url" content="https://blog.stolenzc.com/2022/https/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="HTTPS传输的加密使用https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区别 默认端口，HTTP是80，HTTPS是443 传输协议，http是超文本传输协议，属于明文传输；https是安全的超文本传输协议，是经过SSL加密后的传输协议 安全性，https使用了TLS&#x2F;SSL，比http更安全 证书，https需要申请ca证书">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-16T15:00:20.000Z">
+<meta property="article:modified_time" content="2022-05-16T15:00:20.000Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="TCP">
+<meta property="article:tag" content="HTTPS">
+<meta name="twitter:card" content="summary">
+
 <link rel="canonical" href="https://blog.stolenzc.com/2022/https/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
-<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="HTTPS加密原理" />
-<meta property="og:description" content="HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.stolenzc.com/2022/https/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-05-16T23:00:20+00:00" />
-<meta property="article:modified_time" content="2022-05-16T23:00:20+00:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="HTTPS加密原理"/>
-<meta name="twitter:description" content="HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区"/>
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://blog.stolenzc.com/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "HTTPS加密原理",
-      "item": "https://blog.stolenzc.com/2022/https/"
-    }
-  ]
-}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "HTTPS加密原理",
-  "name": "HTTPS加密原理",
-  "description": "HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密 https在进行证书验证阶段使用的是非对称加密 HTTP与HTTPS的区",
-  "keywords": [
-    "TCP", "HTTPS"
-  ],
-  "articleBody": "HTTPS传输的加密使用 https在进行内容传输的时候使用的是对称加密\nhttps在进行证书验证阶段使用的是非对称加密\nHTTP与HTTPS的区别 默认端口，HTTP是80，HTTPS是443 传输协议，http是超文本传输协议，属于明文传输；https是安全的超文本传输协议，是经过SSL加密后的传输协议 安全性，https使用了TLS/SSL，比http更安全 证书，https需要申请ca证书 HTTPS的加密是在传输层完成的，因为SSL是位于传输层的，TLS的前身是SSL。 HTTP的通信过程 作为标准的C/S模型，http协议总是由客户端发起，服务器进行响应。\nDNS解析，域名系统DNS将域名解析成IP地址 建立TCP连接，进行TCP的三次握手 浏览器发送请求 服务器响应浏览器，向浏览器发送数据 通信完成，TCP连接关闭 HTTPS的通信过程 https主要在http的2和3之间，建立了一个加密的连接，这个连接使用了TLS/SSL协议，它是一个安全的传输协议，它的加密使用了对称加密，而不是非对称加密。\n通信过程如下 ：\nDNS解析，域名系统DNS将域名解析成IP地址 客户端和服务器端通过TCP建立连接，并发送https请求。 客户端发起TLS握手，向服务端发送ClientHello消息， 客户端支持的SSL/TLS版本 客户端支持的加密套件，比如RSA加密算法 会话session id，（如果有的值的话，服务器端会复用对应的握手信息，避免短时间内重复握手） 客户端随机数，用于生成随机密钥 服务器收到ClientHello消息，向客户端发送ServerHello消息 服务器所能支持的最高SSL/TLS版本 服务器选择的加密套件列表，比如RSA加密算法 服务器随机数，用于生成随机密钥 服务器的ca证书 客户端收到ServerHello后，会对收到的证书进行验证。包括验证证书机构、有效期等，验证证书的合法性验证 验证成功后，Client生成随机数，用于密钥交换过程。客户端会从数字证书中取出服务器的公钥，然后使用它加密报文该随机数，发送到服务器 服务器使用私钥解密。获取客户端发送的随机数 客户端使用这三个随机数一起计算出对称加密密钥，同理服务端也可以计算出这个加密密钥。客户端和服务端都计算出加密密钥master secret 客户端用master secret加密了一条握手完成的消息发送给服务器 服务器端也回发了一条用master secret加密的握手完成的消息 服务器将发送的内容用master secret加密，然后发送给客户端 客户端使用master secret解密收到的消息 ",
-  "wordCount" : "1061",
-  "inLanguage": "zh",
-  "datePublished": "2022-05-16T23:00:20Z",
-  "dateModified": "2022-05-16T23:00:20Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://blog.stolenzc.com/2022/https/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "stolen's blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://blog.stolenzc.com/images/blog.png"
-    }
+
+  <title>HTTPS加密原理 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
   }
-}
-</script>
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-</script>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
-                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
-                    height="35">stolen&#39;s blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://blog.stolenzc.com/" title="主页">
-                    <span><i class='fa fa-home'>&ensp;</i>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/tags/" title="标签">
-                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/categories/" title="分类">
-                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/archives/" title="归档">
-                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/about/" title="关于">
-                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+  <div class="site-meta">
 
-<article class="post-single">
-  <header class="post-header">
-    
-    <h1 class="post-title">
-      HTTPS加密原理
-    </h1>
-    <div class="post-meta"><span title='2022-05-16 23:00:20 +0000 UTC'>2022-05-16</span>&nbsp;·&nbsp;1061 字
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
-  </header> <aside id="toc-container" class="toc-container wide">
-    <div class="toc">
-        <details  open>
-            <summary accesskey="c" title="(Alt + C)">
-                <span class="details">目录</span>
-            </summary>
+    </header>
 
-            <div class="inner"><ul>
-                    <li>
-                        <a href="#https%e4%bc%a0%e8%be%93%e7%9a%84%e5%8a%a0%e5%af%86%e4%bd%bf%e7%94%a8" aria-label="HTTPS传输的加密使用">HTTPS传输的加密使用</a></li>
-                    <li>
-                        <a href="#http%e4%b8%8ehttps%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="HTTP与HTTPS的区别">HTTP与HTTPS的区别</a></li>
-                    <li>
-                        <a href="#http%e7%9a%84%e9%80%9a%e4%bf%a1%e8%bf%87%e7%a8%8b" aria-label="HTTP的通信过程">HTTP的通信过程</a></li>
-                    <li>
-                        <a href="#https%e7%9a%84%e9%80%9a%e4%bf%a1%e8%bf%87%e7%a8%8b" aria-label="HTTPS的通信过程">HTTPS的通信过程</a>
-                    </li>
-                </ul>
-            </div>
-        </details>
-    </div>
-</aside>
-<script>
-    let activeElement;
-    let elements;
-    window.addEventListener('DOMContentLoaded', function (event) {
-        checkTocPosition();
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
-         
-         activeElement = elements[0];
-         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
-         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-     }, false);
 
-    window.addEventListener('resize', function(event) {
-        checkTocPosition();
-    }, false);
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    window.addEventListener('scroll', () => {
-        
-        activeElement = Array.from(elements).find((element) => {
-            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
-                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
-                return element;
-            }
-        }) || activeElement
+          <div class="content post posts-expand">
+            
 
-        elements.forEach(element => {
-             const id = encodeURI(element.getAttribute('id')).toLowerCase();
-             if (element === activeElement){
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-             } else {
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
-             }
-         })
-     }, false);
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2022/https/">
 
-    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
-    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
-    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
 
-    function checkTocPosition() {
-        const width = document.body.scrollWidth;
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTTPS加密原理
+        </h1>
 
-        if (width - main - (toc * 2) - (gap * 4) > 0) {
-            document.getElementById("toc-container").classList.add("wide");
-        } else {
-            document.getElementById("toc-container").classList.remove("wide");
-        }
-    }
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-    function getOffsetTop(element) {
-        if (!element.getClientRects().length) {
-            return 0;
-        }
-        let rect = element.getBoundingClientRect();
-        let win = element.ownerDocument.defaultView;
-        return rect.top + win.pageYOffset;   
-    }
-</script>
+              <time title="创建时间：2022-05-16 23:00:20" itemprop="dateCreated datePublished" datetime="2022-05-16T23:00:20+08:00">2022-05-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
 
-  <div class="post-content"><h2 id="https传输的加密使用">HTTPS传输的加密使用<a hidden class="anchor" aria-hidden="true" href="#https传输的加密使用">#</a></h2>
-<p>https在进行内容传输的时候使用的是对称加密</p>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="HTTPS传输的加密使用"><a href="#HTTPS传输的加密使用" class="headerlink" title="HTTPS传输的加密使用"></a>HTTPS传输的加密使用</h2><p>https在进行内容传输的时候使用的是对称加密</p>
 <p>https在进行证书验证阶段使用的是非对称加密</p>
-<h2 id="http与https的区别">HTTP与HTTPS的区别<a hidden class="anchor" aria-hidden="true" href="#http与https的区别">#</a></h2>
-<ul>
+<h2 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h2><ul>
 <li>默认端口，HTTP是80，HTTPS是443</li>
 <li>传输协议，http是超文本传输协议，属于明文传输；https是安全的超文本传输协议，是经过SSL加密后的传输协议</li>
 <li>安全性，https使用了TLS/SSL，比http更安全</li>
 <li>证书，https需要申请ca证书</li>
 <li>HTTPS的加密是在传输层完成的，因为SSL是位于传输层的，TLS的前身是SSL。</li>
 </ul>
-<h2 id="http的通信过程">HTTP的通信过程<a hidden class="anchor" aria-hidden="true" href="#http的通信过程">#</a></h2>
-<p>作为标准的C/S模型，http协议总是由客户端发起，服务器进行响应。</p>
+<h2 id="HTTP的通信过程"><a href="#HTTP的通信过程" class="headerlink" title="HTTP的通信过程"></a>HTTP的通信过程</h2><p>作为标准的C/S模型，http协议总是由客户端发起，服务器进行响应。</p>
 <ol>
 <li>DNS解析，域名系统DNS将域名解析成IP地址</li>
 <li>建立TCP连接，进行TCP的三次握手</li>
@@ -309,22 +278,19 @@
 <li>服务器响应浏览器，向浏览器发送数据</li>
 <li>通信完成，TCP连接关闭</li>
 </ol>
-<h2 id="https的通信过程">HTTPS的通信过程<a hidden class="anchor" aria-hidden="true" href="#https的通信过程">#</a></h2>
-<p>https主要在http的2和3之间，建立了一个加密的连接，这个连接使用了TLS/SSL协议，它是一个安全的传输协议，它的加密使用了对称加密，而不是非对称加密。</p>
+<h2 id="HTTPS的通信过程"><a href="#HTTPS的通信过程" class="headerlink" title="HTTPS的通信过程"></a>HTTPS的通信过程</h2><p>https主要在http的2和3之间，建立了一个加密的连接，这个连接使用了TLS/SSL协议，它是一个安全的传输协议，它的加密使用了对称加密，而不是非对称加密。</p>
 <p>通信过程如下 ：</p>
 <ol>
 <li>DNS解析，域名系统DNS将域名解析成IP地址</li>
 <li>客户端和服务器端通过TCP建立连接，并发送https请求。</li>
-<li>客户端发起TLS握手，向服务端发送<code>ClientHello</code>消息，
-<ul>
+<li>客户端发起TLS握手，向服务端发送<code>ClientHello</code>消息，<ul>
 <li>客户端支持的SSL/TLS版本</li>
 <li>客户端支持的加密套件，比如RSA加密算法</li>
 <li>会话session id，（如果有的值的话，服务器端会复用对应的握手信息，避免短时间内重复握手）</li>
 <li>客户端随机数，用于生成随机密钥</li>
 </ul>
 </li>
-<li>服务器收到<code>ClientHello</code>消息，向客户端发送<code>ServerHello</code>消息
-<ul>
+<li>服务器收到<code>ClientHello</code>消息，向客户端发送<code>ServerHello</code>消息<ul>
 <li>服务器所能支持的最高SSL/TLS版本</li>
 <li>服务器选择的加密套件列表，比如RSA加密算法</li>
 <li>服务器随机数，用于生成随机密钥</li>
@@ -341,146 +307,273 @@
 <li>客户端使用<code>master secret</code>解密收到的消息</li>
 </ol>
 
+    </div>
 
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TCP/" rel="tag"># TCP</a>
+              <a href="/tags/HTTPS/" rel="tag"># HTTPS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/python_datetime/" rel="prev" title="Python中时间操作">
+      <i class="fa fa-chevron-left"></i> Python中时间操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/oauth2/" rel="next" title="OAuth2.0认证">
+      OAuth2.0认证 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://blog.stolenzc.com/tags/tcp/">TCP</a></li>
-      <li><a href="https://blog.stolenzc.com/tags/https/">HTTPS</a></li>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS传输的加密使用"><span class="nav-number">1.</span> <span class="nav-text">HTTPS传输的加密使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP与HTTPS的区别"><span class="nav-number">2.</span> <span class="nav-text">HTTP与HTTPS的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP的通信过程"><span class="nav-number">3.</span> <span class="nav-text">HTTP的通信过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS的通信过程"><span class="nav-number">4.</span> <span class="nav-text">HTTPS的通信过程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
     </ul>
-<nav class="paginav">
-  <a class="prev" href="https://blog.stolenzc.com/2022/oauth2/">
-    <span class="title">« 上一页</span>
-    <br>
-    <span>OAuth2.0认证</span>
-  </a>
-  <a class="next" href="https://blog.stolenzc.com/2021/python_datetime/">
-    <span class="title">下一页 »</span>
-    <br>
-    <span>Python中时间操作</span>
-  </a>
-</nav>
+  </div>
 
-  </footer>
-</article>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
     </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
     </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:12</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
 
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '复制';
 
-        function copyingDone() {
-            copybutton.innerHTML = '已复制！';
-            setTimeout(() => {
-                copybutton.innerHTML = '复制';
-            }, 2000);
-        }
 
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
 
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
 
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
-
 </html>

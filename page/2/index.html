@@ -1,363 +1,1474 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
-
+<html lang="zh-CN">
 <head>
-	<meta name="generator" content="Hugo 0.103.1" /><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>stolen&#39;s blog</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
 
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="canonical" href="https://blog.stolenzc.com/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
+<link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
-<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://blog.stolenzc.com/index.xml">
-<link rel="alternate" type="application/json" href="https://blog.stolenzc.com/index.json">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-            .list {
-                background: var(--theme);
-            }
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
+  <meta name="description" content="一个热爱技术的Python开发者">
+<meta property="og:type" content="website">
+<meta property="og:title" content="stolen&#39;s blog">
+<meta property="og:url" content="https://blog.stolenzc.com/page/2/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="一个热爱技术的Python开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="stolen">
+<meta name="twitter:card" content="summary">
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
+<link rel="canonical" href="https://blog.stolenzc.com/page/2/">
 
-    </style>
-</noscript><meta property="og:title" content="stolen&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.stolenzc.com/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="stolen&#39;s blog"/>
-<meta name="twitter:description" content=""/>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "stolen's blog",
-  "url": "https://blog.stolenzc.com",
-  "description": "",
-  "thumbnailUrl": "https://blog.stolenzc.com/images/blog.png",
-  "sameAs": [
-      "https://github.com/stolenzc", "mailto:stolenzc@88.com"
-  ]
-}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
 </script>
+
+  <title>stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
-                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
-                    height="35">stolen&#39;s blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://blog.stolenzc.com/" title="主页">
-                    <span class="active"><i class='fa fa-home'>&ensp;</i>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/tags/" title="标签">
-                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/categories/" title="分类">
-                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/archives/" title="归档">
-                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/about/" title="关于">
-                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>网络技术提升
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>网络互联模型 层数 OSI七层参考模型 TCP/IP协议模型 学习研究模型 请求过程数据封装 7 应用层(Application) 应用层(Applicat...</p>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
-  <footer class="entry-footer"><span title='2021-04-08 10:30:07 +0000 UTC'>2021-04-08</span>&nbsp;·&nbsp;1903 字</footer>
-  <a class="entry-link" aria-label="post link to 网络技术提升" href="https://blog.stolenzc.com/2021/test_network_improve/"></a>
-</article>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Software Manual
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>通用跨平台软件介绍和一些配置 Hyper 简介：一款界面美观的terminal命令行工具，基于Electorn开发，三大桌面平台均支持，而且支持插件安装...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-12-16 20:33:44 +0000 UTC'>2020-12-16</span>&nbsp;·&nbsp;243 字</footer>
-  <a class="entry-link" aria-label="post link to Software Manual" href="https://blog.stolenzc.com/2020/software_manual/"></a>
-</article>
+  <div class="site-meta">
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>MySQL索引原理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>MySQL索引相关内容 存储引擎 数据结构可视化查看 聚合索引和分散索引 B&#43;树结构 hash索引 特点：对索引对key值进行一次hash计算就可以定位...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-11-09 09:03:05 +0000 UTC'>2020-11-09</span>&nbsp;·&nbsp;1679 字</footer>
-  <a class="entry-link" aria-label="post link to MySQL索引原理" href="https://blog.stolenzc.com/2020/test_mysql_improve/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Node使用及其管理
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Node使用和管理相关方法和命令 nvm 安装 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash nvm配置源 sudo find / -name nvm.sh - 找到nvm.sh文件的位置。通常在 ~/nvm/nvm.sh 下 找到 NVM_NODEJS_ORG_MIRROR 将后面的地址改为http...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-10-13 22:04:16 +0000 UTC'>2020-10-13</span>&nbsp;·&nbsp;235 字</footer>
-  <a class="entry-link" aria-label="post link to Node使用及其管理" href="https://blog.stolenzc.com/2020/node/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>VIM
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>💡VIM从入门到精通 1. 汇总操作 退出VIM 通过命令行模式退出 命令 说明 命令 说明 :q 退出 :q! 强制退出，不保存 :wq 保存并退出 :wq! 强制保存并退出 :w &lt;文件...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-10-05 15:24:10 +0000 UTC'>2020-10-05</span>&nbsp;·&nbsp;2855 字</footer>
-  <a class="entry-link" aria-label="post link to VIM" href="https://blog.stolenzc.com/2020/vim/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>MacOS使用
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>快捷键 按键 行为 按键 行为 command &#43; shift &#43; 3 系统截屏，并保存到桌面 command &#43; control &#43; a 微信截屏（需要设置） command &#43; fn &#43; F3 显示桌面 command &#43; tab 快速切换应用 command &#43; tab &#43; alt &#43; enter 打开最...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-23 09:20:20 +0000 UTC'>2020-05-23</span>&nbsp;·&nbsp;1410 字</footer>
-  <a class="entry-link" aria-label="post link to MacOS使用" href="https://blog.stolenzc.com/2020/mac/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>VSCode的使用
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>基础配置 settings.json（首选项，打开设置）的配置： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 { &#34;editor.fontSize&#34;: 18, &#34;editor.wordWrap&#34;: &#34;on&#34;, &#34;editor.rulers&#34;: [ 100 ], &#34;editor.renderControlCharacters&#34;: true, &#34;editor.renderWhitespace&#34;: &#34;all&#34;, &#34;terminal.integrated.cursorBlinking&#34;: true, &#34;terminal.integrated.cursorStyle&#34;: &#34;line&#34;,...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-22 16:01:38 +0000 UTC'>2020-05-22</span>&nbsp;·&nbsp;1655 字</footer>
-  <a class="entry-link" aria-label="post link to VSCode的使用" href="https://blog.stolenzc.com/2020/vscode/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>DRF的Serializer
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>快速搞懂DRF并方便的使用 名词释义 序列化：模型转换为json，即对象-字典-json 反序列化：json转换为模型，即json-字典-对象 字段...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-21 00:27:57 +0000 UTC'>2020-05-21</span>&nbsp;·&nbsp;1158 字</footer>
-  <a class="entry-link" aria-label="post link to DRF的Serializer" href="https://blog.stolenzc.com/2020/drf_serializer/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Swagger编写API文档的YMAL文件语法
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>使用Swagger编写接口文档语法示例 官方openapi3.0规范访问：About Swagger Specification 1 2 3 4 5 swagger: &#34;2.0&#34; info: description: &#34;this is a api for authenticating users and binding cloud accounts.&#34; version: &#34;1.0.0&#34; title: &#34;Auth api&#34; swagger: “...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-17 09:55:48 +0000 UTC'>2020-05-17</span>&nbsp;·&nbsp;3278 字</footer>
-  <a class="entry-link" aria-label="post link to Swagger编写API文档的YMAL文件语法" href="https://blog.stolenzc.com/2020/swagger/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>GitHub 开发流程
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>详细介绍一些Git的工作流程步骤和相关的命令 流程 GitHub flow算是一种相对简单的Git工作流程，主要步骤为下： 其中上游分仓库称为upstream...</p>
-  </div>
-  <footer class="entry-footer"><span title='2020-05-15 15:18:23 +0000 UTC'>2020-05-15</span>&nbsp;·&nbsp;1294 字</footer>
-  <a class="entry-link" aria-label="post link to GitHub 开发流程" href="https://blog.stolenzc.com/2020/github_flow/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://blog.stolenzc.com/">
-      «&nbsp;上一页&nbsp;1/4
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
-    <a class="next" href="https://blog.stolenzc.com/page/3/">下一页&nbsp;3/4&nbsp;»
-    </a>
-  </nav>
-</footer>
-    </main>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
     
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/software_manual/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/software_manual/" class="post-title-link" itemprop="url">Software Manual</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-16 20:33:44" itemprop="dateCreated datePublished" datetime="2020-12-16T20:33:44+08:00">2020-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%B8%8A%E6%89%8B/" itemprop="url" rel="index"><span itemprop="name">软件上手</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>404</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>通用跨平台软件介绍和一些配置
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/software_manual/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/mysql_install_issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/mysql_install_issue/" class="post-title-link" itemprop="url">MySQL安装避坑</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-02 12:35:52" itemprop="dateCreated datePublished" datetime="2020-11-02T12:35:52+08:00">2020-11-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%97%AE%E9%A2%98%E9%81%BF%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">问题避坑</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>215</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>安装MySQL可能会遇到的一些错误总结
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/mysql_install_issue/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/node/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/node/" class="post-title-link" itemprop="url">Node使用及其管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-13 22:04:16" itemprop="dateCreated datePublished" datetime="2020-10-13T22:04:16+08:00">2020-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>498</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Node使用和管理相关方法和命令
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/node/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/vim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/vim/" class="post-title-link" itemprop="url">VIM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-05 15:24:10" itemprop="dateCreated datePublished" datetime="2020-10-05T15:24:10+08:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>💡VIM从入门到精通
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/vim/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/mac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/mac/" class="post-title-link" itemprop="url">MacOS使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-23 09:20:20" itemprop="dateCreated datePublished" datetime="2020-05-23T09:20:20+08:00">2020-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-22 09:23:58" itemprop="dateModified" datetime="2021-04-22T09:23:58+08:00">2021-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>行为</th>
+<th>按键</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>command + shift + 3</code></td>
+<td>系统截屏，并保存到桌面</td>
+<td><code>command + control + a</code></td>
+<td>微信截屏（需要设置）</td>
+</tr>
+<tr>
+<td><code>command + fn + F3</code></td>
+<td>显示桌面</td>
+<td><code>command + tab</code></td>
+<td>快速切换应用</td>
+</tr>
+<tr>
+<td><code>command + tab + alt + enter</code></td>
+<td>打开最小化的应用</td>
+<td><code>command + M</code></td>
+<td>最小化应用</td>
+</tr>
+<tr>
+<td><code>command + left</code></td>
+<td>回到开始，Home</td>
+<td><code>command + right</code></td>
+<td>到最后，End</td>
+</tr>
+<tr>
+<td><code>option + left</code></td>
+<td>到上一个单词开头</td>
+<td><code>option + right</code></td>
+<td>到下一个单词结尾</td>
+</tr>
+<tr>
+<td><code>control + left</code></td>
+<td>到上一个桌面</td>
+<td><code>control + right</code></td>
+<td>到下一个桌面</td>
+</tr>
+<tr>
+<td><code>fn + left</code></td>
+<td>跳到文章开头</td>
+<td><code>fn + right</code></td>
+<td>跳到文章结尾</td>
+</tr>
+<tr>
+<td><code>fn + up</code></td>
+<td>到上一页</td>
+<td><code>fn + down</code></td>
+<td>到下一页</td>
+</tr>
+<tr>
+<td><code>command + s</code></td>
+<td>保存文件</td>
+<td><code>command + c</code></td>
+<td>复制</td>
+</tr>
+<tr>
+<td><code>command + v</code></td>
+<td>粘贴</td>
+<td><code>command + x</code></td>
+<td>剪切</td>
+</tr>
+<tr>
+<td><code>command + space</code></td>
+<td>聚焦搜索，全局搜索软件或文件</td>
+<td><code>control + command + Q</code></td>
+<td>快捷锁屏，和QQ快捷键冲突</td>
+</tr>
+<tr>
+<td><code>control + a</code></td>
+<td>转到行首（命令行下）</td>
+<td><code>control + e</code></td>
+<td>转到行尾（命令行下）</td>
+</tr>
+<tr>
+<td><code>command + Q</code></td>
+<td>关闭活动程序</td>
+<td><code>command + W</code></td>
+<td>关闭活动窗口</td>
+</tr>
+</tbody></table>
+<h2 id="触控板"><a href="#触控板" class="headerlink" title="触控板"></a>触控板</h2><table>
+<thead>
+<tr>
+<th>动作</th>
+<th>行为</th>
+<th>动作</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>双指左右滑动</code></td>
+<td>切换页面</td>
+<td><code>双指从右边缘向左滑动</code></td>
+<td>唤出通知中心</td>
+</tr>
+<tr>
+<td><code>三只下划</code></td>
+<td>聚焦当前应用</td>
+<td><code>三指上划</code></td>
+<td>平铺打开的应用</td>
+</tr>
+<tr>
+<td><code>四指内合</code></td>
+<td>调出启动台</td>
+<td><code>四指张开</code></td>
+<td>显示桌面（在非全屏状态下）</td>
+</tr>
+<tr>
+<td><code>三指左右滑动</code></td>
+<td>切换页面</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Brew命令"><a href="#Brew命令" class="headerlink" title="Brew命令"></a>Brew命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>brew ls</code></td>
+<td>查看本地安装的软件</td>
+</tr>
+<tr>
+<td><code>brew search</code></td>
+<td>搜索软件</td>
+</tr>
+<tr>
+<td><code>brew -v</code></td>
+<td>查看brew的版本</td>
+</tr>
+<tr>
+<td><code>brew update</code></td>
+<td>升级brew</td>
+</tr>
+<tr>
+<td><code>brew install 软件名</code></td>
+<td>安装软件</td>
+</tr>
+<tr>
+<td><code>brew remove 软件名</code></td>
+<td>卸载软件</td>
+</tr>
+</tbody></table>
+<p>brew 彻底卸载软件方法</p>
+<blockquote>
+<p><code>brew tap beeftornado/rmtree</code> - 安装rmtree<br><code>brew rmtree 软件名</code> - 删除软件<br><code>brew cleanup</code> - 清理缓存</p>
+</blockquote>
+<h2 id="必备软件"><a href="#必备软件" class="headerlink" title="必备软件"></a>必备软件</h2><h3 id="scroll-reverser"><a href="#scroll-reverser" class="headerlink" title="scroll reverser"></a>scroll reverser</h3><p>解决鼠标滑动方向是反着的问题，下载地址：<a href="https://pilotmoon.com/scrollreverser/" target="_blank" rel="noopener">scroll reverser官网</a></p>
+<h3 id="Trojan-X"><a href="#Trojan-X" class="headerlink" title="Trojan X"></a>Trojan X</h3><p>Mac 下科学上网软件，好用方便，下载地址：<a href="https://github.com/JimLee1996/TrojanX/releases" target="_blank" rel="noopener">JimLee1996的github</a></p>
+<h3 id="sequel-pro"><a href="#sequel-pro" class="headerlink" title="sequel pro"></a>sequel pro</h3><p>Mac 下免费的MySQL数据库图形化软件，下载地址：<a href="http://www.sequelpro.com/" target="_blank" rel="noopener">sequel pro 官网</a></p>
+<h2 id="软件技巧"><a href="#软件技巧" class="headerlink" title="软件技巧"></a>软件技巧</h2><h3 id="添加快捷键输出当前时间"><a href="#添加快捷键输出当前时间" class="headerlink" title="添加快捷键输出当前时间"></a>添加快捷键输出当前时间</h3><ol>
+<li>自动操作 -&gt; 新建文稿 -&gt; 快速操作 -&gt; 实用工具 -&gt; 允许shell脚本 -&gt; 选择（没有输入、位于任何应用程序、用输出内容替换所选文本）</li>
+<li>脚本内容填写 <code>date &quot;+%Y-%m-%d %H:%M:%S&quot;</code></li>
+<li>保存 -&gt; 设置快捷键</li>
+</ol>
+<h3 id="最小化软件和恢复最小化软件"><a href="#最小化软件和恢复最小化软件" class="headerlink" title="最小化软件和恢复最小化软件"></a>最小化软件和恢复最小化软件</h3><p><code>command m</code> - 最小化当前窗口</p>
+<p><code>command option m</code> - 最小化当前软件所有窗口</p>
+<p><code>command Tab</code> 选中软件后松开 <code>Tab</code> 按键，再按 <code>option</code> 按键，松开 <code>command</code> 按键即可恢复最小化软件</p>
+<p><code>command Tab</code> 选中软件后松开 <code>Tab</code> 按键，再按 <code>option</code> 按键后再按 <code>enter</code> 按键即可恢复最小化软件</p>
+<h2 id="使用问题"><a href="#使用问题" class="headerlink" title="使用问题"></a>使用问题</h2><h3 id="鼠标滚轮方向反着"><a href="#鼠标滚轮方向反着" class="headerlink" title="鼠标滚轮方向反着"></a>鼠标滚轮方向反着</h3><p>将<code>系统偏好设置&gt;鼠标&gt;滚动方向</code>前面的勾去掉即可，该操作会影响触控板的划动方向，替代方式可以使用scroll reverser软件</p>
+<h3 id="Finder进入根目录"><a href="#Finder进入根目录" class="headerlink" title="Finder进入根目录"></a>Finder进入根目录</h3><p>进入<code>访达&gt;偏好设置&gt;边栏</code>中，将硬盘前面选择为勾即可</p>
+<h3 id="安装HomeBrew"><a href="#安装HomeBrew" class="headerlink" title="安装HomeBrew"></a>安装HomeBrew</h3><p>本命令中使用到的镜像源全部为国内的镜像源</p>
+<p>命令行输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/zsh -c <span class="string">"<span class="variable">$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+
+<p>参考文档：<a href="https://www.zhihu.com/question/35928898?sort=created" target="_blank" rel="noopener">mac安装homebrew失败怎么办？</a></p>
+<h3 id="关闭浏览器快速前进和后退"><a href="#关闭浏览器快速前进和后退" class="headerlink" title="关闭浏览器快速前进和后退"></a>关闭浏览器快速前进和后退</h3><p>Edge：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.microsoft.edgemac AppleEnableSwipeNavigateWithScrolls -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>Chrome</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装mysqlclient遇到lssl等错误"><a href="#安装mysqlclient遇到lssl等错误" class="headerlink" title="安装mysqlclient遇到lssl等错误"></a>安装mysqlclient遇到lssl等错误</h3><p><code>env LDFLAGS=&quot;-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib&quot; pip --no-cache install mysqlclient==1.4.6 -i https://mirrors.aliyun.com/pypi/simple</code></p>
+<p>参考自：<a href="https://www.jianshu.com/p/de943de33896" target="_blank" rel="noopener">Macos安装报错 ld: library not found for -lssl</a></p>
+<h3 id="mac下网络冲突的问题"><a href="#mac下网络冲突的问题" class="headerlink" title="mac下网络冲突的问题"></a>mac下网络冲突的问题</h3><p>在配置文件中添加:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">"default-address-pools":</span> <span class="string">[</span></span><br><span class="line">  <span class="string">&#123;</span></span><br><span class="line">    <span class="attr">"base":</span> <span class="string">"172.31.0.0/16"</span><span class="string">,</span></span><br><span class="line">    <span class="attr">"size":</span> <span class="number">24</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">],</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="禁止-DS-Store文件生成"><a href="#禁止-DS-Store文件生成" class="headerlink" title="禁止.DS_Store文件生成"></a>禁止.DS_Store文件生成</h3><p>禁止生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</span><br></pre></td></tr></table></figure>
+
+<p>恢复生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
+
+<h3 id="隐藏和显示以点开头的文件"><a href="#隐藏和显示以点开头的文件" class="headerlink" title="隐藏和显示以点开头的文件"></a>隐藏和显示以点开头的文件</h3><p>隐藏</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.Finder AppleShowAllFiles YES</span><br><span class="line">killall Finder</span><br></pre></td></tr></table></figure>
+
+<p>显示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.Finder AppleShowAllFiles NO</span><br><span class="line">killall Finder</span><br></pre></td></tr></table></figure>
+
+<h3 id="xcode命令报错"><a href="#xcode命令报错" class="headerlink" title="xcode命令报错"></a>xcode命令报错</h3><p>现象：报错<code>gyp: No Xcode or CLT version detected!</code></p>
+<p>解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf $(xcode-select -<span class="built_in">print</span>-path)</span><br><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<p>在执行<code>xcode-select --install</code>时，可能会报错：不能安装该软件，因为当前无法从软件更新服务器获得。</p>
+<p>解决：在<a href="https://developer.apple.com/download/more/" target="_blank" rel="noopener">apple develop</a>搜索 command line tools下载安装即可</p>
+<h3 id="mac不支持小于4位的密码"><a href="#mac不支持小于4位的密码" class="headerlink" title="mac不支持小于4位的密码"></a>mac不支持小于4位的密码</h3><p><code>pwpolicy -clearaccountpolicies</code> - 关闭密码安全检查</p>
+<p><code>passwd</code> - 命令行修改密码</p>
+<h2 id="terminal命令"><a href="#terminal命令" class="headerlink" title="terminal命令"></a>terminal命令</h2><p><code>traceroute 192.168.1.1</code> - 查看网络请求的具体访问过的地址</p>
+<p><code>lsof -i tcp:3306</code> - 查看端口占用</p>
+<p><code>open -n /Applications/WeChat.app/Contents/MacOS/WeChat</code> - 实现双开微信</p>
+<p><code>brew cask install qlcolorcode</code> - quicklook支持预览代码</p>
+<p><code>brew cask install qlmarkdown</code> - quicklook支持预览markdown</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/vscode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/vscode/" class="post-title-link" itemprop="url">VSCode的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-22 16:01:38" itemprop="dateCreated datePublished" datetime="2020-05-22T16:01:38+08:00">2020-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-22 09:26:13" itemprop="dateModified" datetime="2021-04-22T09:26:13+08:00">2021-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E4%B8%8A%E6%89%8B/" itemprop="url" rel="index"><span itemprop="name">软件上手</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>settings.json（首选项，打开设置）的配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"editor.fontSize"</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="attr">"editor.wordWrap"</span>: <span class="string">"on"</span>,</span><br><span class="line">    <span class="attr">"editor.rulers"</span>: [</span><br><span class="line">    <span class="number">100</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"editor.renderControlCharacters"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"editor.renderWhitespace"</span>: <span class="string">"all"</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.cursorBlinking"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.cursorStyle"</span>: <span class="string">"line"</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.fontSize"</span>: <span class="number">20</span>,</span><br><span class="line">    <span class="attr">"workbench.tree.indent"</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="attr">"emmet.extensionsPath"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"python.linting.flake8Enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"python.formatting.provider"</span>: <span class="string">"yapf"</span>,</span><br><span class="line">    <span class="attr">"python.linting.flake8Args"</span>: [</span><br><span class="line">        <span class="string">"--max-line-length=256"</span>,</span><br><span class="line">        <span class="string">"--extend-ignore=F821"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"python.linting.pylintEnabled"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"editor.minimap.enabled"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>editor.wordWrpa</code> - 代码自动换行</li>
+<li><code>editor.rulers</code> - 设置一个代码单行最长提示线</li>
+<li><code>editor.renderControlCharacters</code> - 是否显示控制字符(如tab)</li>
+<li><code>editor.renderWhitespace</code> - 什么情况下显示空格(可设置为all)</li>
+<li><code>terminal.integrated.cursorBlinking</code> - 集成终端光标是否闪烁</li>
+<li><code>terminal.integrated.cursorStyle</code> - 集成终端光标样式</li>
+<li><code>terminal.integrated.fontSize</code> - 集成终端字体大小</li>
+<li><code>python.linting.flake8Enabled</code> - 设置flake8工具是否开启</li>
+<li><code>python.formatting.provider</code> - 设置python的格式化工具</li>
+<li><code>python.linting.flake8Args</code> - 设置flake8的检查规则<ul>
+<li><code>--max-line-length</code> - 设置单行的最长长度</li>
+<li><code>--extend-ignore</code> - 设置排除的检查</li>
+</ul>
+</li>
+<li><code>python.linting.pylintEnable</code> - 设置pylint是否开启</li>
+<li><code>editor.occurrencesHighlight</code> - 设置光标所在单词是否高亮</li>
+<li><code>workbench.editor.enablePreview</code> - 是否允许查找文件后保持预览</li>
+<li><code>Editor.Links</code> - 控制编辑器中是否检测链接并使其可被点击</li>
+</ul>
+<p>~/.ssh/config的配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host 192.168.0.153</span><br><span class="line">  HostName 192.168.0.153</span><br><span class="line">  User root</span><br><span class="line">  ForwardAgent yes</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分别指定远程连接的地址和用户名</p>
+</blockquote>
+<h2 id="快捷键使用"><a href="#快捷键使用" class="headerlink" title="快捷键使用"></a>快捷键使用</h2><blockquote>
+<p>在Mac下ctrl均使用command替代</p>
+</blockquote>
+<h3 id="软件操作"><a href="#软件操作" class="headerlink" title="软件操作"></a>软件操作</h3><ul>
+<li><code>ctrl + shift + p</code> /<code>f1</code> - 打开命令面板</li>
+<li><code>ctrl + p</code> - 文件搜索框<ul>
+<li><code>?</code> - 列出当前可执行的动作</li>
+<li><code>!</code>/<code>Ctrl+Shift+M</code> - 显示Errors或Warnings</li>
+<li><code>:</code>/<code>Ctrl+G</code> - 跳转到行数</li>
+<li><code>@</code>/<code>Ctrl+Shift+O</code> - 跳转到symbol，查找属性或函数</li>
+<li><code>#</code>/<code>Ctrl+T</code> - 根据名字查找symbol</li>
+</ul>
+</li>
+</ul>
+<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><ul>
+<li><code>Ctrl+N/W</code> - 新建/关闭tab页</li>
+<li><code>Ctrl+Shift+N/W</code> - 打开/关闭一个新的VSCode编辑器</li>
+<li><code>Ctrl+Tab</code> - 切换窗口</li>
+<li><code>Ctrl+\</code> - 向右拆分屏幕，最多三个</li>
+<li><code>Ctrl+1/2/3</code> - 切换拆分后的编辑器窗口</li>
+<li><code>Ctrl + O</code> - 打开文件</li>
+</ul>
+<h3 id="代码格式"><a href="#代码格式" class="headerlink" title="代码格式"></a>代码格式</h3><ul>
+<li><code>Ctrl+[/]</code> - 代码行向左或者向右缩进</li>
+<li><code>Ctrl+C/X</code> - 复制/剪切当前行/选中内容</li>
+<li><code>Shift+Alt+F</code> - 代码格式化</li>
+<li><code>Alt+Up/Down</code> - 将当前代码向上或向下移动一行</li>
+<li><code>Shift+Alt+Up/Down</code> - 将代码向上/向下复制一行</li>
+<li><code>Ctrl+Enter</code> - 在当前行下方插入一行</li>
+<li><code>Ctrl+Shift+Enter</code> - 在当前行上方插入一行</li>
+<li><code>Ctrl + D</code> - 选中光标所在词组</li>
+</ul>
+<h3 id="左侧工具栏"><a href="#左侧工具栏" class="headerlink" title="左侧工具栏"></a>左侧工具栏</h3><ul>
+<li><code>ctrl + b</code> - 展开/收起侧边栏</li>
+<li><code>ctrl + shift + f</code> - 搜索</li>
+<li><code>ctrl + shift + e</code> - 资源管理器<ul>
+<li><code>⬆️</code>/ <code>⬇️</code> - 移动光标</li>
+<li><code>⬅️</code> - 收起文件夹</li>
+<li><code>➡️</code> - 展开文件夹</li>
+<li><code>空格</code> - 打开文件</li>
+</ul>
+</li>
+<li><code>ctrl + shift + g</code> - 源代码管理</li>
+<li><code>ctrl + shift + x</code> - 插件管理</li>
+</ul>
+<h2 id="插件及功能"><a href="#插件及功能" class="headerlink" title="插件及功能"></a>插件及功能</h2><ul>
+<li><strong>Chinese Language</strong>: VSCode中文插件，国产程序员开发必备插件</li>
+<li><strong>TabNine</strong>: 智能输入插件，根据输入历史和场景，自动预测输入内容</li>
+<li><strong>Git History</strong>: 查看git历史记录的插件，安装后打开文件在标签页右键，会看到最下面多了一个<code>Git: View File History</code>；提供了查看提交记录，文件历史，比较分支和不同提交之间的区别</li>
+<li><strong>GitLens-Git supercharged</strong>: 该插件增强了VSCode自带的git功能，可以方便在每一行最后看到该行最近的改动记录。</li>
+<li><strong>Markdown All in One</strong>: VSCode下编辑Markdown较为全能的插件，提供了键盘快捷方式、TOC目录、自动预览等功能</li>
+<li><strong>Markdown Preview</strong>: 该插件是一个提供Github风格的Markdown预览插件</li>
+<li><strong>open in browser</strong>: 该插件是一个允许用户用浏览器或应用程序打开当前的文件，方便HTML开发预览</li>
+<li><strong>OpenAPI (Swagger) Editor</strong>: 该插件在VSCode中提供了对JSON或YAML格式的OpenAPI规范（OAS）（以前称为Swagger规范）的支持。 、包括，例如文档lint，代码导航，定义链接，静态安全分析等！</li>
+<li><strong>openapi-lint</strong>: 该插件为OpenAPI文件提供了更为强大的lint功能，包括对$ref引用的lint</li>
+<li><strong>Pylance</strong>: 该插件提供了VSCode上开发Python文件的服务支持，前身为Pyright，提供了包括python代码lint，自动跳转，自动导入等Pycharm才拥有的功能。该插件通常每周四更新</li>
+<li><strong>Python</strong>: Python开发的基础插件，提供运行、调试、检测代码等功能</li>
+<li><strong>Remote - SSH</strong>: VSCode上远程开发的必备插件，使您可以将带有SSH服务器的任何远程计算机用作开发环境。</li>
+<li><strong>Remote - SSH: Editing Configuration Files</strong>: 编辑SSH配置文件时，此扩展补充了Remote-SSH扩展的语法颜色，关键字intellisense和简单摘要。</li>
+<li><strong>YAML</strong>: 该插件提供对YAML语法支持以及内置的Kubernetes语法支持</li>
+<li><strong>Comment Translate</strong>: vscode中的翻译插件，可以翻译注释，驼峰变量等单词，英语不好的开发者必备插件</li>
+</ul>
+<h2 id="常见的问题"><a href="#常见的问题" class="headerlink" title="常见的问题"></a>常见的问题</h2><h3 id="关闭预览功能"><a href="#关闭预览功能" class="headerlink" title="关闭预览功能"></a>关闭预览功能</h3><p>setting中搜索<code>workbench.editor.enablePreview</code>，将前面的勾去掉即可</p>
+<h3 id="go包跳转到外部网站"><a href="#go包跳转到外部网站" class="headerlink" title="go包跳转到外部网站"></a>go包跳转到外部网站</h3><p>settings中搜索<code>Editor.Links</code>，将前面的勾去掉即可</p>
+<h3 id="光标所在词组高亮"><a href="#光标所在词组高亮" class="headerlink" title="光标所在词组高亮"></a>光标所在词组高亮</h3><p>settings中搜索<code>editor.occurrencesHighlight</code>，去掉勾即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/drf_serializer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/drf_serializer/" class="post-title-link" itemprop="url">DRF的Serializer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-21 00:27:57" itemprop="dateCreated datePublished" datetime="2020-05-21T00:27:57+08:00">2020-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>快速搞懂DRF并方便的使用
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/drf_serializer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/swagger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/swagger/" class="post-title-link" itemprop="url">Swagger编写API文档的YMAL文件语法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-17 09:55:48" itemprop="dateCreated datePublished" datetime="2020-05-17T09:55:48+08:00">2020-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用Swagger编写接口文档语法示例
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/swagger/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
 
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-
+  }
 </script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-</script>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:12</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
-
 </html>

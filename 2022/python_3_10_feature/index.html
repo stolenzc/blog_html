@@ -1,1091 +1,607 @@
 <!DOCTYPE html>
-<html lang="zh" dir="auto">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Python3.10 新特性 | stolen&#39;s blog</title>
-<meta name="keywords" content="Feature">
-<meta name="description" content="简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.10 添加dea">
-<meta name="author" content="">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="简介Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装此处主要介绍在Ubuntu下安装 Python3.10  添加deadsnakes源 sudo add-apt-repository ppa:deadsnakes&#x2F;ppa sudo apt-get update   安装 Python3.10 sudo ap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python3.10 新特性">
+<meta property="og:url" content="https://blog.stolenzc.com/2022/python_3_10_feature/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="简介Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装此处主要介绍在Ubuntu下安装 Python3.10  添加deadsnakes源 sudo add-apt-repository ppa:deadsnakes&#x2F;ppa sudo apt-get update   安装 Python3.10 sudo ap">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-19T07:27:40.000Z">
+<meta property="article:modified_time" content="2022-11-23T01:29:00.104Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="Feature">
+<meta name="twitter:card" content="summary">
+
 <link rel="canonical" href="https://blog.stolenzc.com/2022/python_3_10_feature/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5789c9fa3c4c8b64db4da52ed51731ec674f7b72ae117902e7c4c73a63b038da.css" integrity="sha256-V4nJ&#43;jxMi2TbTaUu1Rcx7GdPe3KuEXkC58THOmOwONo=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<link rel="icon" href="https://blog.stolenzc.com/images/blog.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://blog.stolenzc.com/images/blog2_16x16.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="https://blog.stolenzc.com/images/blog2_32x32.ico">
-<link rel="apple-touch-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<link rel="mask-icon" href="https://blog.stolenzc.com/images/blog2_128x128.ico">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="Python3.10 新特性" />
-<meta property="og:description" content="简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.10 添加dea" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.stolenzc.com/2022/python_3_10_feature/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-09-19T23:27:40+08:00" />
-<meta property="article:modified_time" content="2022-09-19T23:27:40+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Python3.10 新特性"/>
-<meta name="twitter:description" content="简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.10 添加dea"/>
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://blog.stolenzc.com/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "Python3.10 新特性",
-      "item": "https://blog.stolenzc.com/2022/python_3_10_feature/"
-    }
-  ]
-}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Python3.10 新特性",
-  "name": "Python3.10 新特性",
-  "description": "简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能 官方新特性链接 Python3.10 新特性 安装 此处主要介绍在Ubuntu下安装 Python3.10 添加dea",
-  "keywords": [
-    "Feature"
-  ],
-  "articleBody": "简介 Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能\n官方新特性链接 Python3.10 新特性\n安装 此处主要介绍在Ubuntu下安装 Python3.10\n添加deadsnakes源 sudo add-apt-repository ppa:deadsnakes/ppa sudo apt-get update 安装 Python3.10 sudo apt install python3.10-full 安装 Python3.10 的pip python3.10 -m ensurepip --upgrade 结构模式匹配（match case） 1 2 3 4 5 6 7 8 9 10 11 # 通用语法 match subject: case : case : case : case _: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 def http_error(status): match status: case 400: return \"Bad request\" case 404: return \"Not found\" case 418: return \"I'm a teapot\" case 455 | 456: return \"This is a custom error\" case _: return \"Something's wrong with the Internet\" print(http_error(418)) print(http_error(455)) print(http_error(456)) print(http_error(499)) # I'm a teapot # This is a custom error # This is a custom error # Something's wrong with the Internet 带有字面值和变量的模式\n1 2 3 4 5 6 7 8 9 10 11 12 # point is an (x, y) tuple match point: case (0, 0): print(\"Origin\") case (0, y): print(f\"Y={y}\") case (x, 0): print(f\"X={x}\") case (x, y): print(f\"X={x}, Y={y}\") case _: raise ValueError(\"Not a point\") 模式和类\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 class Point: x: int y: int def location(point): match point: case Point(x=0, y=0): print(\"Origin is the point's location.\") case Point(x=0, y=y): print(f\"Y={y} and the point is on the y-axis.\") case Point(x=x, y=0): print(f\"X={x} and the point is on the x-axis.\") case Point(): print(\"The point is located somewhere else on the plane.\") case _: print(\"Not a point\") 约束项\n1 2 3 4 5 match point: case Point(x, y) if x == y: print(f\"The point is located on the diagonal Y=X at {x}.\") case Point(x, y): print(f\"Point is not on the diagonal.\") 复杂模式和通配符\n1 2 3 4 5 match test_variable: case ('warning', code, 40): print(\"A warning has been received.\") case ('error', code, _): print(f\"An error {code} occurred.\") 更好的错误信息 语法错误（SynaxErrors） 字典未关闭\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 test_dict = {1: 1, 2: 2, 3: 3 # Python3.9 \"\"\" File \"/home/stolen/test.py\", line 2 ^ SyntaxError: unexpected EOF while parsing \"\"\" # Python3.10 \"\"\" File \"/home/stolen/test.py\", line 1 test_dict = {1: 1, 2: 2, 3: 3 ^ SyntaxError: '{' was never closed \"\"\" 冒号缺失\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 if 1 \u003e 2 print('abc') # Python3.9 \"\"\" File \"/home/stolen/test.py\", line 1 if 1 \u003e 2 ^ SyntaxError: invalid syntax \"\"\" # Python3.10 \"\"\" File \"/home/stolen/test.py\", line 1 if 1 \u003e 2 ^ SyntaxError: expected ':' \"\"\" 判断等于错误\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 if bool(3.14) = True: print('true') # Python3.9 \"\"\" File \"/home/stolen/test.py\", line 1 if bool(3.14) = True: ^ SyntaxError: invalid syntax \"\"\" # Python3.10 \"\"\" File \"/home/stolen/test.py\", line 1 if bool(3.14) = True: ^^^^^^^^^^ SyntaxError: cannot assign to function call here. Maybe you meant '==' instead of '='? \"\"\" 缩进错误（IndentationErrors） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 if bool(3.14) == True: print('true') # Python3.9 \"\"\" File \"/home/project/demo.py\", line 2 print('true') ^ IndentationError: expected an indented block \"\"\" # Python3.10 \"\"\" File \"/home/project/demo.py\", line 2 print('true') ^ IndentationError: expected an indented block after 'if' statement on line 1 \"\"\" 属性错误（AttributeErrors） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 a = 'abc' a.isnumerics() # Python3.9 \"\"\" Traceback (most recent call last): File \"/home/project/demo.py\", line 2, in a.isnumerics() AttributeError: 'str' object has no attribute 'isnumerics' \"\"\" # Python3.10 \"\"\" Traceback (most recent call last): File \"/home/project/demo.py\", line 2, in a.isnumerics() AttributeError: 'str' object has no attribute 'isnumerics'. Did you mean: 'isnumeric'? \"\"\" 命名错误（NameErrors） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 hello = 'hello, world!' print(hallo) # Python3.9 \"\"\" Traceback (most recent call last): File \"/home/project/demo.py\", line 2, in print(hallo) NameError: name 'hallo' is not defined \"\"\" # Python3.10 \"\"\" Traceback (most recent call last): File \"/home/project/demo.py\", line 2, in print(hallo) NameError: name 'hallo' is not defined. Did you mean: 'hello'? \"\"\" 类型提示相关的新功能 从 Python3.5 开始正式引入 typing 模块，从 Python3.6 开始已经获得全面的类型声明的支持，一下将介绍 Python3.10 中的变化\nUnion 可以用 | 简写 1 2 3 4 5 6 7 8 # Python3.9 from typing import Union def square(number: Union[int, float]) -\u003e Union[int, float]: return number ** 2 # Python3.10 def square(number: int | float) -\u003e int | float: return number ** 2 这种语法也可以用在 isinstance 中 isinstance(item, int | str)\n类型别名 现在可以对类型别名变量做TypeHint\n1 2 3 4 5 6 7 8 9 10 # Python3.9 MyType = str def foo(something: MyType) -\u003e MyType: return something # Python3.10 from typing import TypeAlias MyType: TypeAlias = str def foo(something: MyType) -\u003e MyType: return something 带括号的上下文管理器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 with (CtxManager() as example): ... with ( CtxManager1(), CtxManager2() ): ... with (CtxManager1() as example, CtxManager2()): ... with (CtxManager1(), CtxManager2() as example): ... with ( CtxManager1() as example1, CtxManager2() as example2 ): ... zip的长度检查 默认情况下 zip 在最短的迭代次数用尽时停止，现在加入了一个 strict=False 参数，默认情况不检查长度，如果 strict=True 时，如果可迭代项长度不相等，则会引发 ValueError\n1 2 3 4 5 list(zip(range(3), ['a', 'b', 'c', 'd'], strict=True)) # [(0, 'a'), (1, 'b'), (2, 'c')] list(zip(range(3), ['a', 'b', 'c', 'd'], strict=True)) # ValueError: zip() argument 2 is longer than argument 1 字典视图映射 字典的三个方法 dict.keys()、dict.values() 和 dict.items() 会返回不同的视图，现在都增加了 mapping 属性，可以返回原始字典。\n1 2 3 4 5 6 7 data={'python':2021,'java':2020} k=data.keys() print(k) print(k.mapping) # dict_keys(['python', 'java']) # {'python': 2021, 'java': 2020} 为整数添加 popcount 计算方法 汉明重量是一串符号中非零符号的个数,是以理查德·卫斯里·汉明的名字命名的，它在包括信息论、编码理论、密码学等多个领域都有应用。\n在密码学以及其它应用中经常需要计算数据位中 1 的个数，针对如何高效地实现人们已经广泛地进行了研究。\nPython3.10 为整数类型增加了一个新方法 int.bit_count() 可以返回给定整数的二进制位中 1 的个数。\n1 2 3 4 5 6 a = 11 print(bin(a)) #a的二进制表示 print(a.bit_count()) # 0b1011 # 3 ",
-  "wordCount" : "1528",
-  "inLanguage": "zh",
-  "datePublished": "2022-09-19T23:27:40+08:00",
-  "dateModified": "2022-09-19T23:27:40+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://blog.stolenzc.com/2022/python_3_10_feature/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "stolen's blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://blog.stolenzc.com/images/blog.png"
-    }
+
+  <title>Python3.10 新特性 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
   }
-}
-</script>
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-</script>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://blog.stolenzc.com" accesskey="h" title="stolen&#39;s blog (Alt + H)">
-                <img src="https://blog.stolenzc.com/images/blog.png" alt="" aria-label="logo"
-                    height="35">stolen&#39;s blog</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://blog.stolenzc.com/" title="主页">
-                    <span><i class='fa fa-home'>&ensp;</i>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/tags/" title="标签">
-                    <span><i class='fa fa-tags'>&ensp;</i>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/categories/" title="分类">
-                    <span><i class='fa fa-th'>&ensp;</i>分类</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/archives/" title="归档">
-                    <span><i class='fa fa-archive'>&ensp;</i>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/search" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span><i class='fa fa-search'>&ensp;</i>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://blog.stolenzc.com/about/" title="关于">
-                    <span><i class='fa fa-user'>&ensp;</i>关于</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+  <div class="site-meta">
 
-<article class="post-single">
-  <header class="post-header">
-    
-    <h1 class="post-title">
-      Python3.10 新特性
-    </h1>
-    <div class="post-meta"><span title='2022-09-19 23:27:40 +0800 +0800'>2022-09-19</span>&nbsp;·&nbsp;1528 字
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
-  </header> <aside id="toc-container" class="toc-container wide">
-    <div class="toc">
-        <details  open>
-            <summary accesskey="c" title="(Alt + C)">
-                <span class="details">目录</span>
-            </summary>
+    </header>
 
-            <div class="inner"><ul>
-                    <li>
-                        <a href="#%e7%ae%80%e4%bb%8b" aria-label="简介">简介</a></li>
-                    <li>
-                        <a href="#%e5%ae%89%e8%a3%85" aria-label="安装">安装</a></li>
-                    <li>
-                        <a href="#%e7%bb%93%e6%9e%84%e6%a8%a1%e5%bc%8f%e5%8c%b9%e9%85%8dmatch-case" aria-label="结构模式匹配（match case）">结构模式匹配（match case）</a></li>
-                    <li>
-                        <a href="#%e6%9b%b4%e5%a5%bd%e7%9a%84%e9%94%99%e8%af%af%e4%bf%a1%e6%81%af" aria-label="更好的错误信息">更好的错误信息</a><ul>
-                            
-                    <li>
-                        <a href="#%e8%af%ad%e6%b3%95%e9%94%99%e8%af%afsynaxerrors" aria-label="语法错误（SynaxErrors）">语法错误（SynaxErrors）</a></li>
-                    <li>
-                        <a href="#%e7%bc%a9%e8%bf%9b%e9%94%99%e8%af%afindentationerrors" aria-label="缩进错误（IndentationErrors）">缩进错误（IndentationErrors）</a></li>
-                    <li>
-                        <a href="#%e5%b1%9e%e6%80%a7%e9%94%99%e8%af%afattributeerrors" aria-label="属性错误（AttributeErrors）">属性错误（AttributeErrors）</a></li>
-                    <li>
-                        <a href="#%e5%91%bd%e5%90%8d%e9%94%99%e8%af%afnameerrors" aria-label="命名错误（NameErrors）">命名错误（NameErrors）</a></li></ul>
-                    </li>
-                    <li>
-                        <a href="#%e7%b1%bb%e5%9e%8b%e6%8f%90%e7%a4%ba%e7%9b%b8%e5%85%b3%e7%9a%84%e6%96%b0%e5%8a%9f%e8%83%bd" aria-label="类型提示相关的新功能">类型提示相关的新功能</a><ul>
-                            
-                    <li>
-                        <a href="#union-%e5%8f%af%e4%bb%a5%e7%94%a8--%e7%ae%80%e5%86%99" aria-label="Union 可以用 | 简写">Union 可以用 <code>|</code> 简写</a></li>
-                    <li>
-                        <a href="#%e7%b1%bb%e5%9e%8b%e5%88%ab%e5%90%8d" aria-label="类型别名">类型别名</a></li></ul>
-                    </li>
-                    <li>
-                        <a href="#%e5%b8%a6%e6%8b%ac%e5%8f%b7%e7%9a%84%e4%b8%8a%e4%b8%8b%e6%96%87%e7%ae%a1%e7%90%86%e5%99%a8" aria-label="带括号的上下文管理器">带括号的上下文管理器</a></li>
-                    <li>
-                        <a href="#zip%e7%9a%84%e9%95%bf%e5%ba%a6%e6%a3%80%e6%9f%a5" aria-label="zip的长度检查">zip的长度检查</a></li>
-                    <li>
-                        <a href="#%e5%ad%97%e5%85%b8%e8%a7%86%e5%9b%be%e6%98%a0%e5%b0%84" aria-label="字典视图映射">字典视图映射</a></li>
-                    <li>
-                        <a href="#%e4%b8%ba%e6%95%b4%e6%95%b0%e6%b7%bb%e5%8a%a0-popcount-%e8%ae%a1%e7%ae%97%e6%96%b9%e6%b3%95" aria-label="为整数添加 popcount 计算方法">为整数添加 popcount 计算方法</a>
-                    </li>
-                </ul>
-            </div>
-        </details>
-    </div>
-</aside>
-<script>
-    let activeElement;
-    let elements;
-    window.addEventListener('DOMContentLoaded', function (event) {
-        checkTocPosition();
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
-         
-         activeElement = elements[0];
-         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
-         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-     }, false);
 
-    window.addEventListener('resize', function(event) {
-        checkTocPosition();
-    }, false);
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    window.addEventListener('scroll', () => {
-        
-        activeElement = Array.from(elements).find((element) => {
-            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
-                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
-                return element;
-            }
-        }) || activeElement
+          <div class="content post posts-expand">
+            
 
-        elements.forEach(element => {
-             const id = encodeURI(element.getAttribute('id')).toLowerCase();
-             if (element === activeElement){
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-             } else {
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
-             }
-         })
-     }, false);
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2022/python_3_10_feature/">
 
-    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
-    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
-    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
 
-    function checkTocPosition() {
-        const width = document.body.scrollWidth;
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python3.10 新特性
+        </h1>
 
-        if (width - main - (toc * 2) - (gap * 4) > 0) {
-            document.getElementById("toc-container").classList.add("wide");
-        } else {
-            document.getElementById("toc-container").classList.remove("wide");
-        }
-    }
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-    function getOffsetTop(element) {
-        if (!element.getClientRects().length) {
-            return 0;
-        }
-        let rect = element.getBoundingClientRect();
-        let win = element.ownerDocument.defaultView;
-        return rect.top + win.pageYOffset;   
-    }
-</script>
+              <time title="创建时间：2022-09-19 15:27:40" itemprop="dateCreated datePublished" datetime="2022-09-19T15:27:40+08:00">2022-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-23 09:29:00" itemprop="dateModified" datetime="2022-11-23T09:29:00+08:00">2022-11-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
 
-  <div class="post-content"><h2 id="简介">简介<a hidden class="anchor" aria-hidden="true" href="#简介">#</a></h2>
-<p>Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能</p>
-<p>官方新特性链接 <a href="https://docs.python.org/zh-cn/3.10/whatsnew/3.10.html">Python3.10 新特性</a></p>
-<h2 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h2>
-<p>此处主要介绍在Ubuntu下安装 Python3.10</p>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python3.10 发布于2021年10月14日，这儿总结一下改版本引入的一些新功能</p>
+<p>官方新特性链接 <a href="https://docs.python.org/zh-cn/3.10/whatsnew/3.10.html" target="_blank" rel="noopener">Python3.10 新特性</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>此处主要介绍在Ubuntu下安装 Python3.10</p>
 <ol>
-<li>添加deadsnakes源
-<ul>
+<li>添加deadsnakes源<ul>
 <li><code>sudo add-apt-repository ppa:deadsnakes/ppa</code></li>
 <li><code>sudo apt-get update</code></li>
 </ul>
 </li>
-<li>安装 Python3.10
-<ul>
+<li>安装 Python3.10<ul>
 <li><code>sudo apt install python3.10-full</code></li>
 </ul>
 </li>
-<li>安装 Python3.10 的pip
-<ul>
+<li>安装 Python3.10 的pip<ul>
 <li><code>python3.10 -m ensurepip --upgrade</code></li>
 </ul>
 </li>
 </ol>
-<h2 id="结构模式匹配match-case">结构模式匹配（match case）<a hidden class="anchor" aria-hidden="true" href="#结构模式匹配match-case">#</a></h2>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#007f7f"># 通用语法</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>match subject:
-</span></span><span style="display:flex;"><span>    case &lt;pattern_1&gt;:
-</span></span><span style="display:flex;"><span>        &lt;action_1&gt;
-</span></span><span style="display:flex;"><span>    case &lt;pattern_2&gt;:
-</span></span><span style="display:flex;"><span>        &lt;action_2&gt;
-</span></span><span style="display:flex;"><span>    case &lt;pattern_3&gt;:
-</span></span><span style="display:flex;"><span>        &lt;action_3&gt;
-</span></span><span style="display:flex;"><span>    case _:
-</span></span><span style="display:flex;"><span>        &lt;action_wildcard&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> http_error(status):
-</span></span><span style="display:flex;"><span>    match status:
-</span></span><span style="display:flex;"><span>        case <span style="color:#ff0;font-weight:bold">400</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;Bad request&#34;</span>
-</span></span><span style="display:flex;"><span>        case <span style="color:#ff0;font-weight:bold">404</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;Not found&#34;</span>
-</span></span><span style="display:flex;"><span>        case <span style="color:#ff0;font-weight:bold">418</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;I&#39;m a teapot&#34;</span>
-</span></span><span style="display:flex;"><span>        case <span style="color:#ff0;font-weight:bold">455</span> | <span style="color:#ff0;font-weight:bold">456</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;This is a custom error&#34;</span>
-</span></span><span style="display:flex;"><span>        case _:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;Something&#39;s wrong with the Internet&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(http_error(<span style="color:#ff0;font-weight:bold">418</span>))
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(http_error(<span style="color:#ff0;font-weight:bold">455</span>))
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(http_error(<span style="color:#ff0;font-weight:bold">456</span>))
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(http_error(<span style="color:#ff0;font-weight:bold">499</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># I&#39;m a teapot</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># This is a custom error</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># This is a custom error</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Something&#39;s wrong with the Internet</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>带有字面值和变量的模式</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#007f7f"># point is an (x, y) tuple</span>
-</span></span><span style="display:flex;"><span>match point:
-</span></span><span style="display:flex;"><span>    case (<span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">0</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;Origin&#34;</span>)
-</span></span><span style="display:flex;"><span>    case (<span style="color:#ff0;font-weight:bold">0</span>, y):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;Y=</span><span style="color:#0ff;font-weight:bold">{</span>y<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>)
-</span></span><span style="display:flex;"><span>    case (x, <span style="color:#ff0;font-weight:bold">0</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;X=</span><span style="color:#0ff;font-weight:bold">{</span>x<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>)
-</span></span><span style="display:flex;"><span>    case (x, y):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;X=</span><span style="color:#0ff;font-weight:bold">{</span>x<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">, Y=</span><span style="color:#0ff;font-weight:bold">{</span>y<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">&#34;</span>)
-</span></span><span style="display:flex;"><span>    case _:
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">raise</span> ValueError(<span style="color:#0ff;font-weight:bold">&#34;Not a point&#34;</span>)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>模式和类</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">class</span> Point:
-</span></span><span style="display:flex;"><span>    x: <span style="color:#fff;font-weight:bold">int</span>
-</span></span><span style="display:flex;"><span>    y: <span style="color:#fff;font-weight:bold">int</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> location(point):
-</span></span><span style="display:flex;"><span>    match point:
-</span></span><span style="display:flex;"><span>        case Point(x=<span style="color:#ff0;font-weight:bold">0</span>, y=<span style="color:#ff0;font-weight:bold">0</span>):
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;Origin is the point&#39;s location.&#34;</span>)
-</span></span><span style="display:flex;"><span>        case Point(x=<span style="color:#ff0;font-weight:bold">0</span>, y=y):
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;Y=</span><span style="color:#0ff;font-weight:bold">{</span>y<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold"> and the point is on the y-axis.&#34;</span>)
-</span></span><span style="display:flex;"><span>        case Point(x=x, y=<span style="color:#ff0;font-weight:bold">0</span>):
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;X=</span><span style="color:#0ff;font-weight:bold">{</span>x<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold"> and the point is on the x-axis.&#34;</span>)
-</span></span><span style="display:flex;"><span>        case Point():
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;The point is located somewhere else on the plane.&#34;</span>)
-</span></span><span style="display:flex;"><span>        case _:
-</span></span><span style="display:flex;"><span>            <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;Not a point&#34;</span>)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>约束项</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>match point:
-</span></span><span style="display:flex;"><span>    case Point(x, y) <span style="color:#fff;font-weight:bold">if</span> x == y:
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;The point is located on the diagonal Y=X at </span><span style="color:#0ff;font-weight:bold">{</span>x<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold">.&#34;</span>)
-</span></span><span style="display:flex;"><span>    case Point(x, y):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;Point is not on the diagonal.&#34;</span>)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>复杂模式和通配符</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>match test_variable:
-</span></span><span style="display:flex;"><span>    case (<span style="color:#0ff;font-weight:bold">&#39;warning&#39;</span>, code, <span style="color:#ff0;font-weight:bold">40</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#34;A warning has been received.&#34;</span>)
-</span></span><span style="display:flex;"><span>    case (<span style="color:#0ff;font-weight:bold">&#39;error&#39;</span>, code, _):
-</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">f</span><span style="color:#0ff;font-weight:bold">&#34;An error </span><span style="color:#0ff;font-weight:bold">{</span>code<span style="color:#0ff;font-weight:bold">}</span><span style="color:#0ff;font-weight:bold"> occurred.&#34;</span>)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="更好的错误信息">更好的错误信息<a hidden class="anchor" aria-hidden="true" href="#更好的错误信息">#</a></h2>
-<h3 id="语法错误synaxerrors">语法错误（SynaxErrors）<a hidden class="anchor" aria-hidden="true" href="#语法错误synaxerrors">#</a></h3>
-<p>字典未关闭</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>test_dict = {<span style="color:#ff0;font-weight:bold">1</span>: <span style="color:#ff0;font-weight:bold">1</span>, <span style="color:#ff0;font-weight:bold">2</span>: <span style="color:#ff0;font-weight:bold">2</span>, <span style="color:#ff0;font-weight:bold">3</span>: <span style="color:#ff0;font-weight:bold">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 2
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">   
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: unexpected EOF while parsing
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    test_dict = {1: 1, 2: 2, 3: 3
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">                ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: &#39;{&#39; was never closed
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>冒号缺失</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> <span style="color:#ff0;font-weight:bold">1</span> &gt; <span style="color:#ff0;font-weight:bold">2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;abc&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    if 1 &gt; 2
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">            ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: invalid syntax
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    if 1 &gt; 2
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">            ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: expected &#39;:&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>判断等于错误</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> <span style="color:#fff;font-weight:bold">bool</span>(<span style="color:#ff0;font-weight:bold">3.14</span>) = <span style="color:#fff;font-weight:bold">True</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;true&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    if bool(3.14) = True:
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">                  ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: invalid syntax
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/stolen/test.py&#34;, line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    if bool(3.14) = True:
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">       ^^^^^^^^^^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">SyntaxError: cannot assign to function call here. Maybe you meant &#39;==&#39; instead of &#39;=&#39;?
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="缩进错误indentationerrors">缩进错误（IndentationErrors）<a hidden class="anchor" aria-hidden="true" href="#缩进错误indentationerrors">#</a></h3>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> <span style="color:#fff;font-weight:bold">bool</span>(<span style="color:#ff0;font-weight:bold">3.14</span>) == <span style="color:#fff;font-weight:bold">True</span>:
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(<span style="color:#0ff;font-weight:bold">&#39;true&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    print(&#39;true&#39;)
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">IndentationError: expected an indented block
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    print(&#39;true&#39;)
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    ^
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">IndentationError: expected an indented block after &#39;if&#39; statement on line 1
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="属性错误attributeerrors">属性错误（AttributeErrors）<a hidden class="anchor" aria-hidden="true" href="#属性错误attributeerrors">#</a></h3>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a = <span style="color:#0ff;font-weight:bold">&#39;abc&#39;</span>
-</span></span><span style="display:flex;"><span>a.isnumerics()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">Traceback (most recent call last):
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2, in &lt;module&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    a.isnumerics()
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">AttributeError: &#39;str&#39; object has no attribute &#39;isnumerics&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">Traceback (most recent call last):
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2, in &lt;module&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    a.isnumerics()
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">AttributeError: &#39;str&#39; object has no attribute &#39;isnumerics&#39;. Did you mean: &#39;isnumeric&#39;?
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="命名错误nameerrors">命名错误（NameErrors）<a hidden class="anchor" aria-hidden="true" href="#命名错误nameerrors">#</a></h3>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>hello = <span style="color:#0ff;font-weight:bold">&#39;hello, world!&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(hallo)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">Traceback (most recent call last):
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2, in &lt;module&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    print(hallo)
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">NameError: name &#39;hallo&#39; is not defined
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">Traceback (most recent call last):
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  File &#34;/home/project/demo.py&#34;, line 2, in &lt;module&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">    print(hallo)
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">NameError: name &#39;hallo&#39; is not defined. Did you mean: &#39;hello&#39;?
-</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">&#34;&#34;&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="类型提示相关的新功能">类型提示相关的新功能<a hidden class="anchor" aria-hidden="true" href="#类型提示相关的新功能">#</a></h2>
-<p>从 Python3.5 开始正式引入 typing 模块，从 Python3.6 开始已经获得全面的类型声明的支持，一下将介绍 Python3.10 中的变化</p>
-<h3 id="union-可以用--简写">Union 可以用 <code>|</code> 简写<a hidden class="anchor" aria-hidden="true" href="#union-可以用--简写">#</a></h3>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">from</span> typing <span style="color:#fff;font-weight:bold">import</span> Union
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> square(number: Union[<span style="color:#fff;font-weight:bold">int</span>, <span style="color:#fff;font-weight:bold">float</span>]) -&gt; Union[<span style="color:#fff;font-weight:bold">int</span>, <span style="color:#fff;font-weight:bold">float</span>]:
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> number ** <span style="color:#ff0;font-weight:bold">2</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> square(number: <span style="color:#fff;font-weight:bold">int</span> | <span style="color:#fff;font-weight:bold">float</span>) -&gt; <span style="color:#fff;font-weight:bold">int</span> | <span style="color:#fff;font-weight:bold">float</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> number ** <span style="color:#ff0;font-weight:bold">2</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这种语法也可以用在 isinstance 中 <code>isinstance(item, int | str)</code></p>
-<h3 id="类型别名">类型别名<a hidden class="anchor" aria-hidden="true" href="#类型别名">#</a></h3>
-<p>现在可以对类型别名变量做TypeHint</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#007f7f"># Python3.9</span>
-</span></span><span style="display:flex;"><span>MyType = <span style="color:#fff;font-weight:bold">str</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> foo(something: MyType) -&gt; MyType:
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> something
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># Python3.10</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">from</span> typing <span style="color:#fff;font-weight:bold">import</span> TypeAlias
-</span></span><span style="display:flex;"><span>MyType: TypeAlias = <span style="color:#fff;font-weight:bold">str</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">def</span> foo(something: MyType) -&gt; MyType:
-</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> something
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="带括号的上下文管理器">带括号的上下文管理器<a hidden class="anchor" aria-hidden="true" href="#带括号的上下文管理器">#</a></h2>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">with</span> (CtxManager() <span style="color:#fff;font-weight:bold">as</span> example):
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">with</span> (
-</span></span><span style="display:flex;"><span>    CtxManager1(),
-</span></span><span style="display:flex;"><span>    CtxManager2()
-</span></span><span style="display:flex;"><span>):
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">with</span> (CtxManager1() <span style="color:#fff;font-weight:bold">as</span> example,
-</span></span><span style="display:flex;"><span>      CtxManager2()):
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">with</span> (CtxManager1(),
-</span></span><span style="display:flex;"><span>      CtxManager2() <span style="color:#fff;font-weight:bold">as</span> example):
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">with</span> (
-</span></span><span style="display:flex;"><span>    CtxManager1() <span style="color:#fff;font-weight:bold">as</span> example1,
-</span></span><span style="display:flex;"><span>    CtxManager2() <span style="color:#fff;font-weight:bold">as</span> example2
-</span></span><span style="display:flex;"><span>):
-</span></span><span style="display:flex;"><span>    ...
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="zip的长度检查">zip的长度检查<a hidden class="anchor" aria-hidden="true" href="#zip的长度检查">#</a></h2>
-<p>默认情况下 zip 在最短的迭代次数用尽时停止，现在加入了一个 <code>strict=False</code> 参数，默认情况不检查长度，如果 <code>strict=True</code> 时，如果可迭代项长度不相等，则会引发 <code>ValueError</code></p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">list</span>(<span style="color:#fff;font-weight:bold">zip</span>(<span style="color:#fff;font-weight:bold">range</span>(<span style="color:#ff0;font-weight:bold">3</span>), [<span style="color:#0ff;font-weight:bold">&#39;a&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;b&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;c&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;d&#39;</span>], strict=<span style="color:#fff;font-weight:bold">True</span>))
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># [(0, &#39;a&#39;), (1, &#39;b&#39;), (2, &#39;c&#39;)]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">list</span>(<span style="color:#fff;font-weight:bold">zip</span>(<span style="color:#fff;font-weight:bold">range</span>(<span style="color:#ff0;font-weight:bold">3</span>), [<span style="color:#0ff;font-weight:bold">&#39;a&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;b&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;c&#39;</span>, <span style="color:#0ff;font-weight:bold">&#39;d&#39;</span>], strict=<span style="color:#fff;font-weight:bold">True</span>))
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># ValueError: zip() argument 2 is longer than argument 1</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="字典视图映射">字典视图映射<a hidden class="anchor" aria-hidden="true" href="#字典视图映射">#</a></h2>
-<p>字典的三个方法 dict.keys()、dict.values() 和 dict.items() 会返回不同的视图，现在都增加了 mapping 属性，可以返回原始字典。</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>data={<span style="color:#0ff;font-weight:bold">&#39;python&#39;</span>:<span style="color:#ff0;font-weight:bold">2021</span>,<span style="color:#0ff;font-weight:bold">&#39;java&#39;</span>:<span style="color:#ff0;font-weight:bold">2020</span>}
-</span></span><span style="display:flex;"><span>k=data.keys()
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(k)
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(k.mapping)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># dict_keys([&#39;python&#39;, &#39;java&#39;])</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># {&#39;python&#39;: 2021, &#39;java&#39;: 2020}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="为整数添加-popcount-计算方法">为整数添加 popcount 计算方法<a hidden class="anchor" aria-hidden="true" href="#为整数添加-popcount-计算方法">#</a></h2>
-<p>汉明重量是一串符号中非零符号的个数,是以理查德·卫斯里·汉明的名字命名的，它在包括信息论、编码理论、密码学等多个领域都有应用。</p>
+<h2 id="结构模式匹配（match-case）"><a href="#结构模式匹配（match-case）" class="headerlink" title="结构模式匹配（match case）"></a>结构模式匹配（match case）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通用语法</span></span><br><span class="line"></span><br><span class="line">match subject:</span><br><span class="line">    case &lt;pattern_1&gt;:</span><br><span class="line">        &lt;action_1&gt;</span><br><span class="line">    case &lt;pattern_2&gt;:</span><br><span class="line">        &lt;action_2&gt;</span><br><span class="line">    case &lt;pattern_3&gt;:</span><br><span class="line">        &lt;action_3&gt;</span><br><span class="line">    case _:</span><br><span class="line">        &lt;action_wildcard&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">http_error</span><span class="params">(status)</span>:</span></span><br><span class="line">    match status:</span><br><span class="line">        case <span class="number">400</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Bad request"</span></span><br><span class="line">        case <span class="number">404</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Not found"</span></span><br><span class="line">        case <span class="number">418</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"I'm a teapot"</span></span><br><span class="line">        case <span class="number">455</span> | <span class="number">456</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"This is a custom error"</span></span><br><span class="line">        case _:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Something's wrong with the Internet"</span></span><br><span class="line"></span><br><span class="line">print(http_error(<span class="number">418</span>))</span><br><span class="line">print(http_error(<span class="number">455</span>))</span><br><span class="line">print(http_error(<span class="number">456</span>))</span><br><span class="line">print(http_error(<span class="number">499</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># I'm a teapot</span></span><br><span class="line"><span class="comment"># This is a custom error</span></span><br><span class="line"><span class="comment"># This is a custom error</span></span><br><span class="line"><span class="comment"># Something's wrong with the Internet</span></span><br></pre></td></tr></table></figure>
+
+<p>带有字面值和变量的模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># point is an (x, y) tuple</span></span><br><span class="line">match point:</span><br><span class="line">    case (<span class="number">0</span>, <span class="number">0</span>):</span><br><span class="line">        print(<span class="string">"Origin"</span>)</span><br><span class="line">    case (<span class="number">0</span>, y):</span><br><span class="line">        print(<span class="string">f"Y=<span class="subst">&#123;y&#125;</span>"</span>)</span><br><span class="line">    case (x, <span class="number">0</span>):</span><br><span class="line">        print(<span class="string">f"X=<span class="subst">&#123;x&#125;</span>"</span>)</span><br><span class="line">    case (x, y):</span><br><span class="line">        print(<span class="string">f"X=<span class="subst">&#123;x&#125;</span>, Y=<span class="subst">&#123;y&#125;</span>"</span>)</span><br><span class="line">    case _:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">"Not a point"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>模式和类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>:</span></span><br><span class="line">    x: int</span><br><span class="line">    y: int</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">location</span><span class="params">(point)</span>:</span></span><br><span class="line">    match point:</span><br><span class="line">        case Point(x=<span class="number">0</span>, y=<span class="number">0</span>):</span><br><span class="line">            print(<span class="string">"Origin is the point's location."</span>)</span><br><span class="line">        case Point(x=<span class="number">0</span>, y=y):</span><br><span class="line">            print(<span class="string">f"Y=<span class="subst">&#123;y&#125;</span> and the point is on the y-axis."</span>)</span><br><span class="line">        case Point(x=x, y=<span class="number">0</span>):</span><br><span class="line">            print(<span class="string">f"X=<span class="subst">&#123;x&#125;</span> and the point is on the x-axis."</span>)</span><br><span class="line">        case Point():</span><br><span class="line">            print(<span class="string">"The point is located somewhere else on the plane."</span>)</span><br><span class="line">        case _:</span><br><span class="line">            print(<span class="string">"Not a point"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>约束项</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">match point:</span><br><span class="line">    case Point(x, y) <span class="keyword">if</span> x == y:</span><br><span class="line">        print(<span class="string">f"The point is located on the diagonal Y=X at <span class="subst">&#123;x&#125;</span>."</span>)</span><br><span class="line">    case Point(x, y):</span><br><span class="line">        print(<span class="string">f"Point is not on the diagonal."</span>)</span><br></pre></td></tr></table></figure>
+
+<p>复杂模式和通配符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">match test_variable:</span><br><span class="line">    case (<span class="string">'warning'</span>, code, <span class="number">40</span>):</span><br><span class="line">        print(<span class="string">"A warning has been received."</span>)</span><br><span class="line">    case (<span class="string">'error'</span>, code, _):</span><br><span class="line">        print(<span class="string">f"An error <span class="subst">&#123;code&#125;</span> occurred."</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="更好的错误信息"><a href="#更好的错误信息" class="headerlink" title="更好的错误信息"></a>更好的错误信息</h2><h3 id="语法错误（SynaxErrors）"><a href="#语法错误（SynaxErrors）" class="headerlink" title="语法错误（SynaxErrors）"></a>语法错误（SynaxErrors）</h3><p>字典未关闭</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">test_dict = &#123;<span class="number">1</span>: <span class="number">1</span>, <span class="number">2</span>: <span class="number">2</span>, <span class="number">3</span>: <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 2</span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">    ^</span></span><br><span class="line"><span class="string">SyntaxError: unexpected EOF while parsing</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 1</span></span><br><span class="line"><span class="string">    test_dict = &#123;1: 1, 2: 2, 3: 3</span></span><br><span class="line"><span class="string">                ^</span></span><br><span class="line"><span class="string">SyntaxError: '&#123;' was never closed</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>冒号缺失</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">1</span> &gt; <span class="number">2</span></span><br><span class="line">    print(<span class="string">'abc'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 1</span></span><br><span class="line"><span class="string">    if 1 &gt; 2</span></span><br><span class="line"><span class="string">            ^</span></span><br><span class="line"><span class="string">SyntaxError: invalid syntax</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 1</span></span><br><span class="line"><span class="string">    if 1 &gt; 2</span></span><br><span class="line"><span class="string">            ^</span></span><br><span class="line"><span class="string">SyntaxError: expected ':'</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>判断等于错误</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> bool(<span class="number">3.14</span>) = <span class="literal">True</span>:</span><br><span class="line">    print(<span class="string">'true'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 1</span></span><br><span class="line"><span class="string">    if bool(3.14) = True:</span></span><br><span class="line"><span class="string">                  ^</span></span><br><span class="line"><span class="string">SyntaxError: invalid syntax</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/stolen/test.py", line 1</span></span><br><span class="line"><span class="string">    if bool(3.14) = True:</span></span><br><span class="line"><span class="string">       ^^^^^^^^^^</span></span><br><span class="line"><span class="string">SyntaxError: cannot assign to function call here. Maybe you meant '==' instead of '='?</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="缩进错误（IndentationErrors）"><a href="#缩进错误（IndentationErrors）" class="headerlink" title="缩进错误（IndentationErrors）"></a>缩进错误（IndentationErrors）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> bool(<span class="number">3.14</span>) == <span class="literal">True</span>:</span><br><span class="line">print(<span class="string">'true'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2</span></span><br><span class="line"><span class="string">    print('true')</span></span><br><span class="line"><span class="string">    ^</span></span><br><span class="line"><span class="string">IndentationError: expected an indented block</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2</span></span><br><span class="line"><span class="string">    print('true')</span></span><br><span class="line"><span class="string">    ^</span></span><br><span class="line"><span class="string">IndentationError: expected an indented block after 'if' statement on line 1</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="属性错误（AttributeErrors）"><a href="#属性错误（AttributeErrors）" class="headerlink" title="属性错误（AttributeErrors）"></a>属性错误（AttributeErrors）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">'abc'</span></span><br><span class="line">a.isnumerics()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    a.isnumerics()</span></span><br><span class="line"><span class="string">AttributeError: 'str' object has no attribute 'isnumerics'</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    a.isnumerics()</span></span><br><span class="line"><span class="string">AttributeError: 'str' object has no attribute 'isnumerics'. Did you mean: 'isnumeric'?</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命名错误（NameErrors）"><a href="#命名错误（NameErrors）" class="headerlink" title="命名错误（NameErrors）"></a>命名错误（NameErrors）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hello = <span class="string">'hello, world!'</span></span><br><span class="line">print(hallo)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    print(hallo)</span></span><br><span class="line"><span class="string">NameError: name 'hallo' is not defined</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File "/home/project/demo.py", line 2, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    print(hallo)</span></span><br><span class="line"><span class="string">NameError: name 'hallo' is not defined. Did you mean: 'hello'?</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="类型提示相关的新功能"><a href="#类型提示相关的新功能" class="headerlink" title="类型提示相关的新功能"></a>类型提示相关的新功能</h2><p>从 Python3.5 开始正式引入 typing 模块，从 Python3.6 开始已经获得全面的类型声明的支持，一下将介绍 Python3.10 中的变化</p>
+<h3 id="Union-可以用-简写"><a href="#Union-可以用-简写" class="headerlink" title="Union 可以用 | 简写"></a>Union 可以用 <code>|</code> 简写</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Union</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(number: Union[int, float])</span> -&gt; Union[int, float]:</span></span><br><span class="line">    <span class="keyword">return</span> number ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(number: int | float)</span> -&gt; int | float:</span></span><br><span class="line">    <span class="keyword">return</span> number ** <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>这种语法也可以用在 isinstance 中 <code>isinstance(item, int | str)</code></p>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><p>现在可以对类型别名变量做TypeHint</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python3.9</span></span><br><span class="line">MyType = str</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(something: MyType)</span> -&gt; MyType:</span></span><br><span class="line">    <span class="keyword">return</span> something</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.10</span></span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypeAlias</span><br><span class="line">MyType: TypeAlias = str</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(something: MyType)</span> -&gt; MyType:</span></span><br><span class="line">    <span class="keyword">return</span> something</span><br></pre></td></tr></table></figure>
+
+<h2 id="带括号的上下文管理器"><a href="#带括号的上下文管理器" class="headerlink" title="带括号的上下文管理器"></a>带括号的上下文管理器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> (CtxManager() <span class="keyword">as</span> example):</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (</span><br><span class="line">    CtxManager1(),</span><br><span class="line">    CtxManager2()</span><br><span class="line">):</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (CtxManager1() <span class="keyword">as</span> example,</span><br><span class="line">      CtxManager2()):</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (CtxManager1(),</span><br><span class="line">      CtxManager2() <span class="keyword">as</span> example):</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> (</span><br><span class="line">    CtxManager1() <span class="keyword">as</span> example1,</span><br><span class="line">    CtxManager2() <span class="keyword">as</span> example2</span><br><span class="line">):</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="zip的长度检查"><a href="#zip的长度检查" class="headerlink" title="zip的长度检查"></a>zip的长度检查</h2><p>默认情况下 zip 在最短的迭代次数用尽时停止，现在加入了一个 <code>strict=False</code> 参数，默认情况不检查长度，如果 <code>strict=True</code> 时，如果可迭代项长度不相等，则会引发 <code>ValueError</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list(zip(range(<span class="number">3</span>), [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>], strict=<span class="literal">True</span>))</span><br><span class="line"><span class="comment"># [(0, 'a'), (1, 'b'), (2, 'c')]</span></span><br><span class="line"></span><br><span class="line">list(zip(range(<span class="number">3</span>), [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>], strict=<span class="literal">True</span>))</span><br><span class="line"><span class="comment"># ValueError: zip() argument 2 is longer than argument 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="字典视图映射"><a href="#字典视图映射" class="headerlink" title="字典视图映射"></a>字典视图映射</h2><p>字典的三个方法 dict.keys()、dict.values() 和 dict.items() 会返回不同的视图，现在都增加了 mapping 属性，可以返回原始字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data=&#123;<span class="string">'python'</span>:<span class="number">2021</span>,<span class="string">'java'</span>:<span class="number">2020</span>&#125;</span><br><span class="line">k=data.keys()</span><br><span class="line">print(k)</span><br><span class="line">print(k.mapping)</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict_keys(['python', 'java'])</span></span><br><span class="line"><span class="comment"># &#123;'python': 2021, 'java': 2020&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="为整数添加-popcount-计算方法"><a href="#为整数添加-popcount-计算方法" class="headerlink" title="为整数添加 popcount 计算方法"></a>为整数添加 popcount 计算方法</h2><p>汉明重量是一串符号中非零符号的个数,是以理查德·卫斯里·汉明的名字命名的，它在包括信息论、编码理论、密码学等多个领域都有应用。</p>
 <p>在密码学以及其它应用中经常需要计算数据位中 1 的个数，针对如何高效地实现人们已经广泛地进行了研究。</p>
 <p>Python3.10 为整数类型增加了一个新方法 int.bit_count() 可以返回给定整数的二进制位中 1 的个数。</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a = <span style="color:#ff0;font-weight:bold">11</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(<span style="color:#fff;font-weight:bold">bin</span>(a))    <span style="color:#007f7f">#a的二进制表示</span>
-</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">print</span>(a.bit_count())
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 0b1011</span>
-</span></span><span style="display:flex;"><span><span style="color:#007f7f"># 3</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">11</span></span><br><span class="line">print(bin(a))    <span class="comment">#a的二进制表示</span></span><br><span class="line">print(a.bit_count())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0b1011</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
 
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Feature/" rel="tag"># Feature</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/python_3_9_feature/" rel="prev" title="Python3.9 新特性">
+      <i class="fa fa-chevron-left"></i> Python3.9 新特性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/python_3_11_feature/" rel="next" title="Python3.11 新特性">
+      Python3.11 新特性 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://blog.stolenzc.com/tags/feature/">Feature</a></li>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构模式匹配（match-case）"><span class="nav-number">3.</span> <span class="nav-text">结构模式匹配（match case）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更好的错误信息"><span class="nav-number">4.</span> <span class="nav-text">更好的错误信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法错误（SynaxErrors）"><span class="nav-number">4.1.</span> <span class="nav-text">语法错误（SynaxErrors）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩进错误（IndentationErrors）"><span class="nav-number">4.2.</span> <span class="nav-text">缩进错误（IndentationErrors）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性错误（AttributeErrors）"><span class="nav-number">4.3.</span> <span class="nav-text">属性错误（AttributeErrors）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名错误（NameErrors）"><span class="nav-number">4.4.</span> <span class="nav-text">命名错误（NameErrors）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型提示相关的新功能"><span class="nav-number">5.</span> <span class="nav-text">类型提示相关的新功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-可以用-简写"><span class="nav-number">5.1.</span> <span class="nav-text">Union 可以用 | 简写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型别名"><span class="nav-number">5.2.</span> <span class="nav-text">类型别名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带括号的上下文管理器"><span class="nav-number">6.</span> <span class="nav-text">带括号的上下文管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip的长度检查"><span class="nav-number">7.</span> <span class="nav-text">zip的长度检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典视图映射"><span class="nav-number">8.</span> <span class="nav-text">字典视图映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为整数添加-popcount-计算方法"><span class="nav-number">9.</span> <span class="nav-text">为整数添加 popcount 计算方法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://schedule.stolenzc.com/schedule/" title="https:&#x2F;&#x2F;schedule.stolenzc.com&#x2F;schedule&#x2F;" rel="noopener" target="_blank">日程管理</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
     </ul>
-<nav class="paginav">
-  <a class="prev" href="https://blog.stolenzc.com/2022/python_3_11_feature/">
-    <span class="title">« 上一页</span>
-    <br>
-    <span>Python3.11 新特性</span>
-  </a>
-  <a class="next" href="https://blog.stolenzc.com/2022/python_3_9_feature/">
-    <span class="title">下一页 »</span>
-    <br>
-    <span>Python3.9 新特性</span>
-  </a>
-</nav>
+  </div>
 
-  </footer>
-</article>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
     </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://blog.stolenzc.com">stolen&#39;s blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
     </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:12</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
 
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '复制';
 
-        function copyingDone() {
-            copybutton.innerHTML = '已复制！';
-            setTimeout(() => {
-                copybutton.innerHTML = '复制';
-            }, 2000);
-        }
 
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
 
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
 
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
-
 </html>
