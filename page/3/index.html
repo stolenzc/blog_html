@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/git/">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/swagger/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -203,7 +203,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/git/" class="post-title-link" itemprop="url">GitHub 开发流程</a>
+            <a href="/2020/swagger/" class="post-title-link" itemprop="url">Swagger编写API文档的YMAL文件语法</a>
         </h2>
 
         <div class="post-meta">
@@ -213,14 +213,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-05-15 15:18:23" itemprop="dateCreated datePublished" datetime="2020-05-15T15:18:23+08:00">2020-05-15</time>
+              <time title="创建时间：2020-05-17 09:55:48" itemprop="dateCreated datePublished" datetime="2020-05-17T09:55:48+08:00">2020-05-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 15:18:23" itemprop="dateModified" datetime="2021-01-16T15:18:23+08:00">2021-01-16</time>
+                <time title="修改时间：2020-10-31 11:04:50" itemprop="dateModified" datetime="2020-10-31T11:04:50+08:00">2020-10-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,7 +228,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" itemprop="url" rel="index"><span itemprop="name">技术提升</span></a>
                 </span>
             </span>
 
@@ -238,14 +238,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>5.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -257,10 +257,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>详细介绍一些Git的工作流程步骤和相关的命令
+          <p>使用Swagger编写接口文档语法示例</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/git/#more" rel="contents">
+              <a class="btn" href="/2020/swagger/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -344,7 +344,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -356,10 +356,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>详细介绍一些Git的工作流程步骤和相关的命令
+          <p>详细介绍一些Git的工作流程步骤和相关的命令</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/github_flow/#more" rel="contents">
+              <a class="btn" href="/2020/github_flow/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -429,7 +429,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>495</span>
+              <span>469</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -448,10 +448,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>收集一些使用Python会遇到的问题，该文章持续更新
+          <p>Python下遇到的一些故障</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/python_issue/#more" rel="contents">
+              <a class="btn" href="/2020/python_issue/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -547,165 +547,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Ubuntu安装</p>
-<ol>
-<li><code>sudo apt update</code> - 更新软件包</li>
-<li><code>sudo apt -y install apt-transport-https ca-certificates curl software-properties-common</code> - 安装可能用到的依赖</li>
-<li><code>curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</code> - 添加阿里云源的密钥</li>
-<li><code>sudo add-apt-repository &quot;deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</code> - 添加阿里云源信息</li>
-<li><code>sudo apt update</code> - 更新索引库</li>
-<li><code>sudo apt-get remove docker docker-engine docker.io</code> - 如果存在docker需要先删除</li>
-<li><code>sudo apt install docker-ce</code> - 安装docker</li>
-</ol>
-<p>Centos安装</p>
-<ol>
-<li><code>uname -r</code> - 查看内核版本(centos7 64位要求3.10+，centos6 64位要求2.6+)</li>
-<li><code>yum update</code> - 更新底层库文件</li>
-<li><code>yum erase -y docker docker-common docker-engine</code> - 移除可能存在的旧版docker</li>
-<li><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code> - 安装工具包和依赖项</li>
-<li><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code> - 添加docker-ce源</li>
-<li><code>yum makecache fast</code> - 做本地缓存，加快安装速度</li>
-<li><code>yum -y install docker-ce</code> - yum安装docker</li>
-<li><code>systemctl start docker</code> - 启动docker</li>
-<li><code>systemctl enable docker</code> - 设置开机自启动</li>
-</ol>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置主要就是更换docker源</p>
-<p>Linux下更改国内镜像在<code>/etc/docker/daemon.json</code>中添加以下代码</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">        <span class="string">"http://hub-mirror.c.163.com"</span>,</span><br><span class="line">        <span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><a href="http://hub.daocloud.io/" target="_blank" rel="noopener">daocloud</a>也可以下载镜像，且有较详细的配置参数</p>
-</blockquote>
-<p>配置私服拉取镜像</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/docker/daemon.json</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line">  <span class="attr">"registry-mirrors":</span> <span class="string">["https://registry.docker-cn.com"],</span></span><br><span class="line">  <span class="attr">"insecure-registries":</span> <span class="string">["ip:port"]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
-
-<p>也可以访问<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像服务</a>，注册后获取镜像加速地址</p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="普通命令"><a href="#普通命令" class="headerlink" title="普通命令"></a>普通命令</h3><ul>
-<li><code>docker version</code> - 查看docker版本</li>
-<li><code>docker info</code> - 查看详细信息</li>
-<li><code>docker network create isolated</code> - 创建docker网络</li>
-</ul>
-<h3 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h3><ul>
-<li><code>docker pull 镜像名</code> - 下载镜像</li>
-<li><code>docker images</code> - 查看所有本地的镜像</li>
-<li><code>docker search 镜像名</code> - 查找镜像</li>
-<li><code>docker rmi 镜像id/镜像名</code> - 删除镜像</li>
-<li><code>docker save -o 导出的路径 镜像id</code> - 导出镜像到文件</li>
-<li><code>docker load -i 镜像文件</code> - 加载本地到镜像文件</li>
-<li><code>docker tag 镜像id 镜像名:镜像版本</code> - 重命名镜像</li>
-<li><code>docker tag 旧镜像名:旧版本 新镜像名:新版本</code> - 复制一个镜像</li>
-<li><code>docker push 地址名/仓库名/镜像名:版本名</code> - 推送镜像</li>
-</ul>
-<h3 id="容器管理"><a href="#容器管理" class="headerlink" title="容器管理"></a>容器管理</h3><ul>
-<li><p><code>docker run -d -p 80:80 --name mynginx --rm nginx:latest [command]</code> - 创建并运行容器，</p>
-<ul>
-<li><code>-d</code> - 后台运行</li>
-<li><code>-i</code> - 启动一个可交互的容器，并持续打开标准输入</li>
-<li><code>-t</code> - 终端关联到容器的标准输入输出上</li>
-<li><code>-p port1:port2</code> - 指定端口 外部端口:内部端口</li>
-<li><code>-v/--volume 外部文件夹:内部文件夹</code> - 数据卷操作，将外部文件夹映射到容器内部文件夹</li>
-<li><code>--link 容器名:自定义网络别名</code> - 给容器网络设置别名</li>
-<li><code>--name 容器名字</code> - 给创建的容器命名</li>
-<li><code>-e 环境变量名=环境变量值</code> - 设置容器全局变量</li>
-<li><code>--rm</code> - 为停止容器的时候容器自动删除</li>
-<li><code>镜像名:版本号</code> - 指定镜像和版本，latest为最新版本，默认不写也为最新版本</li>
-<li><code>command</code> - 表示运行容器时的启动命令</li>
-</ul>
-</li>
-<li><p><code>docker ps [-qa]</code> - 查看正在运行到容器</p>
-<ul>
-<li><code>-q</code> - 只查看容器到标识</li>
-<li><code>-a</code> - 查看全部到容器，包括未运行到容器</li>
-</ul>
-</li>
-<li><p><code>docker logs -f 容器id</code> - 查看容器到日志</p>
-<ul>
-<li><code>-f</code> - 可以滚动到查看日志到最后几行</li>
-</ul>
-</li>
-<li><p><code>docker exec -it 容器ID/容器名 bash</code> - 进入到容器内部命令行</p>
-</li>
-<li><p><code>docker stop 容器名称/容器id</code> - 停止正在运行的容器</p>
-</li>
-<li><p><code>docker stop $(docker ps -qa)</code> - 停止所有的容器</p>
-</li>
-<li><p><code>docker rm -f 容器id</code> - 删除容器</p>
-<ul>
-<li><code>-f</code> - 强制删除容器（包括正在运行的容器）</li>
-</ul>
-</li>
-<li><p><code>docker start 容器名称</code> - 运行已经创建的容器</p>
-</li>
-<li><p><code>docker restart 容器名称</code> - 重启正在运行的容器</p>
-</li>
-<li><p><code>docker cp 文件名 容器id:容器内部路径</code> - 拷贝文件到容器中</p>
-</li>
-<li><p><code>docker container ls -a</code> - 查看所有的容器，不加-a表示正在运行的容器</p>
-</li>
-<li><p><code>docker container prune</code> - 清空所有容器</p>
-</li>
-<li><p><code>docker inspect 容器id</code> - 获取容器底层信息</p>
-<ul>
-<li><code>IPAddress</code> - ip地址</li>
-</ul>
-</li>
-</ul>
-<h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><ul>
-<li><p><code>docker volume create 数据卷名称</code> - 创建数据卷</p>
-<ul>
-<li>创建数据卷之后，默认会存放在/var/lib/docker/volumes/数据卷名称/_data</li>
-</ul>
-</li>
-<li><p><code>docker volume inspect 数据卷名称</code> - 查看数据卷详细信息</p>
-</li>
-<li><p><code>docker volumes ls</code> - 查看全部数据卷</p>
-</li>
-<li><p><code>docker volumes rm 数据卷名称</code> - 删除数据卷</p>
-</li>
-<li><p><code>docker run -v 数据卷名称:容器内部路径 镜像id</code> - 映射数据卷，会自动复制容器的文件到宿主机文件夹</p>
-</li>
-<li><p><code>docker run -v 宿主机路径:容器内部路径 镜像id</code> - 直接指定一个路径作为数据卷的存放地址，这个地址是空的</p>
-</li>
-</ul>
-<h3 id="自定义docker镜像"><a href="#自定义docker镜像" class="headerlink" title="自定义docker镜像"></a>自定义docker镜像</h3><ol>
-<li><p>创建一个Dockerfile文件，并指定自定义镜像</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: 注释，指令大小写不敏感，但是建议指令大写，内容小写</span></span><br><span class="line"><span class="keyword">FROM</span>: 指定当前自定义镜像依赖的环境，dockerfile第一条非注释的命令必须是<span class="keyword">from</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash">: 将相对路径下的内容复制到镜像中</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash">: 将文件写入到镜像中（和copy的区别是copy是运行镜像时拷贝文件，add是构建镜像时拷贝进入）</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash">: 生命镜像到默认目录</span></span><br><span class="line"><span class="keyword">USER</span>: 镜像中的启动用户名</span><br><span class="line"><span class="keyword">RUN</span><span class="bash">: 构建镜像时执行命令</span></span><br><span class="line"><span class="keyword">ENV</span>: 指定镜像中的环境变量</span><br><span class="line"><span class="keyword">CMD</span><span class="bash">: 需要执行的命令（在workdir下执行，可以写多个，以最后一个为准）</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash">: 如果dockerfile中没有run命令，则运行镜像中 /entrypoint.sh 文件，注意需要给执行权限</span></span><br><span class="line"><span class="keyword">ARG</span>: 用于指定传递给构建运行时的变量</span><br><span class="line"><span class="keyword">EXPOSE</span>: 指定于外界交互的端口</span><br><span class="line"><span class="keyword">LABEL</span><span class="bash">: 用于为镜像添加元数据</span></span><br><span class="line">  <span class="keyword">maintainer</span>: 维护者信息</span><br><span class="line">  version: 版本信息</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>制作镜像<code>docker build -t 镜像名称:[tag] .</code></p>
-<ul>
-<li><code>-t</code> - 指定版本</li>
-<li><code>.</code> - 表示将当前目录下的文件编译为镜像</li>
-</ul>
-</li>
-<li><p>docker commit和docker build的区别</p>
-<p><code>docker commit 容器id 自定义镜像名字</code> - 将容器打包成镜像<br><code>docker build -t 镜像名称:[tag] .</code> - 通过dockerfile创建镜像</p>
-</li>
-</ol>
-<h3 id="Docker-compoes"><a href="#Docker-compoes" class="headerlink" title="Docker-compoes"></a>Docker-compoes</h3><ol>
-<li>下载docker-compose文件，直接从github下载对应文件，修改文件的可执行权限并配置环境变量即可使用</li>
-<li>编写docker-compose.yml文件</li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span>          <span class="comment"># 指定版本号，该配置为固定配置，根据不同的docker-compose决定</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">mysql:</span>              <span class="comment"># 服务的名称</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span>   <span class="comment"># 表示只要docker启动了，容器就一起启动</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7</span>  <span class="comment"># 指定镜像</span></span><br><span class="line">    <span class="attr">continer_name:</span> <span class="string">mysql</span>  <span class="comment"># 指定容器的名称</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">3306</span><span class="string">:3306</span>     <span class="comment"># 指定端口号映射</span></span><br><span class="line">    <span class="attr">envirement:</span>       <span class="comment"># 指定环境变量</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">~/volumes/mysql/data:/var/lib/mysql</span>   <span class="comment"># 指定数据卷</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="推送镜像到阿里云"><a href="#推送镜像到阿里云" class="headerlink" title="推送镜像到阿里云"></a>推送镜像到阿里云</h2><ol>
-<li>首先在阿里云创建命名空间，相当于仓库名</li>
-<li><code>docker login --username=王大锤 registry.cn-hangzhou.aliyuncs.com</code> 本地登录阿里云</li>
-<li><code>docker tag 旧镜像名:旧版本 新镜像名:新版本</code> 修改镜像名称<br><strong>注意</strong>：新镜像名需要按照：<code>阿里云地址/阿里云创建到命名空间/自定义名称或者阿里云创建的仓库名:版本</code>的格式</li>
-<li><code>docker push 新镜像名:版本号</code>推送到阿里云镜像仓库</li>
-<li><code>docker pull 新镜像名:版本号</code>将远端到镜像拉到本地</li>
-</ol>
-<h2 id="常见容器创建命令"><a href="#常见容器创建命令" class="headerlink" title="常见容器创建命令"></a>常见容器创建命令</h2><p><code>docker run -d -p 6379:6379 --name redis-master redis:latest redis-server --requirepass 1qaz2wsx</code> - 创建一个redis容器并设置密码为1qaz2wsx</p>
-<p><code>docker run -d -p 6380:6379 --link redis-master:redis-master --name redis-slave-1 redis:latest redis-server --slaveof redis-master 6379 --masterauth 1qaz2wsx</code> - 创建一个redis从机容器，并关联名称为redis-server的主机</p>
-<p><code>docker run -d -p 3306:3306 -v /root/docker/mysql/conf:/etc/mysql/mysql.conf.d -v /root/docker/mysql/data:/var/lib/mysql --name mysql57 -e &quot;MYSQL_ROOT_PASSWORD=123456&quot; mysql:5.7.29</code> - 创建一个MySQL的容器设置数据库密码为123456并将做数据备份</p>
-<h2 id="常见故障"><a href="#常见故障" class="headerlink" title="常见故障"></a>常见故障</h2><h3 id="docker启动后命令无法使用"><a href="#docker启动后命令无法使用" class="headerlink" title="docker启动后命令无法使用"></a>docker启动后命令无法使用</h3><p>报错：Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get <code>http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/json</code>: dial unix /var/run/docker.sock: connect: permission denied</p>
-<p>原因：docker进程使用Unix Socket而不是TCP端口。而默认情况下，Unix socket属于root用户，需要root权限才能访问。</p>
-<p>解决办法：</p>
-<ol>
-<li>获取root权限使用docker</li>
-<li>docker守护进程启动的时候，会默认赋予名字为docker的用户组读写Unix socket的权限，因此只要创建docker用户组，并将当前用户加入到docker用户组中，那么当前用户就有权限访问Unix socket了，进而也就可以执行docker相关命令</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker     <span class="comment">#添加docker用户组</span></span><br><span class="line">sudo gpasswd -a <span class="variable">$USER</span> docker     <span class="comment">#将登陆用户加入到docker用户组中</span></span><br><span class="line">newgrp docker     <span class="comment">#更新用户组</span></span><br><span class="line">docker ps    <span class="comment">#测试docker命令是否可以使用sudo正常使用</span></span><br></pre></td></tr></table></figure>
-
+          <p>Docker的安装配置和命令使用</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/docker/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -789,10 +639,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Windows下可能最好的Linux系统使用解决方案。
+          <p>Windows下可能最好的Linux系统使用解决方案</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/virtualbox_headless/#more" rel="contents">
+              <a class="btn" href="/2020/virtualbox_headless/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -888,33 +738,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="教程使用环境"><a href="#教程使用环境" class="headerlink" title="教程使用环境"></a>教程使用环境</h2><ul>
-<li>Windows10 insider 2004 19041.208</li>
-<li>Microsoft office 专业增强版 2019</li>
-</ul>
-<h2 id="录制宏方法"><a href="#录制宏方法" class="headerlink" title="录制宏方法"></a>录制宏方法</h2><p>在Excel中依次选择<code>视图&gt;宏&gt;录制宏</code>，填入名称和快捷键即可开始录制，会记录下接下来对excel表格的所有操作，对菜单操作不会记录；操作完后，点击<code>视图&gt;宏&gt;结束录制</code>，即可完成录制；可以通过查看录制进入Visual Basic for Application编辑界面</p>
-<h2 id="语法解释"><a href="#语法解释" class="headerlink" title="语法解释"></a>语法解释</h2><ul>
-<li><code>Dim a as Integer</code> - 定义变量</li>
-<li><code>a = 5</code> - 给变量赋值</li>
-<li><code>For i=5 to 30...Next</code> - for循环语句</li>
-<li><code>If 条件 then ... end if</code> - 条件判断语句</li>
-<li><code>selection.offset(x, y)</code> - 在当前选中的单元格基础上横跨y列，纵跨x行选中单元格。直接操作是操作其值。</li>
-<li><code>Selection.Row</code> - 获取当前行的行号</li>
-<li><code>Selection.Column</code> - 获取当前列的列号</li>
-<li><code>sheet1.cells(x, y)</code> - 通过行号和列号直接定位单元格，直接操作是对值进行操作。</li>
-</ul>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>以下代码实现了一个从第四行到第十一行对角线循环填充的功能</p>
-<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 宏<span class="number">1</span>()</span><br><span class="line"><span class="comment">'</span></span><br><span class="line"><span class="comment">' 宏1 宏</span></span><br><span class="line"><span class="comment">'</span></span><br><span class="line"><span class="comment">' 快捷键: Ctrl+k</span></span><br><span class="line"><span class="comment">'</span></span><br><span class="line">    <span class="keyword">Dim</span> r As Integer</span><br><span class="line">    <span class="keyword">Dim</span> c As Integer</span><br><span class="line">    <span class="keyword">Dim</span> value As <span class="built_in">String</span></span><br><span class="line">    r = Selection.Row</span><br><span class="line">    c = Selection.Column</span><br><span class="line">    value = Selection.Offset(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> <span class="number">30</span>    </span><br><span class="line">        r = r + <span class="number">1</span></span><br><span class="line">        <span class="keyword">If</span> r &gt; <span class="number">11</span> <span class="keyword">Then</span></span><br><span class="line">        r = <span class="number">4</span></span><br><span class="line">        <span class="keyword">End</span> <span class="keyword">If</span>    </span><br><span class="line">        Sheet1.Cells(r, j + c) = value</span><br><span class="line">    <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="全局使用"><a href="#全局使用" class="headerlink" title="全局使用"></a>全局使用</h2><p>创建宏的时候，如果需要全局使用该宏，需要用一下方法操作：</p>
-<ol>
-<li>创建时选择保存在<code>个人宏工作簿</code></li>
-<li>录制下宏操作，选择停止录制。</li>
-<li>如果需要编辑VBS代码，需要先选择<code>视图&gt;窗口&gt;取消隐藏</code>，会自动打开一个PERSONAL.XLSB的文件，在该文件中点击<code>查看宏&gt;编辑</code>即可进入VBS编辑界面。</li>
-<li>编辑完成后，保存退出宏界面，然后在PERSONAL.XLSB文件中选择<code>视图&gt;窗口&gt;隐藏</code>，该文件就会隐藏。</li>
-<li>在初始文件中就可以使用该宏，退出的时候，会弹窗是否保存PERSONAL.XLSB文件，选择保存即可。</li>
-</ol>
-
+          <p>记录一次EXCEL录制宏使用VBA实现自定义的功能</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/vba/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1005,62 +837,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>语法：<code>echo [on/off] [message]</code></p>
-<p>说明：打开关闭回显，或显示输出消息，后面不加参数则显示当前回显设置，</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo hello,world</span><br></pre></td></tr></table></figure>
-
-<p>备注：回显表示终端会显示当前这条命令内容，在命令前加@可以让当前命令不显示回显，只执行结果</p>
-<h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><p>语法：<code>rem 注释内容</code></p>
-<p>说明：注释掉后面的内容，不会执行，但是如果未关闭回显，该行内容会在终端显示</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rem 你好</span><br><span class="line">:: 你好</span><br></pre></td></tr></table></figure>
-
-<p>备注：rem会回显该行命令，::不会回显该行命令</p>
-<h3 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h3><p>语法：<code>pause</code></p>
-<p>说明：通常为暂停程序执行，在终端上显示按任意键继续…</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo hello,world</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
-
-<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><p>语法：<code>call [文件路径] [:label] [parameter]</code></p>
-<p>说明：调用执行另一个bat文件，文件路径用绝对路径应该从磁盘开始，如<code>C:\Users\stolenzc\Desktop\hello.bat</code>，可以使用标签进行跳转，功能类似goto，但是使用标签前面必须加冒号，也可以向bat文件传参，另一个bat文件通过传参顺序<code>%1</code>、<code>%2</code>、<code>%3</code>取参数。</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">call :label1 hello world</span><br><span class="line">echo 1</span><br><span class="line">:label1</span><br><span class="line">echo %2 %1</span><br><span class="line">rem 执行结果：world hello 1 echo打开状态</span><br><span class="line">------------分割线-----------------</span><br><span class="line">call C:\Users\stolenzc\Desktop\hello.bat</span><br></pre></td></tr></table></figure>
-
-<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p>语法：<code>start 程序文件名或dos命令</code></p>
-<p>说明：调用外部程序，所有DOS命令和命令行程序都可以在start后执行</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start calc.exe</span><br><span class="line">start shutdown -s -t 1000</span><br></pre></td></tr></table></figure>
-
-<h3 id="goto"><a href="#goto" class="headerlink" title="goto"></a>goto</h3><p>语法：<code>goto 标签</code></p>
-<p>说明：跳转到标签处继续向下执行</p>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:1</span><br><span class="line">start</span><br><span class="line">goto 1</span><br></pre></td></tr></table></figure>
-
-<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>语法：<code>set a=5</code>、<code>set a=</code></p>
-<p>说明：显示、设置或删除变量。</p>
-<p>参数：</p>
-<ul>
-<li>/A - 指定等号右边的字符串为数字表达式</li>
-<li>/P - 用户输入内容赋值给变量，等号右边可以设置输入提示</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set a=5</span><br><span class="line">echo %a%</span><br><span class="line">set a=</span><br><span class="line">echo %a%</span><br><span class="line">rem 执行结果：5 ECHO处于打开状态</span><br></pre></td></tr></table></figure>
-
-<p>备注：<code>set a=</code>表示删除变量，如果要使用变量前后需要加%</p>
-<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><p><code>@</code> - 本条命令在终端中关闭回显</p>
-<p><code>&gt;</code> - 将输出内容写入到文件中去</p>
-<p><code>&gt;&gt;</code> - 将输出内容追加到文件中去</p>
-<p><code>&lt;</code> - 将输入信息来源指定为设备或文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set /p ifo=&lt;a.txt</span><br></pre></td></tr></table></figure>
-
-<p><code>|</code> - 将管道前面的输出作为后面命令的输入</p>
-<p><code>^</code> - 将特殊符号进行转义，如<code>| &amp; &gt; &lt;</code></p>
-<p><code>%</code> - 转义<code>%</code>，如<code>%%</code>将输出<code>%</code></p>
-<p><code>&amp;</code> - 连接多个命令，前面无论成功失败都执行后面的</p>
-<p><code>&amp;&amp;</code> - 连接多个命令，前面成功时执行后面的</p>
-<p><code>||</code> - 连接多个命令，前面失败时执行后面的</p>
-<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2>
+          <p>适用于Windows批处理的一些命令，方便读写一些bat脚本</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/windows_cmder/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1144,10 +929,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等。
+          <p>介绍一些关机计算机网络的相关知识，包括TCP、HTTP、HTTPS、WebSocket等</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/network/#more" rel="contents">
+              <a class="btn" href="/2020/network/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1243,10 +1028,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>记录一些Edge插件和用法
+          <p>记录一些Edge插件和用法</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/edge/#more" rel="contents">
+              <a class="btn" href="/2020/edge/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1340,7 +1125,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1411,12 +1196,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">105k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:12</span>
+    <span title="站点阅读时长">3:05</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
