@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="命令行请求接口工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Curl 使用手册">
+<meta property="og:url" content="https://blog.stolenzc.com/2023/curl/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="命令行请求接口工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-06T14:58:32.000Z">
+<meta property="article:modified_time" content="2023-02-07T13:06:18.970Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="tools">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2023/curl/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Curl 使用手册 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/curl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Curl 使用手册
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-06 22:58:32" itemprop="dateCreated datePublished" datetime="2023-02-06T22:58:32+08:00">2023-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-02-07 21:06:18" itemprop="dateModified" datetime="2023-02-07T21:06:18+08:00">2023-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">命令行工具</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">命令行请求接口工具</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>CURL (Client URL)是一个命令行工具，用于在命令行下发送 HTTP 请求。对于热爱命令行的人来说，这个是必备的工具。</p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl https://api.github.com/versions</span><br><span class="line">[</span><br><span class="line">  <span class="string">"2022-11-28"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><h3 id="A"><a href="#A" class="headerlink" title="-A"></a>-A</h3><p>设置请求头中的代理头 User-Agent 字段。curl 默认的代理头是 <code>curl/[version]</code></p>
+<p>例如机器内的 curl 版本是 7.64.1，那么默认的 User-Agent 就是 <code>curl/7.64.1</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"GET /versions HTTP/1.1"</span> 200 250 <span class="string">"-"</span> <span class="string">"curl/7.64.1"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我们想要自定义 User-Agent，可以使用 <code>-A</code> 参数，以下示例就将请求头改为了 Edge 浏览器的 User-Agent</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -A <span class="string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过 <code>-H</code> 参数来设置请求头</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -H <span class="string">"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="b"><a href="#b" class="headerlink" title="-b"></a>-b</h3><p>设置请求头中的 Cookie 字段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -b <span class="string">"logged_in=yes;dotcom_user=stolenzc;"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>如果需要读取文件，可以使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -b cookie.txt https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="c"><a href="#c" class="headerlink" title="-c"></a>-c</h3><p>将服务器返回的响应头中的 Cookie 字段写入文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -c cookie.txt https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="d"><a href="#d" class="headerlink" title="-d"></a>-d</h3><p>发送 POST 请求的请求体数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -X POST -d <span class="string">"name=stolenzc&amp;password=123"</span> https://api.github.com/versions</span><br><span class="line">&gt; curl -X POST -d <span class="string">"name=stolenzc"</span> -d <span class="string">"password=123"</span> https://api.github.com/versions</span><br><span class="line">&gt; curl -X POST -d <span class="string">'@data.json'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>默认的请求头中的 Content-Type 是 <code>application/x-www-form-urlencoded</code>，如果需要发送 JSON 格式的数据，可以使用 <code>-H</code> 参数来设置请求头</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -X POST -H <span class="string">"Content-Type: application/json"</span> -d <span class="string">'&#123;"name":"stolenzc","password":"123"&#125;'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="–data-urlencode"><a href="#–data-urlencode" class="headerlink" title="–data-urlencode"></a>–data-urlencode</h3><p>发送 POST 请求的请求体数据，会对数据进行 URL 编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -X POST --data-urlencode <span class="string">"name=stolen zc&amp;password=123"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3><p>设置请求头中的 Referer 字段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -e <span class="string">"https://stolenzc.com"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过 <code>-H</code> 参数来设置请求头中的改参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -H <span class="string">"Referer: https://stolenzc.com"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="F"><a href="#F" class="headerlink" title="-F"></a>-F</h3><p>发送 POST 请求的请求体数据，用于上传二进制文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -F <span class="string">'file=@photo.png'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>该参数会自动设置请求头中的 Content-Type 为 <code>multipart/form-data</code>，</p>
+<p>-F 也可以设置 MIME 类型</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -F <span class="string">'file=@photo.png;type=image/png'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>-G</p>
+<p>用来构建 GET 请求的请求体数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -G -d <span class="string">"name=stolenzc"</span> -d <span class="string">"password=123"</span> https://api.github.com/versions</span><br><span class="line"></span><br><span class="line">实际请求url为: https://api.github.com/versions?name=stolenzc&amp;password=123</span><br></pre></td></tr></table></figure>
+
+<p>默认会发送一个 GET 请求，如果去掉 <code>-G</code> 参数，那么会发送一个 POST 请求，如果需要对数据进行 URL 编码，可以使用 <code>--data-urlencode</code> 参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -G --data-urlencode <span class="string">"name=stolen zc&amp;password=123"</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="H"><a href="#H" class="headerlink" title="-H"></a>-H</h3><p>设置 http 请求头</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -H <span class="string">"Content-Type: application/json"</span> -d <span class="string">'&#123;"name": "stolenzc", "password": "123"&#125;'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="i"><a href="#i" class="headerlink" title="-i"></a>-i</h3><p>用于打印出服务器回应的 http 头信息</p>
+<p>会先打印出响应头，然后空一行，然后打印出响应体</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -i https://api.github.com/versions</span><br><span class="line">HTTP/2 200</span><br><span class="line">server: GitHub.com</span><br><span class="line">date: Mon, 06 Feb 2023 14:33:56 GMT</span><br><span class="line">content-type: application/json; charset=utf-8</span><br><span class="line">content-length: 19</span><br><span class="line">cache-control: public, max-age=60, s-maxage=60</span><br><span class="line">vary: Accept, Accept-Encoding, Accept, X-Requested-With</span><br><span class="line">etag: <span class="string">"e2ebdf109e4e2a25e3dafbe449a68700db7044ebea246b289a65139cb0a0b333"</span></span><br><span class="line">x-github-media-type: github.v3; format=json</span><br><span class="line">x-github-api-version-selected: 2022-11-28</span><br><span class="line">access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset</span><br><span class="line">access-control-allow-origin: *</span><br><span class="line">strict-transport-security: max-age=31536000; includeSubdomains; preload</span><br><span class="line">x-frame-options: deny</span><br><span class="line">x-content-type-options: nosniff</span><br><span class="line">x-xss-protection: 0</span><br><span class="line">referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin</span><br><span class="line">content-security-policy: default-src <span class="string">'none'</span></span><br><span class="line">x-ratelimit-limit: 60</span><br><span class="line">x-ratelimit-remaining: 55</span><br><span class="line">x-ratelimit-reset: 1675694126</span><br><span class="line">x-ratelimit-resource: core</span><br><span class="line">x-ratelimit-used: 5</span><br><span class="line">accept-ranges: bytes</span><br><span class="line">x-github-request-id: 4DB5:16B1:542E0:5CB14:63E10FD4</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">  <span class="string">"2022-11-28"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="I-–head"><a href="#I-–head" class="headerlink" title="-I/–head"></a>-I/–head</h3><p>像服务器发送 HEAD 请求，只打印出响应头信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -I https://api.github.com/versions</span><br><span class="line">HTTP/2 200</span><br><span class="line">server: GitHub.com</span><br><span class="line">date: Mon, 06 Feb 2023 14:37:00 GMT</span><br><span class="line">content-type: application/json; charset=utf-8</span><br><span class="line">content-length: 19</span><br><span class="line">cache-control: public, max-age=60, s-maxage=60</span><br><span class="line">vary: Accept, Accept-Encoding, Accept, X-Requested-With</span><br><span class="line">etag: <span class="string">"e2ebdf109e4e2a25e3dafbe449a68700db7044ebea246b289a65139cb0a0b333"</span></span><br><span class="line">x-github-media-type: github.v3; format=json</span><br><span class="line">x-github-api-version-selected: 2022-11-28</span><br><span class="line">access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset</span><br><span class="line">access-control-allow-origin: *</span><br><span class="line">strict-transport-security: max-age=31536000; includeSubdomains; preload</span><br><span class="line">x-frame-options: deny</span><br><span class="line">x-content-type-options: nosniff</span><br><span class="line">x-xss-protection: 0</span><br><span class="line">referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin</span><br><span class="line">content-security-policy: default-src <span class="string">'none'</span></span><br><span class="line">x-ratelimit-limit: 60</span><br><span class="line">x-ratelimit-remaining: 58</span><br><span class="line">x-ratelimit-reset: 1675697820</span><br><span class="line">x-ratelimit-resource: core</span><br><span class="line">x-ratelimit-used: 2</span><br><span class="line">accept-ranges: bytes</span><br><span class="line">x-github-request-id: 4D93:3C49:65424:6E189:63E1109A</span><br></pre></td></tr></table></figure>
+
+<h3 id="k"><a href="#k" class="headerlink" title="-k"></a>-k</h3><p>忽略 ssl 证书验证</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -k https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="L"><a href="#L" class="headerlink" title="-L"></a>-L</h3><p>让 HTTP 请求跟随服务器的重定向。curl 默认不跟随重定向。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -L -d <span class="string">'tweet=hi'</span> https://api.twitter.com/tweet</span><br></pre></td></tr></table></figure>
+
+<h3 id="limit-rate"><a href="#limit-rate" class="headerlink" title="limit-rate"></a>limit-rate</h3><p>限制传输速度，模拟慢速网络环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --<span class="built_in">limit</span>-rate 1000B https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="o"><a href="#o" class="headerlink" title="-o"></a>-o</h3><p>将服务器响应的内容保存到文件中，类似于 wget 命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -o get_docker.sh https://get.docker.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="O"><a href="#O" class="headerlink" title="-O"></a>-O</h3><p>将服务器响应的内容保存到文件中，文件名从 URL 中获取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -O https://www.baidu.com/index.html</span><br></pre></td></tr></table></figure>
+
+<p>如果无法从 URL 中获取文件名，下载会失败</p>
+<h3 id="s-–silent"><a href="#s-–silent" class="headerlink" title="-s/–silent"></a>-s/–silent</h3><p>静默模式，不输出任何错误信息，如果报错，输出为空，如果正常，输出正常的响应内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -s https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="S"><a href="#S" class="headerlink" title="-S"></a>-S</h3><p>指定输出错误信息，通常与 -s 一起使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -sS https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="u"><a href="#u" class="headerlink" title="-u"></a>-u</h3><p>指定用户名和密码，用于 HTTP 认证</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -u username:password https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>会自动设置 http 请求头中的 <code>Authorization: Basic xxx</code>，其中 xxx 是 base64 编码的用户名和密码</p>
+<p>如果只输入了用户名，没有输入密码，会提示输入密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -u username https://api.github.com/versions</span><br><span class="line">&gt; password</span><br></pre></td></tr></table></figure>
+
+<h3 id="v-–trace"><a href="#v-–trace" class="headerlink" title="-v/–trace"></a>-v/–trace</h3><p>输出通信过程，用于调试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -v https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<p>–trace 也可以用于调试，还会输出原始的二进制数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl --trace - https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="x"><a href="#x" class="headerlink" title="-x"></a>-x</h3><p>指定代理服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -x socks5://127.0.0.1:1080 https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="X"><a href="#X" class="headerlink" title="-X"></a>-X</h3><p>指定 HTTP 请求方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; curl -X POST -d <span class="string">'username=stolenzc'</span> https://api.github.com/versions</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考自阮一峰老师的网络日志：<a href="https://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">curl 命令详解</a>，部分内容有删改</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tools/" rel="tag"># tools</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/mysql_issue/" rel="prev" title="MySQL 中的一些坑">
+      <i class="fa fa-chevron-left"></i> MySQL 中的一些坑
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">2.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用参数"><span class="nav-number">3.</span> <span class="nav-text">常用参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A"><span class="nav-number">3.1.</span> <span class="nav-text">-A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b"><span class="nav-number">3.2.</span> <span class="nav-text">-b</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c"><span class="nav-number">3.3.</span> <span class="nav-text">-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d"><span class="nav-number">3.4.</span> <span class="nav-text">-d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–data-urlencode"><span class="nav-number">3.5.</span> <span class="nav-text">–data-urlencode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e"><span class="nav-number">3.6.</span> <span class="nav-text">-e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#F"><span class="nav-number">3.7.</span> <span class="nav-text">-F</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H"><span class="nav-number">3.8.</span> <span class="nav-text">-H</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i"><span class="nav-number">3.9.</span> <span class="nav-text">-i</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-–head"><span class="nav-number">3.10.</span> <span class="nav-text">-I&#x2F;–head</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k"><span class="nav-number">3.11.</span> <span class="nav-text">-k</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L"><span class="nav-number">3.12.</span> <span class="nav-text">-L</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit-rate"><span class="nav-number">3.13.</span> <span class="nav-text">limit-rate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#o"><span class="nav-number">3.14.</span> <span class="nav-text">-o</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O"><span class="nav-number">3.15.</span> <span class="nav-text">-O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-–silent"><span class="nav-number">3.16.</span> <span class="nav-text">-s&#x2F;–silent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S"><span class="nav-number">3.17.</span> <span class="nav-text">-S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u"><span class="nav-number">3.18.</span> <span class="nav-text">-u</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-–trace"><span class="nav-number">3.19.</span> <span class="nav-text">-v&#x2F;–trace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x"><span class="nav-number">3.20.</span> <span class="nav-text">-x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#X"><span class="nav-number">3.21.</span> <span class="nav-text">-X</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">109k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:18</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
