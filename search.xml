@@ -63,6 +63,73 @@
       </tags>
   </entry>
   <entry>
+    <title>Cobra</title>
+    <url>/2023/cobra/</url>
+    <content><![CDATA[<h2 id="Cobra简介"><a href="#Cobra简介" class="headerlink" title="Cobra简介"></a>Cobra简介</h2><p><a href="https://github.com/spf13/cobra" target="_blank" rel="noopener">Cobra</a> 是一个用于生成命令行工具的框架，非常简单、易用，kubernetes/docker/hugo/etcd等都是使用Cobra开发的命令行工具。</p>
+<h2 id="Cobra安装"><a href="#Cobra安装" class="headerlink" title="Cobra安装"></a>Cobra安装</h2><ul>
+<li><code>go get -u github.com/spf13/cobra@latest</code>  - 安装项目内使用的 Cobra</li>
+<li><code>go get -u github.com/spf13/cobra-cli@latest</code> - 安装 Cobra 命令行工具</li>
+<li><code>import &#39;github.com/spf13/cobra&#39;</code> - 项目内使用</li>
+</ul>
+<h2 id="cobra-cli命令介绍"><a href="#cobra-cli命令介绍" class="headerlink" title="cobra-cli命令介绍"></a>cobra-cli命令介绍</h2><p><code>cobra-cli add [command name]</code> - 为应用添加一个命令</p>
+<p><code>cobra-cli init [path] [flag]</code> - 使用cobra初始化一个新的应用</p>
+<ul>
+<li><code>-a</code> <code>—author</code> - 设置版权信息的作者名，默认为 <code>YOUR NAME</code></li>
+<li><code>--config</code> - 设置邮箱等其他配置，存储在 <code>$HOME/.cobra.yaml</code> 中</li>
+<li><code>-l</code> <code>--license</code> - 设置项目使用的开源协议</li>
+<li><code>--viper</code> - 使用Viper加载config</li>
+<li>新版本已经取消掉 <code>--pkg-name</code> 参数，取代的是 <code>path</code> 地址，如果输入 <code>path</code> 地址，则会在当前所在的目录下创建一个 <code>path</code> 地址，并初始化为 Cobra 模式的项目</li>
+<li><code>-h</code> <code>--help</code> - 查看 <code>cobra-cli init</code> 的帮助</li>
+</ul>
+<h2 id="Cobra项目创建"><a href="#Cobra项目创建" class="headerlink" title="Cobra项目创建"></a>Cobra项目创建</h2><p>初始化一个cobra项目，必须在go module的目录下执行，示例中创建一个 <code>clid</code> 项目</p>
+<ul>
+<li><code>mkdir clid</code></li>
+<li><code>cd clid</code></li>
+<li><code>go mod init clid</code></li>
+<li><code>cobra-cli init -a stolen -l MIT --viper</code></li>
+</ul>
+<p>cobra初始化后的目录结构如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── LICENSE</span><br><span class="line">├── cmd</span><br><span class="line">│   └── root.go</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">└── main.go</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改作者信息"><a href="#修改作者信息" class="headerlink" title="修改作者信息"></a>修改作者信息</h2><p>建议初始化就修改好作者的信息，否则修改会比较麻烦</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cobra-cli init --author stolen</span><br></pre></td></tr></table></figure>
+
+<h2 id="新增命令"><a href="#新增命令" class="headerlink" title="新增命令"></a>新增命令</h2><p>会在cmd目录下创建一个新文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cobra-cli add version</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令编译与运行"><a href="#命令编译与运行" class="headerlink" title="命令编译与运行"></a>命令编译与运行</h2><ul>
+<li><code>go build</code> - 编译命令</li>
+<li><code>clid</code> - 运行命令</li>
+</ul>
+<h2 id="为命令添加一个子命令"><a href="#为命令添加一个子命令" class="headerlink" title="为命令添加一个子命令"></a>为命令添加一个子命令</h2><p><code>cobra-cli add [command name]</code> - 为应用添加一个命令</p>
+<ul>
+<li><code>cobra-cli add version</code> - 为应用添加一个 version 命令</li>
+</ul>
+<ol>
+<li><p>命令的基本结构</p>
+<ul>
+<li>short - 显示父级命令帮助时，对该命令的简介</li>
+<li>long - 显示当前命令帮助是显示的内容</li>
+<li>run - 运行执行的操作</li>
+</ul>
+</li>
+<li><p>将命令绑定到父命令上的方法</p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">rootCmd.AddCommand(versionCmd)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="为命令添加一个选项"><a href="#为命令添加一个选项" class="headerlink" title="为命令添加一个选项"></a>为命令添加一个选项</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span>｛</span></span><br><span class="line">    rootCmd.AddCommand(versionCmd)</span><br><span class="line">    versionCmd.Flags().StringP(<span class="string">"author"</span>, <span class="string">"a"</span>, <span class="string">"stolen"</span>, <span class="string">"input author"</span>)</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用命令"><a href="#使用命令" class="headerlink" title="使用命令"></a>使用命令</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> versionCmd = &amp;cobra.Command&#123;</span><br><span class="line">	Use:   <span class="string">"version"</span>,</span><br><span class="line">	Short: <span class="string">"获取版本信息"</span>,</span><br><span class="line">	Long: <span class="string">`获取版本信息，包括版本号，构建时间，构建人等信息`</span>,</span><br><span class="line">	Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">		author, err := cmd.Flags().GetString(<span class="string">"author"</span>)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Println(err)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(<span class="string">"version called, author: %s\n"</span>, author)</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Go Packages</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Curl 使用手册</title>
     <url>/2023/curl/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>CURL (Client URL)是一个命令行工具，用于在命令行下发送 HTTP 请求。对于热爱命令行的人来说，这个是必备的工具。</p>
