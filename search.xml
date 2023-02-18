@@ -1164,13 +1164,49 @@
 <li><code>alg</code> - 签名的算法(algorithm)，默认是 HMAC SHA256(写成 HS256)</li>
 </ul>
 <h2 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h2><p>Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"王大锤"</span>,</span><br><span class="line">    <span class="attr">"admin"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"John Doe"</span>,</span><br><span class="line">    <span class="attr">"iat"</span>: <span class="number">1516239022</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://www.rfc-editor.org/rfc/rfc7519#section-4.1" target="_blank" rel="noopener">官方定义</a>了7个字段，但不是强制的，用户可以自由定义其他字段进行使用</p>
+<table>
+<thead>
+<tr>
+<th>Payload 字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>iss</code></td>
+<td>issuer，表示令牌的签发者；</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td>expiration，表示令牌的过期时间，为 UTC 时间戳；</td>
+</tr>
+<tr>
+<td><code>iat</code></td>
+<td>issued at, 表示令牌的签发时间，为 UTC 时间戳；</td>
+</tr>
+<tr>
+<td><code>jti</code></td>
+<td>jwt id, 表示令牌的唯一标示符，可以用于防止重放攻击；</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>subject，表示令牌的主题；</td>
+</tr>
+<tr>
+<td><code>aud</code></td>
+<td>audience，表示令牌的受众；</td>
+</tr>
+<tr>
+<td><code>nbf</code></td>
+<td>not before，表示令牌的生效时间；</td>
+</tr>
+</tbody></table>
 <h2 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h2><p>签名，需要提前设定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + <span class="string">"."</span> +</span><br><span class="line">  base64UrlEncode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
 
-<p>base64 转变为 base64Url 的区别</p>
+<p>base64 转变为 base64Url 的方法</p>
 <ul>
 <li><code>=</code> 被省略</li>
 <li><code>+</code> 替换成 <code>-</code></li>
@@ -1180,7 +1216,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure>
 
 <p>另一个做法是直接将 JWT 数据放在 POST 请求体数据中</p>
-<h2 id="JWT-生成代码"><a href="#JWT-生成代码" class="headerlink" title="JWT 生成代码"></a>JWT 生成代码</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方法1: 使用pyjwt库, pyjwt 会使用默认的header，所以不穿数据也能生成正常的 jwt 签名</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_jwt_token</span><span class="params">(payload, header=None)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> jwt.encode(payload, SECRET_KEY, algorithm=<span class="string">'HS256'</span>, headers=header)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2: 自己实现jwt签名方式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_jwt_sign</span><span class="params">(payload, header)</span>:</span></span><br><span class="line">    payload = base64.b64encode(ujson.dumps(payload).encode(<span class="string">'utf-8'</span>)).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    header = base64.b64encode(ujson.dumps(header).encode(<span class="string">'utf-8'</span>)).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    unsign_str = header + <span class="string">'.'</span> + payload</span><br><span class="line">    unsign_str = unsign_str.replace(<span class="string">'='</span>, <span class="string">''</span>).replace(<span class="string">'+'</span>, <span class="string">'-'</span>).replace(<span class="string">'/'</span>, <span class="string">'_'</span>)</span><br><span class="line">    sign = hmac.new(SECRET_KEY.encode(<span class="string">'utf-8'</span>), unsign_str.encode(<span class="string">'utf-8'</span>), hashlib.sha256).digest()</span><br><span class="line">    sign = base64.b64encode(sign).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    sign = sign.replace(<span class="string">'='</span>, <span class="string">''</span>).replace(<span class="string">'+'</span>, <span class="string">'-'</span>).replace(<span class="string">'/'</span>, <span class="string">'_'</span>)</span><br><span class="line">    <span class="keyword">return</span> unsign_str + <span class="string">'.'</span> + sign</span><br></pre></td></tr></table></figure>
+<h2 id="JWT-生成代码"><a href="#JWT-生成代码" class="headerlink" title="JWT 生成代码"></a>JWT 生成代码</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方法1: 使用pyjwt库, pyjwt 会使用默认的header，所以不穿数据也能生成正常的 jwt 签名</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_jwt_token</span><span class="params">(payload, header=None)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> jwt.encode(payload, SECRET_KEY, algorithm=<span class="string">'HS256'</span>, headers=header)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2: 自己实现jwt签名方式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_jwt_sign</span><span class="params">(payload, header)</span>:</span></span><br><span class="line">    payload = base64.b64encode(ujson.dumps(payload).encode(<span class="string">'utf-8'</span>)).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    header = base64.b64encode(ujson.dumps(header).encode(<span class="string">'utf-8'</span>)).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    unsign_str = header + <span class="string">'.'</span> + payload</span><br><span class="line">    unsign_str = unsign_str.replace(<span class="string">'='</span>, <span class="string">''</span>).replace(<span class="string">'+'</span>, <span class="string">'-'</span>).replace(<span class="string">'/'</span>, <span class="string">'_'</span>)</span><br><span class="line">    sign = hmac.new(SECRET_KEY.encode(<span class="string">'utf-8'</span>), unsign_str.encode(<span class="string">'utf-8'</span>), hashlib.sha256).digest()</span><br><span class="line">    sign = base64.b64encode(sign).decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    sign = sign.replace(<span class="string">'='</span>, <span class="string">''</span>).replace(<span class="string">'+'</span>, <span class="string">'-'</span>).replace(<span class="string">'/'</span>, <span class="string">'_'</span>)</span><br><span class="line">    <span class="keyword">return</span> unsign_str + <span class="string">'.'</span> + sign</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    header = &#123;</span><br><span class="line">        <span class="string">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">        <span class="string">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">    &#125;</span><br><span class="line">    payload = &#123;</span><br><span class="line">        <span class="string">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">        <span class="string">"name"</span>: <span class="string">"John Doe"</span>,</span><br><span class="line">        <span class="string">"iat"</span>: <span class="number">1516239022</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    print(get_jwt_token(payload, header))</span><br><span class="line">    print(get_jwt_sign(payload, header))</span><br></pre></td></tr></table></figure>
 
 <h3 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h3><p>采用 <a href="https://github.com/golang-jwt/jwt" target="_blank" rel="noopener">golang-jwt</a> 库</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line"></span><br><span class="line">	<span class="string">"github.com/golang-jwt/jwt/v4"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CustomClaims <span class="keyword">struct</span> &#123;</span><br><span class="line">	Subject  <span class="keyword">string</span>           <span class="string">`json:"sub,omitempty"`</span></span><br><span class="line">	Name     <span class="keyword">string</span>           <span class="string">`json:"name,omitempty"`</span></span><br><span class="line">	IssuedAt *jwt.NumericDate <span class="string">`json:"iat,omitempty"`</span></span><br><span class="line">	jwt.RegisteredClaims</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CreateJWTToken</span><span class="params">(payload *CustomClaims, header <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;, secret []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">string</span>, error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	token := &amp;jwt.Token&#123;</span><br><span class="line">		Header: header,</span><br><span class="line">		Claims: payload,</span><br><span class="line">		Method: jwt.SigningMethodHS256,</span><br><span class="line">	&#125;</span><br><span class="line">	tokenString, err := token.SignedString(secret)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">""</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> tokenString, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	claims := &amp;CustomClaims&#123;&#125;</span><br><span class="line">	claims.Subject = <span class="string">"1234567890"</span></span><br><span class="line">	claims.Name = <span class="string">"John Doe"</span></span><br><span class="line">	claims.IssuedAt = &amp;jwt.NumericDate&#123;</span><br><span class="line">		Time: time.Unix(<span class="number">1516239022</span>, <span class="number">0</span>),</span><br><span class="line">	&#125;</span><br><span class="line">	header := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">		<span class="string">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">		<span class="string">"typ"</span>: <span class="string">"JWT"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	jwtString, err := CreateJWTToken(claims, header, []<span class="keyword">byte</span>(<span class="string">"abcde"</span>))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(jwtString)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3979,34 +4015,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows10中AMD显卡开机黑屏问题</title>
-    <url>/2020/window_issue/</url>
-    <content><![CDATA[<p>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法</p>
-<h2 id="AMD显卡开机黑屏"><a href="#AMD显卡开机黑屏" class="headerlink" title="AMD显卡开机黑屏"></a>AMD显卡开机黑屏</h2><p>升级Windows10后，许多搭载AMD显卡的老机器开机的时候会有一到两分钟的黑屏时间，究其原因就是ulps导致的，一般解决办法有一下两种，一下办法提到的工具打包在<a href="https://stolenzc.lanzoui.com/iwqk9hcxlve" target="_blank" rel="noopener">win10-amd_黑屏文件</a>：</p>
-<p>方法一：</p>
-<ol>
-<li>在控制面版中卸载AMD的显卡程序</li>
-<li>卸载完毕后，从win10设置-更新和安全-恢复-高级启动-立即重新启动中进入安全模式</li>
-<li>在安全模式中使用DDU，单机清除并重启（clear and restart）</li>
-<li>开机后，打开wushowhide.diagcab文件，选择hide updatas</li>
-<li>重新安装最新显卡驱动</li>
-</ol>
-<p>方法二：</p>
-<ol>
-<li>运行ULPS中的disable注册表文件</li>
-<li>选择重启（注意：不是关机，是重启）</li>
-<li>在桌面右键-显示卡属性-电源-可切换显示卡全局设置-还有其他省电方法，将前面的勾去掉</li>
-<li>先关机，再开机，在电源设置中将快速启动关闭。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>故障避坑</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows批处理命令</title>
     <url>/2020/windows_cmder/</url>
     <content><![CDATA[<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>语法：<code>echo [on/off] [message]</code></p>
@@ -4069,8 +4077,36 @@
         <category>系统入门</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>批处理</tag>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows10中AMD显卡开机黑屏问题</title>
+    <url>/2020/window_issue/</url>
+    <content><![CDATA[<p>分享一些Windows在使用时遇到的一些问题和一些解决办法，每个方法自己均实验过，确保能用，但不确保是最好的解决办法</p>
+<h2 id="AMD显卡开机黑屏"><a href="#AMD显卡开机黑屏" class="headerlink" title="AMD显卡开机黑屏"></a>AMD显卡开机黑屏</h2><p>升级Windows10后，许多搭载AMD显卡的老机器开机的时候会有一到两分钟的黑屏时间，究其原因就是ulps导致的，一般解决办法有一下两种，一下办法提到的工具打包在<a href="https://stolenzc.lanzoui.com/iwqk9hcxlve" target="_blank" rel="noopener">win10-amd_黑屏文件</a>：</p>
+<p>方法一：</p>
+<ol>
+<li>在控制面版中卸载AMD的显卡程序</li>
+<li>卸载完毕后，从win10设置-更新和安全-恢复-高级启动-立即重新启动中进入安全模式</li>
+<li>在安全模式中使用DDU，单机清除并重启（clear and restart）</li>
+<li>开机后，打开wushowhide.diagcab文件，选择hide updatas</li>
+<li>重新安装最新显卡驱动</li>
+</ol>
+<p>方法二：</p>
+<ol>
+<li>运行ULPS中的disable注册表文件</li>
+<li>选择重启（注意：不是关机，是重启）</li>
+<li>在桌面右键-显示卡属性-电源-可切换显示卡全局设置-还有其他省电方法，将前面的勾去掉</li>
+<li>先关机，再开机，在电源设置中将快速启动关闭。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>故障避坑</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
