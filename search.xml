@@ -3728,6 +3728,64 @@
       </tags>
   </entry>
   <entry>
+    <title>Viper</title>
+    <url>/2023/viper/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://github.com/spf13/viper" target="_blank" rel="noopener"><code>Viper</code></a> 是一个 Go 应用的完整配置解决方案，包括<a href="https://12factor.net/#the_twelve_factors" target="_blank" rel="noopener">微服务的12要素</a>，主要支持一下特性</p>
+<ul>
+<li>默认值设置</li>
+<li>Golang的配置管理库</li>
+<li>支持从JSON, TOML, YAML, HCL, envfile , Java 配置文件读取</li>
+<li>实时监视和重新读取配置文件</li>
+<li>读取环境变量配置</li>
+<li>从远处配置系统(etcd or Consul)中读取</li>
+<li>从命令行标志读取</li>
+<li>从缓冲区读取</li>
+<li>显示设置配置</li>
+</ul>
+<p><code>viper</code>读取配置文件的优先级顺序：</p>
+<ul>
+<li><code>viper.Set()</code> 所设置的值</li>
+<li>命令行 <code>flag</code></li>
+<li>环境变量</li>
+<li>配置文件</li>
+<li>配置中心<code>etcd/consul</code></li>
+<li>默认值</li>
+</ul>
+<blockquote>
+<p>注意：<code>viper</code>的配置键是不区分大小写的。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>go get -u https://github.com/spf13/viper</code></p>
+<h2 id="从配置文件读取值"><a href="#从配置文件读取值" class="headerlink" title="从配置文件读取值"></a><strong><strong>从配置文件读取值</strong></strong></h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.SetConfigName(<span class="string">"production"</span>) <span class="comment">// 设置配置文件名</span></span><br><span class="line">viper.SetConfigType(<span class="string">"yaml"</span>)       <span class="comment">// 设置配置文件类型</span></span><br><span class="line">viper.AddConfigPath(<span class="string">"./config"</span>)   <span class="comment">// 设置配置文件路径，可以重复该语法设置多个路径</span></span><br><span class="line">viper.AddConfigPath(<span class="string">"."</span>)          <span class="comment">// 在当前工作目录寻找配置文件</span></span><br><span class="line">err := viper.ReadInConfig()       <span class="comment">// 查找并读取配置文件</span></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123; </span><br><span class="line">	<span class="built_in">panic</span>(fmt.Errorf(<span class="string">"Fatal error config file: %w \n"</span>, err))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"datastore.metric.host"</span>: <span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"host"</span>: &#123;</span><br><span class="line">        <span class="string">"address"</span>: <span class="string">"localhost"</span>,</span><br><span class="line">        <span class="string">"port"</span>: [</span><br><span class="line">				    <span class="number">5799</span>,</span><br><span class="line">				    <span class="number">6029</span></span><br><span class="line">				]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"datastore"</span>: &#123;</span><br><span class="line">        <span class="string">"metric"</span>: &#123;</span><br><span class="line">            <span class="string">"host"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">            <span class="string">"port"</span>: <span class="number">3099</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"warehouse"</span>: &#123;</span><br><span class="line">            <span class="string">"host"</span>: <span class="string">"198.0.0.1"</span>,</span><br><span class="line">            <span class="string">"port"</span>: <span class="number">2112</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">viper.GetString(<span class="string">"datastore.warehouse.host"</span>) <span class="comment">// (returns "198.0.0.1")</span></span><br><span class="line">viper.GetInt(<span class="string">"host.ports.1"</span>) <span class="comment">// returns 6029</span></span><br><span class="line">viper.GetString(<span class="string">"datastore.metric.host"</span>) <span class="comment">// 存在值为路径的键将被优先返回returns "0.0.0.0"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置默认值"><a href="#设置默认值" class="headerlink" title="设置默认值"></a>设置默认值</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.SetDefault(<span class="string">"username"</span>, <span class="string">"stolen"</span>)</span><br><span class="line">viper.SetDefault(<span class="string">"city"</span>, <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"country"</span>: <span class="string">"China"</span>, <span class="string">"Province"</span>: <span class="string">"Chengdu"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="写到配置文件"><a href="#写到配置文件" class="headerlink" title="写到配置文件"></a>写到配置文件</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.WriteConfig()     <span class="comment">// 将配置写入到 AddConfigPath 和 SetConfigName 配置的文件中，会覆盖已存在的文件</span></span><br><span class="line">viper.SafeWriteConfig() <span class="comment">// 与 WriteConfig 区别是不会覆盖当前已经存在的文件</span></span><br><span class="line">viper.WriteConfigAs(<span class="string">"/path/to/my/.config"</span>)      <span class="comment">// 覆盖写入制定的文件</span></span><br><span class="line">viper.SafeWriteConfigAs(<span class="string">"/path/to/my/.config"</span>)  <span class="comment">// 不会覆盖的写入制定的文件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="监测并热加载配置文件"><a href="#监测并热加载配置文件" class="headerlink" title="监测并热加载配置文件"></a>监测并热加载配置文件</h2><p><code>viper</code> 支持应用程序在运行中实时读取配置文件的能力。确保在调用 <code>WatchConfig()</code> 之前添加所有的<code>configPaths</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.OnConfigChange(<span class="function"><span class="keyword">func</span><span class="params">(e fsnotify.Event)</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Config file changed:"</span>, e.Name)</span><br><span class="line">&#125;)</span><br><span class="line">viper.WatchConfig()</span><br></pre></td></tr></table></figure>
+
+<h2 id="从-io-Reader-读取配置"><a href="#从-io-Reader-读取配置" class="headerlink" title="从 io.Reader 读取配置"></a>从 io.Reader 读取配置</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.SetConfigType(<span class="string">"yaml"</span>) <span class="comment">// or viper.SetConfigType("YAML")</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// any approach to require this configuration into your program.</span></span><br><span class="line"><span class="keyword">var</span> yamlExample = []<span class="keyword">byte</span>(<span class="string">`</span></span><br><span class="line"><span class="string">Hacker: true</span></span><br><span class="line"><span class="string">name: steve</span></span><br><span class="line"><span class="string">hobbies:</span></span><br><span class="line"><span class="string">- skateboarding</span></span><br><span class="line"><span class="string">- snowboarding</span></span><br><span class="line"><span class="string">- go</span></span><br><span class="line"><span class="string">clothing:</span></span><br><span class="line"><span class="string">  jacket: leather</span></span><br><span class="line"><span class="string">  trousers: denim</span></span><br><span class="line"><span class="string">age: 35</span></span><br><span class="line"><span class="string">eyes : brown</span></span><br><span class="line"><span class="string">beard: true</span></span><br><span class="line"><span class="string">`</span>)</span><br><span class="line"></span><br><span class="line">viper.ReadConfig(bytes.NewBuffer(yamlExample))</span><br><span class="line"></span><br><span class="line">viper.Get(<span class="string">"name"</span>) <span class="comment">// this would be "steve"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置字段值"><a href="#设置字段值" class="headerlink" title="设置字段值"></a>设置字段值</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">viper.Set(<span class="string">"Verbose"</span>, <span class="literal">true</span>) <span class="comment">// 如果配置中已经存在该键，将会覆盖以存在键的值</span></span><br><span class="line">viper.Set(<span class="string">"LogFile"</span>, LogFile)</span><br><span class="line"></span><br><span class="line">viper.RegisterAlias(<span class="string">"aliasString"</span>, <span class="string">"keyString"</span>) <span class="comment">// 给键设置一个别名</span></span><br><span class="line"></span><br><span class="line">viper.Set(<span class="string">"aliasString"</span>, <span class="literal">true</span>) <span class="comment">// 实际操作的是 keyString 这个键</span></span><br><span class="line">viper.Set(<span class="string">"keyString"</span>, <span class="literal">true</span>)   <span class="comment">// 实际操作的是 keyString 这个键</span></span><br><span class="line"></span><br><span class="line">viper.GetBool(<span class="string">"aliasString"</span>) <span class="comment">// true</span></span><br><span class="line">viper.GetBool(<span class="string">"aliasString"</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="读配置字段"><a href="#读配置字段" class="headerlink" title="读配置字段"></a>读配置字段</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">Get(key <span class="keyword">string</span>) <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">GetBool(key <span class="keyword">string</span>) <span class="keyword">bool</span></span><br><span class="line">GetFloat64(key <span class="keyword">string</span>) <span class="keyword">float64</span></span><br><span class="line">GetInt(key <span class="keyword">string</span>) <span class="keyword">int</span></span><br><span class="line">GetIntSlice(key <span class="keyword">string</span>) []<span class="keyword">int</span></span><br><span class="line">GetString(key <span class="keyword">string</span>) <span class="keyword">string</span></span><br><span class="line">GetStringMap(key <span class="keyword">string</span>) <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">GetStringMapString(key <span class="keyword">string</span>) <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line">GetStringSlice(key <span class="keyword">string</span>) []<span class="keyword">string</span></span><br><span class="line">GetTime(key <span class="keyword">string</span>) time.Time</span><br><span class="line">GetDuration(key <span class="keyword">string</span>) time.Duration</span><br><span class="line">IsSet(key <span class="keyword">string</span>) <span class="keyword">bool</span></span><br><span class="line">AllSettings() <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有找到，每个 <code>Get</code>函数将返回一个 <code>0</code> 值。为了检查一个给定的键是否存在，已经提供了 <code>IsSet()</code> 方法来检查键是否被设置了。</p>
+<h2 id="vipers"><a href="#vipers" class="headerlink" title="vipers"></a>vipers</h2><p>viper 是一个不需要配置或初始化就可以开箱即用的工具，因为大部分应用都使用单一的配置中心来管理配置，类似单例。</p>
+<p>但如果用户需要使用多个配置中心，可以进行实例化创建不同的 viper，每个 viper 可以读取不同的配置文件，设置不同的参数，像下面代码这样</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := viper.New()</span><br><span class="line">y := viper.New()</span><br><span class="line"></span><br><span class="line">x.SetDefault(<span class="string">"ContentDir"</span>, <span class="string">"content"</span>)</span><br><span class="line">y.SetDefault(<span class="string">"ContentDir"</span>, <span class="string">"foobar"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Go Packages</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VirtualBox Headless后台运行Linux</title>
     <url>/2020/virtualbox_headless/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如何在Windows上优雅的使用Linux，一直是一个困惑我的问题。WSL虽好，但是没法在Linux上安装docker；WSL2虽然可以安装docker了，但是这个系统和主机通信又是一个大麻烦，就连最基本的安装软件都要每次开机修改hostname（虽然有能修改后不复原的办法，但我没实验成功）；使用虚拟机软件，又会占用太多的硬件资源，影响主机性能。前段时间偶然看到B站一个Up主提到使用virtualbox的headless无界面启动。遂研究了一下，但是网络上的资料大都太散太少，没有完整的介绍该方法。本文详细介绍在Windows上安装使用一个最优雅的Linux系统。</p>
