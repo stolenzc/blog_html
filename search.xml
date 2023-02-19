@@ -621,6 +621,173 @@
       </tags>
   </entry>
   <entry>
+    <title>关于编码的二三事</title>
+    <url>/2023/encode/</url>
+    <content><![CDATA[<p>最近被问到 Unicode 和 UTF-8 的区别，于是就想起来了，之前也有人问过我这个问题，当时我也是一脸懵逼，于是就去查了一下，然后就忘了，现在又被问到了，于是就想着记录一下。</p>
+<p>计算机底层存储都是存储的二进制的编码文件，计算机最初是由美国人发明的，于是他们制定了一组编码规则，其中包含了大小写的英文字母、数字、英文标点符号等，引发了计算机界的编码革命。</p>
+<h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p>ASCII(American Standard Code for Information Interchange)，美国信息互换标准码。就是美国人最初发明计算机时制定的一组编码，是一种基于拉丁字母的编码，它只有 128 个字符，所以只需要 7 位就可以表示了，所以叫 7 位编码，编码为 0-127。</p>
+<p>ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年</p>
+<h2 id="ISO-8859-1"><a href="#ISO-8859-1" class="headerlink" title="ISO-8859-1"></a>ISO-8859-1</h2><p>由于 ASCII 只占用了 0-127 的范围，后来欧洲开始使用了计算机，于是在 ASCII 的基础上进行了扩展，扩展了 128-255 的范围，这就是 ISO-8859-1，它也是一种 8 位编码，向下兼容 ASCII。Latin1 是 ISO-8859-1 的别名，有些环境下写作 Latin-1，这是 MySQL 的默认编码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="string">b'\xff'</span>.decode(<span class="string">'ISO-8859-1'</span>))</span><br><span class="line"><span class="comment"># ÿ</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="GB2312"><a href="#GB2312" class="headerlink" title="GB2312"></a>GB2312</h2><p>后来中国也开始使用计算机，由于汉字的数量很多，ASCII 或 ISO-8859-1 是不够用的，于是就有了 GB2312</p>
+<p>GB2312(国标2312) 是一种 16 位编码，也就是 2 个字节，GB2312 标准共收录 6763 个汉字，其中一级汉字 3755 个，二级汉字 3008 个；同时，GB2312 收录了包括拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母在内的 682 个全角字符。</p>
+<p>GB2312 的编码规则是使用两个字节来表示一个汉字，其中两个字节均在 128-255 之间，这样进行编解码时，判断当前字节是否在0~127（ASCII码范围），如果在则表示当前为单字节的英文字母；否则会联合后面的一个字节共同判断当前的汉字表示</p>
+<h2 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h2><p>GB2312 并没有收录所有的汉字，而且 GB2312 的编码规则实际上浪费了一部分编码空间，例如当判断了第一个字节范围在 128-255 之间，就可以确定需要联合第二个字节进行解码，于是就有了 GBK</p>
+<p>GBK(国标扩) 是 GB2312 的扩展，完全兼容 GB2312 ，共23940个码位，共收录了21003个汉字，</p>
+<h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><p>由于出现了各种标准的编码，为了统一编码，于是就有了 Unicode</p>
+<p>Unicode 是一种字符集，它包含了世界上所有的字符，它的编码范围是 0x0000 到 0x10FFFF，也就是 0 到 1,114,111，所以 Unicode 只是一个字符集，并不是一种在计算机中存储的编码方式</p>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>出现了 Unicode 字符集，但例如欧美国家实际上大部分的字符是用不到的，原本一个字节能表示的字符，现在需要用三个字符才能表示，这样就造成了空间的浪费，于是就有了 UTF-8</p>
+<p>UTF-8(Unicode Transfer Format 8) 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 1-4 个字节来表示一个字符，它的编码规则是</p>
+<table>
+<thead>
+<tr>
+<th>字节</th>
+<th>格式</th>
+<th>实际编码位</th>
+<th>编码范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0xxxxxxx</td>
+<td>7</td>
+<td>0-127</td>
+</tr>
+<tr>
+<td>2</td>
+<td>110xxxxx 10xxxxxx</td>
+<td>11</td>
+<td>128-2047</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+<td>16</td>
+<td>2048-65535</td>
+</tr>
+<tr>
+<td>4</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+<td>21</td>
+<td>65536-2097151</td>
+</tr>
+</tbody></table>
+<h2 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h2><p>UTF-16 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 2-4 个字节来表示一个字符，它的编码规则是，但是 UTF-16 有一个缺点，就是它不兼容 ASCII，也就是说，如果你的文本中只有英文，那么使用 UTF-16 编码的话，它会占用 2 倍的空间</p>
+<table>
+<thead>
+<tr>
+<th>字节</th>
+<th>格式</th>
+<th>实际编码位</th>
+<th>编码范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>xxxxxxxx xxxxxxxx</td>
+<td>16</td>
+<td>0x000000-0x00ffff</td>
+<td>英文 汉字 日文 emoji 等</td>
+</tr>
+<tr>
+<td>4</td>
+<td>110110yy yyyyyyyy 110111xx xxxxxxxx</td>
+<td>21</td>
+<td>0x010000-0x10ffff</td>
+<td>甲骨文等</td>
+</tr>
+</tbody></table>
+<h2 id="UTF-32"><a href="#UTF-32" class="headerlink" title="UTF-32"></a>UTF-32</h2><p>UTF-32 是 Unicode 的一种编码方式，它是一种固定长度的编码方式，它使用 4 个字节来表示一个字符</p>
+<table>
+<thead>
+<tr>
+<th>字节</th>
+<th>格式</th>
+<th>实际编码位</th>
+<th>编码范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4</td>
+<td>xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx</td>
+<td>32</td>
+<td>0-1114111</td>
+</tr>
+</tbody></table>
+<h2 id="ANSI"><a href="#ANSI" class="headerlink" title="ANSI"></a>ANSI</h2><p>ANSI 是 American National Standards Institute 的缩写，它是美国国家标准协会的意思，它是一个标准化组织，它制定了一些标准，其中就包括了 ANSI 编码</p>
+<p>ANSI 在不同的国家标准不同，</p>
+<table>
+<thead>
+<tr>
+<th>ANSI 编码</th>
+<th>国家标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GBK</td>
+<td>中国</td>
+</tr>
+<tr>
+<td>BIG5</td>
+<td>台湾</td>
+</tr>
+<tr>
+<td>EUC-KR</td>
+<td>韩国</td>
+</tr>
+<tr>
+<td>Shift_JIS</td>
+<td>日本</td>
+</tr>
+<tr>
+<td>ISO-8859-1</td>
+<td>欧洲</td>
+</tr>
+<tr>
+<td>ASCII</td>
+<td>美国</td>
+</tr>
+</tbody></table>
+<h2 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h2><p>BOM 是 Byte Order Mark 的缩写，它的编码是 FEFF ,它是一种标记，用来标记文件的编码格式，它是一个字节序列，它的作用是告诉解码器，当前文件的编码格式是什么，不同编码格式中的 BOM 值如下表</p>
+<table>
+<thead>
+<tr>
+<th>编码格式</th>
+<th>BOM 字节序列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UTF-8</td>
+<td>EF BB BF</td>
+</tr>
+<tr>
+<td>UTF-16BE</td>
+<td>FE FF</td>
+</tr>
+<tr>
+<td>UTF-16LE</td>
+<td>FF FE</td>
+</tr>
+<tr>
+<td>UTF-32BE</td>
+<td>00 00 FE FF</td>
+</tr>
+<tr>
+<td>UTF-32LE</td>
+<td>FF FE 00 00</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Tech</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GitHub 开发流程</title>
     <url>/2020/github_flow/</url>
     <content><![CDATA[<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>GitHub flow算是一种相对简单的Git工作流程，主要步骤为下：</p>
