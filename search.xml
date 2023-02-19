@@ -638,7 +638,7 @@
 <h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><p>由于出现了各种标准的编码，为了统一编码，于是就有了 Unicode</p>
 <p>Unicode 是一种字符集，它包含了世界上所有的字符，它的编码范围是 0x0000 到 0x10FFFF，也就是 0 到 1,114,111，所以 Unicode 只是一个字符集，并不是一种在计算机中存储的编码方式</p>
 <h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>出现了 Unicode 字符集，但例如欧美国家实际上大部分的字符是用不到的，原本一个字节能表示的字符，现在需要用三个字符才能表示，这样就造成了空间的浪费，于是就有了 UTF-8</p>
-<p>UTF-8(Unicode Transfer Format 8) 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 1-4 个字节来表示一个字符，它的编码规则是</p>
+<p>UTF-8(Unicode Transfer Format 8) 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 1-4 个字节来表示一个字符，它的编码规则如下</p>
 <table>
 <thead>
 <tr>
@@ -673,7 +673,7 @@
 <td>65536-2097151</td>
 </tr>
 </tbody></table>
-<h2 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h2><p>UTF-16 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 2-4 个字节来表示一个字符，它的编码规则是，但是 UTF-16 有一个缺点，就是它不兼容 ASCII，也就是说，如果你的文本中只有英文，那么使用 UTF-16 编码的话，它会占用 2 倍的空间</p>
+<h2 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h2><p>UTF-16 是 Unicode 的一种编码方式，它是一种变长的编码方式，它可以使用 2-4 个字节来表示一个字符，它的编码规则如下，但是 UTF-16 有一个缺点，就是它不兼容 ASCII，也就是说，如果你的文本中只有英文，那么使用 UTF-16 编码的话，它会占用 2 倍的空间</p>
 <table>
 <thead>
 <tr>
