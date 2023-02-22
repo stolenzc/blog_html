@@ -974,6 +974,252 @@
       </tags>
   </entry>
   <entry>
+    <title>Go 占位符</title>
+    <url>/2023/go_format/</url>
+    <content><![CDATA[<h2 id="说明代码"><a href="#说明代码" class="headerlink" title="说明代码"></a>说明代码</h2><p>本文部分示例代码基于以下代码执行</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">	age  <span class="keyword">int</span></span><br><span class="line">	man  <span class="keyword">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stolen = User&#123;</span><br><span class="line">	name: <span class="string">"stolen"</span>,</span><br><span class="line">	age:  <span class="number">18</span>,</span><br><span class="line">	man: <span class="literal">true</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="普通占位符"><a href="#普通占位符" class="headerlink" title="普通占位符"></a>普通占位符</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%v</code></td>
+<td>相应值的默认格式</td>
+<td><code>Printf(&quot;%v&quot;, stolen)</code></td>
+<td><code>{stolen 18}</code></td>
+</tr>
+<tr>
+<td><code>%+v</code></td>
+<td>打印结构体时会添加字段名</td>
+<td><code>Printf(&quot;%+v&quot;, stolen)</code></td>
+<td><code>{name:stolen age:18 man:true}</code></td>
+</tr>
+<tr>
+<td><code>%#v</code></td>
+<td>相应类型的 Go 语言表达方式</td>
+<td><code>Printf(&quot;%#v&quot;, stolen)</code></td>
+<td><code>main.User{name:&quot;stolen&quot;, age:18, man:true}</code></td>
+</tr>
+<tr>
+<td><code>%T</code></td>
+<td>相应值的类型的 Go 语法表示</td>
+<td><code>Printf(&quot;%T&quot;, stolen)</code></td>
+<td><code>main.User</code></td>
+</tr>
+<tr>
+<td><code>%%</code></td>
+<td>取消对 % 的转译</td>
+<td><code>Printf(&quot;%%&quot;)</code></td>
+<td><code>%</code></td>
+</tr>
+</tbody></table>
+<h2 id="布尔占位符"><a href="#布尔占位符" class="headerlink" title="布尔占位符"></a>布尔占位符</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%t</code></td>
+<td>对布尔值的格式化输出，值为 true 或 false</td>
+<td><code>Printf(&quot;%t&quot;, stolen.man)</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody></table>
+<h2 id="整数占位符"><a href="#整数占位符" class="headerlink" title="整数占位符"></a>整数占位符</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%b</code></td>
+<td>二进制表示</td>
+<td><code>Printf(&quot;%b&quot;, 5)</code></td>
+<td><code>101</code></td>
+</tr>
+<tr>
+<td><code>%c</code></td>
+<td>相应Unicode码点所表示的字符</td>
+<td><code>Printf(&quot;%c&quot;, 20013)</code></td>
+<td><code>中</code></td>
+</tr>
+<tr>
+<td><code>%d</code></td>
+<td>十进制表示</td>
+<td><code>Printf(&quot;%d&quot;, 0xa)</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>%o</code></td>
+<td>八进制表示</td>
+<td><code>Printf(&quot;%o&quot;, 0xa)</code></td>
+<td><code>12</code></td>
+</tr>
+<tr>
+<td><code>%#o</code></td>
+<td>八进制表示，开头有八进制标识 0</td>
+<td><code>Printf(&quot;%#o&quot;, 0xa)</code></td>
+<td><code>012</code></td>
+</tr>
+<tr>
+<td><code>%q</code></td>
+<td>单引号围绕的字符字面值，由Go语法安全地转义</td>
+<td><code>Printf(&quot;%q&quot;, 20013)</code></td>
+<td><code>&#39;中&#39;</code></td>
+</tr>
+<tr>
+<td><code>%x</code></td>
+<td>十六进制表示，字母形式为小写 a-f</td>
+<td><code>Printf(&quot;%x&quot;, 10)</code></td>
+<td><code>a</code></td>
+</tr>
+<tr>
+<td><code>%#x</code></td>
+<td>十六进制表示，字母形式为小写 a-f，开头有十六进制标识 0x</td>
+<td><code>Printf(&quot;%#x&quot;, 10)</code></td>
+<td><code>0xa</code></td>
+</tr>
+<tr>
+<td><code>%X</code></td>
+<td>十六进制表示，字母形式为小写 A-F</td>
+<td><code>Printf(&quot;%X&quot;, 10)</code></td>
+<td><code>A</code></td>
+</tr>
+<tr>
+<td><code>%#X</code></td>
+<td>十六进制表示，字母形式为小写 A-F，开头有十六进制标识 0X</td>
+<td><code>Printf(&quot;%#X&quot;, 10)</code></td>
+<td><code>0XA</code></td>
+</tr>
+<tr>
+<td><code>%U</code></td>
+<td>Unicode格式：<code>U+1234</code>，等同于 <code>U+%04X</code></td>
+<td><code>Printf(&quot;%U&quot;, 0x4E2D)</code></td>
+<td><code>U+4E2D</code></td>
+</tr>
+</tbody></table>
+<h2 id="浮点占位符"><a href="#浮点占位符" class="headerlink" title="浮点占位符"></a>浮点占位符</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%b</code></td>
+<td>指数为二的幂的科学计数法，与 strconv.FormatFloat 的 ‘b’ 转换格式一致，例如1.0的值为 4503599627370496 * 2 ^ -52</td>
+<td><code>Printf(&quot;%b&quot;, 1.0)</code></td>
+<td><code>4503599627370496p-52</code></td>
+</tr>
+<tr>
+<td><code>%e</code></td>
+<td>科学计数法，输出显示为小e</td>
+<td><code>Printf(&quot;%e&quot;, 120.0)</code></td>
+<td><code>1.200000e+02</code></td>
+</tr>
+<tr>
+<td><code>%E</code></td>
+<td>科学计数法，输出显示为大E</td>
+<td><code>Printf(&quot;%E&quot;, 120.0)</code></td>
+<td><code>1.200000E+02</code></td>
+</tr>
+<tr>
+<td><code>%f</code></td>
+<td>以值的形式显示小数</td>
+<td><code>Printf(&quot;%f&quot;, 120.0)</code></td>
+<td><code>120.000000</code></td>
+</tr>
+<tr>
+<td><code>%g</code></td>
+<td>根据形势选择 %e 或 %f</td>
+<td><code>Printf(&quot;%g %g&quot;, 120.0,1200000.0)</code></td>
+<td><code>120 1.2e+06</code></td>
+</tr>
+<tr>
+<td><code>%G</code></td>
+<td>根据形势选择 %E 或 %f</td>
+<td><code>Printf(&quot;%G %G&quot;, 120.0,1200000.0)</code></td>
+<td><code>120 1.2E+06</code></td>
+</tr>
+</tbody></table>
+<h2 id="字符串与字符切片"><a href="#字符串与字符切片" class="headerlink" title="字符串与字符切片"></a>字符串与字符切片</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%s</code></td>
+<td>输出字符串表示（string类型或[]byte)</td>
+<td><code>Printf(&quot;%s&quot;, []byte(&quot;Go语言&quot;))</code></td>
+<td><code>Go语言</code></td>
+</tr>
+<tr>
+<td><code>%q</code></td>
+<td>双引号围绕的字符串</td>
+<td><code>Printf(&quot;%q&quot;, []byte(&quot;Go语言&quot;))</code></td>
+<td><code>&quot;Go语言&quot;</code></td>
+</tr>
+<tr>
+<td><code>%x</code></td>
+<td>十六进制, 小写字母, 每字节两个字符</td>
+<td><code>Printf(&quot;%x&quot;, []byte(&quot;Go语言&quot;))</code></td>
+<td><code>476fe8afade8a880</code></td>
+</tr>
+<tr>
+<td><code>%X</code></td>
+<td>十六进制, 大写字母, 每字节两个字符</td>
+<td><code>Printf(&quot;%X&quot;, []byte(&quot;Go语言&quot;))</code></td>
+<td><code>476FE8AFADE8A880</code></td>
+</tr>
+</tbody></table>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+<th>举例</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%p</code></td>
+<td>指针的值</td>
+<td><code>Printf(&quot;%p&quot;, &amp;stolen)</code></td>
+<td><code>0x119ade0</code></td>
+</tr>
+</tbody></table>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_39386145/article/details/125543243" target="_blank" rel="noopener">go语言中的占位符</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 泛型</title>
     <url>/2023/go_generics/</url>
     <content><![CDATA[<h2 id="泛型符号"><a href="#泛型符号" class="headerlink" title="泛型符号"></a>泛型符号</h2><ul>
