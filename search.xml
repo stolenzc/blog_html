@@ -992,7 +992,7 @@
 <td><code>%v</code></td>
 <td>相应值的默认格式</td>
 <td><code>Printf(&quot;%v&quot;, stolen)</code></td>
-<td><code>{stolen 18}</code></td>
+<td><code>{stolen 18 true}</code></td>
 </tr>
 <tr>
 <td><code>%+v</code></td>
@@ -1047,8 +1047,14 @@
 <tbody><tr>
 <td><code>%b</code></td>
 <td>二进制表示</td>
-<td><code>Printf(&quot;%b&quot;, 5)</code></td>
-<td><code>101</code></td>
+<td><code>Printf(&quot;%b&quot;, stolen.age)</code></td>
+<td><code>10010</code></td>
+</tr>
+<tr>
+<td><code>%#b</code></td>
+<td>二进制表示，开头有二进制标识 0b</td>
+<td><code>Printf(&quot;%#b&quot;, stolen.age)</code></td>
+<td><code>0b10010</code></td>
 </tr>
 <tr>
 <td><code>%c</code></td>
@@ -1059,20 +1065,20 @@
 <tr>
 <td><code>%d</code></td>
 <td>十进制表示</td>
-<td><code>Printf(&quot;%d&quot;, 0xa)</code></td>
-<td><code>10</code></td>
+<td><code>Printf(&quot;%d&quot;, stolen.age)</code></td>
+<td><code>18</code></td>
 </tr>
 <tr>
 <td><code>%o</code></td>
 <td>八进制表示</td>
-<td><code>Printf(&quot;%o&quot;, 0xa)</code></td>
-<td><code>12</code></td>
+<td><code>Printf(&quot;%o&quot;, stolen.age)</code></td>
+<td><code>22</code></td>
 </tr>
 <tr>
 <td><code>%#o</code></td>
 <td>八进制表示，开头有八进制标识 0</td>
-<td><code>Printf(&quot;%#o&quot;, 0xa)</code></td>
-<td><code>012</code></td>
+<td><code>Printf(&quot;%#o&quot;, stolen.age)</code></td>
+<td><code>022</code></td>
 </tr>
 <tr>
 <td><code>%q</code></td>
@@ -1083,26 +1089,26 @@
 <tr>
 <td><code>%x</code></td>
 <td>十六进制表示，字母形式为小写 a-f</td>
-<td><code>Printf(&quot;%x&quot;, 10)</code></td>
-<td><code>a</code></td>
+<td><code>Printf(&quot;%x&quot;, stolen.age)</code></td>
+<td><code>12</code></td>
 </tr>
 <tr>
 <td><code>%#x</code></td>
 <td>十六进制表示，字母形式为小写 a-f，开头有十六进制标识 0x</td>
-<td><code>Printf(&quot;%#x&quot;, 10)</code></td>
-<td><code>0xa</code></td>
+<td><code>Printf(&quot;%#x&quot;, stolen.age)</code></td>
+<td><code>0x12</code></td>
 </tr>
 <tr>
 <td><code>%X</code></td>
 <td>十六进制表示，字母形式为小写 A-F</td>
-<td><code>Printf(&quot;%X&quot;, 10)</code></td>
-<td><code>A</code></td>
+<td><code>Printf(&quot;%X&quot;, stolen.age)</code></td>
+<td><code>12</code></td>
 </tr>
 <tr>
 <td><code>%#X</code></td>
 <td>十六进制表示，字母形式为小写 A-F，开头有十六进制标识 0X</td>
-<td><code>Printf(&quot;%#X&quot;, 10)</code></td>
-<td><code>0XA</code></td>
+<td><code>Printf(&quot;%#X&quot;, stolen.age)</code></td>
+<td><code>0X12</code></td>
 </tr>
 <tr>
 <td><code>%U</code></td>
@@ -1122,7 +1128,7 @@
 </thead>
 <tbody><tr>
 <td><code>%b</code></td>
-<td>指数为二的幂的科学计数法，与 strconv.FormatFloat 的 ‘b’ 转换格式一致，例如1.0的值为 4503599627370496 * 2 ^ -52</td>
+<td>指数为二的幂的科学计数法，例如1.0的值为 4503599627370496 * 2 ^ -52</td>
 <td><code>Printf(&quot;%b&quot;, 1.0)</code></td>
 <td><code>4503599627370496p-52</code></td>
 </tr>
@@ -1169,26 +1175,26 @@
 <tbody><tr>
 <td><code>%s</code></td>
 <td>输出字符串表示（string类型或[]byte)</td>
-<td><code>Printf(&quot;%s&quot;, []byte(&quot;Go语言&quot;))</code></td>
-<td><code>Go语言</code></td>
+<td><code>Printf(&quot;%s %s&quot;, []byte(stolen.name), stolen.name)</code></td>
+<td><code>stolen stolen</code></td>
 </tr>
 <tr>
 <td><code>%q</code></td>
 <td>双引号围绕的字符串</td>
-<td><code>Printf(&quot;%q&quot;, []byte(&quot;Go语言&quot;))</code></td>
-<td><code>&quot;Go语言&quot;</code></td>
+<td><code>Printf(&quot;%q&quot;, stolen.name)</code></td>
+<td><code>&quot;stolen&quot;</code></td>
 </tr>
 <tr>
 <td><code>%x</code></td>
 <td>十六进制, 小写字母, 每字节两个字符</td>
-<td><code>Printf(&quot;%x&quot;, []byte(&quot;Go语言&quot;))</code></td>
-<td><code>476fe8afade8a880</code></td>
+<td><code>Printf(&quot;%x&quot;, stolen.name)</code></td>
+<td><code>73746f6c656e</code></td>
 </tr>
 <tr>
 <td><code>%X</code></td>
 <td>十六进制, 大写字母, 每字节两个字符</td>
-<td><code>Printf(&quot;%X&quot;, []byte(&quot;Go语言&quot;))</code></td>
-<td><code>476FE8AFADE8A880</code></td>
+<td><code>Printf(&quot;%X&quot;, []byte(stolen.name))</code></td>
+<td><code>73746F6C656E</code></td>
 </tr>
 </tbody></table>
 <h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><table>
