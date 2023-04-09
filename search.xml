@@ -265,131 +265,6 @@
       </tags>
   </entry>
   <entry>
-    <title>DRF的Serializer</title>
-    <url>/2020/drf_serializer/</url>
-    <content><![CDATA[<h2 id="名词释义"><a href="#名词释义" class="headerlink" title="名词释义"></a>名词释义</h2><p>序列化：模型转换为json，即对象-字典-json</p>
-<p>反序列化：json转换为模型，即json-字典-对象</p>
-<h2 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h2><p>默认使用模型中的字段约束进行校验，自定义字段约束参考<a href="https://www.django-rest-framework.org/api-guide/fields/" target="_blank" rel="noopener">Serializer fields</a></p>
-<p>常用的约束包括：</p>
-<ol>
-<li><p>通用参数</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>read_only = True</code></td>
-<td>当前字段只能进行序列化输出（用于不需要反序列化输入的字段）</td>
-</tr>
-<tr>
-<td><code>write_only = True</code></td>
-<td>当前字段只能进行反序列化输入，不进行序列化输出</td>
-</tr>
-<tr>
-<td><code>required = True</code></td>
-<td>在反序列化时是必填字段，默认为True</td>
-</tr>
-<tr>
-<td><code>allow_null = False</code></td>
-<td>当前字段是否允许传None，默认是False（必填字段False，反之则True）</td>
-</tr>
-<tr>
-<td><code>allow_blank = False</code></td>
-<td>当前字段是否运行为空，默认是False（必填字段False，反之则True）</td>
-</tr>
-<tr>
-<td><code>default = xx</code></td>
-<td>指定在反序列化时，当前字段没值时所使用的默认值</td>
-</tr>
-<tr>
-<td><code>validators=校验器</code></td>
-<td>当前字段所使用的校验器（下面介绍常用的）</td>
-</tr>
-<tr>
-<td><code>error_messages</code></td>
-<td>包含错误key-value的字段（下面会举例）</td>
-</tr>
-<tr>
-<td><code>label</code></td>
-<td>当前字段在前端的api页面中所显示的字段名称</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>选项参数</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>max_length</code></td>
-<td>字段最大长度</td>
-</tr>
-<tr>
-<td><code>min_length</code></td>
-<td>字段最小长度</td>
-</tr>
-<tr>
-<td><code>trim_whitespace</code></td>
-<td>是否截断空字符串</td>
-</tr>
-<tr>
-<td><code>max_value</code></td>
-<td>字段最大值</td>
-</tr>
-<tr>
-<td><code>min_value</code></td>
-<td>字段最小值</td>
-</tr>
-</tbody></table>
-</li>
-</ol>
-<h2 id="字段校验-反序列化"><a href="#字段校验-反序列化" class="headerlink" title="字段校验(反序列化)"></a>字段校验(反序列化)</h2><p>对单个字段校验使用的是<code>validate_&lt;filed_name&gt;</code>，如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> User.objects.filter(name=value):</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名已存在'</span>)</span><br><span class="line">    <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
-
-<p>对所有字段校验使用的是<code>validate</code>，如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self,attr)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> attr[<span class="string">'name'</span>] <span class="keyword">or</span> attr[<span class="string">'email'</span>]:</span><br><span class="line">        <span class="keyword">return</span> attr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名或邮箱至少填一个'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>校验顺序：</p>
-<ol>
-<li>参数限定校验，（失败则不会向下校验）</li>
-<li>单字段校验（无论成功或失败都会继续校验）</li>
-<li>多字段校验</li>
-</ol>
-<p>校验数据的使用：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定需要校验的数据</span></span><br><span class="line">serializer = self.serializer_class(data=request.data)</span><br><span class="line"><span class="comment"># 进行字段校验，如果失败则会报错</span></span><br><span class="line">serializer.is_valid(raise_exception=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 获取校验未通过的提示</span></span><br><span class="line">serializer.errors</span><br><span class="line"><span class="comment"># 获取校验通过的数据</span></span><br><span class="line">serializer.validated_date</span><br></pre></td></tr></table></figure>
-
-<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>指定序列化字段：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">    model = User</span><br><span class="line">    <span class="comment"># 指定字段使用元组，所有字段使用"__all__"</span></span><br><span class="line">    fields = (<span class="string">'name'</span>, <span class="string">'age'</span>,)</span><br><span class="line">    <span class="comment"># 指定只能序列化，无法反序列化的字段</span></span><br><span class="line">    read_only_fields = (<span class="string">'created_at'</span>, <span class="string">'updated_at'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>指定单个字段进行自定义序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">password = serializers.SerializerMethodField()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_password</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="comment"># instance为当前的实例，即view中的get_object()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"******"</span></span><br></pre></td></tr></table></figure>
-
-<p>对所有字段进行自定义序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_representation</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dict()</span><br></pre></td></tr></table></figure>
-
-<p>view使用序列化：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对data进行序列化，data为queryset或者object，如果是queryset，需要加上many=True</span></span><br><span class="line">serializer = self.serializer_class(data, many=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 返回一个OrderedDict，转换为列表即可得到指定的值</span></span><br><span class="line">result_dict = serializer.data</span><br></pre></td></tr></table></figure>
-
-<h2 id="数据库写入操作"><a href="#数据库写入操作" class="headerlink" title="数据库写入操作"></a>数据库写入操作</h2><p>serializer提供了create和update的功能，分别对应post请求和put/patch请求。如：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, instance, validated_data)</span>:</span></span><br><span class="line">    instance.update(**validated_data)</span><br><span class="line">    instance.updated_at = timezone.now()</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, validated_data)</span>:</span></span><br><span class="line">    instance = User(**validated_data)</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p><a href="https://www.jianshu.com/p/36b5c410b357" target="_blank" rel="noopener">Django_rest framework_序列化器和自定义校验</a></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Django</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker的安装及其日常使用</title>
     <url>/2020/docker/</url>
     <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Ubuntu安装</p>
@@ -556,6 +431,131 @@
       </categories>
       <tags>
         <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DRF的Serializer</title>
+    <url>/2020/drf_serializer/</url>
+    <content><![CDATA[<h2 id="名词释义"><a href="#名词释义" class="headerlink" title="名词释义"></a>名词释义</h2><p>序列化：模型转换为json，即对象-字典-json</p>
+<p>反序列化：json转换为模型，即json-字典-对象</p>
+<h2 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h2><p>默认使用模型中的字段约束进行校验，自定义字段约束参考<a href="https://www.django-rest-framework.org/api-guide/fields/" target="_blank" rel="noopener">Serializer fields</a></p>
+<p>常用的约束包括：</p>
+<ol>
+<li><p>通用参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>read_only = True</code></td>
+<td>当前字段只能进行序列化输出（用于不需要反序列化输入的字段）</td>
+</tr>
+<tr>
+<td><code>write_only = True</code></td>
+<td>当前字段只能进行反序列化输入，不进行序列化输出</td>
+</tr>
+<tr>
+<td><code>required = True</code></td>
+<td>在反序列化时是必填字段，默认为True</td>
+</tr>
+<tr>
+<td><code>allow_null = False</code></td>
+<td>当前字段是否允许传None，默认是False（必填字段False，反之则True）</td>
+</tr>
+<tr>
+<td><code>allow_blank = False</code></td>
+<td>当前字段是否运行为空，默认是False（必填字段False，反之则True）</td>
+</tr>
+<tr>
+<td><code>default = xx</code></td>
+<td>指定在反序列化时，当前字段没值时所使用的默认值</td>
+</tr>
+<tr>
+<td><code>validators=校验器</code></td>
+<td>当前字段所使用的校验器（下面介绍常用的）</td>
+</tr>
+<tr>
+<td><code>error_messages</code></td>
+<td>包含错误key-value的字段（下面会举例）</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>当前字段在前端的api页面中所显示的字段名称</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>选项参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>max_length</code></td>
+<td>字段最大长度</td>
+</tr>
+<tr>
+<td><code>min_length</code></td>
+<td>字段最小长度</td>
+</tr>
+<tr>
+<td><code>trim_whitespace</code></td>
+<td>是否截断空字符串</td>
+</tr>
+<tr>
+<td><code>max_value</code></td>
+<td>字段最大值</td>
+</tr>
+<tr>
+<td><code>min_value</code></td>
+<td>字段最小值</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h2 id="字段校验-反序列化"><a href="#字段校验-反序列化" class="headerlink" title="字段校验(反序列化)"></a>字段校验(反序列化)</h2><p>对单个字段校验使用的是<code>validate_&lt;filed_name&gt;</code>，如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> User.objects.filter(name=value):</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名已存在'</span>)</span><br><span class="line">    <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+
+<p>对所有字段校验使用的是<code>validate</code>，如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate</span><span class="params">(self,attr)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> attr[<span class="string">'name'</span>] <span class="keyword">or</span> attr[<span class="string">'email'</span>]:</span><br><span class="line">        <span class="keyword">return</span> attr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> serializers.ValidationError(detail=<span class="string">'用户名或邮箱至少填一个'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>校验顺序：</p>
+<ol>
+<li>参数限定校验，（失败则不会向下校验）</li>
+<li>单字段校验（无论成功或失败都会继续校验）</li>
+<li>多字段校验</li>
+</ol>
+<p>校验数据的使用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定需要校验的数据</span></span><br><span class="line">serializer = self.serializer_class(data=request.data)</span><br><span class="line"><span class="comment"># 进行字段校验，如果失败则会报错</span></span><br><span class="line">serializer.is_valid(raise_exception=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 获取校验未通过的提示</span></span><br><span class="line">serializer.errors</span><br><span class="line"><span class="comment"># 获取校验通过的数据</span></span><br><span class="line">serializer.validated_date</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>指定序列化字段：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">    model = User</span><br><span class="line">    <span class="comment"># 指定字段使用元组，所有字段使用"__all__"</span></span><br><span class="line">    fields = (<span class="string">'name'</span>, <span class="string">'age'</span>,)</span><br><span class="line">    <span class="comment"># 指定只能序列化，无法反序列化的字段</span></span><br><span class="line">    read_only_fields = (<span class="string">'created_at'</span>, <span class="string">'updated_at'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>指定单个字段进行自定义序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">password = serializers.SerializerMethodField()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_password</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="comment"># instance为当前的实例，即view中的get_object()</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"******"</span></span><br></pre></td></tr></table></figure>
+
+<p>对所有字段进行自定义序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_representation</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dict()</span><br></pre></td></tr></table></figure>
+
+<p>view使用序列化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对data进行序列化，data为queryset或者object，如果是queryset，需要加上many=True</span></span><br><span class="line">serializer = self.serializer_class(data, many=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 返回一个OrderedDict，转换为列表即可得到指定的值</span></span><br><span class="line">result_dict = serializer.data</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库写入操作"><a href="#数据库写入操作" class="headerlink" title="数据库写入操作"></a>数据库写入操作</h2><p>serializer提供了create和update的功能，分别对应post请求和put/patch请求。如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, instance, validated_data)</span>:</span></span><br><span class="line">    instance.update(**validated_data)</span><br><span class="line">    instance.updated_at = timezone.now()</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">(self, validated_data)</span>:</span></span><br><span class="line">    instance = User(**validated_data)</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="keyword">return</span> instance</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p><a href="https://www.jianshu.com/p/36b5c410b357" target="_blank" rel="noopener">Django_rest framework_序列化器和自定义校验</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1651,25 +1651,6 @@
       </tags>
   </entry>
   <entry>
-    <title>个人文件2020-11-10</title>
-    <url>/2020/myfile_2020-11-10/</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">您好, 这里需要密码.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="ba5aba640f8a6c0d49b1cc3813a69d6261dd4c5b6b065386af8d1699cb84b4af">55b1a0c735bae0185f64a4475bd061d830549bad5e7ca376d61605a141d4d67eab4e41b009c50b057c8f76c2a4e0406941d49c9c8fa3b5a09c6897c6faaa0b2c5acbdf99e86f2801092d3b2005db8b2118ae78dca07c29e6eaa7c03a8c1cbf1cf652a5c7c880c2298c429e02dc599ddabd4403e80ec961b495e124fd3b5907e014ea4b04aeae8e8d4328afe4c5f1ca3b1ff832b8f5b170d03cccf25361dcb234ef4df70024e21bb49b8c51cc699d0bac59baefd76f3f18ac868c2ba133457b3ecc2a50d2195c0485fe188d9a4b29fc651869018d8c055bd520794452e00b27e7077f562b42ca5e5ba0e446045dd38ad4f28f208a9c549e6d7deef0c1d50879553ac4a31fcc27203eed163845e4a783106bf737cca9eb4c818cfe7cdfa8a48383ac0017b31f69c7a2b13de26107056859a5ad049ab488eea231d0c6074f755eb6ec80992d65e80d385b992e052a3de656104570f53a969e0dd1165a5b2952b470a4493fd14fb54f5507897660913972a996bac6ce205ca3774d4cf0d173b0d7f60bc08726eee51a6782afc8e526dc98de52a9f96901006753569008747c7ee0d8468d09dc60513b58af869649169a9a7a756935275e920a5f12b7f43a9fcb4324a048067cb1d566e9cadc16050d5d50eeb3a88972ea8b76483c1d5101388ee779c89aa1f489251234a266f62b1974476409e997102d1561b1490a95ccdab40a912bd4534c6a26d7d2f3e944567ee5f1fc526727b241b149b6f0529448abde616f3a268c541d2fae76c25ba3283eef92d5e4db20bf95e1a16c1295004ce88e30d078d43673c887802bd88a4e5b6e3141b3098473873208aca8a0c478facd6f49b530cdcfd2520ccc2873574e7473b2feb5a67bcf04e40643a34efb34a2f44765df6140ed21325a0aa733ebc346f1131bc1ee67f7a8b7c5ff73469407ac0f2ba8b30bb1029d6a979ef180e1ef67b8f61cd54fde1bbcf5e758f5216e902288d5abb011daa37c34dc21ec27bf898b02ee012db2c896b1b159492d659de8c4dfebb1d92f923da08f709dbdc91f389a91ee883a8eca15fe5b5b8ec5782a1456c06c3473c77639c93db1143cb851e66bdceca4266960cbc8bb871e5ee768cd28cce0fc5465bacb6d7d6436d9934e8c1c54d0b004c664f7b6c91a5d0675ed5d77a372baf47a8d7575399741012386238aa2688326babca5c60184520d86dd5f372468d99df93ab2622e05e8303bf38cd5de02f0a2fad1cbf7c2021b178cb06a56cd42c5b238ff0980ee68b8a521e643eaea534b74326cb2a07a16e58f131e56510504d29cb46f417c676b4be616c46a6597b4785638a5f82aedd7dff88a1056a0c8e40f46efbf932d7a61dd808501c7a523d856e979bca291194ea78b331a4be95cec39b561173934252bc32aae4c6ffd689fcabc8c1eca6890e62bbbe25090a9de28156fc40961e72755117f1d6d8b8c5844704f27bb41ec484bbde1d4f10f5b1c539358f303664bb03c2b51f28c0dd9735998c3d50c6353b2e610df1399a315fc43fd36973c66956ecaa06b0144f69d9ba46c9f9af503de2ea27d73e449ec4a99158d5ed22cee90b81ec8c4be1655b947d13ecaf089c2d911324552fdb342bc0129041663d66e71a8a5444a1fcf98dab9ee828994c6932381249252a75ceef03d9a45d09c0e64affedf0acaebaea0ee4422363951865aadcb056930ffb0b7430a7e2a9627bab43e088d06f419f94634ff8fa40614bd13b2b1fc1f3b08310b6273d92fcaba3432c1780ccb2beccb96ea7da056ca882718fb859902022c19586138b9d6ab45ffaf8e47ee3327512253c81865a4d55359333bb12b116964b7923d5820bb67456d3d3d490e19fdd15d3b6c45d73beb9841c9e019fa2a3dc3f78c4fc849a49343a197128a6b1b509eedcd487a0a5300aa3d801ffdc7547073d90a81d045f834b86ac531c0e97af17ab3b2df71a9207bf18345226d1430c268695dbcb2fef9760de0bf194b7494efe1fe67d33651ac56928e97258227ad6668dcef7e406f46a0455eb423af747ff1beaf739f58d061089174b04606bb785283266ae2fa665397b26d41e4d13ecbba947a07f029baef58d884b0290a976123914cc6256613809b4df8453856fa9811cb0a181f0b28600fa6eca02cb5102725998abc3d99f1854591cc15569bf71dcbf164a796a857be2e249a985966bc49667bc044cfe61e262010024b42bda82b3628f26baca40fc038691a2df75cbf170a7cca0e76dc5e54aedf94b75370771434e580213abee2f0aaf5a87c0c0d5e9df986650a60f07587358c4be32ae44d256f25ccb53c42db013830d75e37dc92b94456c083890a62ff7792c69da627699fd14a9f8bac1e1df14ad53d4dec5dccd1abf109c1ce1ce86cd67e41ffffe0ac0ce71b58fb3524780acece1c2e05e9fd0466dd42dd5677b8b23f005a72b6608bc009498aa51498f220f93960d6cf9ec53eb1fa76c03f6eb107db799043976734a47487907b80dbfc1a92c0691b75a0badd5197a5b4eb587c7c313fd31ac4f9aa6df9dda4bbfee8f9d122caf900d9716756904fa82dd916102e9c54792a1158ded025b52d6b43bb41484f9824a9ee97ecef025aa5c4e5a61d6e9668687e423b931bae0feb04e94c20e362936d13b5de156dc1d560a5be5a94447649424a45feae1639ade1df271524ca8261f7b6fa284bd3c027bd69633070628d91737b320a0051c6690e5965a66a8c419a24c8e20248cc4927326a46c2e32f36d5a218d8a1bf4743515af919dd6bbf91be6d8a176239103932112b690412101fe6c4d2a4307af532698aaf97d943353fe956c8a20e105d34c9e128db41f7f66d6eb01871317732bd62b15db87525f9b021cd85fa8aef2143e208a1cb99f461d0deec449211b5e0983781ce146f56c71c6f8c7cffd55debca580e26770ae11cdc2b61a8ecb20f95426e0e138aa2090df6d9cd7bf974a30b358168fe2e541db48ccf2f8bb62b83892fb2b664c031db789addaa20217a628eec5afe729c53552f6f8bef173a5a894086207e13044444411b1869b332745be961055b076fb3213ad747ac29dd457fd6a4863c0ab4effe431342d17b49f6b00cc00e5e747a5489702911a48122ad7a6887bc10713e9943162deaeb630b0fcd29faf4bf734d3d3f081e638ffbb1d4e0c073210a4937d04771b61c23ec9988998abd60e44e90a5ee91e352784851e9545162decc78aa20eca76925559e2dc37cdbe8729017876ff46abc3067bd97f226c7c8ed4dc6f37b0ce8c701c65cf4a785aa16c305db106f852f0845063e392849b8523efa7f9d7f0061ea974c1655db3f57f5b5ee76f6f3454433b0f1a63379359f1deb7578f969bd2ec54e6e606b2f738aa1cc3632f30c92a3f08320c625f9044c38665ff5d21c0359ec47d7adb220c3d8784b376f93c5cb9c5a6a83ddd50f5d2bb8b3049600cfbd288f9ad894a1dfbd3094fd8a61a8d3f292693b6e801624b14dda8a74c55f9f6abeea19d666242ce9e87f97aeea175da1a095870b904898f45b55c283b9f71d6a99efa3b9e6d44e94f93715c33d3a40ad13047623944427d004842ac3bb5760868e21749927ebdf3851740776a3704259ece34020b3eec3a70f1be0eca9e6d9cfeb9e0da73737bafd10b658157deaa33c02bff761759d84e5a52318342ef822ea3dd35b504812d6ab62a54de1ddef75e4c666ebca943b0853aafed8f55ac0843f017ef6d8a75252d3e072e2c5309100767e105aebff6fe0670fe5905153f243b4cfd0abfa094c2d617dbdb1e1100fd1108e1c8e84ed631436ae1c986f6584cceafbda09d063a6945576c6faf3e90eb3a37b700506f231c72b730e85319124882d5094a3a2b6c19283224f9edc7a657f99fa103bf11ab98b9465fcbd3b40452d1f8282df92388680309b5b719d7c1e26ba6b0243efddb12db2d8299393b6949071ae2b86d52b64f45f3c71c2d89afca227574fe4ffa7dcce1f0627a0dbd9dfbd9b0ead8057201d1f9c3c168d8d04393dd72d1a7458606cc321e90432cf408beb456092388453c161a7fcb35950a32992dc46059d5e4d892cc03534d2106511e05fd7b520d4078f47a06481b4e6eaf0d0311142f4a5c095f7fda99a9cff788235c68c3c2addf72176c21bd7aab6481931f12fecbd51f3864b5c241995f9c698f3857a8282cea65eed164d9a640179b229344574a4b42c4ca5be96716714db0fea70ab4ddc8d82c69708bd13ce3c85dd362233ea3f4ba9326c7c4cb0ee5dc2f782cc4f5b7872033f14ab8858635b31eb3fcf821ef30b74b0634d7b17f8f4397a015d4211ba39e052797e8566b8a1ac3af6062b73b7c26bdd588b212ecd94c5026218f8517edb048818fbb7a89e8f3a4da5d423ac71965ffcff01381a8e8ab780015d8521d2d8b7879b36e9a42757244e5142111fcc21ccc4ef12e6447d1c830022be6429a90d2d8719100c65a3098f6f61bb21981a91cf9205f229c4e551c061ffced81f8b11e0130fc1b9240dde1c6d51f30e05f258ceaa0584311379b114c3c45e1cf29e686c63e0e6b6d97a1e57efe0840c7ca246f39c24df690201a3d4081c1aeebc8ea1396cdc67447b70e121c41f247a36a74a26566bbdc698b24ffa7283cdcf7a58281aa40267cbd16d5ebea0b88ace0fcf031c0aeafd4684de6e46db74a33874f9170d43ecf6be58db772b0989c8521701a255a09fc9d3f7ba76dbd55aadcae093fbb175e91c30402575fd3faab3b4538f01f05ebfc5ad7648c22a5c4ef555d0011205897e4451f9622862037469cc5b59d6721ea9ed1a48efabc23b8c661f3a51997531e20214ddee5bd8d30e30eac672a4ccc3fdb123206244ac2bae9f9863a6c42be5b20cf03845a5c601e8d570ee2018982e46d07628192eea1ce5c6e73e9a0e70c73fe29fb3c5f6b4fae30fd628ea811aecf8339c1d6f481c963b1643bba42661246915b53093170f24a2fc3f60c65fef9fa576c307446c8d788699b25af1c0a026fb2e6cc1351e0a80898c4187df4d32d2038363ab848063a50ec1dbe93b555ce0a8812d73cfa4c43c583fcf561cc35f5fc4efa6ddd088c42b298640f558bed3ca743e977ea9f15b5366aea1d9017f16ef995826ff56708f13cc452a25e31cb4d111ac36e47a3b426a428b0263d8a9b359bbd6be78dad62e27bc2d2af8253755968517e14f15ec852e109000be24e86eb01a0542faea76e099f78fd6033aaf129ede22e9ffb2aab3e1dcf7f9d4290722f0e361fe4b399196363df346d30a914a2ef62b2cecf4df45ce667ace72b93acd0f6d5031cd7e87256b7a2c94f34af5d2865cedcd773d1d160b61f8413196ff5b5e4a2d03f9db0112985f77b98b191b795b18a5bdf9050910a65553973035220fd7e26fc531bcba0e37d1f85604ba2ba3c7df2d15e8dfe1bc42037fb144cbf28e2979398fd21926b4d4199dca7bf152ec93f9b8f61432a6de14459358f94cf14cc4b22ee148cd6eff73b7177ab1b8a4d01017036fbc7a9a2a107727c4c69fc56dcfe24d9eeba1293b8f9fc87caf76c3b136c3419b06660e2024e2cf2b6ec0a9608d7367b8cdd9044390dc225f77dd43cfbbd0837fe3e285ee43cf14979fb3ac4fb3fda4d1755137eefc415acb4a500cc6c287b88cf5fdd88bf718f221502c57889c2be79f22a2e2cfcbf3a27223196be77cc4ebcd5c88a0fd0d289452dabd217e133e3077974803c0f5fa32c5e3171068ff17a3261bacb164c10eaa9ae4280fa7029013bca5ea013fc266c5f1f0843fbbeff7caac3fe1884e768e34fe73fab41c3d9c19f130ffd56b26af4c74170c7921e378ea9560c34aecf416b7ccc152622a170dc9335a47d4c1ccd476e0b00509d9ef3457cc32d006311672546056606b134403be8c314f65670ef644f976ac9ffff939f53b6e7f92df4f70c5be720171d7e20c6c71949058fb199aa2d01de345514999fec659a269338cb47ccd086b736a4b84898841cbdd96fde758917e8ab0cf79854287ca052c0f81023d757ff47283dc5f36fa3fc533d63d8b06b38765ff9bfc861d9f19354587c4456c20535f41f437faf67de76e8d76b94729339e9f687c18fdbabdc4160e563caec81396a0ad9f408835178fe01f3eecba851994825fe17ad7a78d051b77340ffcfc9413baca9dbd008ed69283f7bc10e85c0956d0ab96ae8eab799f00a861a05248af75bb7fbc947c220a77a1e8d4df5e23b52265b8496f78a2c167297f81ff3cf8f692331da1f0e7b57fc006724a5a7ef7e8462050c28e6a5c62390d890ea522dd016c6c467cb24b179745f4dddad484f05156cfb11ca89f7d841a8af8ccdd4c7facd67f0668c6d98e2f1cbc1e18421c829730cd1a37ffdf8894e8a5d9be93c7f5498822b40f0374a66a2eb939b4ff24a90eb5509367afe3be046700387b33e3bc9c5cadc36ff598e7689eae079f8b10d500aa6ee80048528e8d353947d9c78a5d5a6d1cd4c9df63ebd704690e2f53a53ee5ae425de0a17918e5b04d58e980e546a65a6c91eeb564efff0d9b0bb2a6dfeab4b35368ff1cad350791801748032ba76762d1e123ee541a44cbb49aab89fd1fedfd6e913cad58db35f21fb072d48d7cb687e80c15e010c6741e69922883a5b5ed08869514131b9da03a591778eefeea1cda89783f5ce5780fb2247fe2873a819a8eb66b755faffe37cb62ae1831f0a8db0654421bc65739b828a5456096a6c55e498f26257e5bd517aeed358fbd54f075a46f28c0bb125581e083eb6de5ebb10a0f1d8362f79d8dbaad0a5d8382c752f0e86e0d5ed70e69cb49c8ba165f5e1f82890aef50438e35864eb7eada947c93e05b068a18074c7d81dac093bc7a60b9ea49a2018ef52c71119ac9ff528ed0d1acdc492c8402eb3ffddca2bc751309351b55684a27c6d257017eb80a438e9f4fbfdcfeb8e3ead8d0ff7a30aed218306d0e1c52c598247be043d9b20daecad6ea1dec29e0679c8ce08791c24902dc18361ce15a9de9d2cabe6f6931c7bd5cc56371ae60cf6091acd2b0db7a6c70ed1495b99cb77039d22922cbe4afc1ae181e7044f5166762648c71ff1504fe9a85dbc64544bdec3d55c5ed153b1747b941154816a6864e10e16ef2ca7f240bfc84c18b266e34ce77ee96f825fddd9403c3d20bd29879a07db766bee8416ffaa0997806970f8d364540ab8cd419ef2cd276093b290aae2e9e7c6b3525fa07e5a6d2ea552e44098f9ce8c09d6941dc646afd9e59824e8ae7adb9f567358147e9f077bf494dd8fa3e19db048b455e0e3aa9140cc734af517e63a885c3de017049041a800efaf836b3e33fec472f68c88ab7686c9d5a7d4c2b588442b15a8805b295723cae00960f41a9a309c7315c38b282266c32ae6108230b3c71bac9ad9d98d065545eed5484396487dbc81c4d3e4300bb1928c2efd8b304686315332a2caacecc3884ee34e2a7de225faec7d927b1ef9b9ba85bf7feab48bb4aa9e6e8adc25797c745fcd0f075e5693e7c9458c1600bc2e0d135cba349b73d5e388d0a297ab1d846b9f19f658547e58f3e07ea08d3344b0a936edf7555b04603529e68334bf1442f50e56b24d881d2aff0f19ebc3a5cee4d487e164c66bab3e26a41b68b6d73fea035791708a03664ee61fe7ce47d16b87dee037c3811a1aad1c70a971c68364ec8fa33faa44e9e087ff774cdd5720c960da0d58b3d3b4ee607f5142e44f3e89a02d4b786afffdf706e109d23ea905af91cd5cc004bda9b48e0a705aacab25764e99e73c48fc9033196fc64e70e0e66e9d3987ce3689060ab903227ece75f8ebcc419534ff71e44cf2866027e1c20495292db4d2c68c6b251ae3d35674d2eb3fac36105b7c7dd253b7b27fc510ab1624e6346194f6501d5a6d8484bb59abd743081edb7be98ded1182fd80fe3c66feb510afc2292f21fdff6c2db6f7f28970cd3495147b488229dd4b980463b8e77ff7f5b3e078c1c591a5c4f25a845b426a67f9fe1dc7da77e1b8493ca7315eb5714d8ed0f8358e32baa6948a4cf7e9f33416b788c5ab56b4fff92136249a199e56a8bcd90478e6a2d0b154ab3f1211a51f23ab7cafee79c36838d4c6d177dffdc7772c2b276564962b7fbb66ec2ecc89ceb91c1efb711eef788933c2e68a25eeb041cf83632c31b11ed90225bc3f073105b83ec3d730dc96cf585e310c36cff0665b5065d61cfac162adf4e1afb91f2fef20e5f16982f5e6412a92d98dedc4f937d1344d3e0165e9c8fd6dae982f4b9f36f0908806fbe0d951515cf59ff118172c0fa8b25168e8ce3f3b47ef3d3ac4b700ed37fdbca9a1270d248c421eef35001c28492a2b04818548e54178769fd426176243d21cf4f7eb54423bb67ad199e1be2280673ebfd80552050b8f68566446bee6675adc97eb02f755c4c893bcf4a8906704498f888c5522f694eaac350321337e82c2a2f70c21d4651e97e6eec26a7b07d7e1d7c2d</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>私人文件</category>
-      </categories>
-      <tags>
-        <tag>私人文件</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MacOS使用</title>
     <url>/2020/mac/</url>
     <content><![CDATA[<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><table>
@@ -1891,6 +1872,25 @@
       </categories>
       <tags>
         <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>个人文件2020-11-10</title>
+    <url>/2020/myfile_2020-11-10/</url>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">您好, 这里需要密码.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="ba5aba640f8a6c0d49b1cc3813a69d6261dd4c5b6b065386af8d1699cb84b4af">55b1a0c735bae0185f64a4475bd061d830549bad5e7ca376d61605a141d4d67eab4e41b009c50b057c8f76c2a4e0406941d49c9c8fa3b5a09c6897c6faaa0b2c5acbdf99e86f2801092d3b2005db8b2118ae78dca07c29e6eaa7c03a8c1cbf1cf652a5c7c880c2298c429e02dc599ddabd4403e80ec961b495e124fd3b5907e014ea4b04aeae8e8d4328afe4c5f1ca3b1ff832b8f5b170d03cccf25361dcb234ef4df70024e21bb49b8c51cc699d0bac59baefd76f3f18ac868c2ba133457b3ecc2a50d2195c0485fe188d9a4b29fc651869018d8c055bd520794452e00b27e7077f562b42ca5e5ba0e446045dd38ad4f28f208a9c549e6d7deef0c1d50879553ac4a31fcc27203eed163845e4a783106bf737cca9eb4c818cfe7cdfa8a48383ac0017b31f69c7a2b13de26107056859a5ad049ab488eea231d0c6074f755eb6ec80992d65e80d385b992e052a3de656104570f53a969e0dd1165a5b2952b470a4493fd14fb54f5507897660913972a996bac6ce205ca3774d4cf0d173b0d7f60bc08726eee51a6782afc8e526dc98de52a9f96901006753569008747c7ee0d8468d09dc60513b58af869649169a9a7a756935275e920a5f12b7f43a9fcb4324a048067cb1d566e9cadc16050d5d50eeb3a88972ea8b76483c1d5101388ee779c89aa1f489251234a266f62b1974476409e997102d1561b1490a95ccdab40a912bd4534c6a26d7d2f3e944567ee5f1fc526727b241b149b6f0529448abde616f3a268c541d2fae76c25ba3283eef92d5e4db20bf95e1a16c1295004ce88e30d078d43673c887802bd88a4e5b6e3141b3098473873208aca8a0c478facd6f49b530cdcfd2520ccc2873574e7473b2feb5a67bcf04e40643a34efb34a2f44765df6140ed21325a0aa733ebc346f1131bc1ee67f7a8b7c5ff73469407ac0f2ba8b30bb1029d6a979ef180e1ef67b8f61cd54fde1bbcf5e758f5216e902288d5abb011daa37c34dc21ec27bf898b02ee012db2c896b1b159492d659de8c4dfebb1d92f923da08f709dbdc91f389a91ee883a8eca15fe5b5b8ec5782a1456c06c3473c77639c93db1143cb851e66bdceca4266960cbc8bb871e5ee768cd28cce0fc5465bacb6d7d6436d9934e8c1c54d0b004c664f7b6c91a5d0675ed5d77a372baf47a8d7575399741012386238aa2688326babca5c60184520d86dd5f372468d99df93ab2622e05e8303bf38cd5de02f0a2fad1cbf7c2021b178cb06a56cd42c5b238ff0980ee68b8a521e643eaea534b74326cb2a07a16e58f131e56510504d29cb46f417c676b4be616c46a6597b4785638a5f82aedd7dff88a1056a0c8e40f46efbf932d7a61dd808501c7a523d856e979bca291194ea78b331a4be95cec39b561173934252bc32aae4c6ffd689fcabc8c1eca6890e62bbbe25090a9de28156fc40961e72755117f1d6d8b8c5844704f27bb41ec484bbde1d4f10f5b1c539358f303664bb03c2b51f28c0dd9735998c3d50c6353b2e610df1399a315fc43fd36973c66956ecaa06b0144f69d9ba46c9f9af503de2ea27d73e449ec4a99158d5ed22cee90b81ec8c4be1655b947d13ecaf089c2d911324552fdb342bc0129041663d66e71a8a5444a1fcf98dab9ee828994c6932381249252a75ceef03d9a45d09c0e64affedf0acaebaea0ee4422363951865aadcb056930ffb0b7430a7e2a9627bab43e088d06f419f94634ff8fa40614bd13b2b1fc1f3b08310b6273d92fcaba3432c1780ccb2beccb96ea7da056ca882718fb859902022c19586138b9d6ab45ffaf8e47ee3327512253c81865a4d55359333bb12b116964b7923d5820bb67456d3d3d490e19fdd15d3b6c45d73beb9841c9e019fa2a3dc3f78c4fc849a49343a197128a6b1b509eedcd487a0a5300aa3d801ffdc7547073d90a81d045f834b86ac531c0e97af17ab3b2df71a9207bf18345226d1430c268695dbcb2fef9760de0bf194b7494efe1fe67d33651ac56928e97258227ad6668dcef7e406f46a0455eb423af747ff1beaf739f58d061089174b04606bb785283266ae2fa665397b26d41e4d13ecbba947a07f029baef58d884b0290a976123914cc6256613809b4df8453856fa9811cb0a181f0b28600fa6eca02cb5102725998abc3d99f1854591cc15569bf71dcbf164a796a857be2e249a985966bc49667bc044cfe61e262010024b42bda82b3628f26baca40fc038691a2df75cbf170a7cca0e76dc5e54aedf94b75370771434e580213abee2f0aaf5a87c0c0d5e9df986650a60f07587358c4be32ae44d256f25ccb53c42db013830d75e37dc92b94456c083890a62ff7792c69da627699fd14a9f8bac1e1df14ad53d4dec5dccd1abf109c1ce1ce86cd67e41ffffe0ac0ce71b58fb3524780acece1c2e05e9fd0466dd42dd5677b8b23f005a72b6608bc009498aa51498f220f93960d6cf9ec53eb1fa76c03f6eb107db799043976734a47487907b80dbfc1a92c0691b75a0badd5197a5b4eb587c7c313fd31ac4f9aa6df9dda4bbfee8f9d122caf900d9716756904fa82dd916102e9c54792a1158ded025b52d6b43bb41484f9824a9ee97ecef025aa5c4e5a61d6e9668687e423b931bae0feb04e94c20e362936d13b5de156dc1d560a5be5a94447649424a45feae1639ade1df271524ca8261f7b6fa284bd3c027bd69633070628d91737b320a0051c6690e5965a66a8c419a24c8e20248cc4927326a46c2e32f36d5a218d8a1bf4743515af919dd6bbf91be6d8a176239103932112b690412101fe6c4d2a4307af532698aaf97d943353fe956c8a20e105d34c9e128db41f7f66d6eb01871317732bd62b15db87525f9b021cd85fa8aef2143e208a1cb99f461d0deec449211b5e0983781ce146f56c71c6f8c7cffd55debca580e26770ae11cdc2b61a8ecb20f95426e0e138aa2090df6d9cd7bf974a30b358168fe2e541db48ccf2f8bb62b83892fb2b664c031db789addaa20217a628eec5afe729c53552f6f8bef173a5a894086207e13044444411b1869b332745be961055b076fb3213ad747ac29dd457fd6a4863c0ab4effe431342d17b49f6b00cc00e5e747a5489702911a48122ad7a6887bc10713e9943162deaeb630b0fcd29faf4bf734d3d3f081e638ffbb1d4e0c073210a4937d04771b61c23ec9988998abd60e44e90a5ee91e352784851e9545162decc78aa20eca76925559e2dc37cdbe8729017876ff46abc3067bd97f226c7c8ed4dc6f37b0ce8c701c65cf4a785aa16c305db106f852f0845063e392849b8523efa7f9d7f0061ea974c1655db3f57f5b5ee76f6f3454433b0f1a63379359f1deb7578f969bd2ec54e6e606b2f738aa1cc3632f30c92a3f08320c625f9044c38665ff5d21c0359ec47d7adb220c3d8784b376f93c5cb9c5a6a83ddd50f5d2bb8b3049600cfbd288f9ad894a1dfbd3094fd8a61a8d3f292693b6e801624b14dda8a74c55f9f6abeea19d666242ce9e87f97aeea175da1a095870b904898f45b55c283b9f71d6a99efa3b9e6d44e94f93715c33d3a40ad13047623944427d004842ac3bb5760868e21749927ebdf3851740776a3704259ece34020b3eec3a70f1be0eca9e6d9cfeb9e0da73737bafd10b658157deaa33c02bff761759d84e5a52318342ef822ea3dd35b504812d6ab62a54de1ddef75e4c666ebca943b0853aafed8f55ac0843f017ef6d8a75252d3e072e2c5309100767e105aebff6fe0670fe5905153f243b4cfd0abfa094c2d617dbdb1e1100fd1108e1c8e84ed631436ae1c986f6584cceafbda09d063a6945576c6faf3e90eb3a37b700506f231c72b730e85319124882d5094a3a2b6c19283224f9edc7a657f99fa103bf11ab98b9465fcbd3b40452d1f8282df92388680309b5b719d7c1e26ba6b0243efddb12db2d8299393b6949071ae2b86d52b64f45f3c71c2d89afca227574fe4ffa7dcce1f0627a0dbd9dfbd9b0ead8057201d1f9c3c168d8d04393dd72d1a7458606cc321e90432cf408beb456092388453c161a7fcb35950a32992dc46059d5e4d892cc03534d2106511e05fd7b520d4078f47a06481b4e6eaf0d0311142f4a5c095f7fda99a9cff788235c68c3c2addf72176c21bd7aab6481931f12fecbd51f3864b5c241995f9c698f3857a8282cea65eed164d9a640179b229344574a4b42c4ca5be96716714db0fea70ab4ddc8d82c69708bd13ce3c85dd362233ea3f4ba9326c7c4cb0ee5dc2f782cc4f5b7872033f14ab8858635b31eb3fcf821ef30b74b0634d7b17f8f4397a015d4211ba39e052797e8566b8a1ac3af6062b73b7c26bdd588b212ecd94c5026218f8517edb048818fbb7a89e8f3a4da5d423ac71965ffcff01381a8e8ab780015d8521d2d8b7879b36e9a42757244e5142111fcc21ccc4ef12e6447d1c830022be6429a90d2d8719100c65a3098f6f61bb21981a91cf9205f229c4e551c061ffced81f8b11e0130fc1b9240dde1c6d51f30e05f258ceaa0584311379b114c3c45e1cf29e686c63e0e6b6d97a1e57efe0840c7ca246f39c24df690201a3d4081c1aeebc8ea1396cdc67447b70e121c41f247a36a74a26566bbdc698b24ffa7283cdcf7a58281aa40267cbd16d5ebea0b88ace0fcf031c0aeafd4684de6e46db74a33874f9170d43ecf6be58db772b0989c8521701a255a09fc9d3f7ba76dbd55aadcae093fbb175e91c30402575fd3faab3b4538f01f05ebfc5ad7648c22a5c4ef555d0011205897e4451f9622862037469cc5b59d6721ea9ed1a48efabc23b8c661f3a51997531e20214ddee5bd8d30e30eac672a4ccc3fdb123206244ac2bae9f9863a6c42be5b20cf03845a5c601e8d570ee2018982e46d07628192eea1ce5c6e73e9a0e70c73fe29fb3c5f6b4fae30fd628ea811aecf8339c1d6f481c963b1643bba42661246915b53093170f24a2fc3f60c65fef9fa576c307446c8d788699b25af1c0a026fb2e6cc1351e0a80898c4187df4d32d2038363ab848063a50ec1dbe93b555ce0a8812d73cfa4c43c583fcf561cc35f5fc4efa6ddd088c42b298640f558bed3ca743e977ea9f15b5366aea1d9017f16ef995826ff56708f13cc452a25e31cb4d111ac36e47a3b426a428b0263d8a9b359bbd6be78dad62e27bc2d2af8253755968517e14f15ec852e109000be24e86eb01a0542faea76e099f78fd6033aaf129ede22e9ffb2aab3e1dcf7f9d4290722f0e361fe4b399196363df346d30a914a2ef62b2cecf4df45ce667ace72b93acd0f6d5031cd7e87256b7a2c94f34af5d2865cedcd773d1d160b61f8413196ff5b5e4a2d03f9db0112985f77b98b191b795b18a5bdf9050910a65553973035220fd7e26fc531bcba0e37d1f85604ba2ba3c7df2d15e8dfe1bc42037fb144cbf28e2979398fd21926b4d4199dca7bf152ec93f9b8f61432a6de14459358f94cf14cc4b22ee148cd6eff73b7177ab1b8a4d01017036fbc7a9a2a107727c4c69fc56dcfe24d9eeba1293b8f9fc87caf76c3b136c3419b06660e2024e2cf2b6ec0a9608d7367b8cdd9044390dc225f77dd43cfbbd0837fe3e285ee43cf14979fb3ac4fb3fda4d1755137eefc415acb4a500cc6c287b88cf5fdd88bf718f221502c57889c2be79f22a2e2cfcbf3a27223196be77cc4ebcd5c88a0fd0d289452dabd217e133e3077974803c0f5fa32c5e3171068ff17a3261bacb164c10eaa9ae4280fa7029013bca5ea013fc266c5f1f0843fbbeff7caac3fe1884e768e34fe73fab41c3d9c19f130ffd56b26af4c74170c7921e378ea9560c34aecf416b7ccc152622a170dc9335a47d4c1ccd476e0b00509d9ef3457cc32d006311672546056606b134403be8c314f65670ef644f976ac9ffff939f53b6e7f92df4f70c5be720171d7e20c6c71949058fb199aa2d01de345514999fec659a269338cb47ccd086b736a4b84898841cbdd96fde758917e8ab0cf79854287ca052c0f81023d757ff47283dc5f36fa3fc533d63d8b06b38765ff9bfc861d9f19354587c4456c20535f41f437faf67de76e8d76b94729339e9f687c18fdbabdc4160e563caec81396a0ad9f408835178fe01f3eecba851994825fe17ad7a78d051b77340ffcfc9413baca9dbd008ed69283f7bc10e85c0956d0ab96ae8eab799f00a861a05248af75bb7fbc947c220a77a1e8d4df5e23b52265b8496f78a2c167297f81ff3cf8f692331da1f0e7b57fc006724a5a7ef7e8462050c28e6a5c62390d890ea522dd016c6c467cb24b179745f4dddad484f05156cfb11ca89f7d841a8af8ccdd4c7facd67f0668c6d98e2f1cbc1e18421c829730cd1a37ffdf8894e8a5d9be93c7f5498822b40f0374a66a2eb939b4ff24a90eb5509367afe3be046700387b33e3bc9c5cadc36ff598e7689eae079f8b10d500aa6ee80048528e8d353947d9c78a5d5a6d1cd4c9df63ebd704690e2f53a53ee5ae425de0a17918e5b04d58e980e546a65a6c91eeb564efff0d9b0bb2a6dfeab4b35368ff1cad350791801748032ba76762d1e123ee541a44cbb49aab89fd1fedfd6e913cad58db35f21fb072d48d7cb687e80c15e010c6741e69922883a5b5ed08869514131b9da03a591778eefeea1cda89783f5ce5780fb2247fe2873a819a8eb66b755faffe37cb62ae1831f0a8db0654421bc65739b828a5456096a6c55e498f26257e5bd517aeed358fbd54f075a46f28c0bb125581e083eb6de5ebb10a0f1d8362f79d8dbaad0a5d8382c752f0e86e0d5ed70e69cb49c8ba165f5e1f82890aef50438e35864eb7eada947c93e05b068a18074c7d81dac093bc7a60b9ea49a2018ef52c71119ac9ff528ed0d1acdc492c8402eb3ffddca2bc751309351b55684a27c6d257017eb80a438e9f4fbfdcfeb8e3ead8d0ff7a30aed218306d0e1c52c598247be043d9b20daecad6ea1dec29e0679c8ce08791c24902dc18361ce15a9de9d2cabe6f6931c7bd5cc56371ae60cf6091acd2b0db7a6c70ed1495b99cb77039d22922cbe4afc1ae181e7044f5166762648c71ff1504fe9a85dbc64544bdec3d55c5ed153b1747b941154816a6864e10e16ef2ca7f240bfc84c18b266e34ce77ee96f825fddd9403c3d20bd29879a07db766bee8416ffaa0997806970f8d364540ab8cd419ef2cd276093b290aae2e9e7c6b3525fa07e5a6d2ea552e44098f9ce8c09d6941dc646afd9e59824e8ae7adb9f567358147e9f077bf494dd8fa3e19db048b455e0e3aa9140cc734af517e63a885c3de017049041a800efaf836b3e33fec472f68c88ab7686c9d5a7d4c2b588442b15a8805b295723cae00960f41a9a309c7315c38b282266c32ae6108230b3c71bac9ad9d98d065545eed5484396487dbc81c4d3e4300bb1928c2efd8b304686315332a2caacecc3884ee34e2a7de225faec7d927b1ef9b9ba85bf7feab48bb4aa9e6e8adc25797c745fcd0f075e5693e7c9458c1600bc2e0d135cba349b73d5e388d0a297ab1d846b9f19f658547e58f3e07ea08d3344b0a936edf7555b04603529e68334bf1442f50e56b24d881d2aff0f19ebc3a5cee4d487e164c66bab3e26a41b68b6d73fea035791708a03664ee61fe7ce47d16b87dee037c3811a1aad1c70a971c68364ec8fa33faa44e9e087ff774cdd5720c960da0d58b3d3b4ee607f5142e44f3e89a02d4b786afffdf706e109d23ea905af91cd5cc004bda9b48e0a705aacab25764e99e73c48fc9033196fc64e70e0e66e9d3987ce3689060ab903227ece75f8ebcc419534ff71e44cf2866027e1c20495292db4d2c68c6b251ae3d35674d2eb3fac36105b7c7dd253b7b27fc510ab1624e6346194f6501d5a6d8484bb59abd743081edb7be98ded1182fd80fe3c66feb510afc2292f21fdff6c2db6f7f28970cd3495147b488229dd4b980463b8e77ff7f5b3e078c1c591a5c4f25a845b426a67f9fe1dc7da77e1b8493ca7315eb5714d8ed0f8358e32baa6948a4cf7e9f33416b788c5ab56b4fff92136249a199e56a8bcd90478e6a2d0b154ab3f1211a51f23ab7cafee79c36838d4c6d177dffdc7772c2b276564962b7fbb66ec2ecc89ceb91c1efb711eef788933c2e68a25eeb041cf83632c31b11ed90225bc3f073105b83ec3d730dc96cf585e310c36cff0665b5065d61cfac162adf4e1afb91f2fef20e5f16982f5e6412a92d98dedc4f937d1344d3e0165e9c8fd6dae982f4b9f36f0908806fbe0d951515cf59ff118172c0fa8b25168e8ce3f3b47ef3d3ac4b700ed37fdbca9a1270d248c421eef35001c28492a2b04818548e54178769fd426176243d21cf4f7eb54423bb67ad199e1be2280673ebfd80552050b8f68566446bee6675adc97eb02f755c4c893bcf4a8906704498f888c5522f694eaac350321337e82c2a2f70c21d4651e97e6eec26a7b07d7e1d7c2d</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>私人文件</category>
+      </categories>
+      <tags>
+        <tag>私人文件</tag>
       </tags>
   </entry>
   <entry>
@@ -2331,31 +2331,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Node使用及其管理</title>
-    <url>/2020/node/</url>
-    <content><![CDATA[<h2 id="nvm-安装"><a href="#nvm-安装" class="headerlink" title="nvm 安装"></a>nvm 安装</h2><p><code>wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash</code></p>
-<h2 id="nvm配置源"><a href="#nvm配置源" class="headerlink" title="nvm配置源"></a>nvm配置源</h2><p><code>sudo find / -name nvm.sh</code> - 找到nvm.sh文件的位置。通常在 <code>~/nvm/nvm.sh</code> 下</p>
-<p>找到 <code>NVM_NODEJS_ORG_MIRROR</code> 将后面的地址改为<code>https://npm.taobao.org/mirrors/node/</code></p>
-<h2 id="nvm管理版本"><a href="#nvm管理版本" class="headerlink" title="nvm管理版本"></a>nvm管理版本</h2><p><code>nvm list</code> - 查看本地安装的所有版本</p>
-<p><code>nvm install 11.0.0</code> - 安装指定版本node</p>
-<p><code>nvm install stable</code> - 安装最新稳定版</p>
-<p><code>nvm use 11.0.0</code> - 切换版本</p>
-<p><code>nvm alias default 11.0.0</code> - 设置默认版本</p>
-<p><code>nvm uninstall 11.0.0</code> - 卸载指定版本</p>
-<p><code>nvm on</code> - 开启版本切换</p>
-<p><code>nvm off</code> - 关闭版本切换</p>
-<p><code>node -v</code> - 查看当前版本</p>
-<h2 id="npm使用"><a href="#npm使用" class="headerlink" title="npm使用"></a>npm使用</h2><p><code>npm config set registry http://registry.npm.taobao.org</code> - 设置镜像地址为淘宝</p>
-<p><code>npm config get registry</code> - 查看镜像地址</p>
-]]></content>
-      <categories>
-        <category>技术提升</category>
-      </categories>
-      <tags>
-        <tag>Node</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网络相关技术点</title>
     <url>/2020/network/</url>
     <content><![CDATA[<h2 id="TCP连接过程"><a href="#TCP连接过程" class="headerlink" title="TCP连接过程"></a>TCP连接过程</h2><p>状态码含义：</p>
@@ -2738,6 +2713,31 @@
       </categories>
       <tags>
         <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node使用及其管理</title>
+    <url>/2020/node/</url>
+    <content><![CDATA[<h2 id="nvm-安装"><a href="#nvm-安装" class="headerlink" title="nvm 安装"></a>nvm 安装</h2><p><code>wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash</code></p>
+<h2 id="nvm配置源"><a href="#nvm配置源" class="headerlink" title="nvm配置源"></a>nvm配置源</h2><p><code>sudo find / -name nvm.sh</code> - 找到nvm.sh文件的位置。通常在 <code>~/nvm/nvm.sh</code> 下</p>
+<p>找到 <code>NVM_NODEJS_ORG_MIRROR</code> 将后面的地址改为<code>https://npm.taobao.org/mirrors/node/</code></p>
+<h2 id="nvm管理版本"><a href="#nvm管理版本" class="headerlink" title="nvm管理版本"></a>nvm管理版本</h2><p><code>nvm list</code> - 查看本地安装的所有版本</p>
+<p><code>nvm install 11.0.0</code> - 安装指定版本node</p>
+<p><code>nvm install stable</code> - 安装最新稳定版</p>
+<p><code>nvm use 11.0.0</code> - 切换版本</p>
+<p><code>nvm alias default 11.0.0</code> - 设置默认版本</p>
+<p><code>nvm uninstall 11.0.0</code> - 卸载指定版本</p>
+<p><code>nvm on</code> - 开启版本切换</p>
+<p><code>nvm off</code> - 关闭版本切换</p>
+<p><code>node -v</code> - 查看当前版本</p>
+<h2 id="npm使用"><a href="#npm使用" class="headerlink" title="npm使用"></a>npm使用</h2><p><code>npm config set registry http://registry.npm.taobao.org</code> - 设置镜像地址为淘宝</p>
+<p><code>npm config get registry</code> - 查看镜像地址</p>
+]]></content>
+      <categories>
+        <category>技术提升</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
       </tags>
   </entry>
   <entry>
@@ -3450,6 +3450,59 @@
       </tags>
   </entry>
   <entry>
+    <title>Python 元类</title>
+    <url>/2023/python_metaclass/</url>
+    <content><![CDATA[<h2 id="元类简介"><a href="#元类简介" class="headerlink" title="元类简介"></a>元类简介</h2><ul>
+<li>元类(metaclass)，元类是对类的概念的一种抽象定义，<code>type</code> 是创建类的默认元类</li>
+<li>创建类的时候，先调用元类的 <code>__new__</code> 方法，再调用元类的 <code>__init__</code> 方法，如果元类没有相应的方法，调用 type 的同名方法</li>
+<li>创建类的实例的时候，先调用类的 <code>__new__</code> 方法，再调用类的 <code>__init__</code> 方法，如果类没有相应的方法，调用 object 的同名方法</li>
+<li>当一个类继承自 <code>type</code> 时，这也就是一个元类，创建元类其实就是重写 <code>type</code> 中的各种方法的过程</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_name</span><span class="params">(self)</span>:</span></span><br><span class="line">    print(self.name)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(self, name)</span>:</span></span><br><span class="line">    self.name = name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 动态的创建类</span></span><br><span class="line">User = type(<span class="string">'User'</span>, (object, ), &#123;<span class="string">'__init__'</span>: init, <span class="string">'get_name'</span>: get_name&#125;)</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">'王大锤'</span>)</span><br><span class="line">user.get_name()</span><br></pre></td></tr></table></figure>
+
+<h2 id="元类-new"><a href="#元类-new" class="headerlink" title="元类 __new__"></a>元类 <code>__new__</code></h2><p>在定义元类的 <code>__new__</code> 方法时，通常需要传递以下几个参数</p>
+<ul>
+<li><code>metacls</code> - 同 <code>self</code> ，代表元类自身</li>
+<li><code>cls_name</code> - 要创建的类的类名</li>
+<li><code>super_cls_tuple</code> - 新建的类需要继承的父类的元祖</li>
+<li><code>args_dict</code> - 是一个字典，里面包含了类的方法和类属性，如 <code>__module__</code> \ <code>__doc__</code> 等， 类的属性也会添加进来</li>
+</ul>
+<p>通过自定义元类的 <code>__new__</code> 方法，可以实现以下特性</p>
+<ul>
+<li>默认给类添加属性或方法</li>
+<li>强制要求子类实现特定的方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在 list 的基础上创建一个类来使其支持 add 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListMeta</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(metacls, cls_name, super_cls_tuple, args_dict)</span>:</span></span><br><span class="line">        args_dict[<span class="string">'add'</span>] = <span class="keyword">lambda</span> self, value: self.append(value)</span><br><span class="line">        <span class="keyword">return</span> super().__new__(metacls, cls_name, super_cls_tuple, args_dict)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">List</span><span class="params">(list, metaclass=ListMeta)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    my_list = List()</span><br><span class="line">    my_list.append(<span class="number">1</span>)</span><br><span class="line">    my_list.add(<span class="number">2</span>)</span><br><span class="line">    print(my_list)  <span class="comment"># [1, 2]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 强制要求类实现 add 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListMeta</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls_meta, cls_name, cls_super, args_dict)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'add'</span> <span class="keyword">not</span> <span class="keyword">in</span> args_dict:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">"Class must have add function"</span>)</span><br><span class="line">        <span class="keyword">return</span> super().__new__(cls_meta, cls_name, cls_super, args_dict)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">List</span><span class="params">(list, metaclass=ListMeta)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        self.append(item)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    lst = List()</span><br><span class="line">    lst.add(<span class="number">123</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="元类-init"><a href="#元类-init" class="headerlink" title="元类 __init__"></a>元类 <code>__init__</code></h2><p>在定义元类的 <code>__init__</code> 方法时，通常需要以下参数</p>
+<ul>
+<li><code>cls</code> - 进行创建的类本身(不是元类，是新建的类)</li>
+<li><code>name</code> - 新建的类的类名</li>
+<li><code>bases</code> - 新建的类所继承的类</li>
+<li><code>namespace</code> - 新建的类的属性和方法</li>
+</ul>
+<p>当调用 <code>__init__</code> 函数时，类已经被创建了，所以用该方法通常是进行对类的属性进行增删</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListMeta</span><span class="params">(type)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(metacls, cls_name, super_cls_tuple, args_dict)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> super().__new__(metacls, cls_name, super_cls_tuple, args_dict)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(cls, name, bases, namespace)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(cls, <span class="string">"length"</span>):</span><br><span class="line">            cls.length = <span class="keyword">lambda</span> cls: len(cls)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">List</span><span class="params">(list, metaclass=ListMeta)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        self.append(item)</span><br><span class="line"></span><br><span class="line">lst = List([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">lst.add(<span class="number">123</span>)</span><br><span class="line">print(lst.length()) <span class="comment"># 3</span></span><br><span class="line">print(lst)          <span class="comment"># [1, 2, 123]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="元类-call"><a href="#元类-call" class="headerlink" title="元类 __call__"></a>元类 <code>__call__</code></h2><p>元类中的 <code>__call__</code> 函数是在创建的类在尝试进行实例化的时候被调用的，所以可以通过该函数来对类进行实例化时做限制，例如</p>
+<ul>
+<li>禁用实例化功能</li>
+<li>实现单例模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 禁用实例化功能</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NoInstanceMeta</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">raise</span> TypeError(<span class="string">"Faild to Instance"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NoInstance</span><span class="params">(metaclass=NoInstanceMeta)</span>:</span></span><br><span class="line">    name = <span class="string">'stolen'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(cls)</span>:</span></span><br><span class="line">        print(<span class="string">f'Hello, <span class="subst">&#123;cls.name&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">print(NoInstance.name)  <span class="comment"># stolen</span></span><br><span class="line">NoInstance.hello()  <span class="comment"># Hello, stolen</span></span><br><span class="line">no_instance = NoInstance()  <span class="comment"># Raise TypeError</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 实现单例模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SingletonMeta</span><span class="params">(type)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        cls.__instance = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> cls.__instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            cls.__instance = super().__call__(*args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> cls.__instance</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python 三种方式生成列表的内存分析</title>
     <url>/2023/python_list_memory/</url>
     <content><![CDATA[<p>注意：一下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
@@ -3516,6 +3569,42 @@
       </tags>
   </entry>
   <entry>
+    <title>Software Manual</title>
+    <url>/2020/software_manual/</url>
+    <content><![CDATA[<h2 id="Hyper"><a href="#Hyper" class="headerlink" title="Hyper"></a>Hyper</h2><p>简介：一款界面美观的terminal命令行工具，基于Electorn开发，三大桌面平台均支持，而且支持插件安装，方便扩展功能。</p>
+<p>下载地址：<a href="https://hyper.is/" target="_blank" rel="noopener">官网</a>，<a href="https://github.com/vercel/hyper" target="_blank" rel="noopener">github</a></p>
+<p>常用命令：</p>
+<ul>
+<li><code>hyper i 插件名称</code> - 安装插件</li>
+<li><code>hyper u 插件名称</code> - 卸载插件</li>
+<li><code>hyper --help</code> - 查看更多命令</li>
+</ul>
+<p>常用插件：</p>
+<ul>
+<li><code>hypercwd</code> - 让你打开新的Tab页时自动保持上一个Tab页的路径。</li>
+<li><code>hyper-search</code> - 使用<code>command + f</code>对命令行窗口里的内容全文检索。</li>
+<li><code>hype-pane</code> - 同时显示多个命令行面板</li>
+</ul>
+<p><a href="https://github.com/bnb/awesome-hyper" target="_blank" rel="noopener">更多插件和主题</a></p>
+<p>配置文件地址：</p>
+<ul>
+<li>Mac: <code>~/Library/Application Support/Hyper/.hyper.js</code></li>
+<li>Windows: <code>$Env:AppData/Hyper/.hyper.js</code></li>
+<li>Linux: <code>~/.config/Hyper/.hyper.js</code></li>
+</ul>
+<p>快捷使用：</p>
+<ul>
+<li><code>command + ⬅️\➡️</code> - 快速到行首\尾</li>
+</ul>
+]]></content>
+      <categories>
+        <category>软件上手</category>
+      </categories>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python 中的 MRO</title>
     <url>/2023/python_mro/</url>
     <content><![CDATA[<h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"A"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># B 直接继承 object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"B"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(C, B)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">D.show() <span class="comment"># A</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">继承图</span></span><br><span class="line"><span class="string">A</span></span><br><span class="line"><span class="string">|</span></span><br><span class="line"><span class="string">C B</span></span><br><span class="line"><span class="string">|/</span></span><br><span class="line"><span class="string">D</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
@@ -3557,7 +3646,7 @@
 <li><p>局部优先原则(local precedence order)</p>
 <ul>
 <li>当一个类同时继承了多个类的时候，优先使用前面这个类里面的方法</li>
-<li>比如A继承B和C，C继承B，那么A读取父类方法，应该优先使用C的方法而不是B的方法</li>
+<li>比如A继承B和C，那么A读取父类方法，应该优先使用B的方法而不是C的方法</li>
 </ul>
 </li>
 <li><p>单调性原则(monotonicity)</p>
@@ -3633,39 +3722,63 @@
       </tags>
   </entry>
   <entry>
-    <title>Software Manual</title>
-    <url>/2020/software_manual/</url>
-    <content><![CDATA[<h2 id="Hyper"><a href="#Hyper" class="headerlink" title="Hyper"></a>Hyper</h2><p>简介：一款界面美观的terminal命令行工具，基于Electorn开发，三大桌面平台均支持，而且支持插件安装，方便扩展功能。</p>
-<p>下载地址：<a href="https://hyper.is/" target="_blank" rel="noopener">官网</a>，<a href="https://github.com/vercel/hyper" target="_blank" rel="noopener">github</a></p>
-<p>常用命令：</p>
-<ul>
-<li><code>hyper i 插件名称</code> - 安装插件</li>
-<li><code>hyper u 插件名称</code> - 卸载插件</li>
-<li><code>hyper --help</code> - 查看更多命令</li>
-</ul>
-<p>常用插件：</p>
-<ul>
-<li><code>hypercwd</code> - 让你打开新的Tab页时自动保持上一个Tab页的路径。</li>
-<li><code>hyper-search</code> - 使用<code>command + f</code>对命令行窗口里的内容全文检索。</li>
-<li><code>hype-pane</code> - 同时显示多个命令行面板</li>
-</ul>
-<p><a href="https://github.com/bnb/awesome-hyper" target="_blank" rel="noopener">更多插件和主题</a></p>
-<p>配置文件地址：</p>
-<ul>
-<li>Mac: <code>~/Library/Application Support/Hyper/.hyper.js</code></li>
-<li>Windows: <code>$Env:AppData/Hyper/.hyper.js</code></li>
-<li>Linux: <code>~/.config/Hyper/.hyper.js</code></li>
-</ul>
-<p>快捷使用：</p>
-<ul>
-<li><code>command + ⬅️\➡️</code> - 快速到行首\尾</li>
-</ul>
+    <title>Swagger编写API文档的YMAL文件语法</title>
+    <url>/2020/swagger/</url>
+    <content><![CDATA[<p>使用Swagger编写接口文档语法示例<a id="more"></a></p>
+<p>官方openapi3.0规范访问：<a href="https://swagger.io/docs/specification/about/" target="_blank" rel="noopener">About Swagger Specification</a></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">swagger:</span> <span class="string">"2.0"</span>  </span><br><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">"this is a api for authenticating users and binding cloud accounts."</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">"1.0.0"</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">"Auth api"</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>swagger: “2.0” 指定swagger的版本号，此处必须为2.0</p>
+<p>info: 描述api文档的元数据</p>
+<p>title：接口标题</p>
+<p>description：接口文档描述</p>
+<p>version：接口版本号</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">host:</span> <span class="string">"52.82.26.240:5000"</span></span><br><span class="line"><span class="attr">basePaths:</span> <span class="string">/api</span></span><br><span class="line"><span class="attr">schemes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">http</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https</span></span><br><span class="line"><span class="attr">produces:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">application/json</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>host： swagger提供测试用例的主机名，如果未设定就为当前主机，可以设置端口</p>
+<p>basePath：定义的api的前缀，必须已/开头,测试用例的主机则为:host＋bashPath</p>
+<p>schemes：指定调用接口的协议，必须是:”http”, “https”, “ws”, “wss”．默认是http.-表示是个数组元素，即schemes接受一个数组参数</p>
+<p>produces：声明全局后端响应返回xml数据格式，通常使用”application/json”或者”application/xml”，可以在局部中定义覆盖全局</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/authenticate:</span></span><br><span class="line">    <span class="attr">post:</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"auth"</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Get a accessToken"</span></span><br><span class="line">      <span class="attr">consumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"application/json"</span></span><br><span class="line">      <span class="attr">produces:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"application/json"</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">"body"</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">"account of fastone"</span></span><br><span class="line">        <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">in:</span> <span class="string">"body"</span></span><br><span class="line">        <span class="attr">schema:</span></span><br><span class="line">          <span class="string">$ref:</span> <span class="string">"#/definitions/Auth"</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">400:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Invalid input"</span></span><br><span class="line">        <span class="attr">403:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Invalid credential"</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Get a accessToken"</span></span><br><span class="line">        <span class="attr">default:</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>paths: 路由地址</p>
+<p>post: 请求方法，需要是http定义的请求方法（get、post、put、patch、delete、head、option）</p>
+<p>tags: 命名空间，也可以称为标签，方便对接口进行归类，快速过滤出相关接口</p>
+<p>summary: 接口概要</p>
+<p>description：接口描述</p>
+<p>consumes：前端请求格式，即body的参数格式，通常为”application/json”、”application/xml”、”application/text”</p>
+<p>produces：后端响应格式，通常为”application/json”、”application/xml”、”application/text”</p>
+<p>parameters：参数</p>
+<p>name： 参数名字</p>
+<p>description：描述</p>
+<p>required：是否是必填参数</p>
+<p>in：属于哪种参数 body, header, formData, query, path，cookie</p>
+<p>body只能有一个，body里的参数需要以model的形式通过schema放在里面</p>
+<p>enum：枚举参数值，表示可能出现的参数</p>
+<p>schema：描述传递值</p>
+<p>$ref: “#/definitions/Auth”</p>
+<p>$ref: 把model 在definitions里的Auth当作参数放入body中。</p>
+<p>responses： 状态码</p>
+</blockquote>
+<p>model Auth的写法，会放到yaml的最后，内容如下</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">definitions:</span></span><br><span class="line">  <span class="attr">Auth:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">"string"</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">usernameOrEmail:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">"string"</span></span><br><span class="line">      <span class="attr">password:</span> </span><br><span class="line">        <span class="attr">type:</span> <span class="string">"string"</span></span><br></pre></td></tr></table></figure>
+
+<p>示例代码，转载于<a href="https://blog.csdn.net/u010466329/article/details/78522992" target="_blank" rel="noopener">Swagger编写API文档的YAML中文示例</a>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#必要字段！Swagger规范版本，必须填2.0，否则该YAML将不能用于Swagger其他组件</span></span><br><span class="line"><span class="attr">swagger:</span> <span class="string">'2.0'</span></span><br><span class="line"><span class="comment">#必要字段！描述API接口信息的元数据</span></span><br><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="comment">#接口标题</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">swagger说明文档</span>　</span><br><span class="line">  <span class="comment">#接口文档的描述</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">学习Swagger</span></span><br><span class="line">  <span class="comment">#版本号</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line"><span class="comment">#Swagger会提供测试用例，host指定测试时的主机名，如果没有指定就是当前主机,可以指定端口．</span></span><br><span class="line"><span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment">#定义的api的前缀，必须已/开头,测试用例的主机则为:host＋bashPath</span></span><br><span class="line"><span class="attr">basePath:</span> <span class="string">/api</span></span><br><span class="line"><span class="comment">#指定调用接口的协议，必须是:"http", "https", "ws", "wss"．默认是http.-表示是个数组元素，即schemes接受一个数组参数</span></span><br><span class="line"><span class="attr">schemes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">http</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https</span></span><br><span class="line"><span class="comment">#对应与http协议头request的Accept，调用者可接受类型,默认是*/*,定义的类型必须是http协议定义的 Mime Types,RestfulAPI一般定义成application/json</span></span><br><span class="line"><span class="comment">#这两个是对所有接口的全局设置，在细化的接口中是还可以对应这两个属性来覆盖全局属性</span></span><br><span class="line"><span class="attr">produces:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">application/json</span></span><br><span class="line"><span class="comment">#必要字段!定义可有可操作的API</span></span><br><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/users:</span></span><br><span class="line">   <span class="comment">#必要字段!定义HTTP操作方法，必须是http协议定义的方法</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="comment">#接口概要</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">查询所有用户信息</span></span><br><span class="line">      <span class="comment">#接口描述</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">查询出所有用户的所有信息，用户名，别名</span></span><br><span class="line">      <span class="comment">#标签，方便快速过滤出User相关的接口</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="comment">#返回值描述，必要自动</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="comment">#返回的http状态码</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">所有用户信息或者用户的集合信息</span></span><br><span class="line">          <span class="comment">#描述返回值</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#返回值格式，可选的有array,integer,string,boolean</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">array</span></span><br><span class="line">            <span class="comment">#针对array,每个条目的格式,type定义为array．必要填写items</span></span><br><span class="line">            <span class="attr">items:</span></span><br><span class="line">              <span class="comment">#引用在definitions下定义的Users</span></span><br><span class="line">              <span class="string">$ref:</span> <span class="string">'#/definitions/User'</span></span><br><span class="line">        <span class="comment">#执行出错的处理</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">            <span class="comment">#定义属性</span></span><br><span class="line">            <span class="attr">properties:</span></span><br><span class="line">            <span class="comment">#属性名</span></span><br><span class="line">              <span class="attr">message:</span></span><br><span class="line">                <span class="comment">#类型</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">    <span class="comment">#即对于同一个url定义两个不同的方法，表示两个接口</span></span><br><span class="line">    <span class="attr">post:</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">注册一个用户</span></span><br><span class="line">      <span class="comment">#请求参数</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">          <span class="comment">#参数key</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">username</span></span><br><span class="line">          <span class="comment">#传递方法，formData表示表单传输，还有query表示url拼接传输，path表示作为url的一部分</span></span><br><span class="line">          <span class="comment">#body表示http头承载参数(body只能有一个,有body不能在有其他的)</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="comment">#参数描述</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户名，不能使用已经被注册过的</span></span><br><span class="line">          <span class="comment">#参数是否必要，默认false</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="comment">#参数类型，可选的包括array,integer,boolean,string.使用array必须使用items</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">password</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户登陆密码，加密传输，加密存储</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alias</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户别名</span></span><br><span class="line">          <span class="comment">#非必要字段</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="comment">#返回的http状态码</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">             <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="comment">#执行出错的处理</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">            <span class="comment">#定义属性</span></span><br><span class="line">            <span class="attr">properties:</span></span><br><span class="line">            <span class="comment">#属性名</span></span><br><span class="line">              <span class="attr">message:</span></span><br><span class="line">                <span class="comment">#类型</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">  <span class="string">/users/&#123;id&#125;:</span></span><br><span class="line">    <span class="comment">#&#123;id&#125;表示id为请求参数，例如/users/1,/users/2都是对该API的请求，此时id即为１和2</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">根据用户名id查询该用户的所有信息</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">查询出某个用户的所有信息，用户名，别名等</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">        <span class="comment">#上面接口中定义了&#123;id&#125;，则参数列表中必须包含参数id,并且请求类型为path</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">要查询的用户的用户名,它是唯一标识</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">所有用户信息或者用户的集合信息</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="string">$ref:</span> <span class="string">'#/definitions/User'</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">    <span class="comment">#http定义的delete方法,删除一个资源</span></span><br><span class="line">    <span class="attr">delete:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">删除用户</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">删除某个用户的信息，被删除的用户将无法登陆</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户的唯一标示符</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">             <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                  <span class="comment">#描述错误信息</span></span><br><span class="line">    <span class="comment">#http定义的patch方法，表示修改一个资源</span></span><br><span class="line">    <span class="attr">patch:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">用户信息修改</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">修改用户信息(用户名别名)</span></span><br><span class="line">      <span class="attr">parameters:</span> </span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户名,要修改的数据的唯一标识符</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alias</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">新的用户别名</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                  <span class="comment">#描述错误信息</span></span><br><span class="line"><span class="attr">definitions:</span></span><br><span class="line">  <span class="attr">User:</span></span><br><span class="line">    <span class="comment">#值类型</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">    <span class="comment">#定义属性</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">    <span class="comment">#属性名</span></span><br><span class="line">      <span class="attr">id:</span></span><br><span class="line">        <span class="comment">#类型</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="comment">#描述</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">用户的唯一id</span></span><br><span class="line">      <span class="attr">username:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">用户名</span></span><br><span class="line">      <span class="attr">alias:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">别名</span></span><br></pre></td></tr></table></figure>
+
+<p>参考文档：<a href="https://blog.csdn.net/qq_43178297/article/details/88848654" target="_blank" rel="noopener">用swagger生成api的接口文档（yaml版）</a></p>
+<p>查看效果：<a href="http://editor.swagger.io/" target="_blank" rel="noopener">swagger.io</a></p>
 ]]></content>
       <categories>
-        <category>软件上手</category>
+        <category>技术提升</category>
       </categories>
       <tags>
-        <tag>软件</tag>
+        <tag>swagger</tag>
       </tags>
   </entry>
   <entry>
@@ -3725,66 +3838,6 @@
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Swagger编写API文档的YMAL文件语法</title>
-    <url>/2020/swagger/</url>
-    <content><![CDATA[<p>使用Swagger编写接口文档语法示例<a id="more"></a></p>
-<p>官方openapi3.0规范访问：<a href="https://swagger.io/docs/specification/about/" target="_blank" rel="noopener">About Swagger Specification</a></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">swagger:</span> <span class="string">"2.0"</span>  </span><br><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">"this is a api for authenticating users and binding cloud accounts."</span></span><br><span class="line">  <span class="attr">version:</span> <span class="string">"1.0.0"</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">"Auth api"</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>swagger: “2.0” 指定swagger的版本号，此处必须为2.0</p>
-<p>info: 描述api文档的元数据</p>
-<p>title：接口标题</p>
-<p>description：接口文档描述</p>
-<p>version：接口版本号</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">host:</span> <span class="string">"52.82.26.240:5000"</span></span><br><span class="line"><span class="attr">basePaths:</span> <span class="string">/api</span></span><br><span class="line"><span class="attr">schemes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">http</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https</span></span><br><span class="line"><span class="attr">produces:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">application/json</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>host： swagger提供测试用例的主机名，如果未设定就为当前主机，可以设置端口</p>
-<p>basePath：定义的api的前缀，必须已/开头,测试用例的主机则为:host＋bashPath</p>
-<p>schemes：指定调用接口的协议，必须是:”http”, “https”, “ws”, “wss”．默认是http.-表示是个数组元素，即schemes接受一个数组参数</p>
-<p>produces：声明全局后端响应返回xml数据格式，通常使用”application/json”或者”application/xml”，可以在局部中定义覆盖全局</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/authenticate:</span></span><br><span class="line">    <span class="attr">post:</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"auth"</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Get a accessToken"</span></span><br><span class="line">      <span class="attr">consumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"application/json"</span></span><br><span class="line">      <span class="attr">produces:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"application/json"</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">"body"</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">"account of fastone"</span></span><br><span class="line">        <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">in:</span> <span class="string">"body"</span></span><br><span class="line">        <span class="attr">schema:</span></span><br><span class="line">          <span class="string">$ref:</span> <span class="string">"#/definitions/Auth"</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">400:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Invalid input"</span></span><br><span class="line">        <span class="attr">403:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Invalid credential"</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">"Get a accessToken"</span></span><br><span class="line">        <span class="attr">default:</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>paths: 路由地址</p>
-<p>post: 请求方法，需要是http定义的请求方法（get、post、put、patch、delete、head、option）</p>
-<p>tags: 命名空间，也可以称为标签，方便对接口进行归类，快速过滤出相关接口</p>
-<p>summary: 接口概要</p>
-<p>description：接口描述</p>
-<p>consumes：前端请求格式，即body的参数格式，通常为”application/json”、”application/xml”、”application/text”</p>
-<p>produces：后端响应格式，通常为”application/json”、”application/xml”、”application/text”</p>
-<p>parameters：参数</p>
-<p>name： 参数名字</p>
-<p>description：描述</p>
-<p>required：是否是必填参数</p>
-<p>in：属于哪种参数 body, header, formData, query, path，cookie</p>
-<p>body只能有一个，body里的参数需要以model的形式通过schema放在里面</p>
-<p>enum：枚举参数值，表示可能出现的参数</p>
-<p>schema：描述传递值</p>
-<p>$ref: “#/definitions/Auth”</p>
-<p>$ref: 把model 在definitions里的Auth当作参数放入body中。</p>
-<p>responses： 状态码</p>
-</blockquote>
-<p>model Auth的写法，会放到yaml的最后，内容如下</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">definitions:</span></span><br><span class="line">  <span class="attr">Auth:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">"string"</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">      <span class="attr">usernameOrEmail:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">"string"</span></span><br><span class="line">      <span class="attr">password:</span> </span><br><span class="line">        <span class="attr">type:</span> <span class="string">"string"</span></span><br></pre></td></tr></table></figure>
-
-<p>示例代码，转载于<a href="https://blog.csdn.net/u010466329/article/details/78522992" target="_blank" rel="noopener">Swagger编写API文档的YAML中文示例</a>：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#必要字段！Swagger规范版本，必须填2.0，否则该YAML将不能用于Swagger其他组件</span></span><br><span class="line"><span class="attr">swagger:</span> <span class="string">'2.0'</span></span><br><span class="line"><span class="comment">#必要字段！描述API接口信息的元数据</span></span><br><span class="line"><span class="attr">info:</span></span><br><span class="line">  <span class="comment">#接口标题</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">swagger说明文档</span>　</span><br><span class="line">  <span class="comment">#接口文档的描述</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">学习Swagger</span></span><br><span class="line">  <span class="comment">#版本号</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line"><span class="comment">#Swagger会提供测试用例，host指定测试时的主机名，如果没有指定就是当前主机,可以指定端口．</span></span><br><span class="line"><span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment">#定义的api的前缀，必须已/开头,测试用例的主机则为:host＋bashPath</span></span><br><span class="line"><span class="attr">basePath:</span> <span class="string">/api</span></span><br><span class="line"><span class="comment">#指定调用接口的协议，必须是:"http", "https", "ws", "wss"．默认是http.-表示是个数组元素，即schemes接受一个数组参数</span></span><br><span class="line"><span class="attr">schemes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">http</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https</span></span><br><span class="line"><span class="comment">#对应与http协议头request的Accept，调用者可接受类型,默认是*/*,定义的类型必须是http协议定义的 Mime Types,RestfulAPI一般定义成application/json</span></span><br><span class="line"><span class="comment">#这两个是对所有接口的全局设置，在细化的接口中是还可以对应这两个属性来覆盖全局属性</span></span><br><span class="line"><span class="attr">produces:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">application/json</span></span><br><span class="line"><span class="comment">#必要字段!定义可有可操作的API</span></span><br><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/users:</span></span><br><span class="line">   <span class="comment">#必要字段!定义HTTP操作方法，必须是http协议定义的方法</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="comment">#接口概要</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">查询所有用户信息</span></span><br><span class="line">      <span class="comment">#接口描述</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">查询出所有用户的所有信息，用户名，别名</span></span><br><span class="line">      <span class="comment">#标签，方便快速过滤出User相关的接口</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="comment">#返回值描述，必要自动</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="comment">#返回的http状态码</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">所有用户信息或者用户的集合信息</span></span><br><span class="line">          <span class="comment">#描述返回值</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#返回值格式，可选的有array,integer,string,boolean</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">array</span></span><br><span class="line">            <span class="comment">#针对array,每个条目的格式,type定义为array．必要填写items</span></span><br><span class="line">            <span class="attr">items:</span></span><br><span class="line">              <span class="comment">#引用在definitions下定义的Users</span></span><br><span class="line">              <span class="string">$ref:</span> <span class="string">'#/definitions/User'</span></span><br><span class="line">        <span class="comment">#执行出错的处理</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">            <span class="comment">#定义属性</span></span><br><span class="line">            <span class="attr">properties:</span></span><br><span class="line">            <span class="comment">#属性名</span></span><br><span class="line">              <span class="attr">message:</span></span><br><span class="line">                <span class="comment">#类型</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">    <span class="comment">#即对于同一个url定义两个不同的方法，表示两个接口</span></span><br><span class="line">    <span class="attr">post:</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">注册一个用户</span></span><br><span class="line">      <span class="comment">#请求参数</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">          <span class="comment">#参数key</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">username</span></span><br><span class="line">          <span class="comment">#传递方法，formData表示表单传输，还有query表示url拼接传输，path表示作为url的一部分</span></span><br><span class="line">          <span class="comment">#body表示http头承载参数(body只能有一个,有body不能在有其他的)</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="comment">#参数描述</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户名，不能使用已经被注册过的</span></span><br><span class="line">          <span class="comment">#参数是否必要，默认false</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="comment">#参数类型，可选的包括array,integer,boolean,string.使用array必须使用items</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">password</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户登陆密码，加密传输，加密存储</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alias</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户别名</span></span><br><span class="line">          <span class="comment">#非必要字段</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="comment">#返回的http状态码</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">             <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="comment">#执行出错的处理</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">            <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">            <span class="comment">#定义属性</span></span><br><span class="line">            <span class="attr">properties:</span></span><br><span class="line">            <span class="comment">#属性名</span></span><br><span class="line">              <span class="attr">message:</span></span><br><span class="line">                <span class="comment">#类型</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">  <span class="string">/users/&#123;id&#125;:</span></span><br><span class="line">    <span class="comment">#&#123;id&#125;表示id为请求参数，例如/users/1,/users/2都是对该API的请求，此时id即为１和2</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">根据用户名id查询该用户的所有信息</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">查询出某个用户的所有信息，用户名，别名等</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">        <span class="comment">#上面接口中定义了&#123;id&#125;，则参数列表中必须包含参数id,并且请求类型为path</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">要查询的用户的用户名,它是唯一标识</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">所有用户信息或者用户的集合信息</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="string">$ref:</span> <span class="string">'#/definitions/User'</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">    <span class="comment">#http定义的delete方法,删除一个资源</span></span><br><span class="line">    <span class="attr">delete:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">删除用户</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">删除某个用户的信息，被删除的用户将无法登陆</span></span><br><span class="line">      <span class="attr">parameters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户的唯一标示符</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">             <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                  <span class="comment">#描述错误信息</span></span><br><span class="line">    <span class="comment">#http定义的patch方法，表示修改一个资源</span></span><br><span class="line">    <span class="attr">patch:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">用户信息修改</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">修改用户信息(用户名别名)</span></span><br><span class="line">      <span class="attr">parameters:</span> </span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">id</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">path</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">用户名,要修改的数据的唯一标识符</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alias</span></span><br><span class="line">          <span class="attr">in:</span> <span class="string">formData</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">新的用户别名</span></span><br><span class="line">          <span class="attr">required:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">tags:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">User</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">通过返回值来标示执行结果</span>　<span class="string">返回true表示执行成功</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">            <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">status:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">boolean</span></span><br><span class="line">                  <span class="comment">#描述</span></span><br><span class="line">                  <span class="attr">description:</span> <span class="string">是否成功</span></span><br><span class="line">        <span class="attr">default:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">操作异常,执行失败.返回信息描述错误详情</span></span><br><span class="line">          <span class="attr">schema:</span></span><br><span class="line">              <span class="comment">#值类型</span></span><br><span class="line">              <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">              <span class="comment">#定义属性</span></span><br><span class="line">              <span class="attr">properties:</span></span><br><span class="line">              <span class="comment">#属性名</span></span><br><span class="line">                <span class="attr">message:</span></span><br><span class="line">                  <span class="comment">#类型</span></span><br><span class="line">                  <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                  <span class="comment">#描述错误信息</span></span><br><span class="line"><span class="attr">definitions:</span></span><br><span class="line">  <span class="attr">User:</span></span><br><span class="line">    <span class="comment">#值类型</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">    <span class="comment">#定义属性</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">    <span class="comment">#属性名</span></span><br><span class="line">      <span class="attr">id:</span></span><br><span class="line">        <span class="comment">#类型</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="comment">#描述</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">用户的唯一id</span></span><br><span class="line">      <span class="attr">username:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">用户名</span></span><br><span class="line">      <span class="attr">alias:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">别名</span></span><br></pre></td></tr></table></figure>
-
-<p>参考文档：<a href="https://blog.csdn.net/qq_43178297/article/details/88848654" target="_blank" rel="noopener">用swagger生成api的接口文档（yaml版）</a></p>
-<p>查看效果：<a href="http://editor.swagger.io/" target="_blank" rel="noopener">swagger.io</a></p>
-]]></content>
-      <categories>
-        <category>技术提升</category>
-      </categories>
-      <tags>
-        <tag>swagger</tag>
       </tags>
   </entry>
   <entry>
@@ -3880,41 +3933,6 @@
       </categories>
       <tags>
         <tag>Go Packages</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VirtualBox Headless后台运行Linux</title>
-    <url>/2020/virtualbox_headless/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如何在Windows上优雅的使用Linux，一直是一个困惑我的问题。WSL虽好，但是没法在Linux上安装docker；WSL2虽然可以安装docker了，但是这个系统和主机通信又是一个大麻烦，就连最基本的安装软件都要每次开机修改hostname（虽然有能修改后不复原的办法，但我没实验成功）；使用虚拟机软件，又会占用太多的硬件资源，影响主机性能。前段时间偶然看到B站一个Up主提到使用virtualbox的headless无界面启动。遂研究了一下，但是网络上的资料大都太散太少，没有完整的介绍该方法。本文详细介绍在Windows上安装使用一个最优雅的Linux系统。</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>虚拟机软件：<a href="https://www.virtualbox.org/" target="_blank" rel="noopener">Oracle VM VirtualBox</a></p>
-<p>Linux镜像：本文使用 <a href="https://ubuntu.com/" target="_blank" rel="noopener">Ubuntu20.04</a></p>
-<p>一个远程连接软件：可以使用Windows自带的powershell或者其他软件，本文使用<a href="/2020/04/21/Windows%E8%BD%AF%E4%BB%B6%E6%89%8B%E5%86%8C/#Termius">Termius</a></p>
-<h2 id="前提步骤"><a href="#前提步骤" class="headerlink" title="前提步骤"></a>前提步骤</h2><p>首先需要使用VirtualBox安装好虚拟机；创建虚拟机的时候，推荐使用一个较为简单的名字作为虚拟机的名字，后面命令要使用；安装前的设置注意一点，设置密码的时候需要选择不使用密码登陆。如果该处没设置，安装好后进入设置用户中关闭该项，原因是如果打开该项，后台无法完全启动系统，最终系统会停留在用户登陆界面。</p>
-<h2 id="后台启动方法"><a href="#后台启动方法" class="headerlink" title="后台启动方法"></a>后台启动方法</h2><ol>
-<li>首先进入图形化的Linux虚拟机中，更新源，使用<code>sudo apt install openssh-server</code>安装ssh的服务端。</li>
-<li>检查开机是否需要密码。需要取消掉开机的密码。</li>
-<li>关闭虚拟机，主机使用命令行进入VirutalBox的安装位置，默认情况在<code>C:\Program Files\Oracle\VirtualBox\</code>下，此处推荐使用cmd进入该位置，cmd可以直接调用文件名字作为命令，Powershell需要使用路径加文件名才能执行命令</li>
-<li>执行<code>vboxheadless --startvm|-s 虚拟机名称|uuid vrde=off</code>即可以桥接网络的模式无界面打开</li>
-<li>执行<code>vboxmanage controlvm 虚拟机名称 acpipowerbutton</code>即可关闭虚拟机</li>
-</ol>
-<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><p><code>VBoxManage list vms</code> - 查看有哪些虚拟机</p>
-<p><code>VBoxManage list vms --long</code> - 查看虚拟机的详细内容</p>
-<p><code>VBoxManage list runningvms</code> - 查看运行中的虚拟机</p>
-<p><code>VBoxManage startvm &lt;vm_name&gt; -type headless</code> - 无界面运行虚拟机，与vboxheadless的区别就是这个命令是完全后台运行。<strong>注意</strong>：使用该命令需要将虚拟机手动设置为桥接网络。</p>
-<p><code>vboxheadless --startvm|-s 虚拟机名称|uuid vrde=off</code> - 无界面运行虚拟机，在命令行卡住，停止命令行就停止了虚拟机</p>
-<p><code>VBoxManage controlvm &lt;vm_name&gt; acpipowerbutton</code> - 正常关闭虚拟机</p>
-<p><code>VBoxManage controlvm &lt;vm_name&gt; poweroff</code> - 强制关闭虚拟机</p>
-<p><code>VBoxManage guestproperty enumerate &lt;vm_name&gt;</code> - 查看虚拟机配置信息，可以通过<code>| findstr IP</code> 查询到虚拟机的ip</p>
-<h2 id="参考批处理脚本"><a href="#参考批处理脚本" class="headerlink" title="参考批处理脚本"></a>参考批处理脚本</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">cd</span> /d C:\Program Files\Oracle\VirtualBox\</span><br><span class="line">@<span class="built_in">chcp</span> <span class="number">65001</span></span><br><span class="line">:<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>：开机</span><br><span class="line"><span class="built_in">echo</span> <span class="number">2</span>：关机</span><br><span class="line"><span class="built_in">echo</span> <span class="number">3</span>：查看ip</span><br><span class="line"><span class="built_in">echo</span> <span class="number">4</span>：查看状态</span><br><span class="line"><span class="built_in">echo</span> <span class="number">5</span>: 退出</span><br><span class="line"><span class="built_in">set</span> /P a=输入：</span><br><span class="line"><span class="built_in">cls</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%a%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">1</span> (</span><br><span class="line">    vboxmanage startvm Ubuntu -<span class="built_in">type</span> headless</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">2</span> (</span><br><span class="line">    vboxmanage controlvm Ubuntu acpipowerbutton</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">3</span> (</span><br><span class="line">    vboxmanage guestproperty enumerate Ubuntu | <span class="built_in">findstr</span> IP</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">4</span> (</span><br><span class="line">    vboxmanage list runningvms</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">5</span> (</span><br><span class="line">    <span class="keyword">exit</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">goto</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://blog.csdn.net/ACBC12345/article/details/103115433" target="_blank" rel="noopener">Virtualbox后台启动及获取虚拟机ip方法及windows远程登录方法</a></p>
-]]></content>
-      <categories>
-        <category>软件上手</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>VirtualBox</tag>
       </tags>
   </entry>
   <entry>
@@ -4654,6 +4672,41 @@
       </categories>
       <tags>
         <tag>VIM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VirtualBox Headless后台运行Linux</title>
+    <url>/2020/virtualbox_headless/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如何在Windows上优雅的使用Linux，一直是一个困惑我的问题。WSL虽好，但是没法在Linux上安装docker；WSL2虽然可以安装docker了，但是这个系统和主机通信又是一个大麻烦，就连最基本的安装软件都要每次开机修改hostname（虽然有能修改后不复原的办法，但我没实验成功）；使用虚拟机软件，又会占用太多的硬件资源，影响主机性能。前段时间偶然看到B站一个Up主提到使用virtualbox的headless无界面启动。遂研究了一下，但是网络上的资料大都太散太少，没有完整的介绍该方法。本文详细介绍在Windows上安装使用一个最优雅的Linux系统。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>虚拟机软件：<a href="https://www.virtualbox.org/" target="_blank" rel="noopener">Oracle VM VirtualBox</a></p>
+<p>Linux镜像：本文使用 <a href="https://ubuntu.com/" target="_blank" rel="noopener">Ubuntu20.04</a></p>
+<p>一个远程连接软件：可以使用Windows自带的powershell或者其他软件，本文使用<a href="/2020/04/21/Windows%E8%BD%AF%E4%BB%B6%E6%89%8B%E5%86%8C/#Termius">Termius</a></p>
+<h2 id="前提步骤"><a href="#前提步骤" class="headerlink" title="前提步骤"></a>前提步骤</h2><p>首先需要使用VirtualBox安装好虚拟机；创建虚拟机的时候，推荐使用一个较为简单的名字作为虚拟机的名字，后面命令要使用；安装前的设置注意一点，设置密码的时候需要选择不使用密码登陆。如果该处没设置，安装好后进入设置用户中关闭该项，原因是如果打开该项，后台无法完全启动系统，最终系统会停留在用户登陆界面。</p>
+<h2 id="后台启动方法"><a href="#后台启动方法" class="headerlink" title="后台启动方法"></a>后台启动方法</h2><ol>
+<li>首先进入图形化的Linux虚拟机中，更新源，使用<code>sudo apt install openssh-server</code>安装ssh的服务端。</li>
+<li>检查开机是否需要密码。需要取消掉开机的密码。</li>
+<li>关闭虚拟机，主机使用命令行进入VirutalBox的安装位置，默认情况在<code>C:\Program Files\Oracle\VirtualBox\</code>下，此处推荐使用cmd进入该位置，cmd可以直接调用文件名字作为命令，Powershell需要使用路径加文件名才能执行命令</li>
+<li>执行<code>vboxheadless --startvm|-s 虚拟机名称|uuid vrde=off</code>即可以桥接网络的模式无界面打开</li>
+<li>执行<code>vboxmanage controlvm 虚拟机名称 acpipowerbutton</code>即可关闭虚拟机</li>
+</ol>
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><p><code>VBoxManage list vms</code> - 查看有哪些虚拟机</p>
+<p><code>VBoxManage list vms --long</code> - 查看虚拟机的详细内容</p>
+<p><code>VBoxManage list runningvms</code> - 查看运行中的虚拟机</p>
+<p><code>VBoxManage startvm &lt;vm_name&gt; -type headless</code> - 无界面运行虚拟机，与vboxheadless的区别就是这个命令是完全后台运行。<strong>注意</strong>：使用该命令需要将虚拟机手动设置为桥接网络。</p>
+<p><code>vboxheadless --startvm|-s 虚拟机名称|uuid vrde=off</code> - 无界面运行虚拟机，在命令行卡住，停止命令行就停止了虚拟机</p>
+<p><code>VBoxManage controlvm &lt;vm_name&gt; acpipowerbutton</code> - 正常关闭虚拟机</p>
+<p><code>VBoxManage controlvm &lt;vm_name&gt; poweroff</code> - 强制关闭虚拟机</p>
+<p><code>VBoxManage guestproperty enumerate &lt;vm_name&gt;</code> - 查看虚拟机配置信息，可以通过<code>| findstr IP</code> 查询到虚拟机的ip</p>
+<h2 id="参考批处理脚本"><a href="#参考批处理脚本" class="headerlink" title="参考批处理脚本"></a>参考批处理脚本</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">cd</span> /d C:\Program Files\Oracle\VirtualBox\</span><br><span class="line">@<span class="built_in">chcp</span> <span class="number">65001</span></span><br><span class="line">:<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>：开机</span><br><span class="line"><span class="built_in">echo</span> <span class="number">2</span>：关机</span><br><span class="line"><span class="built_in">echo</span> <span class="number">3</span>：查看ip</span><br><span class="line"><span class="built_in">echo</span> <span class="number">4</span>：查看状态</span><br><span class="line"><span class="built_in">echo</span> <span class="number">5</span>: 退出</span><br><span class="line"><span class="built_in">set</span> /P a=输入：</span><br><span class="line"><span class="built_in">cls</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">%a%</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">1</span> (</span><br><span class="line">    vboxmanage startvm Ubuntu -<span class="built_in">type</span> headless</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">2</span> (</span><br><span class="line">    vboxmanage controlvm Ubuntu acpipowerbutton</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">3</span> (</span><br><span class="line">    vboxmanage guestproperty enumerate Ubuntu | <span class="built_in">findstr</span> IP</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">4</span> (</span><br><span class="line">    vboxmanage list runningvms</span><br><span class="line">) <span class="keyword">else</span> <span class="keyword">if</span> <span class="variable">%a%</span> == <span class="number">5</span> (</span><br><span class="line">    <span class="keyword">exit</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">goto</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://blog.csdn.net/ACBC12345/article/details/103115433" target="_blank" rel="noopener">Virtualbox后台启动及获取虚拟机ip方法及windows远程登录方法</a></p>
+]]></content>
+      <categories>
+        <category>软件上手</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>VirtualBox</tag>
       </tags>
   </entry>
   <entry>
