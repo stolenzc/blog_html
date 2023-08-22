@@ -26,7 +26,7 @@
 <meta property="og:description" content="通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-01T10:50:32.000Z">
-<meta property="article:modified_time" content="2023-06-25T03:34:02.841Z">
+<meta property="article:modified_time" content="2023-08-22T01:52:29.784Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>注意：一下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
+        <p>注意：以下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
 <p>部分字节码分析参考 <a href="https://docs.python.org/zh-cn/3/library/dis.html#python-bytecode-instructions" target="_blank" rel="noopener">Python字节码说明</a></p>
 <h2 id="问题导入"><a href="#问题导入" class="headerlink" title="问题导入"></a>问题导入</h2><p>使用不同方法生成相同结果的列表时，内存占用不同。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [1]: import sys, dis</span><br><span class="line"></span><br><span class="line">In [2]: sys.getsizeof([0] * 3)</span><br><span class="line">Out[2]: 80</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof([0 for _ in range(3)])</span><br><span class="line">Out[3]: 88</span><br><span class="line"></span><br><span class="line">In [4]: sys.getsizeof([0, 0, 0])</span><br><span class="line">Out[4]: 120</span><br></pre></td></tr></table></figure>
@@ -418,7 +418,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -489,7 +489,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">143k</span>
+    <span title="站点总字数">150k</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

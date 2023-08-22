@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="通过 CPython 源码，分析 Python 列表的底层结构和内存占用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 列表结构及内存分析">
+<meta property="og:url" content="https://blog.stolenzc.com/2023/python_list_memory2/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="通过 CPython 源码，分析 Python 列表的底层结构和内存占用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-21T15:50:32.000Z">
+<meta property="article:modified_time" content="2023-08-22T01:52:29.784Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2023/python_list_memory2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python 列表结构及内存分析 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/python_list_memory2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python 列表结构及内存分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-21 23:50:32" itemprop="dateCreated datePublished" datetime="2023-08-21T23:50:32+08:00">2023-08-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">开发笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          <!--<br>-->
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.7k</span>
+            </span>
+            <div class="post-description">通过 CPython 源码，分析 Python 列表的底层结构和内存占用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>注意：以下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
+<h2 id="问题导入"><a href="#问题导入" class="headerlink" title="问题导入"></a>问题导入</h2><p>上篇文章 <a href="https://blog.stolenzc.com/2023/python_list_memory/">Python 三种方式生成列表的内存分析</a> 讲到，python 中 list 初始占用空间为 56 个字节，但是这 56 个字节都是些什么内容呢，本文将进行分析</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [1]: a = []</span><br><span class="line"></span><br><span class="line">In [2]: import sys</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof(a)</span><br><span class="line">Out[3]: 56</span><br></pre></td></tr></table></figure>
+
+<h2 id="PyListObject-源码分析"><a href="#PyListObject-源码分析" class="headerlink" title="PyListObject 源码分析"></a>PyListObject 源码分析</h2><p>cpython 中，列表的定义都是存储在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c" target="_blank" rel="noopener">/Objects/listobject.c</a> 中的，其中定义了一个 PyListObject 结构体，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    PyObject_VAR_HEAD</span><br><span class="line">    <span class="comment">/* Vector of pointers to list elements.  list[0] is ob_item[0], etc. */</span></span><br><span class="line">    PyObject **ob_item;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ob_item contains space for 'allocated' elements.  The number</span></span><br><span class="line"><span class="comment">     * currently in use is ob_size.</span></span><br><span class="line"><span class="comment">     * Invariants:</span></span><br><span class="line"><span class="comment">     *     0 &lt;= ob_size &lt;= allocated</span></span><br><span class="line"><span class="comment">     *     len(list) == ob_size</span></span><br><span class="line"><span class="comment">     *     ob_item == NULL implies ob_size == allocated == 0</span></span><br><span class="line"><span class="comment">     * list.sort() temporarily sets allocated to -1 to detect mutations.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Items must normally not be NULL, except during construction when</span></span><br><span class="line"><span class="comment">     * the list is not yet visible outside the function that builds it.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Py_ssize_t allocated;</span><br><span class="line">&#125; PyListObject;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>allocated</code> - 当前已为该 list 分配的内存大小，不表示 list 的长度，类型为 <code>Py_ssize_t</code>，即为 c 语言中 <code>long</code> 类型的别名，在 64 位系统上为 8 个字节</li>
+<li><code>ob_size</code> - 指向 list 中每个元素的指针向量。<code>list[0]</code> 即为 <code>ob_item[0]</code>，类型为 <code>PyObject **</code>，即为指向 <code>PyObject</code> 指针的指针，每个类型为指针的元素占用 8 个字节，所以 <code>ob_item</code> 占用的内存大小为 <code>allocated * 8</code> 个字节</li>
+<li><code>PyObject_VAR_HEAD</code> - 该指令为一个宏定义，实际内容为 <code>PyVarObject ob_base;</code>，<code>PyVarObject</code> 为一个结构体，定义如下：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    PyObject ob_base;</span><br><span class="line">    Py_ssize_t ob_size; <span class="comment">/* Number of items in variable part */</span></span><br><span class="line">&#125; PyVarObject;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ob_size</code> - 该变量表示 list 的使用长度，类型为 <code>Py_ssize_t</code>，占用 8 个字节</li>
+<li><code>PyObject</code> - 该结构体为 python 中所有对象的基类，定义如下：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">object</span> &#123;</span></span><br><span class="line">    _PyObject_HEAD_EXTRA</span><br><span class="line">    Py_ssize_t ob_refcnt;</span><br><span class="line">    PyTypeObject *ob_type;</span><br><span class="line">&#125; PyObject;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ob_refcnt</code> - 该变量表示对象的引用计数，类型为 <code>Py_ssize_t</code>，占用 8 个字节</li>
+<li><code>ob_type</code> - 该变量表示对象的类型，类型为 <code>PyTypeObject *</code>，即为指向 <code>PyTypeObject</code> 的指针，所以 <code>ob_type</code> 占用的内存大小为 8 个字节</li>
+<li><code>_PyObject_HEAD_EXTRA</code> - 该指令为一个宏定义，实际内容为空，用于扩展 <code>PyObject</code> 结构体</li>
+</ul>
+<p>综上，PyListObject 结构体如下所示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    PyTypeObject *ob_type;  # <span class="number">8</span></span><br><span class="line">    Py_ssize_t ob_size;     # <span class="number">8</span></span><br><span class="line">    Py_ssize_t ob_refcnt;   # <span class="number">8</span></span><br><span class="line">    PyObject **ob_item;     # <span class="number">8</span></span><br><span class="line">    Py_ssize_t allocated;   # <span class="number">8</span></span><br><span class="line">&#125; PyListObject;</span><br></pre></td></tr></table></figure>
+
+<p>由上可知，PyListObject 结构体默认占用 40 个字节，但为什么是 56 个字节呢？</p>
+<h2 id="PyList-New-源码分析"><a href="#PyList-New-源码分析" class="headerlink" title="PyList_New 源码分析"></a>PyList_New 源码分析</h2><p>通过名称可知，该函数用于创建一个新的 list 对象，既然分析定义无法找出为什么，那么就分析创建的过程吧。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">PyObject *</span><br><span class="line">PyList_New(Py_ssize_t <span class="built_in">size</span>)</span><br><span class="line">&#123;</span><br><span class="line">    PyListObject *op;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// size 为负数时，抛出异常</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        PyErr_BadInternalCall();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建 op 对象</span></span><br><span class="line">    <span class="keyword">if</span> (numfree) &#123;</span><br><span class="line">        <span class="comment">// 内存优化，使用已经申请的内存块</span></span><br><span class="line">        numfree--;</span><br><span class="line">        op = free_list[numfree];</span><br><span class="line">        _Py_NewReference((PyObject *)op);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 此处实际创建出了 op 变量，即 PyListObject 结构体</span></span><br><span class="line">        op = PyObject_GC_New(PyListObject, &amp;PyList_Type);</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 为 op 分配存储空间内容</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> &lt;= <span class="number">0</span>)</span><br><span class="line">        op-&gt;ob_item = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        op-&gt;ob_item = (PyObject **) PyMem_Calloc(<span class="built_in">size</span>, <span class="keyword">sizeof</span>(PyObject *));</span><br><span class="line">        <span class="keyword">if</span> (op-&gt;ob_item == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            Py_DECREF(op);</span><br><span class="line">            <span class="keyword">return</span> PyErr_NoMemory();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Py_SET_SIZE(op, <span class="built_in">size</span>);</span><br><span class="line">    op-&gt;allocated = <span class="built_in">size</span>;</span><br><span class="line">    _PyObject_GC_TRACK(op);</span><br><span class="line">    <span class="keyword">return</span> (PyObject *) op;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析可知，主要逻辑为使用 <code>PyObject_GC_New</code> 函数创建一个 PyListObject 对象，该函数的实际逻辑最后定位到 <code>_PyObject_GC_Alloc</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">_PyObject_GC_Alloc(<span class="keyword">int</span> use_calloc, <span class="keyword">size_t</span> basicsize)</span><br><span class="line">&#123;</span><br><span class="line">    PyThreadState *tstate = _PyThreadState_GET();</span><br><span class="line">    GCState *gcstate = &amp;tstate-&gt;interp-&gt;gc;</span><br><span class="line">    <span class="keyword">if</span> (basicsize &gt; PY_SSIZE_T_MAX - <span class="keyword">sizeof</span>(PyGC_Head)) &#123;</span><br><span class="line">        <span class="keyword">return</span> _PyErr_NoMemory(tstate);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算得到 size 的值</span></span><br><span class="line">    <span class="keyword">size_t</span> <span class="built_in">size</span> = <span class="keyword">sizeof</span>(PyGC_Head) + basicsize;</span><br><span class="line"></span><br><span class="line">    PyGC_Head *g;</span><br><span class="line">    <span class="keyword">if</span> (use_calloc) &#123;</span><br><span class="line">        g = (PyGC_Head *)PyObject_Calloc(<span class="number">1</span>, <span class="built_in">size</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        g = (PyGC_Head *)PyObject_Malloc(<span class="built_in">size</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (g == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> _PyErr_NoMemory(tstate);</span><br><span class="line">    &#125;</span><br><span class="line">    assert(((<span class="keyword">uintptr_t</span>)g &amp; <span class="number">3</span>) == <span class="number">0</span>);  <span class="comment">// g must be aligned 4bytes boundary</span></span><br><span class="line"></span><br><span class="line">    g-&gt;_gc_next = <span class="number">0</span>;</span><br><span class="line">    g-&gt;_gc_prev = <span class="number">0</span>;</span><br><span class="line">    gcstate-&gt;generations[<span class="number">0</span>].count++; <span class="comment">/* number of allocated GC objects */</span></span><br><span class="line">    <span class="keyword">if</span> (gcstate-&gt;generations[<span class="number">0</span>].count &gt; gcstate-&gt;generations[<span class="number">0</span>].threshold &amp;&amp;</span><br><span class="line">        gcstate-&gt;enabled &amp;&amp;</span><br><span class="line">        gcstate-&gt;generations[<span class="number">0</span>].threshold &amp;&amp;</span><br><span class="line">        !gcstate-&gt;collecting &amp;&amp;</span><br><span class="line">        !_PyErr_Occurred(tstate))</span><br><span class="line">    &#123;</span><br><span class="line">        gcstate-&gt;collecting = <span class="number">1</span>;</span><br><span class="line">        collect_generations(tstate);</span><br><span class="line">        gcstate-&gt;collecting = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    PyObject *op = FROM_GC(g);</span><br><span class="line">    <span class="keyword">return</span> op;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，最终 size 的计算方法为 <code>size_t size = sizeof(PyGC_Head) + basicsize;</code></p>
+<p>其中 basicsize 为 PyListObject 结构体的大小，即 40 个字节，PyGC_Head 的定义如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="comment">// Pointer to next object in the list.</span></span><br><span class="line">    <span class="comment">// 0 means the object is not tracked</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> _gc_next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Pointer to previous object in the list.</span></span><br><span class="line">    <span class="comment">// Lowest two bits are used for flags documented later.</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> _gc_prev;</span><br><span class="line">&#125; PyGC_Head;</span><br></pre></td></tr></table></figure>
+
+<p>PyGC_Head 存储了两个 uintptr_t 的指针变量。即为 16 个字节，故 PyListObject 创建出来后的结构如下所示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    PyTypeObject *ob_type;  # <span class="number">8</span></span><br><span class="line">    Py_ssize_t ob_size;     # <span class="number">8</span></span><br><span class="line">    Py_ssize_t ob_refcnt;   # <span class="number">8</span></span><br><span class="line">    PyObject **ob_item;     # <span class="number">8</span></span><br><span class="line">    Py_ssize_t allocated;   # <span class="number">8</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> _gc_next;     # <span class="number">8</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> _gc_prev;     # <span class="number">8</span></span><br><span class="line">&#125; PyListObject;</span><br></pre></td></tr></table></figure>
+
+<p>故最终 list 默认占用的空间为 56 个字节；但是，按照上述分析，列表的空间占用应该始终只有 56 个字节。因为 ob_item 为指针的指针，故无论列表中有多少个元素，ob_item 的大小始终为 8 个字节，故列表的大小始终为 56 个字节。但当进行列表扩容的时候。列表的大小会发生变化，这是为什么呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [1]: import sys</span><br><span class="line"></span><br><span class="line">In [2]: a = []</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof(a)</span><br><span class="line">Out[3]: 56</span><br><span class="line"></span><br><span class="line">In [4]: a.append(1)</span><br><span class="line"></span><br><span class="line">In [5]: sys.getsizeof(a)</span><br><span class="line">Out[5]: 88</span><br></pre></td></tr></table></figure>
+
+<h2 id="sys-getsizeof-源码分析"><a href="#sys-getsizeof-源码分析" class="headerlink" title="sys.getsizeof 源码分析"></a>sys.getsizeof 源码分析</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">sys_getsizeof(PyObject *self, PyObject *args, PyObject *kwds)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> *kwlist[] = &#123;<span class="string">"object"</span>, <span class="string">"default"</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">size_t</span> <span class="built_in">size</span>;</span><br><span class="line">    PyObject *o, *dflt = <span class="literal">NULL</span>;</span><br><span class="line">    PyThreadState *tstate = _PyThreadState_GET();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTupleAndKeywords(args, kwds, <span class="string">"O|O:getsizeof"</span>,</span><br><span class="line">                                     kwlist, &amp;o, &amp;dflt)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">size</span> = _PySys_GetSizeOf(o);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> == (<span class="keyword">size_t</span>)<span class="number">-1</span> &amp;&amp; _PyErr_Occurred(tstate)) &#123;</span><br><span class="line">        <span class="comment">/* Has a default value been given */</span></span><br><span class="line">        <span class="keyword">if</span> (dflt != <span class="literal">NULL</span> &amp;&amp; _PyErr_ExceptionMatches(tstate, PyExc_TypeError)) &#123;</span><br><span class="line">            _PyErr_Clear(tstate);</span><br><span class="line">            Py_INCREF(dflt);</span><br><span class="line">            <span class="keyword">return</span> dflt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> PyLong_FromSize_t(<span class="built_in">size</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>核心逻辑即为 <code>size = _PySys_GetSizeOf(o);</code> 该函数的实现如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">size_t</span></span><br><span class="line">_PySys_GetSizeOf(PyObject *o)</span><br><span class="line">&#123;</span><br><span class="line">    PyObject *res = <span class="literal">NULL</span>;</span><br><span class="line">    PyObject *method;</span><br><span class="line">    Py_ssize_t <span class="built_in">size</span>;</span><br><span class="line">    PyThreadState *tstate = _PyThreadState_GET();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Make sure the type is initialized. float gets initialized late */</span></span><br><span class="line">    <span class="keyword">if</span> (PyType_Ready(Py_TYPE(o)) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">size_t</span>)<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    method = _PyObject_LookupSpecial(o, &amp;PyId___sizeof__);</span><br><span class="line">    <span class="keyword">if</span> (method == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!_PyErr_Occurred(tstate)) &#123;</span><br><span class="line">            _PyErr_Format(tstate, PyExc_TypeError,</span><br><span class="line">                          <span class="string">"Type %.100s doesn't define __sizeof__"</span>,</span><br><span class="line">                          Py_TYPE(o)-&gt;tp_name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        res = _PyObject_CallNoArg(method);</span><br><span class="line">        Py_DECREF(method);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (res == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">size_t</span>)<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">size</span> = PyLong_AsSsize_t(res);</span><br><span class="line">    Py_DECREF(res);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> == <span class="number">-1</span> &amp;&amp; _PyErr_Occurred(tstate))</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">size_t</span>)<span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        _PyErr_SetString(tstate, PyExc_ValueError,</span><br><span class="line">                          <span class="string">"__sizeof__() should return &gt;= 0"</span>);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">size_t</span>)<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* add gc_head size */</span></span><br><span class="line">    <span class="keyword">if</span> (_PyObject_IS_GC(o))</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">size_t</span>)<span class="built_in">size</span>) + <span class="keyword">sizeof</span>(PyGC_Head);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">size_t</span>)<span class="built_in">size</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数存在一个逻辑 <code>method = _PyObject_LookupSpecial(o, &amp;PyId___sizeof__);</code> 为寻找对象是否实现了 <code>__sizeof__</code> 这个魔术方法，查看 PyListObject 对 <code>__sizeof__</code> 的实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">list___sizeof___impl(PyListObject *self)</span><br><span class="line"><span class="comment">/*[clinic end generated code: output=3417541f95f9a53e input=b8030a5d5ce8a187]*/</span></span><br><span class="line">&#123;</span><br><span class="line">    Py_ssize_t res;</span><br><span class="line"></span><br><span class="line">    res = _PyObject_SIZE(Py_TYPE(self)) + self-&gt;allocated * <span class="keyword">sizeof</span>(<span class="keyword">void</span>*);</span><br><span class="line">    <span class="keyword">return</span> PyLong_FromSsize_t(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可见，获取列表的大小，实际上是获取了 <code>PyListObject</code> 结构体的大小，加上 <code>allocated * sizeof(void*)</code>，即为 <code>allocated * 8</code>，故列表的大小为 <code>56 + allocated * 8</code>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/python_metaclass/" rel="next" title="Python 元类">
+      Python 元类 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题导入"><span class="nav-number">1.</span> <span class="nav-text">问题导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyListObject-源码分析"><span class="nav-number">2.</span> <span class="nav-text">PyListObject 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyList-New-源码分析"><span class="nav-number">3.</span> <span class="nav-text">PyList_New 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys-getsizeof-源码分析"><span class="nav-number">4.</span> <span class="nav-text">sys.getsizeof 源码分析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">150k</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
