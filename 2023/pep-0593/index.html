@@ -259,29 +259,30 @@
         <h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
 <li>Python 版本：3.9</li>
 <li>发布时间：2019-04-26</li>
-<li>翻译日期：2023-11-11</li>
 <li>原文链接：<a href="https://peps.python.org/pep-0593/" target="_blank" rel="noopener">PEP 593 – Flexible function and variable annotations</a></li>
+<li>翻译日期：2023-11-11</li>
+<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
 </ul>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一种机制，可以使用任意源数据用来扩展 <a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 中的类型注释</p>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>PEP 484 为 PEP 3107 提供了标准的类型注释语意介绍。PEP 484 是一个规范，但对于大多数使用注释的用户来说成为了一个实际的标准；在许多静态检查的代码库中，类型注释被广泛使用，它实际上排挤掉了一些其他的形式的注释。在 PEP 3107 中描述的一些注释的例子（数据库映射、外语桥接），鉴于类型注释的通用性，目前还并不现实。此外，类型注释的标准化排除了一些特殊类型检查的高级功能。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这个 PEP 在 <code>typing</code> 模块中添加了一个 <code>Annotated</code> 类型，以使用特定上下文元数据来装饰现有类型。具体来说，类型 <code>T</code> 可以通过类型注释 <code>Annotated[T, x]</code> 被元数据 <code>x</code> 进行装饰。这个元数据能够被用在其他的静态分析或者运行时分析中。如果在一个库（或工具）中遇到了类型注释 <code>Annotated[T, x]</code> ，但是又没有对元数据 <code>x</code> 进行特殊的逻辑处理，那么此处应该忽略它，单纯的被解释为类型 <code>T</code>。与当前 <code>typing</code> 模块中存在的 <code>no_type_check</code> 完全禁用函数或类的类型注释功能不同，<code>Annotated</code> 类型既允许对类型 <code>T</code> 进行静态检查（例如 mypy 或 Pyre 能够安全的忽略 <code>x</code> ），也允许在特定的应用中对元数据 <code>x</code> 进行运行时访问。这种类型的引入将解决更广泛的 Python 社区感兴趣的各种用例</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>PEP 484 为 PEP 3107 提供了标准的类型注释语意介绍。PEP 484 是一个规范，但对于大多数使用注释的用户来说成为了一个实际的标准；在许多静态检查的代码库中，类型注释被广泛使用，它实际上排挤掉了一些其他的形式的注释。在 PEP 3107 中描述的一些注释的例子(数据库映射、外语桥接)，鉴于类型注释的通用性，目前还并不现实。此外，类型注释的标准化排除了一些特殊类型检查的高级功能。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这个 PEP 在 <code>typing</code> 模块中添加了一个 <code>Annotated</code> 类型，以使用特定上下文元数据来装饰现有类型。具体来说，类型 <code>T</code> 可以通过类型注释 <code>Annotated[T, x]</code> 被元数据 <code>x</code> 进行装饰。这个元数据能够被用在其他的静态分析或者运行时分析中。如果在一个库(或工具)中遇到了类型注释 <code>Annotated[T, x]</code> ，但是又没有对元数据 <code>x</code> 进行特殊的逻辑处理，那么此处应该忽略它，单纯的被解释为类型 <code>T</code>。与当前 <code>typing</code> 模块中存在的 <code>no_type_check</code> 完全禁用函数或类的类型注释功能不同，<code>Annotated</code> 类型既允许对类型 <code>T</code> 进行静态检查(例如 mypy 或 Pyre 能够安全的忽略 <code>x</code> )，也允许在特定的应用中对元数据 <code>x</code> 进行运行时访问。这种类型的引入将解决更广泛的 Python 社区感兴趣的各种用例</p>
 <p>这个问题最初是在 <a href="https://github.com/python/typing/issues/600" target="_blank" rel="noopener">issue 600</a> 中被提出，然后在 Python ideas 中进行了讨论</p>
-<h2 id="令人激动的例子"><a href="#令人激动的例子" class="headerlink" title="令人激动的例子"></a>令人激动的例子</h2><h3 id="使用注解结合运行时和静态分析"><a href="#使用注解结合运行时和静态分析" class="headerlink" title="使用注解结合运行时和静态分析"></a>使用注解结合运行时和静态分析</h3><p>库在运行时利用类型注释的趋势正在兴起（例如：数据类）；能够使用外部数据扩展类型注释对于这些库来说将是一个巨大的福音。</p>
+<h2 id="令人激动的例子"><a href="#令人激动的例子" class="headerlink" title="令人激动的例子"></a>令人激动的例子</h2><h3 id="使用注解结合运行时和静态分析"><a href="#使用注解结合运行时和静态分析" class="headerlink" title="使用注解结合运行时和静态分析"></a>使用注解结合运行时和静态分析</h3><p>库在运行时利用类型注释的趋势正在兴起(例如：数据类)；能够使用外部数据扩展类型注释对于这些库来说将是一个巨大的福音。</p>
 <p>下面是一个如何借助类型注释来读取 c 结构体的虚拟模块的示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">UnsignedShort = Annotated[int, struct2.ctype(<span class="string">'H'</span>)]</span><br><span class="line">SignedChar = Annotation[int, struct2.ctype(<span class="string">'b'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(struct2.Packed)</span>:</span></span><br><span class="line">    <span class="comment"># mypy 静态检查 name 为 str 类型</span></span><br><span class="line">    name: Annotated[str, struct2.ctype(<span class="string">"&lt;10s"</span>)]</span><br><span class="line">    serialnum: UnsignedShort</span><br><span class="line">    school: SignedChar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 'unpack' 仅使用类型注释中的元数据</span></span><br><span class="line">Student.unpack(record)</span><br><span class="line"><span class="comment"># Student(name=b'raymond   ', serialnum=4658, school=264)</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="降低开发新类型结构的成本"><a href="#降低开发新类型结构的成本" class="headerlink" title="降低开发新类型结构的成本"></a>降低开发新类型结构的成本</h3><p>通常，在添加新类型时，开发者需要上传改类型到类型模块，并更改 mypy, Pycharm, Pyre, pytype 等，在处理这些类型的开源代码时，这一点尤为重要，如果没有额外的逻辑，这些无法立即传达给其他开发人员。因此在代码库中试图开发一个新类型的成本很高。理想情况下，作者应该能够允许以一种简单优雅的方式引入新的类型（例如：当客户端没有使用自定义的 mypy 插件时），这将降低开发成本并确保向后兼容性。</p>
+<h3 id="降低开发新类型结构的成本"><a href="#降低开发新类型结构的成本" class="headerlink" title="降低开发新类型结构的成本"></a>降低开发新类型结构的成本</h3><p>通常，在添加新类型时，开发者需要上传改类型到类型模块，并更改 mypy, Pycharm, Pyre, pytype 等，在处理这些类型的开源代码时，这一点尤为重要，如果没有额外的逻辑，这些无法立即传达给其他开发人员。因此在代码库中试图开发一个新类型的成本很高。理想情况下，作者应该能够允许以一种简单优雅的方式引入新的类型(例如：当客户端没有使用自定义的 mypy 插件时)，这将降低开发成本并确保向后兼容性。</p>
 <p>例如，假设作者想要在 Python 中添加一个联合标记的支持，方法是在 Python 中注解 <code>TypeDict</code> ，使其只支持一个字段被设置</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Currency = Annotated[</span><br><span class="line">    TypedDict(<span class="string">"Currency"</span>, &#123;<span class="string">'dolars'</span>: float, <span class="string">'pounds'</span>: float&#125;, total=<span class="literal">False</span>),</span><br><span class="line">    TaggedUnion,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<p>这种语法有点繁琐，但它允许我们对对概念验证进行迭代，并让使用尚未支持该功能的类型检查库或工具的人员在带有标记联合的代码库中工作。作者能够轻松的进行测试该提案并在推送标记联合到 typing, mypy 等之前解决其中的问题。此外未支持 TaggedUnion 标记的的工具能过正常将 Currency 作为 TypedDict 进行处理，这仍然是个近似值（严格程度降低）。</p>
-<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>Annotated</code> 的参数爆火一个类型和一个代表注释的 Python 值的任意列表，下面是愈发的具体细节：</p>
+<p>这种语法有点繁琐，但它允许我们对对概念验证进行迭代，并让使用尚未支持该功能的类型检查库或工具的人员在带有标记联合的代码库中工作。作者能够轻松的进行测试该提案并在推送标记联合到 typing, mypy 等之前解决其中的问题。此外未支持 TaggedUnion 标记的的工具能过正常将 Currency 作为 TypedDict 进行处理，这仍然是个近似值(严格程度降低)。</p>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>Annotated</code> 的参数爆火一个类型和一个代表注释的 Python 值的任意列表，下面是语法的具体细节：</p>
 <ul>
 <li><p><code>Annotated</code> 的第一个参数必须是一个有效的类型</p>
 </li>
-<li><p><code>Annotated</code> 支持多种类型注解（支持可变参数）： <code>Annotated[int, ValueRange(3, 10), ctype(&quot;char&quot;)]</code></p>
+<li><p><code>Annotated</code> 支持多种类型注解(支持可变参数)： <code>Annotated[int, ValueRange(3, 10), ctype(&quot;char&quot;)]</code></p>
 </li>
-<li><p><code>Annotated</code> 至少需要两个参数才能调用（ <code>Annotated[int]</code> 无效）</p>
+<li><p><code>Annotated</code> 至少需要两个参数才能调用( <code>Annotated[int]</code> 无效)</p>
 </li>
 <li><p>注释的顺序得到保留，并且相等性检查很严格 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Annotated[int, ValueRange(<span class="number">3</span>, <span class="number">10</span>), ctype(<span class="string">"char"</span>)] != Annotated[</span><br><span class="line">    int, ctype(<span class="string">"char"</span>), ValueRange(<span class="number">3</span>, <span class="number">10</span>)]</span><br></pre></td></tr></table></figure>
@@ -297,7 +298,7 @@
 
 </li>
 </ul>
-<h3 id="使用注解"><a href="#使用注解" class="headerlink" title="使用注解"></a>使用注解</h3><p>归根结底，如何解释注释（如果存在）是由遇到的注释类型的工具或库的责任。一个工具或库可以在遇到注解类型时进行扫描注解来确定是否是值得关注的注解类型（例如：使用 <code>isinstance()</code> ）。</p>
+<h3 id="使用注解"><a href="#使用注解" class="headerlink" title="使用注解"></a>使用注解</h3><p>归根结底，如何解释注释(如果存在)是由遇到的注释类型的工具或库的责任。一个工具或库可以在遇到注解类型时进行扫描注解来确定是否是值得关注的注解类型(例如：使用 <code>isinstance()</code> )。</p>
 <p>未知注解：当工具或库遇到未知或不支持的注解时，应该选择忽略并将其注解类型视为基础类型，例如，在对 <code>Annotated[str, &#39;foo&#39;, struct2.ctype(&quot;&lt;10s&quot;)]</code> 所注解的 <code>name</code> 不是 <code>struct2.ctype</code> 的情况下，应该将其忽略并注解为 <code>str</code></p>
 <p>命名空间注解：注释不需要命名空间，因为注释使用的类就是命名空间。</p>
 <p>多个注解：由使用批注的工具决定是否允许客户端在一种类型上拥有多个批注以及如何合并这些批注。</p>
@@ -316,11 +317,11 @@
 <h2 id="被拒绝的提议"><a href="#被拒绝的提议" class="headerlink" title="被拒绝的提议"></a>被拒绝的提议</h2><p>在这个 PEP 中拒绝了一些提案想法，因为它们会导致 <code>Annotated</code> 无法与其他类型注解完全集成：</p>
 <ul>
 <li><code>Annotated</code> 无法推断修饰类型，你可以想象一下， <code>Annotated[..., Immutable]</code> 可以用来标记一个值为不可变的类型，同时还能推断出它的类型。类型定义不支持在其他地方使用推断类型；最好不要作为一个特例添加。</li>
-<li>使用 <code>(Type, Ann1, Ann2, ...)</code> 来替代 <code>Annotated[Type, Ann1, Ann2, ...]</code> 。当注解中存在嵌套时，将会造成混乱，（ <code>Callable[[A, B], C]</code> 与 <code>Callable[(A, B), C]</code> 过于相似），并且使构造函数无法传递 （ <code>T(5) == C(5)</code> 当 <code>C = Annotation[T, Ann]</code> ）。</li>
+<li>使用 <code>(Type, Ann1, Ann2, ...)</code> 来替代 <code>Annotated[Type, Ann1, Ann2, ...]</code> 。当注解中存在嵌套时，将会造成混乱，( <code>Callable[[A, B], C]</code> 与 <code>Callable[(A, B), C]</code> 过于相似)，并且使构造函数无法传递 ( <code>T(5) == C(5)</code> 当 <code>C = Annotation[T, Ann]</code> )。</li>
 </ul>
 <p>为了保持设计简单，下面这个功能被省略了：</p>
 <ul>
-<li><code>Annotated</code>不能使用单个参数调用，Annotated 可以支持在使用单个参数调用时返回基础值，（例如：<code>Annotated[int] == int</code> ）。这使规格复杂化，并且几乎没有好处的增加。</li>
+<li><code>Annotated</code>不能使用单个参数调用，Annotated 可以支持在使用单个参数调用时返回基础值，(例如：<code>Annotated[int] == int</code> )。这使规格复杂化，并且几乎没有好处的增加。</li>
 </ul>
 <h2 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h2><p>本文已发布在公共网络上</p>
 <h2 id="翻译注释"><a href="#翻译注释" class="headerlink" title="翻译注释"></a>翻译注释</h2><ul>
