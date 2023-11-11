@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="记录Python中内置的时间日期模块和Django中的timezone部分操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PEP 593 -- 函数或变量更灵活的注释方法">
+<meta property="og:url" content="https://blog.stolenzc.com/2023/pep-0593/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="记录Python中内置的时间日期模块和Django中的timezone部分操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-11T04:22:42.000Z">
+<meta property="article:modified_time" content="2023-11-11T04:22:42.000Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="PEP">
+<meta property="article:tag" content="翻译">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2023/pep-0593/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PEP 593 -- 函数或变量更灵活的注释方法 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/pep-0593/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PEP 593 -- 函数或变量更灵活的注释方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-11 12:22:42" itemprop="dateCreated datePublished" datetime="2023-11-11T12:22:42+08:00">2023-11-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python-PEP/" itemprop="url" rel="index"><span itemprop="name">Python PEP</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          <!--<br>-->
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <div class="post-description">记录Python中内置的时间日期模块和Django中的timezone部分操作</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
+<li>Python 版本：3.9</li>
+<li>发布时间：2019-04-26</li>
+<li>翻译日期：2023-11-11</li>
+<li>原文链接：<a href="https://peps.python.org/pep-0593/" target="_blank" rel="noopener">PEP 593 – Flexible function and variable annotations</a></li>
+</ul>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一种机制，可以使用任意源数据用来扩展 <a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 中的类型注释</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>PEP 484 为 PEP 3107 提供了标准的类型注释语意介绍。PEP 484 是一个规范，但对于大多数使用注释的用户来说成为了一个实际的标准；在许多静态检查的代码库中，类型注释被广泛使用，它实际上排挤掉了一些其他的形式的注释。在 PEP 3107 中描述的一些注释的例子（数据库映射、外语桥接），鉴于类型注释的通用性，目前还并不现实。此外，类型注释的标准化排除了一些特殊类型检查的高级功能。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这个 PEP 在 <code>typing</code> 模块中添加了一个 <code>Annotated</code> 类型，以使用特定上下文元数据来装饰现有类型。具体来说，类型 <code>T</code> 可以通过类型注释 <code>Annotated[T, x]</code> 被元数据 <code>x</code> 进行装饰。这个元数据能够被用在其他的静态分析或者运行时分析中。如果在一个库（或工具）中遇到了类型注释 <code>Annotated[T, x]</code> ，但是又没有对元数据 <code>x</code> 进行特殊的逻辑处理，那么此处应该忽略它，单纯的被解释为类型 <code>T</code>。与当前 <code>typing</code> 模块中存在的 <code>no_type_check</code> 完全禁用函数或类的类型注释功能不同，<code>Annotated</code> 类型既允许对类型 <code>T</code> 进行静态检查（例如 mypy 或 Pyre 能够安全的忽略 <code>x</code> ），也允许在特定的应用中对元数据 <code>x</code> 进行运行时访问。这种类型的引入将解决更广泛的 Python 社区感兴趣的各种用例</p>
+<p>这个问题最初是在 <a href="https://github.com/python/typing/issues/600" target="_blank" rel="noopener">issue 600</a> 中被提出，然后在 Python ideas 中进行了讨论</p>
+<h2 id="令人激动的例子"><a href="#令人激动的例子" class="headerlink" title="令人激动的例子"></a>令人激动的例子</h2><h3 id="使用注解结合运行时和静态分析"><a href="#使用注解结合运行时和静态分析" class="headerlink" title="使用注解结合运行时和静态分析"></a>使用注解结合运行时和静态分析</h3><p>库在运行时利用类型注释的趋势正在兴起（例如：数据类）；能够使用外部数据扩展类型注释对于这些库来说将是一个巨大的福音。</p>
+<p>下面是一个如何借助类型注释来读取 c 结构体的虚拟模块的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">UnsignedShort = Annotated[int, struct2.ctype(<span class="string">'H'</span>)]</span><br><span class="line">SignedChar = Annotation[int, struct2.ctype(<span class="string">'b'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(struct2.Packed)</span>:</span></span><br><span class="line">    <span class="comment"># mypy 静态检查 name 为 str 类型</span></span><br><span class="line">    name: Annotated[str, struct2.ctype(<span class="string">"&lt;10s"</span>)]</span><br><span class="line">    serialnum: UnsignedShort</span><br><span class="line">    school: SignedChar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 'unpack' 仅使用类型注释中的元数据</span></span><br><span class="line">Student.unpack(record)</span><br><span class="line"><span class="comment"># Student(name=b'raymond   ', serialnum=4658, school=264)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="降低开发新类型结构的成本"><a href="#降低开发新类型结构的成本" class="headerlink" title="降低开发新类型结构的成本"></a>降低开发新类型结构的成本</h3><p>通常，在添加新类型时，开发者需要上传改类型到类型模块，并更改 mypy, Pycharm, Pyre, pytype 等，在处理这些类型的开源代码时，这一点尤为重要，如果没有额外的逻辑，这些无法立即传达给其他开发人员。因此在代码库中试图开发一个新类型的成本很高。理想情况下，作者应该能够允许以一种简单优雅的方式引入新的类型（例如：当客户端没有使用自定义的 mypy 插件时），这将降低开发成本并确保向后兼容性。</p>
+<p>例如，假设作者想要在 Python 中添加一个联合标记的支持，方法是在 Python 中注解 <code>TypeDict</code> ，使其只支持一个字段被设置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Currency = Annotated[</span><br><span class="line">    TypedDict(<span class="string">"Currency"</span>, &#123;<span class="string">'dolars'</span>: float, <span class="string">'pounds'</span>: float&#125;, total=<span class="literal">False</span>),</span><br><span class="line">    TaggedUnion,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这种语法有点繁琐，但它允许我们对对概念验证进行迭代，并让使用尚未支持该功能的类型检查库或工具的人员在带有标记联合的代码库中工作。作者能够轻松的进行测试该提案并在推送标记联合到 typing, mypy 等之前解决其中的问题。此外未支持 TaggedUnion 标记的的工具能过正常将 Currency 作为 TypedDict 进行处理，这仍然是个近似值（严格程度降低）。</p>
+<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>Annotated</code> 的参数爆火一个类型和一个代表注释的 Python 值的任意列表，下面是愈发的具体细节：</p>
+<ul>
+<li><p><code>Annotated</code> 的第一个参数必须是一个有效的类型</p>
+</li>
+<li><p><code>Annotated</code> 支持多种类型注解（支持可变参数）： <code>Annotated[int, ValueRange(3, 10), ctype(&quot;char&quot;)]</code></p>
+</li>
+<li><p><code>Annotated</code> 至少需要两个参数才能调用（ <code>Annotated[int]</code> 无效）</p>
+</li>
+<li><p>注释的顺序得到保留，并且相等性检查很严格 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Annotated[int, ValueRange(<span class="number">3</span>, <span class="number">10</span>), ctype(<span class="string">"char"</span>)] != Annotated[</span><br><span class="line">    int, ctype(<span class="string">"char"</span>), ValueRange(<span class="number">3</span>, <span class="number">10</span>)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>嵌套的 <code>Annotated</code> 会被扁平化，元数据从最内层开始排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Annotated[Annotated[int, ValueRange(<span class="number">3</span>, <span class="number">10</span>)], ctype(<span class="string">"char"</span>)] == Annotated[</span><br><span class="line">    int, ValueRange(<span class="number">3</span>, <span class="number">10</span>), ctype(<span class="string">"char"</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重复的批注不会被删除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Annotated[int, ValueRange(<span class="number">3</span>, <span class="number">10</span>), ValueRange(<span class="number">3</span>, <span class="number">10</span>)] == Annotated[</span><br><span class="line">    int, ValueRange(<span class="number">3</span>, <span class="number">10</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Annotated</code> 可以与嵌套别名和通用别名一起使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Typevar T = ...</span><br><span class="line">Vec = Annotated[List[Tuple[T, T]], MaxLen(<span class="number">10</span>)]</span><br><span class="line">V = Vec[int]</span><br><span class="line">V == Annotated[List[Tuple[int, int]], MaxLen(<span class="number">10</span>)]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="使用注解"><a href="#使用注解" class="headerlink" title="使用注解"></a>使用注解</h3><p>归根结底，如何解释注释（如果存在）是由遇到的注释类型的工具或库的责任。一个工具或库可以在遇到注解类型时进行扫描注解来确定是否是值得关注的注解类型（例如：使用 <code>isinstance()</code> ）。</p>
+<p>未知注解：当工具或库遇到未知或不支持的注解时，应该选择忽略并将其注解类型视为基础类型，例如，在对 <code>Annotated[str, &#39;foo&#39;, struct2.ctype(&quot;&lt;10s&quot;)]</code> 所注解的 <code>name</code> 不是 <code>struct2.ctype</code> 的情况下，应该将其忽略并注解为 <code>str</code></p>
+<p>命名空间注解：注释不需要命名空间，因为注释使用的类就是命名空间。</p>
+<p>多个注解：由使用批注的工具决定是否允许客户端在一种类型上拥有多个批注以及如何合并这些批注。</p>
+<p>由于 <code>Annotated</code> 类型运行你在任何节点放置多个相同或不同的类型，因此使用这些注释的工具或库负责处理潜在的重复项，例如，如果你正在进行值范围分析，你可以这样做</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T1 = Annotated[int, ValueRange(<span class="number">-10</span>, <span class="number">5</span>)]</span><br><span class="line">T2 = Annotated[T1, ValueRange(<span class="number">-20</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+
+<p>扁平化嵌套注解意味着</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T2 = Annotated[int, ValueRange(<span class="number">-10</span>, <span class="number">5</span>), ValueRange(<span class="number">-20</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="与-get-type-hints-的交互"><a href="#与-get-type-hints-的交互" class="headerlink" title="与 get_type_hints() 的交互"></a>与 <code>get_type_hints()</code> 的交互</h3><p><code>typing.get_type_hints()</code> 将采用新的参数 <code>include_extras</code> 默认为 <code>False</code> 来保持向后兼容性，当 <code>include_extras</code> 值为 <code>False</code> 时，额外的返回值将从返回值中去除，否则，注释将原封不动的返回：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@strct2.packed</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(NamedTuple)</span>:</span></span><br><span class="line">    name: Annotated[str, struct2.ctype(<span class="string">"&lt;10s"</span>)]</span><br><span class="line"></span><br><span class="line">get_type_hints(Student) == &#123;<span class="string">'name'</span>: str&#125;</span><br><span class="line">get_type_hints(Student, include_extras=<span class="literal">False</span>) == &#123;<span class="string">'name'</span>: str&#125;</span><br><span class="line">get_type_hints(Student, include_extras=<span class="literal">True</span>) == &#123;</span><br><span class="line">    <span class="string">'name'</span>: Annotated[str, struct2.ctype(<span class="string">"&lt;10s"</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="别名和对冗长的关注"><a href="#别名和对冗长的关注" class="headerlink" title="别名和对冗长的关注"></a>别名和对冗长的关注</h3><p>在多处频繁使用 <code>Annotated</code> 可能会很冗长；幸运的是，别名注解的能力意味着在实践中我们不期望用户编写大量样板代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">T = TypeVar(<span class="string">'T'</span>)</span><br><span class="line">Const = Annotated[T, my_annotations.Const]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">const_method</span><span class="params">(self: Const[List[int]])</span> -&gt; int:</span></span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="被拒绝的提议"><a href="#被拒绝的提议" class="headerlink" title="被拒绝的提议"></a>被拒绝的提议</h2><p>在这个 PEP 中拒绝了一些提案想法，因为它们会导致 <code>Annotated</code> 无法与其他类型注解完全集成：</p>
+<ul>
+<li><code>Annotated</code> 无法推断修饰类型，你可以想象一下， <code>Annotated[..., Immutable]</code> 可以用来标记一个值为不可变的类型，同时还能推断出它的类型。类型定义不支持在其他地方使用推断类型；最好不要作为一个特例添加。</li>
+<li>使用 <code>(Type, Ann1, Ann2, ...)</code> 来替代 <code>Annotated[Type, Ann1, Ann2, ...]</code> 。当注解中存在嵌套时，将会造成混乱，（ <code>Callable[[A, B], C]</code> 与 <code>Callable[(A, B), C]</code> 过于相似），并且使构造函数无法传递 （ <code>T(5) == C(5)</code> 当 <code>C = Annotation[T, Ann]</code> ）。</li>
+</ul>
+<p>为了保持设计简单，下面这个功能被省略了：</p>
+<ul>
+<li><code>Annotated</code>不能使用单个参数调用，Annotated 可以支持在使用单个参数调用时返回基础值，（例如：<code>Annotated[int] == int</code> ）。这使规格复杂化，并且几乎没有好处的增加。</li>
+</ul>
+<h2 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h2><p>本文已发布在公共网络上</p>
+<h2 id="翻译注释"><a href="#翻译注释" class="headerlink" title="翻译注释"></a>翻译注释</h2><ul>
+<li><code>de facto</code> - 事实上的</li>
+<li><code>encounters</code> - 遇到\遭遇</li>
+<li><code>leverage</code> - 利用\借助</li>
+<li><code>hypothetical</code> - 假设的</li>
+<li><code>degradation</code> - 退化\降解</li>
+<li><code>graceful</code> - 优雅的</li>
+<li><code>iron out the kinks</code> - 消除缺陷</li>
+<li><code>preserve backward compatibility</code> - 保持向后兼容性</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PEP/" rel="tag"># PEP</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/python_float/" rel="next" title="float 的存储结构">
+      float 的存储结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-number">1.</span> <span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动机"><span class="nav-number">3.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">4.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#令人激动的例子"><span class="nav-number">5.</span> <span class="nav-text">令人激动的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用注解结合运行时和静态分析"><span class="nav-number">5.1.</span> <span class="nav-text">使用注解结合运行时和静态分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降低开发新类型结构的成本"><span class="nav-number">5.2.</span> <span class="nav-text">降低开发新类型结构的成本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范"><span class="nav-number">6.</span> <span class="nav-text">规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">6.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用注解"><span class="nav-number">6.2.</span> <span class="nav-text">使用注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与-get-type-hints-的交互"><span class="nav-number">6.3.</span> <span class="nav-text">与 get_type_hints() 的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别名和对冗长的关注"><span class="nav-number">6.4.</span> <span class="nav-text">别名和对冗长的关注</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被拒绝的提议"><span class="nav-number">7.</span> <span class="nav-text">被拒绝的提议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版权"><span class="nav-number">8.</span> <span class="nav-text">版权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译注释"><span class="nav-number">9.</span> <span class="nav-text">翻译注释</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">159k</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
