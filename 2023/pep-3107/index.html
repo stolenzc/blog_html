@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PEP 3107 – Function Annotations 翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PEP 3107 -- 函数注解">
+<meta property="og:url" content="https://blog.stolenzc.com/2023/pep-3107/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="PEP 3107 – Function Annotations 翻译">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-12T14:58:22.000Z">
+<meta property="article:modified_time" content="2023-11-12T14:59:35.847Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="PEP">
+<meta property="article:tag" content="翻译">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2023/pep-3107/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PEP 3107 -- 函数注解 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/pep-3107/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PEP 3107 -- 函数注解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-12 22:58:22" itemprop="dateCreated datePublished" datetime="2023-11-12T22:58:22+08:00">2023-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python-PEP/" itemprop="url" rel="index"><span itemprop="name">Python PEP</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          <!--<br>-->
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <div class="post-description">PEP 3107 – Function Annotations 翻译</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
+<li>Python 版本：3.0</li>
+<li>发布时间：2006-12-02</li>
+<li>原文链接：<a href="https://peps.python.org/pep-3107/" target="_blank" rel="noopener">PEP 3107 – Function Annotations</a></li>
+<li>翻译日期：2023-11-11</li>
+<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
+</ul>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一个为 Python 的函数<a href="可调用对象"><a href="#1">1</a></a>添加任意元数据注解的语法</p>
+<h2 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h2><p>由于 Python 2.x 缺少一个对函数参数和返回值注解的标准语法，各种工具或库的出现填补了这一空白，有些利用了 <a href="https://peps.python.org/pep-0318/" target="_blank" rel="noopener">PEP 318</a> 中引入的装饰器，还有一些则通过解析函数的文档注释，寻找其中的注释来实现。</p>
+<p>本 PEP 的目的是为这些信息提供一个唯一、标准的方法，减少由于机制和语法的巨大差异而造成的困惑</p>
+<h2 id="函数注释基础"><a href="#函数注释基础" class="headerlink" title="函数注释基础"></a>函数注释基础</h2><p>在开始讨论 Python3.0 函数注解的确切来龙去脉之前，我们先从管以上谈谈什么是注解，什么不是注解：</p>
+<ol>
+<li><p>函数注解，无论是参数还是返回值，都是可选的</p>
+</li>
+<li><p>函数注解只不过是在编译时将独立的 Python 表达式与函数任意部分关联起来的一种方式</p>
+<p> 就其本身而言，Python 并没有为注解添加任何特定的含义或意义，就起本身而言，Python 只是单纯的让下文中<a href="#访问函数注解">访问函数注解</a>的表达式可用。</p>
+<p> 注解具有的唯一意义是能够被第三方库所解释。注解的使用者能够用这些函数注解作任何它们想做的事情。例如，一个库可能使用基于字符串的注解来提供帮助信息。如下所示：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compile</span><span class="params">(source: <span class="string">"something compilable"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            filename: <span class="string">"where the compilable thing comes from"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            mode: <span class="string">"is this a single statement or a suite?"</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p> 另一个库可能用来对 Python 的函数或方法提供类型检查，这个库能够使用注解来提示期待的输入和输出的类型，可能像下面这样：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hula</span><span class="params">(item: Hualable, *vargs: PackAnimal)</span> -&gt; Distance:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p> 然后，无论是第一个示例中的字符串，还是第二个示例中的类型信息本身都没有任何含义，这些含义仅取决于三方库</p>
+</li>
+<li><p>基于第 2 点，这个 PEP 没有尝试引入任何标准的语法，即使是内置类型也是如此，这项工作将留给第三方库</p>
+</li>
+</ol>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数的注解采用跟在参数后面的可选表达式的形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a: expression, b: expression = <span class="number">5</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>在伪语法中，参数现在形如 <code>identifier [: expression] [= expression]</code> 。也就是说，注解始终位于默认值的前面，并且注解和默认值都是可选的。就像用等号表示默认值一样，冒号用来标识注解。所有的注解表达式都会在函数定义时被执行，就像默认值表达式一样。</p>
+<p>多余参数 (如：<code>*args</code> 和 <code>**kwargs</code>) 的注解也以类似的方式标识：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(*args: expression, **kwargs: expression)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>嵌套参数的注解始终跟在参数名称后面，而不是最后一个括号后面，不需要对签到参数的所有参数进行注解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(<span class="params">(x1, y1: expression)</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="params">(x2: expression, y2: expression)</span>=<span class="params">(None, None)</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>这些示例到目前为止忽略了函数返回值类型注解。具体做法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">()</span> -&gt; expression:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，现在参数列表后面可以跟随一个字面的 <code>-&gt;</code> 符号和一个 Python 的表达式，与参数注解一样，这个表达式将会在函数定义的时候被执行。</p>
+<p>现在函数定义 [<a href="#11">11</a>] 的语法是:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">decorator: <span class="string">'@'</span> dotted_name [ <span class="string">'('</span> [arglist] <span class="string">')'</span> ] NEWLINE</span><br><span class="line">decorators: decorator+</span><br><span class="line">funcdef: [decorators] <span class="string">'def'</span> NAME parameters [<span class="string">'-&gt;'</span> test] <span class="string">':'</span> suite</span><br><span class="line">parameters: <span class="string">'('</span> [typedargslist] <span class="string">')'</span></span><br><span class="line">typedargslist: ((tfpdef [<span class="string">'='</span> test] <span class="string">','</span>)*</span><br><span class="line">                (<span class="string">'*'</span> [tname] (<span class="string">','</span> tname [<span class="string">'='</span> test])* [<span class="string">','</span> <span class="string">'**'</span> tname]</span><br><span class="line">                 | <span class="string">'**'</span> tname)</span><br><span class="line">                | tfpdef [<span class="string">'='</span> test] (<span class="string">','</span> tfpdef [<span class="string">'='</span> test])* [<span class="string">','</span>])</span><br><span class="line">tname: NAME [<span class="string">':'</span> test]</span><br><span class="line">tfpdef: tname | <span class="string">'('</span> tfplist <span class="string">')'</span></span><br><span class="line">tfplist: tfpdef (<span class="string">','</span> tfpdef)* [<span class="string">','</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p><code>lambda</code> 的语法不支持注解，可以改变 <code>lambda</code> 的语法，要求在参数列表周围加上括号来支持注解，但是，决定 [<a href="#12">12</a>] 不进行这个修改，因为：</p>
+<ul>
+<li>这是一个不兼容的修改</li>
+<li>lambda 总是被精简过的</li>
+<li>lambda 总是可以修改为一个函数</li>
+</ul>
+<h2 id="访问函数注解"><a href="#访问函数注解" class="headerlink" title="访问函数注解"></a>访问函数注解</h2><p>编译后，一个函数的注解始终可以通过函数的 <code>__annotations__</code> 属性来获得。这个属性是一个可变字典，参数名称将会映射到一个注解表达式执行的对象上。</p>
+<p><code>__annotations__</code> 映射中有一个特殊的键 <code>return</code> 。这个键只有为函数返回值提供注解的时候才会存在。</p>
+<p>例如，存在一下注解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a: <span class="string">'x'</span>, b: <span class="number">5</span> + <span class="number">6</span>, c: list)</span> -&gt; max(2, 9):</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>那么，<code>__annotations__</code> 将会是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'x'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="string">'c'</span>: list,</span><br><span class="line">    <span class="string">'return'</span>: <span class="number">9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之所以选择 <code>return</code> 作为键，是因为它不会与参数名称冲突，任何尝试将 <code>return</code> 作为参数名称的函数都将报 <code>SyntaxError</code> 的错误。</p>
+<p>如果函数没有任何注解或者函数从 <code>lambda</code> 创建的，那么 <code>__annotations__</code> 会是一个空的可变字典</p>
+<h2 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h2><p>在讨论注解的过程中，有一些案例被提出来了。这里介绍了一些，它们按照传达的信息进行了分类。还包含了一些使用了注解的现有的产品或包的示例。</p>
+<ul>
+<li>提供类型信息<ul>
+<li>类型检查 ([<a href="#3">3</a>], [<a href="#4">4</a>])</li>
+<li>帮助 IDE 显示函数期望的参数和返回值类型 ([<a href="#16">16</a>])</li>
+<li>函数重载/泛型函数 ([<a href="#21">21</a>])</li>
+<li>外语桥接 ([<a href="#17">17</a>], [<a href="#18">18</a>])</li>
+<li>改写 ([<a href="#19">19</a>], [<a href="#20">20</a>])</li>
+<li>谓词逻辑函数</li>
+<li>数据库查询映射</li>
+<li>RPC 参数封装 ([<a href="#22">22</a>])</li>
+</ul>
+</li>
+<li>其他信息<ul>
+<li>参数和返回值文档 ([<a href="#23">23</a>])</li>
+</ul>
+</li>
+</ul>
+<h2 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h2><h3 id="pydoc-和-inspect"><a href="#pydoc-和-inspect" class="headerlink" title="pydoc 和 inspect"></a>pydoc 和 inspect</h3><p><code>pydoc</code> 模块应该在显示函数帮助的时候同时显示函数的注解</p>
+<p><code>inspect</code> 模块应该进行修改来支持注解</p>
+<h2 id="关联的其他-PEP"><a href="#关联的其他-PEP" class="headerlink" title="关联的其他 PEP"></a>关联的其他 PEP</h2><h2 id="函数签名对象-PEP-362"><a href="#函数签名对象-PEP-362" class="headerlink" title="函数签名对象(PEP 362)"></a>函数签名对象(PEP 362)</h2><p>函数签名对象应该展示函数的注解，<code>Parameter</code> 对象可能需要更改或者其他的更改来保证该展示</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>参考实现已经在 py3k (前身为 p3yk) 修改分支 53130 [<a href="#10">10</a>] 中完成</p>
+<h2 id="被拒绝的提案"><a href="#被拒绝的提案" class="headerlink" title="被拒绝的提案"></a>被拒绝的提案</h2><ul>
+<li>BDFL(译者注: 指被称为 Python 独裁者的 Guido Van Rossum) 以 “太难看了” 拒绝了作者关于为生成器添加注解的特殊语法的想法[<a href="#2">2</a>]</li>
+<li>尽管在早期讨论过 ([<a href="#5">5</a>], [<a href="#6">6</a>])，但是在 stdlib 中关于生成器和高阶函数的特殊对象注解最终被拒绝，因为它更适合第三方库，将它们包含在标准库中会引发更多棘手的问题。</li>
+<li>尽管对标准类型参数化语法进行了大量的讨论，最后还是决定将其留给第三方库。([<a href="#7">7</a>], [<a href="#8">8</a>], [<a href="#9">9</a>])。</li>
+<li>尽管进行了更多的讨论，但是还是决定不对注释互操作性进制进行标准化。在这个时候将互操作性约定标准化为时尚早。我们宁可让这些惯例根据实际使用情况和需要有机的发展起来，而不是试图强迫所有用户采用某种设计好的方案。 ([<a href="#13">13</a>], [<a href="#14">14</a>], [<a href="#15">15</a>])</li>
+</ul>
+<h2 id="参考文献和注释"><a href="#参考文献和注释" class="headerlink" title="参考文献和注释"></a>参考文献和注释</h2><ul>
+<li>[<a id=1>1</a>] - 非特殊说明，函数指的是 Python 中的可调用对象</li>
+<li>[<a id=2>2</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002103.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002103.html</a></li>
+<li>[<a id=3>3</a>] - <a href="http://web.archive.org/web/20070730120117/http://oakwinter.com/code/typecheck/" target="_blank" rel="noopener">http://web.archive.org/web/20070730120117/http://oakwinter.com/code/typecheck/</a></li>
+<li>[<a id=4>4</a>] - <a href="http://web.archive.org/web/20070603221429/http://maxrepo.info/" target="_blank" rel="noopener">http://web.archive.org/web/20070603221429/http://maxrepo.info/</a></li>
+<li>[<a id=5>5</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002091.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002091.html</a></li>
+<li>[<a id=6>6</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/001972.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/001972.html</a></li>
+<li>[<a id=7>7</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002105.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002105.html</a></li>
+<li>[<a id=8>8</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002209.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002209.html</a></li>
+<li>[<a id=9>9</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-June/002438.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-June/002438.html</a></li>
+<li>[<a id=10>10</a>] - <a href="http://svn.python.org/view?rev=53170&view=rev" target="_blank" rel="noopener">http://svn.python.org/view?rev=53170&amp;view=rev</a> (译者注: 该链接需要身份认证)</li>
+<li>[<a id=11>11</a>] - <a href="http://docs.python.org/reference/compound_stmts.html#function-definitions" target="_blank" rel="noopener">http://docs.python.org/reference/compound_stmts.html#function-definitions</a></li>
+<li>[<a id=12>12</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/001613.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/001613.html</a></li>
+<li>[<a id=13>13</a>]- <a href="https://mail.python.org/pipermail/python-3000/2006-August/002895.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-August/002895.html</a></li>
+<li>[<a id=14>14</a>] - <a href="https://mail.python.org/pipermail/python-ideas/2007-January/000032.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2007-January/000032.html</a></li>
+<li>[<a id=15>15</a>] - <a href="https://mail.python.org/pipermail/python-list/2006-December/420645.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-list/2006-December/420645.html</a></li>
+<li>[<a id=16>16</a>] - <a href="http://www.python.org/idle/doc/idle2.html#Tips" target="_blank" rel="noopener">http://www.python.org/idle/doc/idle2.html#Tips</a></li>
+<li>[<a id=17>17</a>] - <a href="http://www.jython.org/Project/index.html" target="_blank" rel="noopener">http://www.jython.org/Project/index.html</a></li>
+<li>[<a id=18>18</a>] - <a href="http://www.codeplex.com/Wiki/View.aspx?ProjectName=IronPython" target="_blank" rel="noopener">http://www.codeplex.com/Wiki/View.aspx?ProjectName=IronPython</a></li>
+<li>[<a id=19>19</a>] - <a href="http://peak.telecommunity.com/PyProtocols.html" target="_blank" rel="noopener">http://peak.telecommunity.com/PyProtocols.html</a></li>
+<li>[<a id=20>20</a>] - <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=155123" target="_blank" rel="noopener">http://www.artima.com/weblogs/viewpost.jsp?thread=155123</a></li>
+<li>[<a id=21>21</a>] - <a href="http://www-128.ibm.com/developerworks/library/l-cppeak2/" target="_blank" rel="noopener">http://www-128.ibm.com/developerworks/library/l-cppeak2/</a></li>
+<li>[<a id=22>22</a>] - <a href="http://rpyc.wikispaces.com/" target="_blank" rel="noopener">http://rpyc.wikispaces.com/</a></li>
+<li>[<a id=23>23</a>] - <a href="http://docs.python.org/library/pydoc.html" target="_blank" rel="noopener">http://docs.python.org/library/pydoc.html</a></li>
+</ul>
+<h2 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h2><p>本文已发布在公共网络上</p>
+<h2 id="翻译词典"><a href="#翻译词典" class="headerlink" title="翻译词典"></a>翻译词典</h2><ul>
+<li><code>introduced</code> - 引入</li>
+<li><code>wide</code> - 大</li>
+<li><code>variation</code> - 更改，变异</li>
+<li><code>mechanism</code> - 机制</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PEP/" rel="tag"># PEP</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/pep-0593/" rel="next" title="PEP 593 -- 函数或变量更灵活的注释方法">
+      PEP 593 -- 函数或变量更灵活的注释方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-number">1.</span> <span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理由"><span class="nav-number">3.</span> <span class="nav-text">理由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数注释基础"><span class="nav-number">4.</span> <span class="nav-text">函数注释基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">5.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">5.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">5.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-number">5.3.</span> <span class="nav-text">匿名函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问函数注解"><span class="nav-number">6.</span> <span class="nav-text">访问函数注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用案例"><span class="nav-number">7.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库"><span class="nav-number">8.</span> <span class="nav-text">标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pydoc-和-inspect"><span class="nav-number">8.1.</span> <span class="nav-text">pydoc 和 inspect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联的其他-PEP"><span class="nav-number">9.</span> <span class="nav-text">关联的其他 PEP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数签名对象-PEP-362"><span class="nav-number">10.</span> <span class="nav-text">函数签名对象(PEP 362)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">11.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被拒绝的提案"><span class="nav-number">12.</span> <span class="nav-text">被拒绝的提案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献和注释"><span class="nav-number">13.</span> <span class="nav-text">参考文献和注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版权"><span class="nav-number">14.</span> <span class="nav-text">版权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译词典"><span class="nav-number">15.</span> <span class="nav-text">翻译词典</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">173k</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

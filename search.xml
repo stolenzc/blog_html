@@ -63,6 +63,40 @@
       </tags>
   </entry>
   <entry>
+    <title>二进制位运算的魔力</title>
+    <url>/2023/bit_operation/</url>
+    <content><![CDATA[<p>本文仅用来收集一些二进制位运算的小技巧</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>关于原码、反码、补码</p>
+<ul>
+<li>原码：符号位+数值位</li>
+<li>反码：符号位不变，数值位取反</li>
+<li>补码：反码+1</li>
+</ul>
+<p>关于数的存储方式</p>
+<ul>
+<li>正数的存储为：原码</li>
+<li>负数的存储为：补码</li>
+</ul>
+<h2 id="a-amp-a"><a href="#a-amp-a" class="headerlink" title="a &amp; -a"></a><code>a &amp; -a</code></h2><ul>
+<li><code>a &amp; -a</code> 的结果是 a 的二进制表示中最低位的 1 所在位的值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">56 &amp; -56</span><br><span class="line"></span><br><span class="line">56   0011 1000</span><br><span class="line">-56  1100 1000</span><br><span class="line">----------------</span><br><span class="line">8    0000 1000</span><br></pre></td></tr></table></figure>
+
+<h2 id="a-amp-2-n-1"><a href="#a-amp-2-n-1" class="headerlink" title="a &amp; (2^n - 1)"></a><code>a &amp; (2^n - 1)</code></h2><p>当对一个数 <code>a</code> 求模 <code>2^n</code> 时，可以使用 <code>a &amp; (2^n - 1)</code> 来代替 <code>a % 2^n</code>，其中 <code>n</code> 为正整数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">100 mod 16</span><br><span class="line"></span><br><span class="line">100  0110 0100</span><br><span class="line">15   0000 1111</span><br><span class="line">----------------</span><br><span class="line">4    0000 0100</span><br></pre></td></tr></table></figure>
+
+<h2 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h2><p>bitmap 是一种数据结构，用来表示一个很大的整数集合，每个整数的出现与否用一个二进制位来表示，这种数据结构可以非常节省内存空间</p>
+<p>例如：记录当日登录用户数，假设总共用户数为 1000 万，那么需要 1000 万个二进制位，即 1250000 字节，约 1.2M，最后统计时，只需要遍历一遍二进制位，将二进制位为 1 的个数加起来即可得到当日登录用户数</p>
+]]></content>
+      <categories>
+        <category>开发笔记</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Structure</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cobra</title>
     <url>/2023/cobra/</url>
     <content><![CDATA[<h2 id="Cobra简介"><a href="#Cobra简介" class="headerlink" title="Cobra简介"></a>Cobra简介</h2><p><a href="https://github.com/spf13/cobra" target="_blank" rel="noopener">Cobra</a> 是一个用于生成命令行工具的框架，非常简单、易用，kubernetes/docker/hugo/etcd等都是使用Cobra开发的命令行工具。</p>
@@ -2885,7 +2919,7 @@
 <li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
 </ul>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一种机制，可以使用任意源数据用来扩展 <a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 中的类型注释</p>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>PEP 484 为 PEP 3107 提供了标准的类型注释语意介绍。PEP 484 是一个规范，但对于大多数使用注释的用户来说成为了一个实际的标准；在许多静态检查的代码库中，类型注释被广泛使用，它实际上排挤掉了一些其他的形式的注释。在 PEP 3107 中描述的一些注释的例子(数据库映射、外语桥接)，鉴于类型注释的通用性，目前还并不现实。此外，类型注释的标准化排除了一些特殊类型检查的高级功能。</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>PEP 484 为 <a href="https://peps.python.org/pep-3107/" target="_blank" rel="noopener">PEP 3107</a> 提供了标准的类型注释语意介绍。PEP 484 是一个规范，但对于大多数使用注释的用户来说成为了一个实际的标准；在许多静态检查的代码库中，类型注释被广泛使用，它实际上排挤掉了一些其他的形式的注释。在 PEP 3107 中描述的一些注释的例子(数据库映射、外语桥接)，鉴于类型注释的通用性，目前还并不现实。此外，类型注释的标准化排除了一些特殊类型检查的高级功能。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>这个 PEP 在 <code>typing</code> 模块中添加了一个 <code>Annotated</code> 类型，以使用特定上下文元数据来装饰现有类型。具体来说，类型 <code>T</code> 可以通过类型注释 <code>Annotated[T, x]</code> 被元数据 <code>x</code> 进行装饰。这个元数据能够被用在其他的静态分析或者运行时分析中。如果在一个库(或工具)中遇到了类型注释 <code>Annotated[T, x]</code> ，但是又没有对元数据 <code>x</code> 进行特殊的逻辑处理，那么此处应该忽略它，单纯的被解释为类型 <code>T</code>。与当前 <code>typing</code> 模块中存在的 <code>no_type_check</code> 完全禁用函数或类的类型注释功能不同，<code>Annotated</code> 类型既允许对类型 <code>T</code> 进行静态检查(例如 mypy 或 Pyre 能够安全的忽略 <code>x</code> )，也允许在特定的应用中对元数据 <code>x</code> 进行运行时访问。这种类型的引入将解决更广泛的 Python 社区感兴趣的各种用例</p>
 <p>这个问题最初是在 <a href="https://github.com/python/typing/issues/600" target="_blank" rel="noopener">issue 600</a> 中被提出，然后在 Python ideas 中进行了讨论</p>
 <h2 id="令人激动的例子"><a href="#令人激动的例子" class="headerlink" title="令人激动的例子"></a>令人激动的例子</h2><h3 id="使用注解结合运行时和静态分析"><a href="#使用注解结合运行时和静态分析" class="headerlink" title="使用注解结合运行时和静态分析"></a>使用注解结合运行时和静态分析</h3><p>库在运行时利用类型注释的趋势正在兴起(例如：数据类)；能够使用外部数据扩展类型注释对于这些库来说将是一个巨大的福音。</p>
@@ -2905,7 +2939,7 @@
 </li>
 <li><p><code>Annotated</code> 至少需要两个参数才能调用( <code>Annotated[int]</code> 无效)</p>
 </li>
-<li><p>注释的顺序得到保留，并且相等性检查很严格 </p>
+<li><p>注释的顺序得到保留，并且相等性检查很严格</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Annotated[int, ValueRange(<span class="number">3</span>, <span class="number">10</span>), ctype(<span class="string">"char"</span>)] != Annotated[</span><br><span class="line">    int, ctype(<span class="string">"char"</span>), ValueRange(<span class="number">3</span>, <span class="number">10</span>)]</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>嵌套的 <code>Annotated</code> 会被扁平化，元数据从最内层开始排序</p>
@@ -2954,6 +2988,138 @@
 <li><code>graceful</code> - 优雅的</li>
 <li><code>iron out the kinks</code> - 消除缺陷</li>
 <li><code>preserve backward compatibility</code> - 保持向后兼容性</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Python PEP</category>
+      </categories>
+      <tags>
+        <tag>PEP</tag>
+        <tag>翻译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PEP 3107 -- 函数注解</title>
+    <url>/2023/pep-3107/</url>
+    <content><![CDATA[<h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
+<li>Python 版本：3.0</li>
+<li>发布时间：2006-12-02</li>
+<li>原文链接：<a href="https://peps.python.org/pep-3107/" target="_blank" rel="noopener">PEP 3107 – Function Annotations</a></li>
+<li>翻译日期：2023-11-11</li>
+<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
+</ul>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一个为 Python 的函数<a href="可调用对象"><a href="#1">1</a></a>添加任意元数据注解的语法</p>
+<h2 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h2><p>由于 Python 2.x 缺少一个对函数参数和返回值注解的标准语法，各种工具或库的出现填补了这一空白，有些利用了 <a href="https://peps.python.org/pep-0318/" target="_blank" rel="noopener">PEP 318</a> 中引入的装饰器，还有一些则通过解析函数的文档注释，寻找其中的注释来实现。</p>
+<p>本 PEP 的目的是为这些信息提供一个唯一、标准的方法，减少由于机制和语法的巨大差异而造成的困惑</p>
+<h2 id="函数注释基础"><a href="#函数注释基础" class="headerlink" title="函数注释基础"></a>函数注释基础</h2><p>在开始讨论 Python3.0 函数注解的确切来龙去脉之前，我们先从管以上谈谈什么是注解，什么不是注解：</p>
+<ol>
+<li><p>函数注解，无论是参数还是返回值，都是可选的</p>
+</li>
+<li><p>函数注解只不过是在编译时将独立的 Python 表达式与函数任意部分关联起来的一种方式</p>
+<p> 就其本身而言，Python 并没有为注解添加任何特定的含义或意义，就起本身而言，Python 只是单纯的让下文中<a href="#访问函数注解">访问函数注解</a>的表达式可用。</p>
+<p> 注解具有的唯一意义是能够被第三方库所解释。注解的使用者能够用这些函数注解作任何它们想做的事情。例如，一个库可能使用基于字符串的注解来提供帮助信息。如下所示：</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compile</span><span class="params">(source: <span class="string">"something compilable"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            filename: <span class="string">"where the compilable thing comes from"</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">            mode: <span class="string">"is this a single statement or a suite?"</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p> 另一个库可能用来对 Python 的函数或方法提供类型检查，这个库能够使用注解来提示期待的输入和输出的类型，可能像下面这样：</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hula</span><span class="params">(item: Hualable, *vargs: PackAnimal)</span> -&gt; Distance:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p> 然后，无论是第一个示例中的字符串，还是第二个示例中的类型信息本身都没有任何含义，这些含义仅取决于三方库</p>
+</li>
+<li><p>基于第 2 点，这个 PEP 没有尝试引入任何标准的语法，即使是内置类型也是如此，这项工作将留给第三方库</p>
+</li>
+</ol>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数的注解采用跟在参数后面的可选表达式的形式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a: expression, b: expression = <span class="number">5</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>在伪语法中，参数现在形如 <code>identifier [: expression] [= expression]</code> 。也就是说，注解始终位于默认值的前面，并且注解和默认值都是可选的。就像用等号表示默认值一样，冒号用来标识注解。所有的注解表达式都会在函数定义时被执行，就像默认值表达式一样。</p>
+<p>多余参数 (如：<code>*args</code> 和 <code>**kwargs</code>) 的注解也以类似的方式标识：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(*args: expression, **kwargs: expression)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>嵌套参数的注解始终跟在参数名称后面，而不是最后一个括号后面，不需要对签到参数的所有参数进行注解：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(<span class="params">(x1, y1: expression)</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="params">(x2: expression, y2: expression)</span>=<span class="params">(None, None)</span>)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>这些示例到目前为止忽略了函数返回值类型注解。具体做法如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">()</span> -&gt; expression:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，现在参数列表后面可以跟随一个字面的 <code>-&gt;</code> 符号和一个 Python 的表达式，与参数注解一样，这个表达式将会在函数定义的时候被执行。</p>
+<p>现在函数定义 [<a href="#11">11</a>] 的语法是:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">decorator: <span class="string">'@'</span> dotted_name [ <span class="string">'('</span> [arglist] <span class="string">')'</span> ] NEWLINE</span><br><span class="line">decorators: decorator+</span><br><span class="line">funcdef: [decorators] <span class="string">'def'</span> NAME parameters [<span class="string">'-&gt;'</span> test] <span class="string">':'</span> suite</span><br><span class="line">parameters: <span class="string">'('</span> [typedargslist] <span class="string">')'</span></span><br><span class="line">typedargslist: ((tfpdef [<span class="string">'='</span> test] <span class="string">','</span>)*</span><br><span class="line">                (<span class="string">'*'</span> [tname] (<span class="string">','</span> tname [<span class="string">'='</span> test])* [<span class="string">','</span> <span class="string">'**'</span> tname]</span><br><span class="line">                 | <span class="string">'**'</span> tname)</span><br><span class="line">                | tfpdef [<span class="string">'='</span> test] (<span class="string">','</span> tfpdef [<span class="string">'='</span> test])* [<span class="string">','</span>])</span><br><span class="line">tname: NAME [<span class="string">':'</span> test]</span><br><span class="line">tfpdef: tname | <span class="string">'('</span> tfplist <span class="string">')'</span></span><br><span class="line">tfplist: tfpdef (<span class="string">','</span> tfpdef)* [<span class="string">','</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><p><code>lambda</code> 的语法不支持注解，可以改变 <code>lambda</code> 的语法，要求在参数列表周围加上括号来支持注解，但是，决定 [<a href="#12">12</a>] 不进行这个修改，因为：</p>
+<ul>
+<li>这是一个不兼容的修改</li>
+<li>lambda 总是被精简过的</li>
+<li>lambda 总是可以修改为一个函数</li>
+</ul>
+<h2 id="访问函数注解"><a href="#访问函数注解" class="headerlink" title="访问函数注解"></a>访问函数注解</h2><p>编译后，一个函数的注解始终可以通过函数的 <code>__annotations__</code> 属性来获得。这个属性是一个可变字典，参数名称将会映射到一个注解表达式执行的对象上。</p>
+<p><code>__annotations__</code> 映射中有一个特殊的键 <code>return</code> 。这个键只有为函数返回值提供注解的时候才会存在。</p>
+<p>例如，存在一下注解：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a: <span class="string">'x'</span>, b: <span class="number">5</span> + <span class="number">6</span>, c: list)</span> -&gt; max(2, 9):</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>那么，<code>__annotations__</code> 将会是：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'x'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="string">'c'</span>: list,</span><br><span class="line">    <span class="string">'return'</span>: <span class="number">9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之所以选择 <code>return</code> 作为键，是因为它不会与参数名称冲突，任何尝试将 <code>return</code> 作为参数名称的函数都将报 <code>SyntaxError</code> 的错误。</p>
+<p>如果函数没有任何注解或者函数从 <code>lambda</code> 创建的，那么 <code>__annotations__</code> 会是一个空的可变字典</p>
+<h2 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h2><p>在讨论注解的过程中，有一些案例被提出来了。这里介绍了一些，它们按照传达的信息进行了分类。还包含了一些使用了注解的现有的产品或包的示例。</p>
+<ul>
+<li>提供类型信息<ul>
+<li>类型检查 ([<a href="#3">3</a>], [<a href="#4">4</a>])</li>
+<li>帮助 IDE 显示函数期望的参数和返回值类型 ([<a href="#16">16</a>])</li>
+<li>函数重载/泛型函数 ([<a href="#21">21</a>])</li>
+<li>外语桥接 ([<a href="#17">17</a>], [<a href="#18">18</a>])</li>
+<li>改写 ([<a href="#19">19</a>], [<a href="#20">20</a>])</li>
+<li>谓词逻辑函数</li>
+<li>数据库查询映射</li>
+<li>RPC 参数封装 ([<a href="#22">22</a>])</li>
+</ul>
+</li>
+<li>其他信息<ul>
+<li>参数和返回值文档 ([<a href="#23">23</a>])</li>
+</ul>
+</li>
+</ul>
+<h2 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h2><h3 id="pydoc-和-inspect"><a href="#pydoc-和-inspect" class="headerlink" title="pydoc 和 inspect"></a>pydoc 和 inspect</h3><p><code>pydoc</code> 模块应该在显示函数帮助的时候同时显示函数的注解</p>
+<p><code>inspect</code> 模块应该进行修改来支持注解</p>
+<h2 id="关联的其他-PEP"><a href="#关联的其他-PEP" class="headerlink" title="关联的其他 PEP"></a>关联的其他 PEP</h2><h2 id="函数签名对象-PEP-362"><a href="#函数签名对象-PEP-362" class="headerlink" title="函数签名对象(PEP 362)"></a>函数签名对象(PEP 362)</h2><p>函数签名对象应该展示函数的注解，<code>Parameter</code> 对象可能需要更改或者其他的更改来保证该展示</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>参考实现已经在 py3k (前身为 p3yk) 修改分支 53130 [<a href="#10">10</a>] 中完成</p>
+<h2 id="被拒绝的提案"><a href="#被拒绝的提案" class="headerlink" title="被拒绝的提案"></a>被拒绝的提案</h2><ul>
+<li>BDFL(译者注: 指被称为 Python 独裁者的 Guido Van Rossum) 以 “太难看了” 拒绝了作者关于为生成器添加注解的特殊语法的想法[<a href="#2">2</a>]</li>
+<li>尽管在早期讨论过 ([<a href="#5">5</a>], [<a href="#6">6</a>])，但是在 stdlib 中关于生成器和高阶函数的特殊对象注解最终被拒绝，因为它更适合第三方库，将它们包含在标准库中会引发更多棘手的问题。</li>
+<li>尽管对标准类型参数化语法进行了大量的讨论，最后还是决定将其留给第三方库。([<a href="#7">7</a>], [<a href="#8">8</a>], [<a href="#9">9</a>])。</li>
+<li>尽管进行了更多的讨论，但是还是决定不对注释互操作性进制进行标准化。在这个时候将互操作性约定标准化为时尚早。我们宁可让这些惯例根据实际使用情况和需要有机的发展起来，而不是试图强迫所有用户采用某种设计好的方案。 ([<a href="#13">13</a>], [<a href="#14">14</a>], [<a href="#15">15</a>])</li>
+</ul>
+<h2 id="参考文献和注释"><a href="#参考文献和注释" class="headerlink" title="参考文献和注释"></a>参考文献和注释</h2><ul>
+<li>[<a id=1>1</a>] - 非特殊说明，函数指的是 Python 中的可调用对象</li>
+<li>[<a id=2>2</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002103.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002103.html</a></li>
+<li>[<a id=3>3</a>] - <a href="http://web.archive.org/web/20070730120117/http://oakwinter.com/code/typecheck/" target="_blank" rel="noopener">http://web.archive.org/web/20070730120117/http://oakwinter.com/code/typecheck/</a></li>
+<li>[<a id=4>4</a>] - <a href="http://web.archive.org/web/20070603221429/http://maxrepo.info/" target="_blank" rel="noopener">http://web.archive.org/web/20070603221429/http://maxrepo.info/</a></li>
+<li>[<a id=5>5</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002091.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002091.html</a></li>
+<li>[<a id=6>6</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/001972.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/001972.html</a></li>
+<li>[<a id=7>7</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002105.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002105.html</a></li>
+<li>[<a id=8>8</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/002209.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/002209.html</a></li>
+<li>[<a id=9>9</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-June/002438.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-June/002438.html</a></li>
+<li>[<a id=10>10</a>] - <a href="http://svn.python.org/view?rev=53170&view=rev" target="_blank" rel="noopener">http://svn.python.org/view?rev=53170&amp;view=rev</a> (译者注: 该链接需要身份认证)</li>
+<li>[<a id=11>11</a>] - <a href="http://docs.python.org/reference/compound_stmts.html#function-definitions" target="_blank" rel="noopener">http://docs.python.org/reference/compound_stmts.html#function-definitions</a></li>
+<li>[<a id=12>12</a>] - <a href="https://mail.python.org/pipermail/python-3000/2006-May/001613.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-May/001613.html</a></li>
+<li>[<a id=13>13</a>]- <a href="https://mail.python.org/pipermail/python-3000/2006-August/002895.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-3000/2006-August/002895.html</a></li>
+<li>[<a id=14>14</a>] - <a href="https://mail.python.org/pipermail/python-ideas/2007-January/000032.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-ideas/2007-January/000032.html</a></li>
+<li>[<a id=15>15</a>] - <a href="https://mail.python.org/pipermail/python-list/2006-December/420645.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-list/2006-December/420645.html</a></li>
+<li>[<a id=16>16</a>] - <a href="http://www.python.org/idle/doc/idle2.html#Tips" target="_blank" rel="noopener">http://www.python.org/idle/doc/idle2.html#Tips</a></li>
+<li>[<a id=17>17</a>] - <a href="http://www.jython.org/Project/index.html" target="_blank" rel="noopener">http://www.jython.org/Project/index.html</a></li>
+<li>[<a id=18>18</a>] - <a href="http://www.codeplex.com/Wiki/View.aspx?ProjectName=IronPython" target="_blank" rel="noopener">http://www.codeplex.com/Wiki/View.aspx?ProjectName=IronPython</a></li>
+<li>[<a id=19>19</a>] - <a href="http://peak.telecommunity.com/PyProtocols.html" target="_blank" rel="noopener">http://peak.telecommunity.com/PyProtocols.html</a></li>
+<li>[<a id=20>20</a>] - <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=155123" target="_blank" rel="noopener">http://www.artima.com/weblogs/viewpost.jsp?thread=155123</a></li>
+<li>[<a id=21>21</a>] - <a href="http://www-128.ibm.com/developerworks/library/l-cppeak2/" target="_blank" rel="noopener">http://www-128.ibm.com/developerworks/library/l-cppeak2/</a></li>
+<li>[<a id=22>22</a>] - <a href="http://rpyc.wikispaces.com/" target="_blank" rel="noopener">http://rpyc.wikispaces.com/</a></li>
+<li>[<a id=23>23</a>] - <a href="http://docs.python.org/library/pydoc.html" target="_blank" rel="noopener">http://docs.python.org/library/pydoc.html</a></li>
+</ul>
+<h2 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h2><p>本文已发布在公共网络上</p>
+<h2 id="翻译词典"><a href="#翻译词典" class="headerlink" title="翻译词典"></a>翻译词典</h2><ul>
+<li><code>introduced</code> - 引入</li>
+<li><code>wide</code> - 大</li>
+<li><code>variation</code> - 更改，变异</li>
+<li><code>mechanism</code> - 机制</li>
 </ul>
 ]]></content>
       <categories>
@@ -3404,6 +3570,404 @@
       </tags>
   </entry>
   <entry>
+    <title>《Python 工匠》读书笔记</title>
+    <url>/2023/python_artisan/</url>
+    <content><![CDATA[<h2 id="变量与注释"><a href="#变量与注释" class="headerlink" title="变量与注释"></a>变量与注释</h2><p>变量命名原则</p>
+<ol>
+<li>遵循 PEP8 规范</li>
+<li>描述性要强（结合场景尽可能详尽的描述变量）</li>
+<li>尽量短（为变量命名要结合情景和上下文）</li>
+<li>要匹配类型<ul>
+<li>bool (is_, has_, allow_)</li>
+<li>int/float<ul>
+<li>含义为数字的单词：port, age, radius</li>
+<li>以 _id 结尾的变量：user_id, product_id</li>
+<li>以 length/count 开头或结尾的单词，users_count, length_of_name</li>
+<li>慎用名词复数表示 int 变量，users 容易误解为 List[User]</li>
+</ul>
+</li>
+<li>其他类型的变量建议使用明确的类型注解来标注类型</li>
+</ul>
+</li>
+<li>超短命名结合场景使用和避免<ul>
+<li>数组索引三剑客 i, j, k</li>
+<li>某个整数 n</li>
+<li>某个字符串 s</li>
+<li>某个异常 e</li>
+<li>文件对象 fp</li>
+</ul>
+</li>
+</ol>
+<p>变量和注释使用原则</p>
+<ol>
+<li>保持变量的一致性<ul>
+<li>名字一致性：在同一个项目、模块中，对一类事物的称呼要保持一致</li>
+<li>类型一致性：同一个变量不要重复指向不同的类型</li>
+</ul>
+</li>
+<li>变量类型定义尽量靠近使用：C 语言后遗症；靠近使用能够把一条逻辑完整的串在一起，不必来回翻阅</li>
+<li>定义临时变量提升代码可读性：例如过长的 if 条件，会使读者头痛</li>
+<li>同一作用域内不要有太多变量：变量太多会导致读者难以理解，建议拆分函数</li>
+<li>能不定义变量就别定义：例如将计算结果放入列表，而不是先定义变量，再将变量放入列表</li>
+<li>不要使用 locals()：容易暴露没有真正使用的变量</li>
+<li>空行也是一种注释：空行可以将代码分组，提升可读性</li>
+<li>先写注释后写代码：先写注释可以帮助思考，也可以帮助后续的代码阅读者理解代码</li>
+</ol>
+<h2 id="数值与字符串"><a href="#数值与字符串" class="headerlink" title="数值与字符串"></a>数值与字符串</h2><p>数值使用</p>
+<ul>
+<li>Python的浮点数有精度问题，请使用Decimal对象做精确的小数运算</li>
+<li>布尔类型是整型的子类型，布尔值可以当作0和1来使用</li>
+<li>使用 <code>float(&#39;inf&#39;)</code> 无穷大可以简化边界处理逻辑</li>
+</ul>
+<p>字符串使用</p>
+<ul>
+<li>字符串分为两类：str（给人阅读的文本类型）和bytes（给计算机阅读的二进制类型）</li>
+<li>通过 <code>str.encode()</code> 与 <code>byte.decode()</code> 可以在两种字符串之间做转换</li>
+<li>优先推荐的字符串格式化方式（从前往后）： <code>f-string</code>、<code>str.format()</code>、<code>C语言风格格式化(%)</code></li>
+<li>使用以r开头的字符串内置方法可以从右往左处理字符串，特定场景下可以派上用场</li>
+</ul>
+<p>代码可读性</p>
+<ul>
+<li>在定义数值字面量时，可以通过插入_字符来提升可读性</li>
+<li>不要出现“神奇”的字面量，使用常量或者枚举类型替换它们</li>
+<li>保留数学算式表达式不会影响性能，并且可以提升可读性</li>
+<li>使用 <code>textwrap.dedent()</code> 可以让多行字符串更好地融入代码</li>
+</ul>
+<p>代码可维护性</p>
+<ul>
+<li>当操作SQL语句等结构化字符串时，使用专有模块比裸处理的代码更易于维护</li>
+<li>使用 <code>Jinja2</code> 模板来替代字符串拼接操作</li>
+</ul>
+<p>语言内部</p>
+<ul>
+<li>对于从 -5 到 256 的这些常用小整数， Python 会将它们缓存在内存里的一个数组中。当你的程序需要用到这些数字时， Python 不会创建任何新的整型对象，而是会返回缓存中的对象。这样能为程序节约可观的内存</li>
+<li>使用dis模块可以查看Python字节码，帮助我们理解内部原理</li>
+<li>使用 <code>timeit</code> 模块可以对Python代码方便地进行性能测试</li>
+<li>Python语言进化得很快，不要轻易被旧版本的“经验”所左右</li>
+</ul>
+<h2 id="容器类型"><a href="#容器类型" class="headerlink" title="容器类型"></a>容器类型</h2><p>基础知识</p>
+<ul>
+<li>在进行函数调用时，传递的不是变量的值或者引用，而是变量所指对象的引用</li>
+<li>Python 内置类型分为可变与不可变两种，可变性会影响一些操作的行为，比如 <code>+=</code></li>
+<li>对于可变类型，必要时对其进行拷贝操作，能避免产生意料之外的影响</li>
+<li>常见的浅拷贝方式：<code>copy.copy</code>、推导式、切片操作</li>
+<li>使用 <code>copy.deepcopy</code> 可以进行深拷贝操作</li>
+</ul>
+<p>列表与元组</p>
+<ul>
+<li>使用 <code>enumerate</code> 可以在遍历列表的同时获取下标</li>
+<li>函数的多返回值其实是一个元组</li>
+<li>不存在元组推导式，但可以使用tuple来将生成器表达式转换为元组</li>
+<li>元组经常用来表示一些结构化的数据</li>
+</ul>
+<p>字典与集合</p>
+<ul>
+<li>在Python 3.7版本前，字典类型是无序的，之后变为保留数据的插入顺序</li>
+<li>使用 <code>OrderedDict</code> 可以在 Python 3.7 以前的版本里获得有序字典</li>
+<li>只有可哈希的对象才能存入集合，或者作为字典的键使用</li>
+<li>使用有序字典 <code>OrderedDict</code> 可以快速实现有序去重</li>
+<li>使用 <code>fronzenset</code> 可以获得一个不可变的集合对象</li>
+<li>集合可以方便地进行集合运算，计算交集、并集</li>
+<li>不要通过继承 <code>dict</code> 来创建自定义字典类型</li>
+</ul>
+<p>代码可读性技巧</p>
+<ul>
+<li>具名元组比普通元组可读性更强</li>
+<li>列表推导式可以更快速地完成遍历、过滤、处理以及构建新列表操作</li>
+<li>不要编写过于复杂的推导式，用朴实的代码替代就好</li>
+<li>不要把推导式当作代码量更少的循环，写普通循环就好</li>
+</ul>
+<p>代码可维护性技巧</p>
+<ul>
+<li>当访问的字典键不存在时，可以选择捕获异常或先做判断，优先推荐捕获异常</li>
+<li>使用 <code>get</code> 、 <code>setdefault</code> 、<code>带参数的pop方法</code> 可以简化边界处理逻辑</li>
+<li>使用具名元组作为返回值，比普通元组更好扩展</li>
+<li>当字典键不存在时，使用 <code>defaultdict</code> 可以简化处理</li>
+<li>继承 <code>MutableMapping</code> 可以方便地创建自定义字典类，封装处理逻辑(如果直接继承 <code>dict</code> ，当重写 <code>__setitem__</code> 时，直接赋值可以出发该函数，但 <code>update</code> 无法触发该操作，继承 <code>MutableMapping</code> 可以解决这个问题，自定义其他容器也会存在类似问题)</li>
+<li>用生成器按需返回成员，比直接返回一个结果列表更灵活，也更省内存</li>
+<li>使用动态解包语法可以方便地合并字典</li>
+<li>不要在遍历列表的同时修改，否则会出现不可预期的结果</li>
+</ul>
+<p>代码性能要点</p>
+<ul>
+<li>列表的底层实现决定了它的头部操作很慢， <code>deque</code> 类型则没有这个问题</li>
+<li>当需要判断某个成员在容器中是否存在时，使用字典/集合更快</li>
+</ul>
+<p>代码示例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 具名元组</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Rectangle = namedtuple(<span class="string">'Rectangle'</span>, <span class="string">'width,height'</span>)</span><br><span class="line">rect = Rectangle(width=<span class="number">100</span>, height=<span class="number">200</span>)</span><br><span class="line">rect.width  <span class="comment"># 100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python3.6 语法</span></span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> NamedTuple</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle2</span><span class="params">(NamedTuple)</span>:</span></span><br><span class="line">    width: int</span><br><span class="line">    height: int</span><br><span class="line">rect = Rectangle2(<span class="number">100</span>, <span class="number">200</span>)</span><br><span class="line">rect.width  <span class="comment"># 100</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字典的 setdefault 方法</span></span><br><span class="line">d = &#123;<span class="string">'title'</span>: <span class="string">'foobar'</span>&#125;</span><br><span class="line">d.setdefault(<span class="string">'items'</span>, []).append(<span class="string">'foo'</span>)</span><br><span class="line">print(d)  <span class="comment"># &#123;'title': 'foobar', 'items': ['foo']&#125;</span></span><br><span class="line">d.setdefault(<span class="string">'items'</span>, []).append(<span class="string">'bar'</span>)</span><br><span class="line">print(d)  <span class="comment"># &#123;'title': 'foobar', 'items': ['foo', 'bar']&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># OrderedDict</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">d1 = &#123;<span class="string">'name'</span>: <span class="string">'piglei'</span>, <span class="string">'fruit'</span>: <span class="string">'apple'</span>&#125;</span><br><span class="line">d2 = &#123;<span class="string">'fruit'</span>: <span class="string">'apple'</span>, <span class="string">'name'</span>: <span class="string">'piglei'</span>&#125;</span><br><span class="line">d1 == d2  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line">d1 = OrderedDict(name=<span class="string">'piglei'</span>, fruit=<span class="string">'apple'</span>)</span><br><span class="line">d2 = OrderedDict(fruit=<span class="string">'apple'</span>, name=<span class="string">'piglei'</span>)</span><br><span class="line">d1 == d2  <span class="comment"># False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 OrderedDict 可以实现有序去重</span></span><br><span class="line">nums = [<span class="number">10</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">21</span>, <span class="number">10</span>, <span class="number">2</span>]</span><br><span class="line">set(nums)  <span class="comment"># &#123;2, 3, 10, 21&#125;</span></span><br><span class="line">list(OrderedDict.fromkeys(nums))  <span class="comment"># [10, 2, 3, 21]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># frozenset</span></span><br><span class="line"><span class="comment"># frozenset 是一个内置的类型，不需要导入</span></span><br><span class="line">f_set = frozenset([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># deque，当用列表向头插入输入数据时，会存在性能问题，使用 deque 可以解决这个问题</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">　</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deque_append</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""不断往尾部追加"""</span></span><br><span class="line">    l = deque()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">        l.append(i)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deque_appendleft</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""不断往头部插入"""</span></span><br><span class="line">    l = deque()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">        l.appendleft(i)</span><br></pre></td></tr></table></figure>
+
+<h2 id="分之流程控制"><a href="#分之流程控制" class="headerlink" title="分之流程控制"></a>分之流程控制</h2><p>条件分支语句</p>
+<ul>
+<li>不要显式地和布尔值做比较</li>
+<li>利用类型本身的布尔值规则，省略零值判断</li>
+<li>把not代表的否定逻辑移入表达式内部</li>
+<li>仅在需要判断某个对象是否是None、True、False时，使用is运算符</li>
+</ul>
+<p>Python数据模型</p>
+<ul>
+<li>定义 <code>__len__</code> 和 <code>__bool__</code> 魔法方法，可以自定义对象的布尔值规则</li>
+<li>定义 <code>__eq__</code> 方法，可以修改对象在进行 <code>==</code> 运算时的行为</li>
+</ul>
+<p>代码可读性技巧</p>
+<ul>
+<li>不同分支内容易出现重复或类似的代码，把它们抽到分支外可提升代码的可读性</li>
+<li>使用“德摩根定律”可以让有多重否定的表达式变得更容易理解<ul>
+<li>德摩根定律 - <code>not A or not B</code> 等价于 <code>not (A and B)</code></li>
+</ul>
+</li>
+</ul>
+<p>代码可维护性技巧</p>
+<ul>
+<li>尽可能让三元表达式保持简单</li>
+<li>扁平优于嵌套：使用“提前返回”优化代码里的多层分支嵌套</li>
+<li>当条件表达式变得特别复杂时，可以尝试封装新的函数和方法来简化</li>
+<li>and的优先级比or高，不要忘记使用括号来让逻辑更清晰</li>
+<li>在使用or运算符替代条件分支时，请注意避开因布尔值运算导致的陷阱</li>
+</ul>
+<p>代码组织技巧</p>
+<ul>
+<li><code>bisect</code> 模块可以用来优化范围类分支判断</li>
+<li>字典类型可以用来替代简单的条件分支语句</li>
+<li>尝试总结条件分支代码里的规律，用更精简、更易扩展的方式改写它们</li>
+<li>使用 <code>any()</code> 和 <code>all()</code> 内置函数可以让条件表达式变得更精简</li>
+</ul>
+<p>代码示例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> bisect</span><br><span class="line"><span class="comment"># 注意：用来做二分查找的容器必须是已经排好序的</span></span><br><span class="line">breakpoints = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line"><span class="comment"># bisect 函数会返回值在列表中的位置，0 代表相应的值位于第一个元素 10 之前</span></span><br><span class="line">bisect.bisect(breakpoints, <span class="number">1</span>)  <span class="comment"># 0</span></span><br><span class="line"><span class="comment"># 3 代表相应的值位于第三个元素 30 之后</span></span><br><span class="line">bisect.bisect(breakpoints, <span class="number">35</span>)  <span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="异常与错误处理"><a href="#异常与错误处理" class="headerlink" title="异常与错误处理"></a>异常与错误处理</h2><p>基础知识</p>
+<ul>
+<li>一个 try 语句支持多个 except 子句，但请记得把更精确的异常类放在前面</li>
+<li>try 语句的 else 分支会在没有异常时执行，因此它可用来替代标记变量</li>
+<li>不带任何参数的 raise 语句会重复抛出当前异常</li>
+<li>上下文管理器经常用来处理异常，它最常见的用途是替代 finally 子句</li>
+<li>上下文管理器可以用来忽略某段代码里的异常</li>
+<li>使用 <code>@contextmanager</code> 装饰器可以轻松定义上下文管理器</li>
+<li>和许多其他编程语言不同，在Python里抛出和捕获异常是很轻量的操作，即使大量抛出、捕获异常，也不会给程序带来过多额外负担。</li>
+</ul>
+<p>错误处理与参数校验</p>
+<ul>
+<li>当你可以选择编写条件判断或异常捕获时，优先选异常捕获（EAFP）<ul>
+<li>EAFP（easier to ask for forgiveness than permission），可直译为“获取原谅比许可简单”</li>
+</ul>
+</li>
+<li>不要让函数返回错误信息，直接抛出自定义异常吧</li>
+<li>手动校验数据合法性非常烦琐，尽量使用专业模块来做这件事</li>
+<li>不要使用 assert 来做参数校验，用 raise 替代它<ul>
+<li>assert 是一个专供开发者调试程序的关键字。它所提供的断言检查，可以在执行 Python 时使用 -O 选项直接跳过</li>
+</ul>
+</li>
+<li>处理错误需要付出额外成本，假如能通过设计避免它就再好不过了</li>
+<li>在设计 API 时，需要慎重考虑是否真的有必要抛出错误</li>
+<li>使用“空对象模式”能免去一些针对边界情况的错误处理工作</li>
+</ul>
+<p>捕获异常时</p>
+<ul>
+<li>过于模糊和宽泛的异常捕获可能会让程序免于崩溃，但也可能会带来更大的麻烦</li>
+<li>异常捕获贵在精确，只捕获可能抛出异常的语句，只捕获可能的异常类型</li>
+<li>有时候，让程序提早崩溃未必是什么坏事</li>
+<li>完全忽略异常是风险非常高的行为，大多数情况下，至少记录一条错误日志</li>
+</ul>
+<p>抛出异常时</p>
+<ul>
+<li>保证模块内抛出的异常与模块自身的抽象级别一致</li>
+<li>如果异常的抽象级别过高，把它替换为更低级的新异常</li>
+<li>如果异常的抽象级别过低，把它包装成更高级的异常，然后重新抛出</li>
+<li>不要让调用方用字符串匹配来判断异常种类，尽量提供可区分的异常</li>
+</ul>
+<p>代码示例</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> contextlib <span class="keyword">import</span> contextmanager</span><br><span class="line"></span><br><span class="line"><span class="meta">@contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_conn_obj</span><span class="params">(host, port, timeout=None)</span>:</span></span><br><span class="line">    <span class="string">"""创建连接对象，并在退出上下文时自动关闭"""</span></span><br><span class="line">    conn = create_conn(host, port, timeout=timeout)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">yield</span> conn</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        conn.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环与可迭代对象"><a href="#循环与可迭代对象" class="headerlink" title="循环与可迭代对象"></a>循环与可迭代对象</h2><p>迭代与迭代器原理</p>
+<ul>
+<li>使用 <code>iter()</code> 函数会尝试获取一个迭代器对象</li>
+<li>使用 <code>next()</code> 函数会获取迭代器的下一个内容</li>
+<li>可以将for循环简单地理解为 while 循环+不断调用 <code>next()</code></li>
+<li>自定义迭代器需要实现 <code>__iter__</code> 和 <code>__next__</code> 两个魔法方法</li>
+<li>生成器对象是迭代器的一种</li>
+<li><code>iter(callable, sentinel)</code> 可以基于可调用对象构造一个迭代器</li>
+</ul>
+<p>迭代器与可迭代对象</p>
+<ul>
+<li>迭代器和可迭代对象是不同的概念</li>
+<li>可迭代对象不一定是迭代器，但迭代器一定是可迭代对象</li>
+<li>对可迭代对象使用 <code>iter()</code> 会返回迭代器，迭代器则会返回它自身</li>
+<li>每个迭代器的被迭代过程是一次性的，可迭代对象则不一定</li>
+<li>可迭代对象只需要实现 <code>__iter__</code> 方法，而迭代器要额外实现 <code>__next__</code> 方法</li>
+</ul>
+<p>代码可维护性技巧</p>
+<ul>
+<li>通过定义生成器函数来修饰可迭代对象，可以优化循环内部代码</li>
+<li><code>itertools</code> 模块里有许多函数可以用来修饰可迭代对象</li>
+<li>生成器函数可以用来解耦循环代码，提升可复用性</li>
+<li>不要使用多个 <code>break</code> ，拆分为函数然后直接 <code>return</code> 更好</li>
+<li>使用 <code>next()</code> 函数有时可以完成一些意想不到的功能</li>
+</ul>
+<p>文件操作知识</p>
+<ul>
+<li>使用标准做法读取文件内容，在处理没有换行符的大文件时会很慢</li>
+<li>调用 <code>file.read()</code> 方法可以解决读取大文件的性能问题</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数参数与返回相关基础知识</p>
+<ul>
+<li>不要使用可变类型作为参数默认值，用None来代替</li>
+<li>通过 <code>__defaults__</code> 属性可以直接获取函数的参数默认值</li>
+<li>用 <code>object()</code> 来做可能传入 <code>None</code> 的函数默认值</li>
+<li>使用标记对象，可以严格区分函数调用时是否提供了某个参数</li>
+<li>定义仅限关键字参数，可以强制要求调用方提供参数名，提升可读性</li>
+<li>函数应该拥有稳定的返回类型，不要返回多种类型</li>
+<li>适合返回None的情况——操作类函数、查询类函数表示意料之中的缺失值</li>
+<li>在执行失败时，相比返回None，抛出异常更为合适</li>
+<li>如果提前返回结果可以提升可读性，就提前返回，不必追求“单一出口”</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">append_value</span><span class="params">(value, items=[])</span>:</span></span><br><span class="line">    <span class="string">"""向 items 列表中追加内容，并返回列表"""</span></span><br><span class="line">    items.append(value)</span><br><span class="line">    <span class="keyword">return</span> items</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: append_value.__defaults__</span><br><span class="line">Out[<span class="number">2</span>]: ([],)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 定义标记变量</span></span><br><span class="line"><span class="comment"># object 通常不会单独使用，但是拿来做这种标记变量刚刚好</span></span><br><span class="line">_not_set = object()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dump_value</span><span class="params">(value, extra=_not_set)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> extra <span class="keyword">is</span> _not_set:</span><br><span class="line">        <span class="comment"># 调用方没有传递 extra 参数</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>代码可维护性技巧</p>
+<ul>
+<li>不要编写太长的函数，但长度并没有标准，65行算是一个危险信号</li>
+<li>圈复杂度是评估函数复杂程度的常用指标，圈复杂度超过10的函数需要重构</li>
+<li>抽象与分层思想可以帮我们更好地构建与管理复杂的系统</li>
+<li>同一个函数内的代码应该处在同一抽象级别</li>
+</ul>
+<p>函数与状态</p>
+<ul>
+<li>没有副作用的无状态纯函数易于理解，容易维护，但大多数时候“状态”不可避免</li>
+<li>避免使用全局变量给函数增加状态</li>
+<li>当函数状态较简单时，可以使用闭包技巧</li>
+<li>当函数需要较为复杂的状态管理时，建议定义类来管理状态</li>
+</ul>
+<p>语言机制对函数的影响</p>
+<ul>
+<li><code>functools.partial()</code> 可以用来快速构建偏函数</li>
+<li><code>functools.lru_cache()</code> 可以用来给函数添加缓存</li>
+<li>比起 <code>map</code> 和 <code>filter</code> ，列表推导式的可读性更强，更应该使用</li>
+<li><code>lambda</code> 函数只是一种语法糖，你可以使用 <code>operator</code> 模块等方式来替代它</li>
+<li>Python 语言里的递归限制较多，可能的话，请尽量使用循环来替代</li>
+</ul>
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p>基础与技巧</p>
+<ul>
+<li>装饰器最常见的实现方式，是利用闭包原理通过多层嵌套函数实现</li>
+<li>在实现装饰器时，请记得使用 <code>wraps()</code> 更新包装函数的元数据，添加 <code>@wraps(wrapped)</code> 来装饰 decorated 函数后，<code>wraps()</code> 首先会基于原函数 func 来更新包装函数 decorated 的名称、文档等内置属性，之后会将 func 的所有额外属性赋值到 decorated 上</li>
+<li><code>wraps()</code> 不光可以保留元数据，还能保留包装函数的额外属性</li>
+<li>利用仅限关键字参数，可以很方便地实现可选参数的装饰器</li>
+</ul>
+<p>使用类来实现装饰器</p>
+<ul>
+<li>只要是可调用的对象，都可以用作装饰器</li>
+<li>实现了<strong>call</strong>方法的类实例可调用</li>
+<li>基于类的装饰器分为两种：“函数替换”与“实例替换”</li>
+<li>“函数替换”装饰器与普通装饰器没什么区别，只是嵌套层级更少</li>
+<li>通过类来实现“实例替换”装饰器，在管理状态和追加行为上有天然的优势</li>
+<li>混合使用类和函数来实现装饰器，可以灵活满足各种场景</li>
+</ul>
+<p>使用wrapt模块</p>
+<ul>
+<li>使用wrapt模块可以方便地让装饰器同时兼容函数和类方法</li>
+<li>使用wrapt模块可以帮你写出结构更扁平的装饰器代码</li>
+</ul>
+<p>装饰器设计技巧</p>
+<ul>
+<li>装饰器将包装调用提前到了函数被定义的位置，它的大部分优点也源于此</li>
+<li>在编写装饰器时，请考虑你的设计是否能很好发挥装饰器的优势</li>
+<li>在某些场景下，类装饰器可以替代元类，并且代码更简单</li>
+<li>装饰器和装饰器模式截然不同，不要弄混它们</li>
+<li>装饰器里应该只有一层浅浅的包装代码，要把核心逻辑放在其他函数与类中</li>
+</ul>
+<h2 id="附录1-内置语法特性"><a href="#附录1-内置语法特性" class="headerlink" title="附录1-内置语法特性"></a>附录1-内置语法特性</h2><ul>
+<li><p><code>locals()</code> - 返回当前作用域内的所有局部变量</p>
+</li>
+<li><p>Python 的浮点数是使用符合 IEEE-754 规范的双精度，使用 53 个比特精度来表示十进制浮点数</p>
+</li>
+<li><p><code>str.partition(sep)</code> - 从左往右查找第一个 sep 出现的位置，返回一个三元组，包含分割前的字符串、sep、分割后的字符串</p>
+</li>
+<li><p><code>str.translate(table)</code> - 使用 table 中的映射关系来替换字符串中的字符</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">'明明是中文,却使用了英文标点.'</span></span><br><span class="line"><span class="comment"># 创建替换规则表：',' -&gt; '，', '.' -&gt; '。'</span></span><br><span class="line">table = s.maketrans(<span class="string">',.'</span>, <span class="string">'，。'</span>)</span><br><span class="line">s.translate(table)</span><br><span class="line"><span class="comment"># '明明是中文，却使用了英文标点。'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>enmuerate(iterable, start=0)</code> - 返回一个枚举对象，包含每个元素的索引值与元素值</p>
+<ul>
+<li><code>start</code> - 索引起始值，默认为0</li>
+</ul>
+</li>
+<li><p><code>frozenset</code> - 不可变集合，不支持添加、删除操作，比起 set 没有以下方法</p>
+<ul>
+<li><code>add</code></li>
+<li><code>clear</code></li>
+<li><code>discard</code></li>
+<li><code>pop</code></li>
+<li><code>remove</code></li>
+<li><code>update</code></li>
+<li><code>|=</code> / <code>&amp;=</code> / <code>-=</code> / <code>^=</code></li>
+</ul>
+</li>
+<li><p><code>if</code> 语句后直接放自定义类型，会优先查找 <code>__bool__</code> 的定义，如果没有再查找 <code>__len__</code> 的定义，如果都没有，会返回 True</p>
+</li>
+<li><p>Python 中 <code>True</code> / <code>False</code> / <code>None</code> 是严格以单例模式实现的，可以使用 <code>is</code> 来判断两个变量是否指向同一个对象</p>
+</li>
+<li><p><code>all(iterable)</code> - 仅当iterable中所有成员的布尔值都为真时返回True，否则返回False</p>
+</li>
+<li><p><code>any(iterable)</code> - 只要iterable中任何一个成员的布尔值为真就返回True，否则返回False</p>
+</li>
+<li><p><code>with</code> 语句会在代码块执行前调用 <code>__enter__</code> 方法，执行后调用 <code>__exit__</code> 方法，使用 with 语句的对象必须实现这两个方法，这两个方法都可以返回一个值，如果 <code>__exit__</code> 返回 True，异常会被忽略，否则异常会被重新抛出</p>
+<ul>
+<li><code>__exit__</code> 接受三个参数，exc_type / exc_val / exc_tb，分别表示异常类型、异常对象、异常堆栈信息</li>
+<li><code>__exit__</code> 返回 True 时，异常会被忽略，返回 False 时，异常会被重新抛出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ignore_close</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, exc_type, exc_val, exc_tb)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> exc_type == CloseError:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当你使用 <code>for</code> 循环遍历某个可迭代对象时，其实是先调用了 <code>iter()</code> 拿到它的迭代器，然后不断地用 <code>next()</code> 从迭代器中获取值</p>
+</li>
+<li><p>如果一个类型没有定义 <code>__iter__</code> ，但是定义了 <code>__getitem__</code> 方法，那么 Python 也会认为它是可迭代的。在遍历它时，解释器会不断使用数字索引值(0, 1, 2, …)来调用 <code>__getitem__</code> 方法获得返回值，直到抛出 <code>IndexError</code> 为止。</p>
+</li>
+</ul>
+<h2 id="附录2-内置库功能"><a href="#附录2-内置库功能" class="headerlink" title="附录2-内置库功能"></a>附录2-内置库功能</h2><ul>
+<li><p><code>timeit.timeit(setup, setup, timer, number)</code> - 测试代码执行时间</p>
+<ul>
+<li><code>stmt</code> - 这将采用您要测量其执行时间的代码。默认值为 <code>pass</code></li>
+<li><code>setup</code> - 这将包含需要在stmt之前执行的设置详细信息。默认值为 <code>pass</code></li>
+<li><code>timer</code> - 它将具有计时器值，<code>timeit()</code> 已经设置了默认值，我们可以忽略它</li>
+<li><code>number</code> - <code>stmt</code> 将按照此处给出的编号执行多少次。默认值为1000000</li>
+</ul>
+</li>
+<li><p><code>textwrap.dedent(text)</code> - dedent方法会删除整段字符串左侧的空白缩进。使整段代码的缩进视觉效果保持正常</p>
+</li>
+<li><p><code>collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)</code> - 创建一个具名元组子类</p>
+<ul>
+<li><code>typename</code> - 元组名称</li>
+<li><code>field_names</code> - 元组字段名称，可以是字符串列表、空格分隔的字符串、逗号分割的字符串</li>
+<li><code>rename</code> - 如果字段名称中有 Python 关键字，需要设置为 <code>True</code>，默认为 <code>False</code></li>
+<li><code>defaults</code> - 字段的默认值，可以是一个列表或者是一个字典</li>
+<li><code>module</code> - 指定元组所在的模块名称</li>
+</ul>
+</li>
+<li><p><code>bisect.bisect(a, x)</code> - 在有序序列 a 中查找 x 的插入位置，返回插入位置的索引值</p>
+</li>
+<li><p><code>bisect.insort(a, x)</code> - 在有序序列 a 中插入 x，返回插入位置的索引值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bisect <span class="keyword">import</span> bisect, insort</span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">20</span>]</span><br><span class="line">bisect(a, <span class="number">7</span>)  <span class="comment"># 3</span></span><br><span class="line">insort(a, <span class="number">7</span>)  <span class="comment"># [1, 4, 6, 7, 8, 12, 15, 20]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>itertools.product(*iterables, repeat=1)</code> - 接受多个可迭代对象，返回计算笛卡尔积</p>
+</li>
+<li><p><code>itertools.islice(iterable, start, stop[, step])</code> - 返回一个迭代器，从 <code>start</code> 开始，到 <code>stop</code> 结束，步长为 <code>step</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python中时间操作</title>
     <url>/2021/python_datetime/</url>
     <content><![CDATA[<blockquote>
@@ -3527,7 +4091,7 @@
       </tags>
   </entry>
   <entry>
-    <title>float 的存储结构</title>
+    <title>Float 的存储结构</title>
     <url>/2023/python_float/</url>
     <content><![CDATA[<h2 id="问题导入"><a href="#问题导入" class="headerlink" title="问题导入"></a>问题导入</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">In [1]: 0.1 + 0.2</span><br><span class="line">Out[1]: 0.30000000000000004</span><br><span class="line"></span><br><span class="line">In [2]: 0.3 + 0.2</span><br><span class="line">Out[2]: 0.5</span><br></pre></td></tr></table></figure>
 
