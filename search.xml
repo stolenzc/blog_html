@@ -3008,7 +3008,7 @@
 <li>翻译日期：2023-11-11</li>
 <li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
 </ul>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一个为 Python 的函数<a href="可调用对象"><a href="#1">1</a></a>添加任意元数据注解的语法</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>该 PEP 引入了一个为 Python 的函数 [<a href="#1">1</a>] (可调用对象)添加任意元数据注解的语法</p>
 <h2 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h2><p>由于 Python 2.x 缺少一个对函数参数和返回值注解的标准语法，各种工具或库的出现填补了这一空白，有些利用了 <a href="https://peps.python.org/pep-0318/" target="_blank" rel="noopener">PEP 318</a> 中引入的装饰器，还有一些则通过解析函数的文档注释，寻找其中的注释来实现。</p>
 <p>本 PEP 的目的是为这些信息提供一个唯一、标准的方法，减少由于机制和语法的巨大差异而造成的困惑</p>
 <h2 id="函数注释基础"><a href="#函数注释基础" class="headerlink" title="函数注释基础"></a>函数注释基础</h2><p>在开始讨论 Python3.0 函数注解的确切来龙去脉之前，我们先从管以上谈谈什么是注解，什么不是注解：</p>
@@ -3081,7 +3081,7 @@
 </ul>
 <h2 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a>标准库</h2><h3 id="pydoc-和-inspect"><a href="#pydoc-和-inspect" class="headerlink" title="pydoc 和 inspect"></a>pydoc 和 inspect</h3><p><code>pydoc</code> 模块应该在显示函数帮助的时候同时显示函数的注解</p>
 <p><code>inspect</code> 模块应该进行修改来支持注解</p>
-<h2 id="关联的其他-PEP"><a href="#关联的其他-PEP" class="headerlink" title="关联的其他 PEP"></a>关联的其他 PEP</h2><h2 id="函数签名对象-PEP-362"><a href="#函数签名对象-PEP-362" class="headerlink" title="函数签名对象(PEP 362)"></a>函数签名对象(PEP 362)</h2><p>函数签名对象应该展示函数的注解，<code>Parameter</code> 对象可能需要更改或者其他的更改来保证该展示</p>
+<h2 id="关联的其他-PEP"><a href="#关联的其他-PEP" class="headerlink" title="关联的其他 PEP"></a>关联的其他 PEP</h2><h3 id="函数签名对象-PEP-362"><a href="#函数签名对象-PEP-362" class="headerlink" title="函数签名对象(PEP 362)"></a>函数签名对象(PEP 362)</h3><p>函数签名对象应该展示函数的注解，<code>Parameter</code> 对象可能需要更改或者其他的更改来保证该展示</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>参考实现已经在 py3k (前身为 p3yk) 修改分支 53130 [<a href="#10">10</a>] 中完成</p>
 <h2 id="被拒绝的提案"><a href="#被拒绝的提案" class="headerlink" title="被拒绝的提案"></a>被拒绝的提案</h2><ul>
 <li>BDFL(译者注: 指被称为 Python 独裁者的 Guido Van Rossum) 以 “太难看了” 拒绝了作者关于为生成器添加注解的特殊语法的想法[<a href="#2">2</a>]</li>
