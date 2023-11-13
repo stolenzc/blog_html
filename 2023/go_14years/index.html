@@ -18,20 +18,21 @@
     var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Python3.6 新特性">
+  <meta name="description" content="Fourteen Years of Go 翻译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python3.6 新特性">
-<meta property="og:url" content="https://blog.stolenzc.com/2022/python_3_6_feature/index.html">
+<meta property="og:title" content="Go 的 14 岁">
+<meta property="og:url" content="https://blog.stolenzc.com/2023/go_14years/index.html">
 <meta property="og:site_name" content="stolen&#39;s blog">
-<meta property="og:description" content="Python3.6 新特性">
+<meta property="og:description" content="Fourteen Years of Go 翻译">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-18T00:48:39.000Z">
+<meta property="article:published_time" content="2023-11-13T05:28:22.000Z">
 <meta property="article:modified_time" content="2023-11-13T05:49:46.166Z">
 <meta property="article:author" content="stolen">
-<meta property="article:tag" content="Feature">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="翻译">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.stolenzc.com/2022/python_3_6_feature/">
+<link rel="canonical" href="https://blog.stolenzc.com/2023/go_14years/">
 
 
 <script id="page-configurations">
@@ -44,7 +45,7 @@
   };
 </script>
 
-  <title>Python3.6 新特性 | stolen's blog</title>
+  <title>Go 的 14 岁 | stolen's blog</title>
   
 
 
@@ -193,7 +194,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2022/python_3_6_feature/">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/go_14years/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -206,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Python3.6 新特性
+          Go 的 14 岁
         </h1>
 
         <div class="post-meta">
@@ -216,7 +217,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-09-18 08:48:39" itemprop="dateCreated datePublished" datetime="2022-09-18T08:48:39+08:00">2022-09-18</time>
+              <time title="创建时间：2023-11-13 13:28:22" itemprop="dateCreated datePublished" datetime="2023-11-13T13:28:22+08:00">2023-11-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +225,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
                 </span>
             </span>
 
@@ -242,9 +243,9 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>2.1k</span>
             </span>
-            <div class="post-description">Python3.6 新特性</div>
+            <div class="post-description">Fourteen Years of Go 翻译</div>
 
         </div>
       </header>
@@ -255,65 +256,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能</p>
-<p>官方新特性链接 <a href="https://docs.python.org/zh-cn/3.6/whatsnew/3.6.html" target="_blank" rel="noopener">Python3.6 新特性</a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>此处主要介绍在Ubuntu下安装 Python3.6</p>
-<ol>
-<li>添加deadsnakes源<ul>
-<li><code>sudo add-apt-repository ppa:deadsnakes/ppa</code></li>
-<li><code>sudo apt-get update</code></li>
+        <h2 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h2><ul>
+<li>发布时间：2023-11-10</li>
+<li>原文链接：<a href="https://go.dev/blog/14years" target="_blank" rel="noopener">https://go.dev/blog/14years</a></li>
+<li>翻译日期：2023-11-13</li>
+<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
 </ul>
-</li>
-<li>安装 Python3.6<ul>
-<li><code>sudo apt install python3.6-full</code></li>
-</ul>
-</li>
-<li>安装 Python3.6 的pip<ul>
-<li><code>python3.6 -m ensurepip --upgrade</code></li>
-</ul>
-</li>
-</ol>
-<h2 id="f-string"><a href="#f-string" class="headerlink" title="f-string"></a>f-string</h2><p>Python3.6 引入了一种 <code>f-string</code> 的方式来格式化字符串</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"Fred"</span></span><br><span class="line"><span class="string">f"He said his name is <span class="subst">&#123;name&#125;</span>."</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># He said his name is Fred.</span></span><br><span class="line"></span><br><span class="line">width = <span class="number">10</span></span><br><span class="line">precision = <span class="number">4</span></span><br><span class="line">value = <span class="number">12.34567</span></span><br><span class="line"><span class="string">f"result: <span class="subst">&#123;value:&#123;width&#125;</span>.<span class="subst">&#123;precision&#125;</span>&#125;"</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># result:      12.35</span></span><br><span class="line"><span class="comment"># 备注：小数点也占10位中的一个字符宽度</span></span><br></pre></td></tr></table></figure>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>今天我们庆祝 Go 开源代码发布已经 14 年了，Go 通过两个功能齐全和其他重要的里程碑发布度过了这美好的一年</p>
+<p>我们在一月发布了 <a href="https://go.dev/blog/go1.20" target="_blank" rel="noopener">Go 1.20</a> 并且在八月发布了 <a href="https://go.dev/blog/go1.21" target="_blank" rel="noopener">Go 1.21</a>。更多的关注了增强实现而不是语言的改进。</p>
+<p>配置文件引导 (PGO) 在 <a href="https://go.dev/blog/pgo-preview" target="_blank" rel="noopener">Go 1.20 预览版</a> 中发布并在 <a href="https://go.dev/blog/pgo" target="_blank" rel="noopener">Go 1.21 正式版</a> 发布了。允许 Go 编译器读取项目中的配置文件并且花更多的时间优化代码中最常运行的部分。在 Go 1.21 中，启用了 PGO 通常能够提升 2%-7% 的 CPU 工作负载。参阅 “<a href="https://go.dev/blog/pgo" target="_blank" rel="noopener">Profile-guided optimization in Go 1.21</a>” 查看概览和 “<a href="https://go.dev/doc/pgo" target="_blank" rel="noopener">profile-guided optimization user guide</a>” 查看详细文档</p>
+<p>从 <a href="https://go.dev/blog/cover" target="_blank" rel="noopener">Go 1.2</a> 开始就提供了支持在测试过程中收集覆盖率的配置文件。在 Go 1.20 添加了在 go build 构建二进制文件中收集测试覆盖率的支持，允许你能够更方便的在大型集成测试中收集覆盖率。参阅 “<a href="https://go.dev/blog/integration-test-coverage" target="_blank" rel="noopener">Code coverage for Go integration tests</a>”</p>
+<p>从 <a href="https://go.dev/doc/go1compat" target="_blank" rel="noopener">Go 1 和未来的 Go 程序</a> 开始，兼容性就是非常重要的一部分。Go 通过扩展我们需要更改的情况下使用 GODEBUG 的使用规则，进一步提高了兼容性，例如必须修改但可能破坏现有程序的重要 bug 修复。参阅 “<a href="https://go.dev/blog/compat" target="_blank" rel="noopener">Backward Compatibility, Go 1.21, and Go 2</a>” 查看概览和 “<a href="https://go.dev/doc/godebug" target="_blank" rel="noopener">Go, Backwards Compatibility, and GODEBUG</a>” 查看详细文档</p>
+<p>Go 1.21 还提供了对内置工具链管理的支持，允许你像更改其他依赖项版本一样容易的修改特定模块中使用的 Go 工具链版本。参阅博客 “<a href="https://go.dev/blog/toolchain" target="_blank" rel="noopener">Forward Compatibility and Toolchain Management in Go 1.21</a>” 查看概览和文档 “<a href="https://go.dev/doc/toolchain" target="_blank" rel="noopener">Go Toolchains</a>” 查看详细文档</p>
+<p>另一个重要工具的实现是将磁盘索引集成到了 Go 的 LSP 服务 gopls 中。在典型的例子中，gopls 的启动等待和内存占用减少了 3-5 倍。“<a href="https://go.dev/blog/gopls-scalability" target="_blank" rel="noopener">Scaling gopls for the growing Go ecosystem</a>” 解释了技术细节。你应该通过运行以下命令来确保你正在使用最新的 gopls：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install golang.org/x/tools/gopls@latest</span><br></pre></td></tr></table></figure>
 
-<h2 id="变量注释的语法"><a href="#变量注释的语法" class="headerlink" title="变量注释的语法"></a>变量注释的语法</h2><p>在 Python3.5 中，引入了类型标注 <code>Type Hint</code> ，在 Python3.6 中又加入了函数参数的标注，包括实参和行参的标注</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> List,Dict</span><br><span class="line"></span><br><span class="line">primes: List[int] = []</span><br><span class="line"></span><br><span class="line">captain: str  <span class="comment"># 仅做类型标注，不初始化值</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    stats: Dict[str, int] = &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="数字文字中的下划线"><a href="#数字文字中的下划线" class="headerlink" title="数字文字中的下划线"></a>数字文字中的下划线</h2><p>Python3.6 中在数字值之间使用下划线改善可读性</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">1</span>_000_000_000_000_000</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：</p>
-<ul>
-<li>单个下划线允许用在数码之间和任何数制指示符之后</li>
-<li>不可以两个下划线连在一起</li>
-<li>字符串格式化可以用 <code>_</code> 或 <code>_d</code> 来用下划线表示千分位分隔符<ul>
-<li><code>f&#39;{100000000:_}&#39;</code> 输出: <code>100_000_000</code></li>
-<li><code>f&#39;{100000000:_d}&#39;</code> 输出: <code>100_000_000</code></li>
-</ul>
-</li>
-<li><code>_b</code> 、 <code>_o</code> 、 <code>_x</code> 可以让数字以二进制、八进制、十进制、十六进制每隔4个数码分割<ul>
-<li><code>f&#39;{100000000:_x}&#39;</code> 输出: <code>5f5_e100</code></li>
-<li><code>f&#39;{128:_b}&#39;</code> 输出: <code>1000_0000</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="secrets-生成安全随机数字"><a href="#secrets-生成安全随机数字" class="headerlink" title="secrets 生成安全随机数字"></a>secrets 生成安全随机数字</h2><p>Python3.6 中新增的 <code>secrets</code> 模块的主要目的是提供一种简单的方法来可靠地生成适用于管理秘密的加密强伪随机值，例如帐户身份验证、令牌等。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br><span class="line">secrets.token_bytes(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># b'\x12Z\xebb\xa0\xab\xca\xc3W\xbe\xfdCFr\x86\xcd'</span></span><br><span class="line"></span><br><span class="line">secrets.token_hex(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># a890afe1433b3044e1316fd7aa23787f</span></span><br></pre></td></tr></table></figure>
-
-<p>在 Python3.6 以下的版本则推荐使用 <code>os.urandom()</code></p>
-<h2 id="异步生成器"><a href="#异步生成器" class="headerlink" title="异步生成器"></a>异步生成器</h2><p>在 Python3.5 中引入了 <code>async</code> 和 <code>await</code> ，但是在 Python3.5 中无法在一个函数中同时使用 <code>await</code> 和 <code>yield</code> ，在 Python3.6 解决了这个问题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">ticker</span><span class="params">(delay, to)</span>:</span></span><br><span class="line">    <span class="string">"""Yield numbers from 0 to *to* every *delay* seconds."""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(to):</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(delay)</span><br></pre></td></tr></table></figure>
-
-<h2 id="异步推导"><a href="#异步推导" class="headerlink" title="异步推导"></a>异步推导</h2><p>添加了对在列表、集合与字典推导式和生成器表达式中使用 async for 的支持</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = [i <span class="keyword">async</span> <span class="keyword">for</span> i <span class="keyword">in</span> aiter() <span class="keyword">if</span> i % <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
-
-<p><code>await</code> 表达式也在所有种类的推导式中得到支持</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = [<span class="keyword">await</span> fun() <span class="keyword">for</span> fun <span class="keyword">in</span> funcs <span class="keyword">if</span> <span class="keyword">await</span> condition()]</span><br></pre></td></tr></table></figure>
-
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>将 Windows 文件系统编码和控制台编码都更改为 UTF-8</li>
-<li>重新实现了字典 dict，使其内存使用减少了 20%-25%</li>
-</ul>
+<p>Go 1.21 引入了新的 <a href="https://go.dev/pkg/cmp/" target="_blank" rel="noopener">cmp</a> 、 <a href="https://go.dev/pkg/maps/" target="_blank" rel="noopener">maps</a> 和 <a href="https://go.dev/pkg/slices/" target="_blank" rel="noopener">slices</a> 包 - Go 的第一个通用标准库 - 以及扩展了可比较类型的集合。有关详细信息，请参阅博客 “<a href="https://go.dev/blog/comparable" target="_blank" rel="noopener">All your comparable types</a>”。</p>
+<p>总而言之，我们持续的完善泛型并进行演讲和博客文章来解释重要的细节。今年两篇值得注意的文章是 “<a href="https://go.dev/blog/deconstructing-type-parameters" target="_blank" rel="noopener">Deconstructing Type Parameters</a>” 和 “<a href="https://go.dev/pkg/log/slog/" target="_blank" rel="noopener">Everything You Always Wanted to Know About Type Inference – And a Little Bit More</a>”。</p>
+<p>Go 1.21 中另一个重要的新包是 <code>[log/slog](https://go.dev/pkg/log/slog/)</code> ，它为标准库添加了结构化日志的官方 API。有关概述参阅 “<a href="https://go.dev/blog/slog" target="_blank" rel="noopener">Structured logging with slog</a>”。</p>
+<p>对于 WebAssembly (Wasm) 端口，Go 1.21 发布了对 WebAssembly 系统接口 (WASI) 预览版 1 的支持。WASI 预览版 1 是 Wasm 的新的“操作系统”接口，被大多数服务器端 Wasm 环境支持。参阅 “<a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">WASI support in Go</a>” 查看演示。</p>
+<p>在安全方面，我们继续确保 Go 在帮助开发者理解依赖项和漏洞方面处于领先地位， <a href="https://go.dev/blog/govulncheck" target="_blank" rel="noopener">Govulncheck 1.0 在七月发布</a> 。如果你使用 VS Code，你可以直接在编辑器中使用 Go 扩展运行 govulncheck：参阅 <a href="https://go.dev/doc/tutorial/govulncheck-ide" target="_blank" rel="noopener">本教程</a> 开始。如果你使用 GitHub，你可以在 CI/CD 中使用 govulncheck，使用 <a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">GitHub Action for govulncheck</a> 。有关检查依赖项漏洞问题的更多信息，请参阅今年的 Google I/O 演讲 “<a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">Build more secure apps with Go and Google</a>”。</p>
+<p>另一个重要的安全里程碑是 Go 1.21 高度重视可重现工具链。参阅 “<a href="https://go.dev/blog/rebuild" target="_blank" rel="noopener">Perfectly Reproducible, Verified Go Toolchains</a>” 查看详细信息，包括在 Mac 上不使用任何 Linux 工具就能够复现 Ubuntu Linux Go 工具链的演示。</p>
+<p>这真是忙碌的一年呀！</p>
+<p>在 Go 的第 15 年，我们仍将继续努力使 Go 成为最好的软件工程环境。我们特别兴奋的一件事是重新定义 for 循环的 := 语义以消除意外的别名 bug。参阅 “<a href="https://go.dev/blog/loopvar-preview" target="_blank" rel="noopener">Fixing For Loops in Go 1.22</a>” 查看详细信息，包括在 Go 1.21 中预览此更改的说明。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>Go 项目能够一直前进不仅仅是靠 Google 公司的 Go 团队，感谢所有做过贡献的人和社区中讨论的每一个你，是你们让 Go 变成了今天的样子。祝你们新的一年一切顺利。</p>
 
     </div>
 
@@ -333,7 +299,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Feature/" rel="tag"># Feature</a>
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
           </div>
 
         
@@ -341,13 +308,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/python_3_7_feature/" rel="prev" title="Python3.7 新特性">
-      <i class="fa fa-chevron-left"></i> Python3.7 新特性
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/hugo/" rel="next" title="Hugo博客搭建">
-      Hugo博客搭建 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/pep-3107/" rel="next" title="PEP 3107 -- 函数注解">
+      PEP 3107 -- 函数注解 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -407,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#f-string"><span class="nav-number">3.</span> <span class="nav-text">f-string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量注释的语法"><span class="nav-number">4.</span> <span class="nav-text">变量注释的语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字文字中的下划线"><span class="nav-number">5.</span> <span class="nav-text">数字文字中的下划线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#secrets-生成安全随机数字"><span class="nav-number">6.</span> <span class="nav-text">secrets 生成安全随机数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步生成器"><span class="nav-number">7.</span> <span class="nav-text">异步生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步推导"><span class="nav-number">8.</span> <span class="nav-text">异步推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">9.</span> <span class="nav-text">其他</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#meta"><span class="nav-number">1.</span> <span class="nav-text">meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-number">3.</span> <span class="nav-text">致谢</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
