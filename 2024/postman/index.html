@@ -26,7 +26,7 @@
 <meta property="og:description" content="Postman 的脚本简介">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T06:45:53.000Z">
-<meta property="article:modified_time" content="2024-03-02T06:50:51.523Z">
+<meta property="article:modified_time" content="2024-03-02T06:52:50.163Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="Postman">
 <meta name="twitter:card" content="summary">
@@ -273,7 +273,9 @@
 <h2 id="环境变量的使用"><a href="#环境变量的使用" class="headerlink" title="环境变量的使用"></a>环境变量的使用</h2><p>环境变量的使用非常简单。只需要在请求的 URL 或者请求的参数中使用 <code></code> 的方式引用环境变量即可。例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">'&#123;&#123;local_ip&#125;&#125;/login'</span> \</span><br><span class="line">--header <span class="string">'sign: &#123;&#123;sign&#125;&#125;'</span> \</span><br><span class="line">--header <span class="string">'Content-Type: application/json'</span> \</span><br><span class="line">--data <span class="string">'&#123;</span></span><br><span class="line"><span class="string">    "user_name": "&#123;&#123;user_name&#125;&#125;",</span></span><br><span class="line"><span class="string">    "password": "&#123;&#123;password&#125;&#125;"</span></span><br><span class="line"><span class="string">&#125;'</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="内置变量和动态变量"><a href="#内置变量和动态变量" class="headerlink" title="内置变量和动态变量"></a>内置变量和动态变量</h2><p>Postman 中有一些内置的变量，使用方法和环境变量类似，但需要在变量前加 <code>$</code> 符号，形如 <code></code>。</p>
+<h2 id="内置变量和动态变量"><a href="#内置变量和动态变量" class="headerlink" title="内置变量和动态变量"></a>内置变量和动态变量</h2><p>Postman 中有一些内置的变量，使用方法和环境变量类似，但需要在变量前加 <code>$</code> 符号，形如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;$variable&#125;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>完整的内置变量列表可以参考 <a href="https://learning.postman.com/docs/writing-scripts/script-references/variables-list/" target="_blank" rel="noopener">官方文档</a>，以下列出一些常用的内置变量：</p>
 <table>
 <thead>
