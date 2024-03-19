@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="记录一次 Python Log 的问题排查过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Log 的问题排查">
+<meta property="og:url" content="https://blog.stolenzc.com/2024/python_log_issue/index.html">
+<meta property="og:site_name" content="stolen&#39;s blog">
+<meta property="og:description" content="记录一次 Python Log 的问题排查过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-18T14:45:53.000Z">
+<meta property="article:modified_time" content="2024-03-19T05:39:23.830Z">
+<meta property="article:author" content="stolen">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.stolenzc.com/2024/python_log_issue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python Log 的问题排查 | stolen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">stolen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2024/python_log_issue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Log 的问题排查
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-18 22:45:53" itemprop="dateCreated datePublished" datetime="2024-03-18T22:45:53+08:00">2024-03-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" itemprop="url" rel="index"><span itemprop="name">问题排查</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          <!--<br>-->
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.4k</span>
+            </span>
+            <div class="post-description">记录一次 Python Log 的问题排查过程</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>近期在对其他同事进行维护的一个由 aiohttp 作为 web server 的 web 后端项目做相关优化的时候，发现了一个现象，项目中配置了 log ，但是该项目中除了将 log 输出到日志文件中外，所有的 API 请求都还会在控制台输出一条信息。但几乎进行相同配置的另一个项目则不会出现这个情况。出于技术的好奇决定一探究竟。</p>
+<h2 id="复现代码"><a href="#复现代码" class="headerlink" title="复现代码"></a>复现代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> logging <span class="keyword">import</span> Formatter</span><br><span class="line"><span class="keyword">from</span> logging.handlers <span class="keyword">import</span> RotatingFileHandler</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_logger</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 配置日志</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">"app_log"</span>)</span><br><span class="line">    logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">    file_handler = RotatingFileHandler(filename=<span class="string">'app_log.log'</span>)</span><br><span class="line">    formatter = Formatter(<span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    file_handler.setFormatter(formatter)</span><br><span class="line">    file_handler.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">    logger.addHandler(file_handler)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">config_server</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># web 服务的其他配置</span></span><br><span class="line">    logging.info(<span class="string">"数据库或其他 web 服务相关的配置"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(request: web.Request)</span> -&gt; web.Response:</span></span><br><span class="line">    <span class="comment"># 模拟的一个请求处理函数，代码来自 aiohttp 的官方文档</span></span><br><span class="line">    name = request.match_info.get(<span class="string">'name'</span>, <span class="string">"Anonymous"</span>)</span><br><span class="line">    text = <span class="string">"Hello, "</span> + name</span><br><span class="line">    <span class="keyword">return</span> web.Response(text=text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = web.Application()</span><br><span class="line">app.add_routes([web.get(<span class="string">'/'</span>, handle), web.get(<span class="string">'/&#123;name&#125;'</span>, handle)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">"app_log"</span>)</span><br><span class="line">    setup_logger()</span><br><span class="line">    config_server()</span><br><span class="line">    web.run_app(app, host=<span class="string">"0.0.0.0"</span>, port=<span class="number">8000</span>, access_log=logger)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>运行上述代码，然后再访问 <code>http://localhost:8000</code></p>
+<p>控制台会输出类似如下的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; python script.py</span><br><span class="line">======== Running on http://0.0.0.0:8000 ========</span><br><span class="line">(Press CTRL+C to quit)</span><br><span class="line">INFO:app_log:127.0.0.1 [13/Mar/2024:15:40:54 +0000] <span class="string">"GET / HTTP/1.1"</span> 200 167 <span class="string">"-"</span> <span class="string">"PostmanRuntime/7.36.3"</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，项目目录下会生成一个 <code>app_log.log</code> 文件，里面会有类似如下的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2024-03-13 23:40:54,815 - INFO - 127.0.0.1 [13&#x2F;Mar&#x2F;2024:15:40:54 +0000] &quot;GET &#x2F; HTTP&#x2F;1.1&quot; 200 167 &quot;-&quot; &quot;PostmanRuntime&#x2F;7.36.3&quot;</span><br></pre></td></tr></table></figure>
+
+<p>我们所预期的是只有 <code>app_log.log</code> 文件中的信息，但是控制台中也会输出一条信息。</p>
+<h2 id="排查踩坑"><a href="#排查踩坑" class="headerlink" title="排查踩坑"></a>排查踩坑</h2><p>首先是对两个表现不同的项目的 setup_logger 代码进行了对比，抛去变量的名称，其余配置都是一模一样。那就排除了配置的差异导致的问题</p>
+<p>然后进行了项目依赖的对比，存在一些依赖的差异和版本的区别，但两个项目中都不涉及到 log 相关的依赖，所有的 log 都是使用的 Python 内置的 logging 模块。并且也尝试了交换环境来运行项目。但现象依然是一样的。</p>
+<p>这些排查步骤都为能发现原因。没有办法，只能通过对比运行时来了解差别了。</p>
+<h2 id="运行时-aiohttp-代码分析"><a href="#运行时-aiohttp-代码分析" class="headerlink" title="运行时 aiohttp 代码分析"></a>运行时 aiohttp 代码分析</h2><p>注意：一下原码分析过程基于 <code>aiohttp==3.6.2</code> 版本的 <a href="https://github.com/aio-libs/aiohttp/tree/v3.6.2" target="_blank" rel="noopener">Tag 3.6.2</a> 进行分析的。可能与最新版本的代码有所不同。</p>
+<p>接下来就开始对代码启动 web_server 传入的 access_log 参数进行跟踪。在启动 web 服务后，通过</p>
+<p><code>run_app</code> -&gt; <code>_run_app</code> -&gt; <code>AppRunner._make_server</code> -&gt; <code>Application.make_handler</code> -&gt; <code>Application._make_handler</code> -&gt; <code>Server.__call__</code> -&gt; <code>RequestHandler</code></p>
+<p>会将 access_log 传入到 <a href="https://github.com/aio-libs/aiohttp/blob/6a5ab96bd9cb404b4abfd5160fe8f34a29d941e5/aiohttp/web_protocol.py#L69" target="_blank" rel="noopener"><code>RequestHandler</code></a> 类中，每次一个 API 请求会创建一个该类的实例</p>
+<p>该类的 <a href="https://github.com/aio-libs/aiohttp/blob/6a5ab96bd9cb404b4abfd5160fe8f34a29d941e5/aiohttp/web_protocol.py#L374" target="_blank" rel="noopener"><code>start</code></a> 就是每次请求进入的处理函数</p>
+<p>查看 <code>start</code> 函数的逻辑或者搜索传入该类的 <code>access_log</code> 可以知道是由 <a href="https://github.com/aio-libs/aiohttp/blob/6a5ab96bd9cb404b4abfd5160fe8f34a29d941e5/aiohttp/web_protocol.py#L343" target="_blank" rel="noopener"><code>log_access</code></a> 函数来对每次请求进行日志处理处理的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意：一下代码非原始代码，为了方便理解，做了一些简化，仅保留关键部分</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RequestHandler</span><span class="params">(BaseProtocol)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, </span></span></span><br><span class="line"><span class="function"><span class="params">                 access_log_class: Type[AbstractAccessLogger]=AccessLogger,</span></span></span><br><span class="line"><span class="function"><span class="params">                 access_log: Logger=access_logger,</span></span></span><br><span class="line"><span class="function"><span class="params">                 access_log_format: str=AccessLogger.LOG_FORMAT,)</span>:</span></span><br><span class="line">        self.access_log = access_log</span><br><span class="line">        <span class="keyword">if</span> access_log:</span><br><span class="line">            self.access_logger = access_log_class(</span><br><span class="line">                access_log, access_log_format)  <span class="comment"># type: Optional[AbstractAccessLogger]  # noqa</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.access_logger = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">log_access</span><span class="params">(self,</span></span></span><br><span class="line"><span class="function"><span class="params">                   request: BaseRequest,</span></span></span><br><span class="line"><span class="function"><span class="params">                   response: StreamResponse,</span></span></span><br><span class="line"><span class="function"><span class="params">                   time: float)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.access_logger <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            self.access_logger.log(request, response, time)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> self._force_close:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># log access</span></span><br><span class="line">                <span class="keyword">if</span> self.access_log:</span><br><span class="line">                    self.log_access(request, resp, loop.time() - now)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                ...</span><br></pre></td></tr></table></figure>
+
+<p>同时，我们又看到 <code>log_access</code> 函数中的 <code>self.access_logger</code> 是在 <code>__init__</code> 函数中使用 <code>access_log_class</code> 创建的，<code>access_log_class</code> 的值可以传入或使用默认值。向前回溯我们并未传入该参数。所以此处是默认值在起作用。再进入 <a href="https://github.com/aio-libs/aiohttp/blob/6a5ab96bd9cb404b4abfd5160fe8f34a29d941e5/aiohttp/web_log.py#L213" target="_blank" rel="noopener"><code>AccessLogger.log</code></a> 函数中。可以看到该函数就是在生成日志的地方，默认情况下，会使用下述格式进行日志的生成</p>
+<p><code>&lt;remote_address&gt; &lt;request_start_time&gt; &quot;&lt;first_request_line&gt;&quot; &lt;response_status&gt; &lt;response_size&gt; &quot;&lt;request_header:referer&gt;&quot; &quot;&lt;request_header:user_agent&gt;&quot;</code></p>
+<p>例如：</p>
+<p><code>127.0.0.1 [18/Mar/2024:15:22:08 +0000] &quot;GET / HTTP/1.1&quot; 200 167 &quot;-&quot; &quot;PostmanRuntime/7.37.0&quot;</code></p>
+<p>此时也能看到使用了 <code>self.logging.info</code> 来进行日志的输出。 <code>self.logging</code> 就是我们最开始传入的 <code>access_log</code> 。也就是我们自己写的代码中的 <code>logging.getLogger(&quot;app_log&quot;)</code> 返回的对象。</p>
+<h2 id="运行时-python-代码分析"><a href="#运行时-python-代码分析" class="headerlink" title="运行时 python 代码分析"></a>运行时 python 代码分析</h2><p>注意：以下代码基于 <a href="https://github.com/python/cpython/tree/3.7" target="_blank" rel="noopener"><code>python3.7</code></a> 版本的源码进行分析。其他版本可能会有所不同。</p>
+<p>首先，我们可以看到正常使用 <code>logging.info</code> 输出的日志实际上是创建了一个 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1822" target="_blank" rel="noopener"><code>root</code></a> 的 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1321" target="_blank" rel="noopener">Logger</a> 对象。该对象的 <code>name</code> 属性值为 <code>root</code> ，默认的 <code>level</code> 为 <code>WARNING</code> ， 默认的 <code>handlers</code> 为空。</p>
+<p>然后再关注 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1928" target="_blank" rel="noopener"><code>logging.getLogger</code></a> 函数，该函数实现如下，可以知道如果没有传入 <code>name</code> 参数，那么就会返回上文中提到的 <code>root</code> 对象。如果传入了 <code>name</code> 参数，那么就会返回 <code>Logger.manager.getLogger(name)</code> 的返回值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLogger</span><span class="params">(name=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> name:</span><br><span class="line">        <span class="keyword">return</span> Logger.manager.getLogger(name)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1824" target="_blank" rel="noopener"><code>Logger.manager</code></a> 是一个用 <code>Logger.root</code> 初始化的 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1200" target="_blank" rel="noopener"><code>Manager</code></a> 的实例对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Logger.manager = Manager(Logger.root)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, rootnode)</span>:</span></span><br><span class="line">        self.root = rootnode</span><br><span class="line">        self.loggerDict = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getLogger</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        rv = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(name, str):</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">'A logger name must be a string'</span>)</span><br><span class="line">        _acquireLock()  <span class="comment"># 该函数是一个线程锁</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> name <span class="keyword">in</span> self.loggerDict:</span><br><span class="line">                rv = self.loggerDict[name]</span><br><span class="line">                <span class="keyword">if</span> isinstance(rv, PlaceHolder):</span><br><span class="line">                    ph = rv</span><br><span class="line">                    rv = (self.loggerClass <span class="keyword">or</span> _loggerClass)(name)</span><br><span class="line">                    rv.manager = self</span><br><span class="line">                    self.loggerDict[name] = rv</span><br><span class="line">                    self._fixupChildren(ph, rv)</span><br><span class="line">                    self._fixupParents(rv)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 使用 Logger 类创建一个新的 Logger 对象，并将其加入到 loggerDict 中</span></span><br><span class="line">                rv = (self.loggerClass <span class="keyword">or</span> _loggerClass)(name)</span><br><span class="line">                rv.manager = self</span><br><span class="line">                self.loggerDict[name] = rv</span><br><span class="line">                self._fixupParents(rv)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            _releaseLock()</span><br><span class="line">        <span class="keyword">return</span> rv</span><br></pre></td></tr></table></figure>
+
+<p>查看上述代码可知， <code>Manager</code> 中存在一个 <code>loggerDict</code> 的字典用来管理所有的 <code>Logger</code> 对象。如果传入的 <code>name</code> 在 <code>loggerDict</code> 中存在，那么就会返回该 <code>Logger</code> 对象。如果不存在，那么就会创建一个新的 <code>Logger</code> 对象，并将其加入到 <code>loggerDict</code> 中。以此实现单例模式。</p>
+<p><code>_fixupParents</code> 的主要作用是解析其父节点，如果名称中携带有 <code>.</code> ，那么会创建一个 <code>PlaceHolder</code> 节点，如果前后文有使用该节点，那么会将其替换为真实的 <code>Logger</code> 节点。如果未使用，则该节点的父节点依然是 <code>root</code> 节点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">abcdefgh = logging.getLogger(<span class="string">"abc.def.gh"</span>)</span><br><span class="line"></span><br><span class="line">abcdef = logging.getLogger(<span class="string">"abc.def"</span>)</span><br><span class="line"></span><br><span class="line">abc = logging.getLogger(<span class="string">"abc"</span>)</span><br><span class="line"></span><br><span class="line">abcd = logging.getLogger(<span class="string">"ab.cd"</span>)</span><br><span class="line"></span><br><span class="line">print(abcdefgh, abcdefgh.parent)    <span class="comment"># &lt;Logger abc.def.gh (WARNING)&gt; &lt;Logger abc.def (WARNING)&gt;</span></span><br><span class="line">print(abcdef, abcdef.parent)        <span class="comment"># &lt;Logger abc.def (WARNING)&gt; &lt;Logger abc (WARNING)&gt;</span></span><br><span class="line">print(abc, abc.parent)              <span class="comment"># &lt;Logger abc (WARNING)&gt; &lt;Logger root (WARNING)&gt;</span></span><br><span class="line">print(abcd, abcd.parent, abcd.parent.parent)            <span class="comment"># &lt;Logger ab.cd (WARNING)&gt; &lt;Logger root (WARNING)&gt; None</span></span><br></pre></td></tr></table></figure>
+
+<p>到此，我们就了解了 <code>logging.getLogger</code> 函数的工作原理。接下来我们再看看 <code>logging.info</code> 函数的实现，跟踪定位发现 <code>logging.info</code> 最后的打印操作是在 <code>Logger</code> 对象中的 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1570" target="_blank" rel="noopener"><code>callHandlers</code></a> 函数中，该函数的实现如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callHandlers</span><span class="params">(self, record)</span>:</span></span><br><span class="line">    c = self</span><br><span class="line">    found = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> c:</span><br><span class="line">        <span class="keyword">for</span> hdlr <span class="keyword">in</span> c.handlers:</span><br><span class="line">            found = found + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> record.levelno &gt;= hdlr.level:</span><br><span class="line">                hdlr.handle(record)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> c.propagate:</span><br><span class="line">            c = <span class="literal">None</span>    <span class="comment">#break out</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            c = c.parent</span><br><span class="line">    <span class="keyword">if</span> (found == <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">if</span> lastResort:</span><br><span class="line">            <span class="keyword">if</span> record.levelno &gt;= lastResort.level:</span><br><span class="line">                lastResort.handle(record)</span><br><span class="line">        <span class="keyword">elif</span> raiseExceptions <span class="keyword">and</span> <span class="keyword">not</span> self.manager.emittedNoHandlerWarning:</span><br><span class="line">            sys.stderr.write(<span class="string">"No handlers could be found for logger"</span></span><br><span class="line">                             <span class="string">" \"%s\"\n"</span> % self.name)</span><br><span class="line">            self.manager.emittedNoHandlerWarning = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>此处可以看到， <code>c.handlers</code> 实际上是一个列表，我们在前文使用 <code>logger.addHandler(file_handler)</code> 即是将 <code>file_handler</code> 加入到了 <code>c.handlers</code> 中。然后调用 <code>handlers</code> 中的 <code>handle</code> 函数来处理日志的输出。当处理完 <code>c.handlers</code> 中的所有 <code>handler</code> 后，会将 <code>c</code> 设置为 <code>c.parent</code> ，然后继续处理 <code>c.parent</code> 中的 <code>handlers</code> 。直到 <code>c</code> 为 <code>None</code> 或者 <code>c.propagate</code> 为 <code>False</code> 时，结束循环。 <code>c.handlers</code> 的输出就是正常使用了配置中的文件进行了日志的输出。那么问题就出在了 <code>c.parent</code> 上。</p>
+<p>但到此时为止，我们都没有对 <code>root</code> 节点进行任何的操作。按道理来说， <code>root</code> 节点当前的 <code>handlers</code> 应该是空的。但是此时通过调试发现，此时的 <code>root</code> 节点的 <code>handlers</code> 中存在 <code>[&lt;StreamHandler &lt;stderr&gt; (NOTSET)&gt;]</code> 的内容。</p>
+<p>问题其实出现在了我们自己写的 <code>config_server</code> 函数中的 <code>logging.info</code> 中。 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L1984" target="_blank" rel="noopener"><code>logging.info</code></a> 的实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">info</span><span class="params">(msg, *args, **kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(root.handlers) == <span class="number">0</span>:</span><br><span class="line">        basicConfig()</span><br><span class="line">    root.info(msg, *args, **kwargs)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，如果 <code>root.handlers</code> 为空，那么就会调用 <code>basicConfig</code> 函数。 <code>basicConfig</code> 函数的实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">basicConfig</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    _acquireLock()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> len(root.handlers) == <span class="number">0</span>:</span><br><span class="line">            handlers = kwargs.pop(<span class="string">"handlers"</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> handlers <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                filename = kwargs.pop(<span class="string">"filename"</span>, <span class="literal">None</span>)</span><br><span class="line">                mode = kwargs.pop(<span class="string">"filemode"</span>, <span class="string">'a'</span>)</span><br><span class="line">                <span class="keyword">if</span> filename:</span><br><span class="line">                    h = FileHandler(filename, mode)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    stream = kwargs.pop(<span class="string">"stream"</span>, <span class="literal">None</span>)</span><br><span class="line">                    h = StreamHandler(stream)</span><br><span class="line">                handlers = [h]</span><br><span class="line">            dfs = kwargs.pop(<span class="string">"datefmt"</span>, <span class="literal">None</span>)</span><br><span class="line">            style = kwargs.pop(<span class="string">"style"</span>, <span class="string">'%'</span>)</span><br><span class="line">            fs = kwargs.pop(<span class="string">"format"</span>, _STYLES[style][<span class="number">1</span>])</span><br><span class="line">            fmt = Formatter(fs, dfs, style)</span><br><span class="line">            <span class="keyword">for</span> h <span class="keyword">in</span> handlers:</span><br><span class="line">                <span class="keyword">if</span> h.formatter <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    h.setFormatter(fmt)</span><br><span class="line">                root.addHandler(h)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        _releaseLock()</span><br></pre></td></tr></table></figure>
+
+<p>由于调用该函数时，未传递任何参数，故删除掉参数的处理逻辑，可以看到 <code>handlers</code> 初始化为了一个具有一个 <code>StreamHandler</code> 实例化对象元素的列表。 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L982" target="_blank" rel="noopener"><code>StreamHandler</code></a> 初始化函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StreamHandler</span><span class="params">(Handler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, stream=None)</span>:</span></span><br><span class="line">        Handler.__init__(self)</span><br><span class="line">        <span class="keyword">if</span> stream <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            stream = sys.stderr</span><br><span class="line">        self.stream = stream</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，如果未传入 <code>stream</code> 参数，那么就会使用 <code>sys.stderr</code> 作为默认的输出流。同时， <code>StreamHandler</code> 继承自 <code>Handler</code> 。在未传入 <code>level</code> 的时候，默认值为 <code>NOTSET</code> ，并且 <code>fs = kwargs.pop(&quot;format&quot;, _STYLES[style][1])</code> 使用了 <a href="https://github.com/python/cpython/blob/0f56adb8d74e703974811620559d96c999334547/Lib/logging/__init__.py#L449" target="_blank" rel="noopener"><code>BASIC_FORMAT</code></a> 的格式进行格式化日志。所以控制台输出的日志前缀会是 <code>levelname:app_name:message</code> 的格式。</p>
+<p>所以此时的 <code>root</code> 节点的 <code>handlers</code> 中存在 <code>[&lt;StreamHandler &lt;stderr&gt; (NOTSET)&gt;]</code> 的内容。故此时 <code>root</code> 的 <code>handlers</code> 存在一个输到控制台的 <code>handler</code> 。所以每次调用 <code>app_log</code> 的 <code>info</code> 的时候。都会由 <code>&lt;StreamHandler &lt;stderr&gt; (NOTSET)&gt;</code> 输出一条日志到控制台。</p>
+<p>至此，问题分析完毕</p>
+<h2 id="最后的尝试"><a href="#最后的尝试" class="headerlink" title="最后的尝试"></a>最后的尝试</h2><p>将前面的测试代码稍作改动，将 <code>config_server</code> 函数中的 <code>logging.info</code> 注释掉。再次运行代码，然后在接口的 handler 中添加一个 if 语句后。按照如下顺序调用接口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:8000/stolen</span><br><span class="line">curl http://localhost:8000</span><br><span class="line">curl http://localhost:8000/stolen</span><br></pre></td></tr></table></figure>
+
+<p>控制台出现了入下的输出，会发现第一次请求没有输出，第二次和第三次请求出现了输出。结合上述原理。应该很容易理解了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO:app_log:127.0.0.1 [19/Mar/2024:05:33:00 +0000] <span class="string">"GET / HTTP/1.1"</span> 200 167 <span class="string">"-"</span> <span class="string">"PostmanRuntime/7.37.0"</span></span><br><span class="line">INFO:app_log:127.0.0.1 [19/Mar/2024:05:33:02 +0000] <span class="string">"GET /stolen HTTP/1.1"</span> 200 164 <span class="string">"-"</span> <span class="string">"PostmanRuntime/7.37.0"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> logging <span class="keyword">import</span> Formatter</span><br><span class="line"><span class="keyword">from</span> logging.handlers <span class="keyword">import</span> RotatingFileHandler</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup_logger</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 配置日志</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">"app_log"</span>)</span><br><span class="line">    logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">    file_handler = RotatingFileHandler(filename=<span class="string">'app_log.log'</span>)</span><br><span class="line">    formatter = Formatter(<span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)</span><br><span class="line">    file_handler.setFormatter(formatter)</span><br><span class="line">    file_handler.setLevel(logging.ERROR)</span><br><span class="line"></span><br><span class="line">    logger.addHandler(file_handler)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">config_server</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># web 服务的其他配置</span></span><br><span class="line">    <span class="comment"># logging.info("数据库或其他 web 服务相关的配置")</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(request: web.Request)</span> -&gt; web.Response:</span></span><br><span class="line">    <span class="comment"># 模拟的一个请求处理函数，代码来自 aiohttp 的官方文档</span></span><br><span class="line">    name = request.match_info.get(<span class="string">'name'</span>, <span class="string">"Anonymous"</span>)</span><br><span class="line">    text = <span class="string">"Hello, "</span> + name</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">"Anonymous"</span>:</span><br><span class="line">        logging.info(<span class="string">"Console log: Hello, Anonymous"</span>)</span><br><span class="line">    <span class="keyword">return</span> web.Response(text=text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = web.Application()</span><br><span class="line">app.add_routes([web.get(<span class="string">'/'</span>, handle), web.get(<span class="string">'/&#123;name&#125;'</span>, handle)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    logger = logging.getLogger(<span class="string">"app_log"</span>)</span><br><span class="line">    setup_logger()</span><br><span class="line">    config_server()</span><br><span class="line">    web.run_app(app, host=<span class="string">"0.0.0.0"</span>, port=<span class="number">8000</span>, access_log=logger)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/postman/" rel="next" title="Postman 的脚本简介">
+      Postman 的脚本简介 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复现代码"><span class="nav-number">2.</span> <span class="nav-text">复现代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查踩坑"><span class="nav-number">3.</span> <span class="nav-text">排查踩坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时-aiohttp-代码分析"><span class="nav-number">4.</span> <span class="nav-text">运行时 aiohttp 代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时-python-代码分析"><span class="nav-number">5.</span> <span class="nav-text">运行时 python 代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的尝试"><span class="nav-number">6.</span> <span class="nav-text">最后的尝试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">stolen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">210k</span>
+</div>
+  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
