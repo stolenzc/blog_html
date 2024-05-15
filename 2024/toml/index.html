@@ -26,7 +26,7 @@
 <meta property="og:description" content="TOML 介绍与基本语法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-22T15:22:42.000Z">
-<meta property="article:modified_time" content="2024-03-20T11:59:22.430Z">
+<meta property="article:modified_time" content="2024-05-15T11:31:04.258Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="工具">
 <meta name="twitter:card" content="summary">
@@ -425,7 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的简介"><span class="nav-number">1.</span> <span class="nav-text">TOML 的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的特性"><span class="nav-number">2.</span> <span class="nav-text">TOML 的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的例子"><span class="nav-number">3.</span> <span class="nav-text">TOML 的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的基本语法"><span class="nav-number">4.</span> <span class="nav-text">TOML 的基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">4.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键值对"><span class="nav-number">4.2.</span> <span class="nav-text">键值对</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-中的键"><span class="nav-number">5.</span> <span class="nav-text">TOML 中的键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-中的值"><span class="nav-number">6.</span> <span class="nav-text">TOML 中的值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">6.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数"><span class="nav-number">6.2.</span> <span class="nav-text">整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数"><span class="nav-number">6.3.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔值"><span class="nav-number">6.4.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期时间"><span class="nav-number">6.5.</span> <span class="nav-text">日期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">6.6.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表"><span class="nav-number">6.7.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联表"><span class="nav-number">6.8.</span> <span class="nav-text">内联表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表数组"><span class="nav-number">6.9.</span> <span class="nav-text">表数组</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的简介"><span class="nav-text">TOML 的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的特性"><span class="nav-text">TOML 的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的例子"><span class="nav-text">TOML 的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-的基本语法"><span class="nav-text">TOML 的基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键值对"><span class="nav-text">键值对</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-中的键"><span class="nav-text">TOML 中的键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOML-中的值"><span class="nav-text">TOML 中的值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数"><span class="nav-text">整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数"><span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔值"><span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期时间"><span class="nav-text">日期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表"><span class="nav-text">表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内联表"><span class="nav-text">内联表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表数组"><span class="nav-text">表数组</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,18 +440,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -511,7 +511,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">210k</span>
+    <span title="站点总字数">219k</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

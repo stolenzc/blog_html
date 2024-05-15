@@ -26,7 +26,7 @@
 <meta property="og:description" content="PEP 3107 – Function Annotations 翻译">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-12T14:58:22.000Z">
-<meta property="article:modified_time" content="2024-03-20T11:59:22.430Z">
+<meta property="article:modified_time" content="2024-05-15T11:31:04.254Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="翻译">
 <meta property="article:tag" content="PEP">
@@ -470,7 +470,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-number">1.</span> <span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理由"><span class="nav-number">3.</span> <span class="nav-text">理由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数注释基础"><span class="nav-number">4.</span> <span class="nav-text">函数注释基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">5.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">5.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">5.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-number">5.3.</span> <span class="nav-text">匿名函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问函数注解"><span class="nav-number">6.</span> <span class="nav-text">访问函数注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用案例"><span class="nav-number">7.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库"><span class="nav-number">8.</span> <span class="nav-text">标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pydoc-和-inspect"><span class="nav-number">8.1.</span> <span class="nav-text">pydoc 和 inspect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联的其他-PEP"><span class="nav-number">9.</span> <span class="nav-text">关联的其他 PEP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数签名对象-PEP-362"><span class="nav-number">9.1.</span> <span class="nav-text">函数签名对象(PEP 362)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">10.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被拒绝的提案"><span class="nav-number">11.</span> <span class="nav-text">被拒绝的提案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献和注释"><span class="nav-number">12.</span> <span class="nav-text">参考文献和注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版权"><span class="nav-number">13.</span> <span class="nav-text">版权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译词典"><span class="nav-number">14.</span> <span class="nav-text">翻译词典</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理由"><span class="nav-text">理由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数注释基础"><span class="nav-text">函数注释基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-text">匿名函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问函数注解"><span class="nav-text">访问函数注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用案例"><span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库"><span class="nav-text">标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pydoc-和-inspect"><span class="nav-text">pydoc 和 inspect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联的其他-PEP"><span class="nav-text">关联的其他 PEP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数签名对象-PEP-362"><span class="nav-text">函数签名对象(PEP 362)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被拒绝的提案"><span class="nav-text">被拒绝的提案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献和注释"><span class="nav-text">参考文献和注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版权"><span class="nav-text">版权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译词典"><span class="nav-text">翻译词典</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -485,18 +485,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -556,7 +556,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">210k</span>
+    <span title="站点总字数">219k</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

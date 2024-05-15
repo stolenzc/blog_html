@@ -26,7 +26,7 @@
 <meta property="og:description" content="Go 1.18 版本支持泛型，本文介绍 Go 泛型的使用方法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-12T10:08:42.000Z">
-<meta property="article:modified_time" content="2024-03-20T11:59:22.426Z">
+<meta property="article:modified_time" content="2024-05-15T11:31:04.254Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary">
@@ -385,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型符号"><span class="nav-number">1.</span> <span class="nav-text">泛型符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明一个泛型函数"><span class="nav-number">2.</span> <span class="nav-text">声明一个泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型切片"><span class="nav-number">3.</span> <span class="nav-text">泛型切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型map"><span class="nav-number">4.</span> <span class="nav-text">泛型map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型通道"><span class="nav-number">5.</span> <span class="nav-text">泛型通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型约束"><span class="nav-number">6.</span> <span class="nav-text">泛型约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的类型约束泛型"><span class="nav-number">6.1.</span> <span class="nav-text">使用interface规定的类型约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的方法约束泛型"><span class="nav-number">6.2.</span> <span class="nav-text">使用interface规定的方法约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的方法和类型约束泛型"><span class="nav-number">6.3.</span> <span class="nav-text">使用interface规定的方法和类型约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用自带的comparable约束"><span class="nav-number">6.4.</span> <span class="nav-text">使用自带的comparable约束</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型符号"><span class="nav-text">泛型符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明一个泛型函数"><span class="nav-text">声明一个泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型切片"><span class="nav-text">泛型切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型map"><span class="nav-text">泛型map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型通道"><span class="nav-text">泛型通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型约束"><span class="nav-text">泛型约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的类型约束泛型"><span class="nav-text">使用interface规定的类型约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的方法约束泛型"><span class="nav-text">使用interface规定的方法约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用interface规定的方法和类型约束泛型"><span class="nav-text">使用interface规定的方法和类型约束泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用自带的comparable约束"><span class="nav-text">使用自带的comparable约束</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -400,18 +400,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -471,7 +471,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">210k</span>
+    <span title="站点总字数">219k</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
