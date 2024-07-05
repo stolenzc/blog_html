@@ -243,7 +243,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.3k</span>
             </span>
             <div class="post-description">mac系统上快捷键、软件、命令、问题等</div>
 
@@ -411,9 +411,11 @@
 </tr>
 </tbody></table>
 <p>brew 彻底卸载软件方法</p>
-<blockquote>
-<p><code>brew tap beeftornado/rmtree</code> - 安装rmtree<br><code>brew rmtree 软件名</code> - 删除软件<br><code>brew cleanup</code> - 清理缓存</p>
-</blockquote>
+<ul>
+<li><code>brew tap beeftornado/rmtree</code> - 安装rmtree</li>
+<li><code>brew rmtree 软件名</code> - 删除软件</li>
+<li><code>brew cleanup</code> - 清理缓存</li>
+</ul>
 <h2 id="必备软件"><a href="#必备软件" class="headerlink" title="必备软件"></a>必备软件</h2><h3 id="scroll-reverser"><a href="#scroll-reverser" class="headerlink" title="scroll reverser"></a>scroll reverser</h3><p>解决鼠标滑动方向是反着的问题，下载地址：<a href="https://pilotmoon.com/scrollreverser/" target="_blank" rel="noopener">scroll reverser官网</a></p>
 <h3 id="Trojan-X"><a href="#Trojan-X" class="headerlink" title="Trojan X"></a>Trojan X</h3><p>Mac 下科学上网软件，好用方便，下载地址：<a href="https://github.com/JimLee1996/TrojanX/releases" target="_blank" rel="noopener">JimLee1996的github</a></p>
 <h3 id="sequel-pro"><a href="#sequel-pro" class="headerlink" title="sequel pro"></a>sequel pro</h3><p>Mac 下免费的MySQL数据库图形化软件，下载地址：<a href="http://www.sequelpro.com/" target="_blank" rel="noopener">sequel pro 官网</a></p>
@@ -479,6 +481,21 @@
 <p><code>open -n /Applications/WeChat.app/Contents/MacOS/WeChat</code> - 实现双开微信</p>
 <p><code>brew cask install qlcolorcode</code> - quicklook支持预览代码</p>
 <p><code>brew cask install qlmarkdown</code> - quicklook支持预览markdown</p>
+<h2 id="右键添加-vscode-打开文件夹或文件"><a href="#右键添加-vscode-打开文件夹或文件" class="headerlink" title="右键添加 vscode 打开文件夹或文件"></a>右键添加 vscode 打开文件夹或文件</h2><ol>
+<li><p>打开 <code>自动操作.app</code></p>
+</li>
+<li><p><code>command + N</code> 新建文稿，类型选择快速操作</p>
+</li>
+<li><p>分别选择 <code>实用工具</code> -&gt; <code>运行shell脚本</code> -&gt; <code>工作流程收到当前文件或文件夹 位于 Finder.app</code> -&gt; <code>传递输入作为自变量</code></p>
+</li>
+<li><p>贴入代码</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    open -a <span class="string">"Visual Studio Code"</span> <span class="string">"<span class="variable">$f</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>command + s</code> 保存为 <code>用 VSCode 打开</code></p>
+</li>
+</ol>
+<p>编辑该脚本:</p>
+<p><code>文件</code> - <code>打开</code> - <code>~/资源库 / Services / 用 VSCode 打开.workflow</code></p>
 
     </div>
 
@@ -573,7 +590,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键"><span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触控板"><span class="nav-text">触控板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brew命令"><span class="nav-text">Brew命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必备软件"><span class="nav-text">必备软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-reverser"><span class="nav-text">scroll reverser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trojan-X"><span class="nav-text">Trojan X</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequel-pro"><span class="nav-text">sequel pro</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件技巧"><span class="nav-text">软件技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加快捷键输出当前时间"><span class="nav-text">添加快捷键输出当前时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小化软件和恢复最小化软件"><span class="nav-text">最小化软件和恢复最小化软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用问题"><span class="nav-text">使用问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标滚轮方向反着"><span class="nav-text">鼠标滚轮方向反着</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finder进入根目录"><span class="nav-text">Finder进入根目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HomeBrew"><span class="nav-text">安装HomeBrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭浏览器快速前进和后退"><span class="nav-text">关闭浏览器快速前进和后退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装mysqlclient遇到lssl等错误"><span class="nav-text">安装mysqlclient遇到lssl等错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac下网络冲突的问题"><span class="nav-text">mac下网络冲突的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止-DS-Store文件生成"><span class="nav-text">禁止.DS_Store文件生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏和显示以点开头的文件"><span class="nav-text">隐藏和显示以点开头的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcode命令报错"><span class="nav-text">xcode命令报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac不支持小于4位的密码"><span class="nav-text">mac不支持小于4位的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长按组合键不能持续输入"><span class="nav-text">长按组合键不能持续输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssl-证书问题"><span class="nav-text">ssl 证书问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#terminal命令"><span class="nav-text">terminal命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键"><span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触控板"><span class="nav-text">触控板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brew命令"><span class="nav-text">Brew命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必备软件"><span class="nav-text">必备软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-reverser"><span class="nav-text">scroll reverser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trojan-X"><span class="nav-text">Trojan X</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequel-pro"><span class="nav-text">sequel pro</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件技巧"><span class="nav-text">软件技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加快捷键输出当前时间"><span class="nav-text">添加快捷键输出当前时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小化软件和恢复最小化软件"><span class="nav-text">最小化软件和恢复最小化软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用问题"><span class="nav-text">使用问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标滚轮方向反着"><span class="nav-text">鼠标滚轮方向反着</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finder进入根目录"><span class="nav-text">Finder进入根目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HomeBrew"><span class="nav-text">安装HomeBrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭浏览器快速前进和后退"><span class="nav-text">关闭浏览器快速前进和后退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装mysqlclient遇到lssl等错误"><span class="nav-text">安装mysqlclient遇到lssl等错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac下网络冲突的问题"><span class="nav-text">mac下网络冲突的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止-DS-Store文件生成"><span class="nav-text">禁止.DS_Store文件生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏和显示以点开头的文件"><span class="nav-text">隐藏和显示以点开头的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcode命令报错"><span class="nav-text">xcode命令报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac不支持小于4位的密码"><span class="nav-text">mac不支持小于4位的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长按组合键不能持续输入"><span class="nav-text">长按组合键不能持续输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssl-证书问题"><span class="nav-text">ssl 证书问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#terminal命令"><span class="nav-text">terminal命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#右键添加-vscode-打开文件夹或文件"><span class="nav-text">右键添加 vscode 打开文件夹或文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -659,7 +676,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">219k</span>
+    <span title="站点总字数">220k</span>
 </div>
   <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
