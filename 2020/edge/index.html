@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="记录一些Edge插件和用法">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录一些Edge插件和用法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Edge上手">
 <meta property="og:url" content="https://blog.stolenzc.com/2020/edge/index.html">
@@ -31,20 +33,15 @@
 <meta property="article:tag" content="操作使用">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2020/edge/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Edge上手 | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2020/edge/","path":"2020/edge/","title":"Edge上手"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Edge上手 | stolen's blog</title>
   
 
 
@@ -52,57 +49,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -110,34 +89,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,115 +102,192 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-    </header>
+</header>
+        
+  
+  <aside class="sidebar">
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iGG%E8%B0%B7%E6%AD%8C%E8%AE%BF%E9%97%AE%E5%8A%A9%E6%89%8B"><span class="nav-text">iGG谷歌访问助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDF-Viewer"><span class="nav-text">PDF Viewer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDM-Integration-Module"><span class="nav-text">IDM Integration Module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tampermonkey"><span class="nav-text">Tampermonkey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%B7%E6%AD%8C%E7%BF%BB%E8%AF%91"><span class="nav-text">谷歌翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91"><span class="nav-text">彩云小译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AdblockPlus"><span class="nav-text">AdblockPlus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-Editor"><span class="nav-text">Cookie Editor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dark-Reader"><span class="nav-text">Dark Reader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Listen1"><span class="nav-text">Listen1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo-closed-tabs-button"><span class="nav-text">Undo closed tabs button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E8%8D%AF%E4%B8%B8"><span class="nav-text">百度药丸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E8%8C%83%E5%85%A8%E7%BD%91%E9%80%9A"><span class="nav-text">有范全网通</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%BE%93%E5%85%A5"><span class="nav-text">高级输入</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
+        </div>
+      </div>
+    </div>
 
     
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2020/edge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Edge上手 | stolen's blog">
+      <meta itemprop="description" content="记录一些Edge插件和用法">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Edge上手
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-05-01 11:24:32" itemprop="dateCreated datePublished" datetime="2020-05-01T11:24:32+08:00">2020-05-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">日常软件</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2020-05-01 11:24:32" itemprop="dateCreated datePublished" datetime="2020-05-01T11:24:32+08:00">2020-05-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">日常软件</span></a>
+        </span>
+    </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+</div>
+
             <div class="post-description">记录一些Edge插件和用法</div>
-
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="iGG谷歌访问助手"><a href="#iGG谷歌访问助手" class="headerlink" title="iGG谷歌访问助手"></a>iGG谷歌访问助手</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/mchibleoefileemjfghfejaggonplmmg?hl=zh-CN" target="_blank" rel="noopener">iGG谷歌访问助手</a></p>
+    <div class="post-body" itemprop="articleBody"><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="iGG谷歌访问助手"><a href="#iGG谷歌访问助手" class="headerlink" title="iGG谷歌访问助手"></a>iGG谷歌访问助手</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/mchibleoefileemjfghfejaggonplmmg?hl=zh-CN">iGG谷歌访问助手</a></p>
 <p>该插件可以通过Edge商店安装，安装该助手可以访问到google旗下的一些网站，例如谷歌搜索、谷歌play、Gmail，最重要的是可以访问Chrome插件商店，那么Chrome商店中所有的插件都可以安装了。</p>
-<h3 id="PDF-Viewer"><a href="#PDF-Viewer" class="headerlink" title="PDF Viewer"></a>PDF Viewer</h3><p>安装地址：<a href="https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm" target="_blank" rel="noopener">PDF Viewer</a></p>
+<h3 id="PDF-Viewer"><a href="#PDF-Viewer" class="headerlink" title="PDF Viewer"></a>PDF Viewer</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm">PDF Viewer</a></p>
 <p>Edge目前有一个较大的功能缺失就是PDF阅读，使用该插件可以有效的弥补该功能的缺陷，该插件在Edge插件商店没有上架，只能科学上网访问Chrome插件商店安装。</p>
 <p><strong>注意</strong>：</p>
 <blockquote>
@@ -268,37 +298,37 @@
 </blockquote>
 <h3 id="IDM-Integration-Module"><a href="#IDM-Integration-Module" class="headerlink" title="IDM Integration Module"></a>IDM Integration Module</h3><p>这是一个IDM的补充插件，在安装IDM的时候会自动进入微软商店进行安装。安装好后可以进行网页嗅探，比如视频，歌曲等内容都能嗅探到下载链接。该插件没有安装地址，只需安装IDM即可。IDM相关信息详见：<a href="/2020/04/21/Windows%E8%BD%AF%E4%BB%B6%E6%89%8B%E5%86%8C/#IDM">IDM</a></p>
 <p><strong>注意</strong>：该插件只适用于Windows</p>
-<h3 id="Tampermonkey"><a href="#Tampermonkey" class="headerlink" title="Tampermonkey"></a>Tampermonkey</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd?hl=zh-CN" target="_blank" rel="noopener">Tampermonkey</a></p>
+<h3 id="Tampermonkey"><a href="#Tampermonkey" class="headerlink" title="Tampermonkey"></a>Tampermonkey</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd?hl=zh-CN">Tampermonkey</a></p>
 <p>油猴插件，浏览器最强大的扩展插件，通过安装脚本可以获得许多高级的功能，该插件在Edge插件商店和Chrome插件商店都有。</p>
 <p>脚本推荐：</p>
 <blockquote>
 <ol>
 <li>科学上网插件，详情参见<a href="/2020/gwf/">科学上网</a></li>
-<li>网盘助手插件， <a href="https://greasyfork.org/zh-CN/scripts/378301" target="_blank" rel="noopener">网盘助手</a> 获取脚本，进入百度网盘，选中文件，点击生成链接，获得链接后使用IDM或者迅雷即可下载</li>
-<li>网页翻译插件，<a href="https://greasyfork.org/zh-CN/scripts/389784" target="_blank" rel="noopener">翻译</a> 获取脚本，支持三种翻译引擎</li>
-<li>百度优化插件，<a href="https://greasyfork.org/zh-CN/scripts/14178" target="_blank" rel="noopener">百度重定向插件</a> 获取脚本，支持去除百度链接的重定向，去除广告，自动翻页等功能</li>
-<li>倍速视频插件，<a href="https://greasyfork.org/zh-CN/scripts/372673" target="_blank" rel="noopener">计时器掌控者</a> 自定义倍速视频，可以方便跳过广告</li>
+<li>网盘助手插件， <a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/378301">网盘助手</a> 获取脚本，进入百度网盘，选中文件，点击生成链接，获得链接后使用IDM或者迅雷即可下载</li>
+<li>网页翻译插件，<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/389784">翻译</a> 获取脚本，支持三种翻译引擎</li>
+<li>百度优化插件，<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/14178">百度重定向插件</a> 获取脚本，支持去除百度链接的重定向，去除广告，自动翻页等功能</li>
+<li>倍速视频插件，<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/372673">计时器掌控者</a> 自定义倍速视频，可以方便跳过广告</li>
 </ol>
 </blockquote>
-<h3 id="谷歌翻译"><a href="#谷歌翻译" class="headerlink" title="谷歌翻译"></a>谷歌翻译</h3><p>安装地址：<a href="https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb" target="_blank" rel="noopener">谷歌翻译</a></p>
+<h3 id="谷歌翻译"><a href="#谷歌翻译" class="headerlink" title="谷歌翻译"></a>谷歌翻译</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb">谷歌翻译</a></p>
 <p>便捷上国外网站使用，可以进行网页翻译，也可以使用划词查询。使用划词查询需要允许上传内容。</p>
 <p><strong>注意</strong>：该插件的所有翻译均是通过translate.google.com提供支持。需要使用科学上网才能进行正常的翻译使用。使用谷歌访问助手也可。</p>
-<h3 id="彩云小译"><a href="#彩云小译" class="headerlink" title="彩云小译"></a>彩云小译</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91-%E7%BD%91%E9%A1%B5%E7%BF%BB%E8%AF%91%E6%8F%92%E4%BB%B6/abbgboelhkajgikdbjclaecchkneaoma" target="_blank" rel="noopener">彩云小译</a></p>
+<h3 id="彩云小译"><a href="#彩云小译" class="headerlink" title="彩云小译"></a>彩云小译</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91-%E7%BD%91%E9%A1%B5%E7%BF%BB%E8%AF%91%E6%8F%92%E4%BB%B6/abbgboelhkajgikdbjclaecchkneaoma">彩云小译</a></p>
 <p>一款支持划词翻译、整个网页翻译的插件，该插件不用使用科学上网即可使用，并且该插件进行整页翻译时会保留原来的网页内容。方便进行对照。在一定程度上比谷歌翻译更好用。</p>
-<h3 id="AdblockPlus"><a href="#AdblockPlus" class="headerlink" title="AdblockPlus"></a>AdblockPlus</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/adblock-plus-%E5%85%8D%E8%B4%B9%E7%9A%84%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%E5%99%A8/gmgoamodcdcjnbaobigkjelfplakmdhh" target="_blank" rel="noopener">AdblockPlus</a></p>
+<h3 id="AdblockPlus"><a href="#AdblockPlus" class="headerlink" title="AdblockPlus"></a>AdblockPlus</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/adblock-plus-%E5%85%8D%E8%B4%B9%E7%9A%84%E5%B9%BF%E5%91%8A%E6%8B%A6%E6%88%AA%E5%99%A8/gmgoamodcdcjnbaobigkjelfplakmdhh">AdblockPlus</a></p>
 <p>广告拦截器，该插件可以拦截大部分的弹窗广告，使用拦截元素还可以去除掉百度热搜之类的内容</p>
-<h3 id="Cookie-Editor"><a href="#Cookie-Editor" class="headerlink" title="Cookie Editor"></a>Cookie Editor</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/cookie-editor/ajfboaconbpkglpfanbmlfgojgndmhmc" target="_blank" rel="noopener">Cookie Editor</a></p>
+<h3 id="Cookie-Editor"><a href="#Cookie-Editor" class="headerlink" title="Cookie Editor"></a>Cookie Editor</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/cookie-editor/ajfboaconbpkglpfanbmlfgojgndmhmc">Cookie Editor</a></p>
 <p>能够更方便的编辑网站的cookie内容，在浏览器控制台-应用程序-存储-Cookie中也可以进行相同的编辑</p>
-<h3 id="Dark-Reader"><a href="#Dark-Reader" class="headerlink" title="Dark Reader"></a>Dark Reader</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/dark-reader/ifoakfbpdcdoeenechcleahebpibofpc" target="_blank" rel="noopener">DarkReader</a></p>
+<h3 id="Dark-Reader"><a href="#Dark-Reader" class="headerlink" title="Dark Reader"></a>Dark Reader</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/dark-reader/ifoakfbpdcdoeenechcleahebpibofpc">DarkReader</a></p>
 <p>这个插件对长时间使用浏览器用户非常友好，可以自适应计算界面的颜色，使整个网页背景变为黑色，该插件在大部分的网页上的显示都非常完美。但是依然会有部分网页显示可能有问题。</p>
 <p><strong>注意:</strong> 最近才发现Edge浏览器自带这个功能，在设置外观中将主题改为黑色，然后进入<code>edge://flags</code>，将<code>Force Dark Mode for Web Contents</code> 改为Enable也能实现黑色效果</p>
-<h3 id="Listen1"><a href="#Listen1" class="headerlink" title="Listen1"></a>Listen1</h3><p>安装地址：<a href="https://github.com/listen1/listen1_chrome_extension/releases" target="_blank" rel="noopener">github</a> ，<a href="https://microsoftedge.microsoft.com/addons/detail/listen-1/hneiglcmpeedblkmbndhfbeahcpjojjg?hl=zh-CN" target="_blank" rel="noopener">微软插件商店</a></p>
+<h3 id="Listen1"><a href="#Listen1" class="headerlink" title="Listen1"></a>Listen1</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://github.com/listen1/listen1_chrome_extension/releases">github</a> ，<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/listen-1/hneiglcmpeedblkmbndhfbeahcpjojjg?hl=zh-CN">微软插件商店</a></p>
 <p>浏览器听歌聚合平台。聚合了包括网易云音乐、虾米音乐、咪咕音乐、QQ音乐等平台的歌曲，可以同步歌单到Github Gist。</p>
-<h3 id="Undo-closed-tabs-button"><a href="#Undo-closed-tabs-button" class="headerlink" title="Undo closed tabs button"></a>Undo closed tabs button</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/undo-closed-tabs-button/hfigadnahbppkfoomjopnladdokbmnkc" target="_blank" rel="noopener">Undo closed tabs button</a></p>
+<h3 id="Undo-closed-tabs-button"><a href="#Undo-closed-tabs-button" class="headerlink" title="Undo closed tabs button"></a>Undo closed tabs button</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/undo-closed-tabs-button/hfigadnahbppkfoomjopnladdokbmnkc">Undo closed tabs button</a></p>
 <p>一个可以便捷恢复已经关闭的tabs页的插件。</p>
-<h3 id="百度药丸"><a href="#百度药丸" class="headerlink" title="百度药丸"></a>百度药丸</h3><p>安装地址：<a href="https://microsoftedge.microsoft.com/addons/detail/%E7%99%BE%E5%BA%A6%E8%8D%AF%E4%B8%B8-baidu-capsule/hmmpaaklbinfllncmnnbdhedmhafnjkj" target="_blank" rel="noopener">百度药丸</a></p>
+<h3 id="百度药丸"><a href="#百度药丸" class="headerlink" title="百度药丸"></a>百度药丸</h3><p>安装地址：<a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/%E7%99%BE%E5%BA%A6%E8%8D%AF%E4%B8%B8-baidu-capsule/hmmpaaklbinfllncmnnbdhedmhafnjkj">百度药丸</a></p>
 <p>解决网页使用百度的许多痛点，比如去掉百度热搜（分散注意力的东西）、去除推广、阻止百度推广等。常用百度的人员必备插件。</p>
-<h3 id="有范全网通"><a href="#有范全网通" class="headerlink" title="有范全网通"></a>有范全网通</h3><p>安装地址：<a href="http://www.ufanw.com/" target="_blank" rel="noopener">有范全网通</a></p>
+<h3 id="有范全网通"><a href="#有范全网通" class="headerlink" title="有范全网通"></a>有范全网通</h3><p>安装地址：<a target="_blank" rel="noopener" href="http://www.ufanw.com/">有范全网通</a></p>
 <p>可以看到视频网站上VIP的视频</p>
 <h2 id="高级输入"><a href="#高级输入" class="headerlink" title="高级输入"></a>高级输入</h2><p><code>thisisunsafe</code> - 遇到网页因为不安全而无法访问且没有跳过按钮的情况，不用定位光标到任何位置，活动窗口选择为Edge浏览器，直接输入即可</p>
 <p><code>edge://flags</code></p>
@@ -313,191 +343,58 @@
     
     
 
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%93%8D%E4%BD%9C%E4%BD%BF%E7%94%A8/" rel="tag"># 操作使用</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/mysql_basic/" rel="prev" title="MySQL基础">
-      <i class="fa fa-chevron-left"></i> MySQL基础
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/myfile_pass/" rel="next" title="个人文件Pass">
-      个人文件Pass <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/myfile_pass/" rel="prev" title="个人文件Pass">
+                  <i class="fa fa-angle-left"></i> 个人文件Pass
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/mysql_basic/" rel="next" title="MySQL基础">
+                  MySQL基础 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iGG谷歌访问助手"><span class="nav-text">iGG谷歌访问助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDF-Viewer"><span class="nav-text">PDF Viewer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDM-Integration-Module"><span class="nav-text">IDM Integration Module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tampermonkey"><span class="nav-text">Tampermonkey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谷歌翻译"><span class="nav-text">谷歌翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#彩云小译"><span class="nav-text">彩云小译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AdblockPlus"><span class="nav-text">AdblockPlus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-Editor"><span class="nav-text">Cookie Editor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dark-Reader"><span class="nav-text">Dark Reader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Listen1"><span class="nav-text">Listen1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undo-closed-tabs-button"><span class="nav-text">Undo closed tabs button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度药丸"><span class="nav-text">百度药丸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有范全网通"><span class="nav-text">有范全网通</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级输入"><span class="nav-text">高级输入</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">70</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
     </span>
-    <span title="站点总字数">220k</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
   </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -505,8 +402,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -515,72 +411,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

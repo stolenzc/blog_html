@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 三种方式生成列表的内存分析">
 <meta property="og:url" content="https://blog.stolenzc.com/2023/python_list_memory/index.html">
@@ -26,25 +28,20 @@
 <meta property="og:description" content="通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-01T10:50:32.000Z">
-<meta property="article:modified_time" content="2024-07-05T04:01:05.961Z">
+<meta property="article:modified_time" content="2024-07-12T01:15:40.813Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="技术原理">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2023/python_list_memory/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Python 三种方式生成列表的内存分析 | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2023/python_list_memory/","path":"2023/python_list_memory/","title":"Python 三种方式生成列表的内存分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 三种方式生成列表的内存分析 | stolen's blog</title>
   
 
 
@@ -52,57 +49,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -110,34 +89,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,119 +102,196 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-    </header>
+</header>
+        
+  
+  <aside class="sidebar">
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%AF%BC%E5%85%A5"><span class="nav-text">问题导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E5%88%86%E6%9E%90"><span class="nav-text">初步分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E4%B9%98%E6%B3%95"><span class="nav-text">列表乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8%E5%88%86%E6%9E%90"><span class="nav-text">直接定义列表分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F%E5%88%86%E6%9E%90"><span class="nav-text">列表生成式分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-%E7%89%88%E6%9C%AC"><span class="nav-text">3.10 版本</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
+        </div>
+      </div>
+    </div>
 
     
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/python_list_memory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python 三种方式生成列表的内存分析 | stolen's blog">
+      <meta itemprop="description" content="通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Python 三种方式生成列表的内存分析
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-03-01 18:50:32" itemprop="dateCreated datePublished" datetime="2023-03-01T18:50:32+08:00">2023-03-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2023-03-01 18:50:32" itemprop="dateCreated datePublished" datetime="2023-03-01T18:50:32+08:00">2023-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5k</span>
-            </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+</div>
+
             <div class="post-description">通过 CPython 源码，分析 Python 三种方式生成列表的内存占用。</div>
-
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>注意：以下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
-<p>部分字节码分析参考 <a href="https://docs.python.org/zh-cn/3/library/dis.html#python-bytecode-instructions" target="_blank" rel="noopener">Python字节码说明</a></p>
+    <div class="post-body" itemprop="articleBody"><p>注意：以下内容均在 Python 3.9.13 上进行实验，其他版本可能有所不同。</p>
+<p>部分字节码分析参考 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/dis.html#python-bytecode-instructions">Python字节码说明</a></p>
 <h2 id="问题导入"><a href="#问题导入" class="headerlink" title="问题导入"></a>问题导入</h2><p>使用不同方法生成相同结果的列表时，内存占用不同。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [1]: import sys, dis</span><br><span class="line"></span><br><span class="line">In [2]: sys.getsizeof([0] * 3)</span><br><span class="line">Out[2]: 80</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof([0 for _ in range(3)])</span><br><span class="line">Out[3]: 88</span><br><span class="line"></span><br><span class="line">In [4]: sys.getsizeof([0, 0, 0])</span><br><span class="line">Out[4]: 120</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [1]: import sys, dis</span><br><span class="line"></span><br><span class="line">In [2]: sys.getsizeof([0] * 3)</span><br><span class="line">Out[2]: 80</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof([0 for _ in range(3)])</span><br><span class="line">Out[3]: 88</span><br><span class="line"></span><br><span class="line">In [4]: sys.getsizeof([0, 0, 0])</span><br><span class="line">Out[4]: 120</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h2><p>查看三者的字节码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">In [5]: dis.dis("[0] * 3")</span><br><span class="line">  1           0 LOAD_CONST               0 (0)</span><br><span class="line">              2 BUILD_LIST               1</span><br><span class="line">              4 LOAD_CONST               1 (3)</span><br><span class="line">              6 BINARY_MULTIPLY</span><br><span class="line">              8 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">In [6]: dis.dis("[0, 0, 0]")</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_CONST               0 ((0, 0, 0))</span><br><span class="line">              4 LIST_EXTEND              1</span><br><span class="line">              6 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">In [7]: dis.dis("[0 for _ in range(3)]")</span><br><span class="line">  1           0 LOAD_CONST               0 (&lt;code object &lt;listcomp&gt; at 0x1047e05b0, file "&lt;dis&gt;", line 1&gt;)</span><br><span class="line">              2 LOAD_CONST               1 ('&lt;listcomp&gt;')</span><br><span class="line">              4 MAKE_FUNCTION            0</span><br><span class="line">              6 LOAD_NAME                0 (range)</span><br><span class="line">              8 LOAD_CONST               2 (3)</span><br><span class="line">             10 CALL_FUNCTION            1</span><br><span class="line">             12 GET_ITER</span><br><span class="line">             14 CALL_FUNCTION            1</span><br><span class="line">             16 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">Disassembly of &lt;code object &lt;listcomp&gt; at 0x1047e05b0, file "&lt;dis&gt;", line 1&gt;:</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_FAST                0 (.0)</span><br><span class="line">        &gt;&gt;    4 FOR_ITER                 8 (to 14)</span><br><span class="line">              6 STORE_FAST               1 (_)</span><br><span class="line">              8 LOAD_CONST               0 (0)</span><br><span class="line">             10 LIST_APPEND              2</span><br><span class="line">             12 JUMP_ABSOLUTE            4</span><br><span class="line">        &gt;&gt;   14 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">In [5]: dis.dis(&quot;[0] * 3&quot;)</span><br><span class="line">  1           0 LOAD_CONST               0 (0)</span><br><span class="line">              2 BUILD_LIST               1</span><br><span class="line">              4 LOAD_CONST               1 (3)</span><br><span class="line">              6 BINARY_MULTIPLY</span><br><span class="line">              8 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">In [6]: dis.dis(&quot;[0, 0, 0]&quot;)</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_CONST               0 ((0, 0, 0))</span><br><span class="line">              4 LIST_EXTEND              1</span><br><span class="line">              6 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">In [7]: dis.dis(&quot;[0 for _ in range(3)]&quot;)</span><br><span class="line">  1           0 LOAD_CONST               0 (&lt;code object &lt;listcomp&gt; at 0x1047e05b0, file &quot;&lt;dis&gt;&quot;, line 1&gt;)</span><br><span class="line">              2 LOAD_CONST               1 (&#x27;&lt;listcomp&gt;&#x27;)</span><br><span class="line">              4 MAKE_FUNCTION            0</span><br><span class="line">              6 LOAD_NAME                0 (range)</span><br><span class="line">              8 LOAD_CONST               2 (3)</span><br><span class="line">             10 CALL_FUNCTION            1</span><br><span class="line">             12 GET_ITER</span><br><span class="line">             14 CALL_FUNCTION            1</span><br><span class="line">             16 RETURN_VALUE</span><br><span class="line"></span><br><span class="line">Disassembly of &lt;code object &lt;listcomp&gt; at 0x1047e05b0, file &quot;&lt;dis&gt;&quot;, line 1&gt;:</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_FAST                0 (.0)</span><br><span class="line">        &gt;&gt;    4 FOR_ITER                 8 (to 14)</span><br><span class="line">              6 STORE_FAST               1 (_)</span><br><span class="line">              8 LOAD_CONST               0 (0)</span><br><span class="line">             10 LIST_APPEND              2</span><br><span class="line">             12 JUMP_ABSOLUTE            4</span><br><span class="line">        &gt;&gt;   14 RETURN_VALUE</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>分析可以知道，三者最主要的区别为</p>
 <ul>
@@ -269,25 +299,25 @@
 <li><code>[0, 0, 0]</code> 使用了 <code>LIST_EXTEND</code> 指令</li>
 <li><code>[0 for _ in range(3)]</code> 使用了 <code>LIST_APPEND</code> 指令</li>
 </ul>
-<h2 id="列表乘法"><a href="#列表乘法" class="headerlink" title="列表乘法"></a>列表乘法</h2><p><code>BINARY_MULTIPLY</code> 指令主要调用了 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L540" target="_blank" rel="noopener">list_repeat</a> 函数，该函数传入一个对象，和一个整数，返回一个新的列表，该列表的元素为原列表的元素重复 n 次。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">list_repeat(PyListObject *a, Py_ssize_t n)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">size</span> = Py_SIZE(a) * n;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">size</span> == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> PyList_New(<span class="number">0</span>);</span><br><span class="line">    np = (PyListObject *) list_new_prealloc(<span class="built_in">size</span>);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> (PyObject *) np;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="列表乘法"><a href="#列表乘法" class="headerlink" title="列表乘法"></a>列表乘法</h2><p><code>BINARY_MULTIPLY</code> 指令主要调用了 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L540">list_repeat</a> 函数，该函数传入一个对象，和一个整数，返回一个新的列表，该列表的元素为原列表的元素重复 n 次。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">list_repeat(PyListObject *a, Py_ssize_t n)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    size = Py_SIZE(a) * n;</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> PyList_New(<span class="number">0</span>);</span><br><span class="line">    np = (PyListObject *) list_new_prealloc(size);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> (PyObject *) np;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以看到在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L540" target="_blank" rel="noopener">代码第 7 行</a> 调用 <code>list_new_prealloc(size)</code> 进行了内存申请，申请的 size 为传入对象的占用大小乘以 n。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list_new_prealloc(Py_ssize_t <span class="built_in">size</span>)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    op-&gt;ob_item = PyMem_New(PyObject *, <span class="built_in">size</span>);</span><br><span class="line">    ...</span><br><span class="line">    op-&gt;allocated = <span class="built_in">size</span>;</span><br><span class="line">    <span class="keyword">return</span> (PyObject *) op;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到在 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L540">代码第 7 行</a> 调用 <code>list_new_prealloc(size)</code> 进行了内存申请，申请的 size 为传入对象的占用大小乘以 n。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list_new_prealloc(Py_ssize_t size)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    op-&gt;ob_item = PyMem_New(PyObject *, size);</span><br><span class="line">    ...</span><br><span class="line">    op-&gt;allocated = size;</span><br><span class="line">    <span class="keyword">return</span> (PyObject *) op;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L172" target="_blank" rel="noopener">list_new_prealloc</a> 定义中能看到，在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L159" target="_blank" rel="noopener">代码第 4 行</a> 申请了 size 的内存</p>
-<p>计算可知，Python 3.9 中，列表默认占用 56 个字节，在 64 位系统中，一个指针占用 8 个字节，因此列表占用内存为 56 + 8 * 3 = 80 个字节。</p>
-<h2 id="直接定义列表分析"><a href="#直接定义列表分析" class="headerlink" title="直接定义列表分析"></a>直接定义列表分析</h2><p><code>LIST_EXTEND</code> 指令主要调用了 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L854" target="_blank" rel="noopener">list_extend</a> 函数，该函数传入当前对象和一个可迭代对象，将可迭代对象的元素添加到当前对象中。</p>
+<p>在 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L172">list_new_prealloc</a> 定义中能看到，在 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L159">代码第 4 行</a> 申请了 size 的内存</p>
+<p>计算可知，Python 3.9 中，列表默认占用 56 个字节，在 64 位系统中，一个指针占用 8 个字节，因此列表占用内存为 56 + 8 * 3 &#x3D; 80 个字节。</p>
+<h2 id="直接定义列表分析"><a href="#直接定义列表分析" class="headerlink" title="直接定义列表分析"></a>直接定义列表分析</h2><p><code>LIST_EXTEND</code> 指令主要调用了 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L854">list_extend</a> 函数，该函数传入当前对象和一个可迭代对象，将可迭代对象的元素添加到当前对象中。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">list_extend(PyListObject *self, PyObject *iterable)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (PyList_CheckExact(iterable) || PyTuple_CheckExact(iterable) ||</span><br><span class="line">                (PyObject *)self == iterable) &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">if</span> (list_resize(self, m + n) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            Py_DECREF(iterable);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以看到在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L884" target="_blank" rel="noopener">代码第 7 行</a> 调用了 <code>list_resize</code> 函数，该函数主要是对列表进行扩容。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">list_resize(PyListObject *self, Py_ssize_t newsize)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (allocated &gt;= newsize &amp;&amp; newsize &gt;= (allocated &gt;&gt; <span class="number">1</span>)) &#123;</span><br><span class="line">        assert(self-&gt;ob_item != <span class="literal">NULL</span> || newsize == <span class="number">0</span>);</span><br><span class="line">        Py_SET_SIZE(self, newsize);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* This over-allocates proportional to the list size, making room</span></span><br><span class="line"><span class="comment">     * for additional growth.  The over-allocation is mild, but is</span></span><br><span class="line"><span class="comment">     * enough to give linear-time amortized behavior over a long</span></span><br><span class="line"><span class="comment">     * sequence of appends() in the presence of a poorly-performing</span></span><br><span class="line"><span class="comment">     * system realloc().</span></span><br><span class="line"><span class="comment">     * Add padding to make the allocated size multiple of 4.</span></span><br><span class="line"><span class="comment">     * The growth pattern is:  0, 4, 8, 16, 24, 32, 40, 52, 64, 76, ...</span></span><br><span class="line"><span class="comment">     * Note: new_allocated won't overflow because the largest possible value</span></span><br><span class="line"><span class="comment">     *       is PY_SSIZE_T_MAX * (9 / 8) + 6 which always fits in a size_t.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    new_allocated = ((<span class="keyword">size_t</span>)newsize + (newsize &gt;&gt; <span class="number">3</span>) + <span class="number">6</span>) &amp; ~(<span class="keyword">size_t</span>)<span class="number">3</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到在 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L884">代码第 7 行</a> 调用了 <code>list_resize</code> 函数，该函数主要是对列表进行扩容。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">list_resize(PyListObject *self, Py_ssize_t newsize)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (allocated &gt;= newsize &amp;&amp; newsize &gt;= (allocated &gt;&gt; <span class="number">1</span>)) &#123;</span><br><span class="line">        assert(self-&gt;ob_item != <span class="literal">NULL</span> || newsize == <span class="number">0</span>);</span><br><span class="line">        Py_SET_SIZE(self, newsize);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* This over-allocates proportional to the list size, making room</span></span><br><span class="line"><span class="comment">     * for additional growth.  The over-allocation is mild, but is</span></span><br><span class="line"><span class="comment">     * enough to give linear-time amortized behavior over a long</span></span><br><span class="line"><span class="comment">     * sequence of appends() in the presence of a poorly-performing</span></span><br><span class="line"><span class="comment">     * system realloc().</span></span><br><span class="line"><span class="comment">     * Add padding to make the allocated size multiple of 4.</span></span><br><span class="line"><span class="comment">     * The growth pattern is:  0, 4, 8, 16, 24, 32, 40, 52, 64, 76, ...</span></span><br><span class="line"><span class="comment">     * Note: new_allocated won&#x27;t overflow because the largest possible value</span></span><br><span class="line"><span class="comment">     *       is PY_SSIZE_T_MAX * (9 / 8) + 6 which always fits in a size_t.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    new_allocated = ((<span class="type">size_t</span>)newsize + (newsize &gt;&gt; <span class="number">3</span>) + <span class="number">6</span>) &amp; ~(<span class="type">size_t</span>)<span class="number">3</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>看到在 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L62" target="_blank" rel="noopener">代码第 19 行</a> 计算了新内存的大小，计算公式为 <code>(size + size // 4) + 6</code> 后对 4 进行对齐。例如，需要的内存为 5，那么申请的内存大小为 <code>(5 + 5 // 4) + 6 = 12 与 4 对齐 = 12</code> 。在当前的例子中，需要的内存为 3，那么申请内存的大小为 <code>3 + 3 // 4 + 6 = 9 与 4 对齐 = 8</code>。根据上一节可以知道，直接定义列表占用的内存为 <code>56 + 8 * 8 = 120</code></p>
-<h2 id="列表生成式分析"><a href="#列表生成式分析" class="headerlink" title="列表生成式分析"></a>列表生成式分析</h2><p><code>LIST_APPEND</code> 指令主要调用了 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L836" target="_blank" rel="noopener">list_append</a> 函数，该函数传入当前对象和一个对象，将该对象添加到当前对象中。</p>
+<p>看到在 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L62">代码第 19 行</a> 计算了新内存的大小，计算公式为 <code>(size + size // 4) + 6</code> 后对 4 进行对齐。例如，需要的内存为 5，那么申请的内存大小为 <code>(5 + 5 // 4) + 6 = 12 与 4 对齐 = 12</code> 。在当前的例子中，需要的内存为 3，那么申请内存的大小为 <code>3 + 3 // 4 + 6 = 9 与 4 对齐 = 8</code>。根据上一节可以知道，直接定义列表占用的内存为 <code>56 + 8 * 8 = 120</code></p>
+<h2 id="列表生成式分析"><a href="#列表生成式分析" class="headerlink" title="列表生成式分析"></a>列表生成式分析</h2><p><code>LIST_APPEND</code> 指令主要调用了 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L836">list_append</a> 函数，该函数传入当前对象和一个对象，将该对象添加到当前对象中。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">list_append(PyListObject *self, PyObject *object)</span><br><span class="line"><span class="comment">/*[clinic end generated code: output=7c096003a29c0eae input=43a3fe48a7066e91]*/</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (app1(self, object) == <span class="number">0</span>)</span><br><span class="line">        Py_RETURN_NONE;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app1(PyListObject *self, PyObject *v)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (list_resize(self, n+<span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><code>list_append</code> 函数调用了 <code>app1</code> 函数，该函数调用了 <code>list_resize</code> 函数，该函数主要是对列表进行扩容。每一次添加数据的时候，都会调用 <code>list_resize</code> 函数，同时，根据 <code>list_resize</code> 的定义，在上文 <a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L46" target="_blank" rel="noopener">代码第 4 到第 7 行</a> 中可知，如果内存足够，不需要扩容，那么列表生成式的执行逻辑就会变为：</p>
+<p><code>list_append</code> 函数调用了 <code>app1</code> 函数，该函数调用了 <code>list_resize</code> 函数，该函数主要是对列表进行扩容。每一次添加数据的时候，都会调用 <code>list_resize</code> 函数，同时，根据 <code>list_resize</code> 的定义，在上文 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c#L46">代码第 4 到第 7 行</a> 中可知，如果内存足够，不需要扩容，那么列表生成式的执行逻辑就会变为：</p>
 <ul>
 <li><code>list_resize(1)</code> -&gt; 开辟一个 4 个字节的内存</li>
 <li><code>list_resize(2)</code> -&gt; 内存足够，不需要扩容</li>
@@ -298,17 +328,17 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [2]: sys.getsizeof([0] * 3)</span><br><span class="line">Out[2]: 80</span><br><span class="line"></span><br><span class="line">In [3]: sys.getsizeof([0 for _ in range(3)])</span><br><span class="line">Out[3]: 88</span><br><span class="line"></span><br><span class="line">In [4]: sys.getsizeof([0, 0, 0])</span><br><span class="line">Out[4]: 88</span><br></pre></td></tr></table></figure>
 
 <p>可以发现主要是 <code>[0, 0, 0]</code> 的内存发生了变化，这里单独分析下 3.10 中直接定义列表的内存占用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [5]: dis.dis("[0, 0, 0]")</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_CONST               0 ((0, 0, 0))</span><br><span class="line">              4 LIST_EXTEND              1</span><br><span class="line">              6 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [5]: dis.dis(&quot;[0, 0, 0]&quot;)</span><br><span class="line">  1           0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_CONST               0 ((0, 0, 0))</span><br><span class="line">              4 LIST_EXTEND              1</span><br><span class="line">              6 RETURN_VALUE</span><br></pre></td></tr></table></figure>
 
 <p>看 Python 字节码依然调用的是 <code>LIST_EXTEND</code> 指令，但是在 3.10 版本中，<code>LIST_EXTEND</code> 指令的实现方法 <code>list_extend</code> 函数定义发生了改动，该函数的实现摘录如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">list_extend(PyListObject *self, PyObject *iterable)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (PyList_CheckExact(iterable) || PyTuple_CheckExact(iterable) ||</span><br><span class="line">                (PyObject *)self == iterable) &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">if</span> (self-&gt;ob_item == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (list_preallocate_exact(self, n) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Py_SET_SIZE(self, n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (list_resize(self, m + n) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            Py_DECREF(iterable);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可见，当列表对象初始为空的时候，会直接调用 <a href="https://github.com/python/cpython/blob/3.10/Objects/listobject.c#L99" target="_blank" rel="noopener">list_preallocate_exact</a> 函数，该函数的实现如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">list_preallocate_exact(PyListObject *self, Py_ssize_t <span class="built_in">size</span>)</span><br><span class="line">&#123;</span><br><span class="line">    assert(self-&gt;ob_item == <span class="literal">NULL</span>);</span><br><span class="line">    assert(<span class="built_in">size</span> &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Since the Python memory allocator has granularity of 16 bytes on 64-bit</span></span><br><span class="line"><span class="comment">     * platforms (8 on 32-bit), there is no benefit of allocating space for</span></span><br><span class="line"><span class="comment">     * the odd number of items, and there is no drawback of rounding the</span></span><br><span class="line"><span class="comment">     * allocated size up to the nearest even number.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">size</span> = (<span class="built_in">size</span> + <span class="number">1</span>) &amp; ~(<span class="keyword">size_t</span>)<span class="number">1</span>;</span><br><span class="line">    PyObject **items = PyMem_New(PyObject*, <span class="built_in">size</span>);</span><br><span class="line">    <span class="keyword">if</span> (items == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        PyErr_NoMemory();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    self-&gt;ob_item = items;</span><br><span class="line">    self-&gt;allocated = <span class="built_in">size</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可见，当列表对象初始为空的时候，会直接调用 <a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/3.10/Objects/listobject.c#L99">list_preallocate_exact</a> 函数，该函数的实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">list_preallocate_exact(PyListObject *self, Py_ssize_t size)</span><br><span class="line">&#123;</span><br><span class="line">    assert(self-&gt;ob_item == <span class="literal">NULL</span>);</span><br><span class="line">    assert(size &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Since the Python memory allocator has granularity of 16 bytes on 64-bit</span></span><br><span class="line"><span class="comment">     * platforms (8 on 32-bit), there is no benefit of allocating space for</span></span><br><span class="line"><span class="comment">     * the odd number of items, and there is no drawback of rounding the</span></span><br><span class="line"><span class="comment">     * allocated size up to the nearest even number.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    size = (size + <span class="number">1</span>) &amp; ~(<span class="type">size_t</span>)<span class="number">1</span>;</span><br><span class="line">    PyObject **items = PyMem_New(PyObject*, size);</span><br><span class="line">    <span class="keyword">if</span> (items == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        PyErr_NoMemory();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    self-&gt;ob_item = items;</span><br><span class="line">    self-&gt;allocated = size;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以看到该函数中计算需要申请内存大小的方法为 <code>size + 1 后与 2 对齐</code> ，本例子中 size=3，<code>3 + 1 后与 2 对齐 = 4</code>。故在 3.10 版本中 <code>[0, 0, 0]</code> 占用的内存为 <code>56 + 8 * 4 = 88</code>。</p>
+<p>可以看到该函数中计算需要申请内存大小的方法为 <code>size + 1 后与 2 对齐</code> ，本例子中 size&#x3D;3，<code>3 + 1 后与 2 对齐 = 4</code>。故在 3.10 版本中 <code>[0, 0, 0]</code> 占用的内存为 <code>56 + 8 * 4 = 88</code>。</p>
 <blockquote>
-<p>分析思路来自 <a href="https://github.com/gaogaotiantian" target="_blank" rel="noopener">gaogaotiantian</a></p>
+<p>分析思路来自 <a target="_blank" rel="noopener" href="https://github.com/gaogaotiantian">gaogaotiantian</a></p>
 </blockquote>
 
     </div>
@@ -317,191 +347,58 @@
     
     
 
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/" rel="tag"># 技术原理</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/websocket/" rel="prev" title="WebSocket 工作原理">
-      <i class="fa fa-chevron-left"></i> WebSocket 工作原理
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/go_format/" rel="next" title="Go 占位符">
-      Go 占位符 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/go_format/" rel="prev" title="Go 占位符">
+                  <i class="fa fa-angle-left"></i> Go 占位符
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/websocket/" rel="next" title="WebSocket 工作原理">
+                  WebSocket 工作原理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题导入"><span class="nav-text">问题导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步分析"><span class="nav-text">初步分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表乘法"><span class="nav-text">列表乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接定义列表分析"><span class="nav-text">直接定义列表分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表生成式分析"><span class="nav-text">列表生成式分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-版本"><span class="nav-text">3.10 版本</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">70</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
     </span>
-    <span title="站点总字数">220k</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
   </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -509,8 +406,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -519,72 +415,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

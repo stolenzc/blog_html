@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="Fourteen Years of Go 翻译">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Fourteen Years of Go 翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go 的 14 岁">
 <meta property="og:url" content="https://blog.stolenzc.com/2023/go_14years/index.html">
@@ -26,25 +28,20 @@
 <meta property="og:description" content="Fourteen Years of Go 翻译">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-13T05:28:22.000Z">
-<meta property="article:modified_time" content="2024-07-05T04:01:05.957Z">
+<meta property="article:modified_time" content="2024-07-12T01:15:40.809Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="翻译">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2023/go_14years/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Go 的 14 岁 | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2023/go_14years/","path":"2023/go_14years/","title":"Go 的 14 岁"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go 的 14 岁 | stolen's blog</title>
   
 
 
@@ -52,57 +49,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -110,34 +89,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,219 +102,34 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/go_14years/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="stolen's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Go 的 14 岁
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-13 13:28:22" itemprop="dateCreated datePublished" datetime="2023-11-13T13:28:22+08:00">2023-11-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <div class="post-description">Fourteen Years of Go 翻译</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h2><ul>
-<li>发布时间：2023-11-10</li>
-<li>原文链接：<a href="https://go.dev/blog/14years" target="_blank" rel="noopener">https://go.dev/blog/14years</a></li>
-<li>翻译日期：2023-11-13</li>
-<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
-</ul>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>今天我们庆祝 Go 开源代码发布已经 14 年了，Go 通过两个功能齐全和其他重要的里程碑发布度过了这美好的一年</p>
-<p>我们在一月发布了 <a href="https://go.dev/blog/go1.20" target="_blank" rel="noopener">Go 1.20</a> 并且在八月发布了 <a href="https://go.dev/blog/go1.21" target="_blank" rel="noopener">Go 1.21</a>。更多的关注了增强实现而不是语言的改进。</p>
-<p>配置文件引导 (PGO) 在 <a href="https://go.dev/blog/pgo-preview" target="_blank" rel="noopener">Go 1.20 预览版</a> 中发布并在 <a href="https://go.dev/blog/pgo" target="_blank" rel="noopener">Go 1.21 正式版</a> 发布了。允许 Go 编译器读取项目中的配置文件并且花更多的时间优化代码中最常运行的部分。在 Go 1.21 中，启用了 PGO 通常能够提升 2%-7% 的 CPU 工作负载。参阅 “<a href="https://go.dev/blog/pgo" target="_blank" rel="noopener">Profile-guided optimization in Go 1.21</a>” 查看概览和 “<a href="https://go.dev/doc/pgo" target="_blank" rel="noopener">profile-guided optimization user guide</a>” 查看详细文档</p>
-<p>从 <a href="https://go.dev/blog/cover" target="_blank" rel="noopener">Go 1.2</a> 开始就提供了支持在测试过程中收集覆盖率的配置文件。在 Go 1.20 添加了在 go build 构建二进制文件中收集测试覆盖率的支持，允许你能够更方便的在大型集成测试中收集覆盖率。参阅 “<a href="https://go.dev/blog/integration-test-coverage" target="_blank" rel="noopener">Code coverage for Go integration tests</a>”</p>
-<p>从 <a href="https://go.dev/doc/go1compat" target="_blank" rel="noopener">Go 1 和未来的 Go 程序</a> 开始，兼容性就是非常重要的一部分。Go 通过扩展我们需要更改的情况下使用 GODEBUG 的使用规则，进一步提高了兼容性，例如必须修改但可能破坏现有程序的重要 bug 修复。参阅 “<a href="https://go.dev/blog/compat" target="_blank" rel="noopener">Backward Compatibility, Go 1.21, and Go 2</a>” 查看概览和 “<a href="https://go.dev/doc/godebug" target="_blank" rel="noopener">Go, Backwards Compatibility, and GODEBUG</a>” 查看详细文档</p>
-<p>Go 1.21 还提供了对内置工具链管理的支持，允许你像更改其他依赖项版本一样容易的修改特定模块中使用的 Go 工具链版本。参阅博客 “<a href="https://go.dev/blog/toolchain" target="_blank" rel="noopener">Forward Compatibility and Toolchain Management in Go 1.21</a>” 查看概览和文档 “<a href="https://go.dev/doc/toolchain" target="_blank" rel="noopener">Go Toolchains</a>” 查看详细文档</p>
-<p>另一个重要工具的实现是将磁盘索引集成到了 Go 的 LSP 服务 gopls 中。在典型的例子中，gopls 的启动等待和内存占用减少了 3-5 倍。“<a href="https://go.dev/blog/gopls-scalability" target="_blank" rel="noopener">Scaling gopls for the growing Go ecosystem</a>” 解释了技术细节。你应该通过运行以下命令来确保你正在使用最新的 gopls：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install golang.org/x/tools/gopls@latest</span><br></pre></td></tr></table></figure>
-
-<p>Go 1.21 引入了新的 <a href="https://go.dev/pkg/cmp/" target="_blank" rel="noopener">cmp</a> 、 <a href="https://go.dev/pkg/maps/" target="_blank" rel="noopener">maps</a> 和 <a href="https://go.dev/pkg/slices/" target="_blank" rel="noopener">slices</a> 包 - Go 的第一个通用标准库 - 以及扩展了可比较类型的集合。有关详细信息，请参阅博客 “<a href="https://go.dev/blog/comparable" target="_blank" rel="noopener">All your comparable types</a>”。</p>
-<p>总而言之，我们持续的完善泛型并进行演讲和博客文章来解释重要的细节。今年两篇值得注意的文章是 “<a href="https://go.dev/blog/deconstructing-type-parameters" target="_blank" rel="noopener">Deconstructing Type Parameters</a>” 和 “<a href="https://go.dev/pkg/log/slog/" target="_blank" rel="noopener">Everything You Always Wanted to Know About Type Inference – And a Little Bit More</a>”。</p>
-<p>Go 1.21 中另一个重要的新包是 <code>[log/slog](https://go.dev/pkg/log/slog/)</code> ，它为标准库添加了结构化日志的官方 API。有关概述参阅 “<a href="https://go.dev/blog/slog" target="_blank" rel="noopener">Structured logging with slog</a>”。</p>
-<p>对于 WebAssembly (Wasm) 端口，Go 1.21 发布了对 WebAssembly 系统接口 (WASI) 预览版 1 的支持。WASI 预览版 1 是 Wasm 的新的“操作系统”接口，被大多数服务器端 Wasm 环境支持。参阅 “<a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">WASI support in Go</a>” 查看演示。</p>
-<p>在安全方面，我们继续确保 Go 在帮助开发者理解依赖项和漏洞方面处于领先地位， <a href="https://go.dev/blog/govulncheck" target="_blank" rel="noopener">Govulncheck 1.0 在七月发布</a> 。如果你使用 VS Code，你可以直接在编辑器中使用 Go 扩展运行 govulncheck：参阅 <a href="https://go.dev/doc/tutorial/govulncheck-ide" target="_blank" rel="noopener">本教程</a> 开始。如果你使用 GitHub，你可以在 CI/CD 中使用 govulncheck，使用 <a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">GitHub Action for govulncheck</a> 。有关检查依赖项漏洞问题的更多信息，请参阅今年的 Google I/O 演讲 “<a href="https://github.com/marketplace/actions/golang-govulncheck-action" target="_blank" rel="noopener">Build more secure apps with Go and Google</a>”。</p>
-<p>另一个重要的安全里程碑是 Go 1.21 高度重视可重现工具链。参阅 “<a href="https://go.dev/blog/rebuild" target="_blank" rel="noopener">Perfectly Reproducible, Verified Go Toolchains</a>” 查看详细信息，包括在 Mac 上不使用任何 Linux 工具就能够复现 Ubuntu Linux Go 工具链的演示。</p>
-<p>这真是忙碌的一年呀！</p>
-<p>在 Go 的第 15 年，我们仍将继续努力使 Go 成为最好的软件工程环境。我们特别兴奋的一件事是重新定义 for 循环的 := 语义以消除意外的别名 bug。参阅 “<a href="https://go.dev/blog/loopvar-preview" target="_blank" rel="noopener">Fixing For Loops in Go 1.22</a>” 查看详细信息，包括在 Go 1.21 中预览此更改的说明。</p>
-<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>Go 项目能够一直前进不仅仅是靠 Google 公司的 Go 团队，感谢所有做过贡献的人和社区中讨论的每一个你，是你们让 Go 变成了今天的样子。祝你们新的一年一切顺利。</p>
-
-    </div>
-
-    
-    
-    
-
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/pep-0526/" rel="prev" title="PEP 526 -- 变量注解的语法">
-      <i class="fa fa-chevron-left"></i> PEP 526 -- 变量注解的语法
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/pep-3107/" rel="next" title="PEP 3107 -- 函数注解">
-      PEP 3107 -- 函数注解 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+      </div>
+    </div>
   </div>
 
+</header>
+        
+  
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -370,107 +138,236 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#meta"><span class="nav-text">meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-text">致谢</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#meta"><span class="nav-text">meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%B4%E8%B0%A2"><span class="nav-text">致谢</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="stolen"
       src="/images/header.jpg">
   <p class="site-author-name" itemprop="name">stolen</p>
   <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives">
+        <a href="/archives/">
           <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
       </span>
   </div>
 
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
+        </div>
       </div>
+    </div>
 
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </div>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        
 
-<div class="copyright">
   
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/go_14years/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="stolen">
     </span>
-    <span title="站点总字数">220k</span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go 的 14 岁 | stolen's blog">
+      <meta itemprop="description" content="Fourteen Years of Go 翻译">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go 的 14 岁
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-13 13:28:22" itemprop="dateCreated datePublished" datetime="2023-11-13T13:28:22+08:00">2023-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
 </div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
 
+            <div class="post-description">Fourteen Years of Go 翻译</div>
+        </div>
+      </header>
 
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h2><ul>
+<li>发布时间：2023-11-10</li>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://go.dev/blog/14years">https://go.dev/blog/14years</a></li>
+<li>翻译日期：2023-11-13</li>
+<li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
+</ul>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>今天我们庆祝 Go 开源代码发布已经 14 年了，Go 通过两个功能齐全和其他重要的里程碑发布度过了这美好的一年</p>
+<p>我们在一月发布了 <a target="_blank" rel="noopener" href="https://go.dev/blog/go1.20">Go 1.20</a> 并且在八月发布了 <a target="_blank" rel="noopener" href="https://go.dev/blog/go1.21">Go 1.21</a>。更多的关注了增强实现而不是语言的改进。</p>
+<p>配置文件引导 (PGO) 在 <a target="_blank" rel="noopener" href="https://go.dev/blog/pgo-preview">Go 1.20 预览版</a> 中发布并在 <a target="_blank" rel="noopener" href="https://go.dev/blog/pgo">Go 1.21 正式版</a> 发布了。允许 Go 编译器读取项目中的配置文件并且花更多的时间优化代码中最常运行的部分。在 Go 1.21 中，启用了 PGO 通常能够提升 2%-7% 的 CPU 工作负载。参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/pgo">Profile-guided optimization in Go 1.21</a>” 查看概览和 “<a target="_blank" rel="noopener" href="https://go.dev/doc/pgo">profile-guided optimization user guide</a>” 查看详细文档</p>
+<p>从 <a target="_blank" rel="noopener" href="https://go.dev/blog/cover">Go 1.2</a> 开始就提供了支持在测试过程中收集覆盖率的配置文件。在 Go 1.20 添加了在 go build 构建二进制文件中收集测试覆盖率的支持，允许你能够更方便的在大型集成测试中收集覆盖率。参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/integration-test-coverage">Code coverage for Go integration tests</a>”</p>
+<p>从 <a target="_blank" rel="noopener" href="https://go.dev/doc/go1compat">Go 1 和未来的 Go 程序</a> 开始，兼容性就是非常重要的一部分。Go 通过扩展我们需要更改的情况下使用 GODEBUG 的使用规则，进一步提高了兼容性，例如必须修改但可能破坏现有程序的重要 bug 修复。参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/compat">Backward Compatibility, Go 1.21, and Go 2</a>” 查看概览和 “<a target="_blank" rel="noopener" href="https://go.dev/doc/godebug">Go, Backwards Compatibility, and GODEBUG</a>” 查看详细文档</p>
+<p>Go 1.21 还提供了对内置工具链管理的支持，允许你像更改其他依赖项版本一样容易的修改特定模块中使用的 Go 工具链版本。参阅博客 “<a target="_blank" rel="noopener" href="https://go.dev/blog/toolchain">Forward Compatibility and Toolchain Management in Go 1.21</a>” 查看概览和文档 “<a target="_blank" rel="noopener" href="https://go.dev/doc/toolchain">Go Toolchains</a>” 查看详细文档</p>
+<p>另一个重要工具的实现是将磁盘索引集成到了 Go 的 LSP 服务 gopls 中。在典型的例子中，gopls 的启动等待和内存占用减少了 3-5 倍。“<a target="_blank" rel="noopener" href="https://go.dev/blog/gopls-scalability">Scaling gopls for the growing Go ecosystem</a>” 解释了技术细节。你应该通过运行以下命令来确保你正在使用最新的 gopls：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install golang.org/x/tools/gopls@latest</span><br></pre></td></tr></table></figure>
 
+<p>Go 1.21 引入了新的 <a target="_blank" rel="noopener" href="https://go.dev/pkg/cmp/">cmp</a> 、 <a target="_blank" rel="noopener" href="https://go.dev/pkg/maps/">maps</a> 和 <a target="_blank" rel="noopener" href="https://go.dev/pkg/slices/">slices</a> 包 - Go 的第一个通用标准库 - 以及扩展了可比较类型的集合。有关详细信息，请参阅博客 “<a target="_blank" rel="noopener" href="https://go.dev/blog/comparable">All your comparable types</a>”。</p>
+<p>总而言之，我们持续的完善泛型并进行演讲和博客文章来解释重要的细节。今年两篇值得注意的文章是 “<a target="_blank" rel="noopener" href="https://go.dev/blog/deconstructing-type-parameters">Deconstructing Type Parameters</a>” 和 “<a target="_blank" rel="noopener" href="https://go.dev/pkg/log/slog/">Everything You Always Wanted to Know About Type Inference – And a Little Bit More</a>”。</p>
+<p>Go 1.21 中另一个重要的新包是 <code>[log/slog](https://go.dev/pkg/log/slog/)</code> ，它为标准库添加了结构化日志的官方 API。有关概述参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/slog">Structured logging with slog</a>”。</p>
+<p>对于 WebAssembly (Wasm) 端口，Go 1.21 发布了对 WebAssembly 系统接口 (WASI) 预览版 1 的支持。WASI 预览版 1 是 Wasm 的新的“操作系统”接口，被大多数服务器端 Wasm 环境支持。参阅 “<a target="_blank" rel="noopener" href="https://github.com/marketplace/actions/golang-govulncheck-action">WASI support in Go</a>” 查看演示。</p>
+<p>在安全方面，我们继续确保 Go 在帮助开发者理解依赖项和漏洞方面处于领先地位， <a target="_blank" rel="noopener" href="https://go.dev/blog/govulncheck">Govulncheck 1.0 在七月发布</a> 。如果你使用 VS Code，你可以直接在编辑器中使用 Go 扩展运行 govulncheck：参阅 <a target="_blank" rel="noopener" href="https://go.dev/doc/tutorial/govulncheck-ide">本教程</a> 开始。如果你使用 GitHub，你可以在 CI&#x2F;CD 中使用 govulncheck，使用 <a target="_blank" rel="noopener" href="https://github.com/marketplace/actions/golang-govulncheck-action">GitHub Action for govulncheck</a> 。有关检查依赖项漏洞问题的更多信息，请参阅今年的 Google I&#x2F;O 演讲 “<a target="_blank" rel="noopener" href="https://github.com/marketplace/actions/golang-govulncheck-action">Build more secure apps with Go and Google</a>”。</p>
+<p>另一个重要的安全里程碑是 Go 1.21 高度重视可重现工具链。参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/rebuild">Perfectly Reproducible, Verified Go Toolchains</a>” 查看详细信息，包括在 Mac 上不使用任何 Linux 工具就能够复现 Ubuntu Linux Go 工具链的演示。</p>
+<p>这真是忙碌的一年呀！</p>
+<p>在 Go 的第 15 年，我们仍将继续努力使 Go 成为最好的软件工程环境。我们特别兴奋的一件事是重新定义 for 循环的 :&#x3D; 语义以消除意外的别名 bug。参阅 “<a target="_blank" rel="noopener" href="https://go.dev/blog/loopvar-preview">Fixing For Loops in Go 1.22</a>” 查看详细信息，包括在 Go 1.21 中预览此更改的说明。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>Go 项目能够一直前进不仅仅是靠 Google 公司的 Go 团队，感谢所有做过贡献的人和社区中讨论的每一个你，是你们让 Go 变成了今天的样子。祝你们新的一年一切顺利。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+          </div>
 
         
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/pep-3107/" rel="prev" title="PEP 3107 -- 函数注解">
+                  <i class="fa fa-angle-left"></i> PEP 3107 -- 函数注解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/pep-0526/" rel="next" title="PEP 526 -- 变量注解的语法">
+                  PEP 526 -- 变量注解的语法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -478,8 +375,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -488,72 +384,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

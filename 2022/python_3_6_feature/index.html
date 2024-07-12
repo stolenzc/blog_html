@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="Python3.6 新特性">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Python3.6 新特性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python3.6 新特性">
 <meta property="og:url" content="https://blog.stolenzc.com/2022/python_3_6_feature/index.html">
@@ -26,25 +28,20 @@
 <meta property="og:description" content="Python3.6 新特性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-18T00:48:39.000Z">
-<meta property="article:modified_time" content="2024-07-05T04:01:05.957Z">
+<meta property="article:modified_time" content="2024-07-12T01:15:40.809Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="更新日志">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2022/python_3_6_feature/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Python3.6 新特性 | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2022/python_3_6_feature/","path":"2022/python_3_6_feature/","title":"Python3.6 新特性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python3.6 新特性 | stolen's blog</title>
   
 
 
@@ -52,57 +49,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -110,34 +89,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,114 +102,191 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-    </header>
+</header>
+        
+  
+  <aside class="sidebar">
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#f-string"><span class="nav-text">f-string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%B3%A8%E9%87%8A%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">变量注释的语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E6%96%87%E5%AD%97%E4%B8%AD%E7%9A%84%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="nav-text">数字文字中的下划线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#secrets-%E7%94%9F%E6%88%90%E5%AE%89%E5%85%A8%E9%9A%8F%E6%9C%BA%E6%95%B0%E5%AD%97"><span class="nav-text">secrets 生成安全随机数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-text">异步生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%8E%A8%E5%AF%BC"><span class="nav-text">异步推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-text">其他</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
+        </div>
+      </div>
+    </div>
 
     
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2022/python_3_6_feature/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python3.6 新特性 | stolen's blog">
+      <meta itemprop="description" content="Python3.6 新特性">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Python3.6 新特性
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-09-18 08:48:39" itemprop="dateCreated datePublished" datetime="2022-09-18T08:48:39+08:00">2022-09-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2022-09-18 08:48:39" itemprop="dateCreated datePublished" datetime="2022-09-18T08:48:39+08:00">2022-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+</div>
+
             <div class="post-description">Python3.6 新特性</div>
-
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能</p>
-<p>官方新特性链接 <a href="https://docs.python.org/zh-cn/3.6/whatsnew/3.6.html" target="_blank" rel="noopener">Python3.6 新特性</a></p>
+    <div class="post-body" itemprop="articleBody"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python3.6 发布于2016年12月23日，这儿总结一下改版本引入的一些新功能</p>
+<p>官方新特性链接 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.6/whatsnew/3.6.html">Python3.6 新特性</a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>此处主要介绍在Ubuntu下安装 Python3.6</p>
 <ol>
 <li>添加deadsnakes源<ul>
@@ -274,35 +304,35 @@
 </li>
 </ol>
 <h2 id="f-string"><a href="#f-string" class="headerlink" title="f-string"></a>f-string</h2><p>Python3.6 引入了一种 <code>f-string</code> 的方式来格式化字符串</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"Fred"</span></span><br><span class="line"><span class="string">f"He said his name is <span class="subst">&#123;name&#125;</span>."</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># He said his name is Fred.</span></span><br><span class="line"></span><br><span class="line">width = <span class="number">10</span></span><br><span class="line">precision = <span class="number">4</span></span><br><span class="line">value = <span class="number">12.34567</span></span><br><span class="line"><span class="string">f"result: <span class="subst">&#123;value:&#123;width&#125;</span>.<span class="subst">&#123;precision&#125;</span>&#125;"</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># result:      12.35</span></span><br><span class="line"><span class="comment"># 备注：小数点也占10位中的一个字符宽度</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;Fred&quot;</span></span><br><span class="line"><span class="string">f&quot;He said his name is <span class="subst">&#123;name&#125;</span>.&quot;</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># He said his name is Fred.</span></span><br><span class="line"></span><br><span class="line">width = <span class="number">10</span></span><br><span class="line">precision = <span class="number">4</span></span><br><span class="line">value = <span class="number">12.34567</span></span><br><span class="line"><span class="string">f&quot;result: <span class="subst">&#123;value:&#123;width&#125;</span>.<span class="subst">&#123;precision&#125;</span>&#125;&quot;</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># result:      12.35</span></span><br><span class="line"><span class="comment"># 备注：小数点也占10位中的一个字符宽度</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="变量注释的语法"><a href="#变量注释的语法" class="headerlink" title="变量注释的语法"></a>变量注释的语法</h2><p>在 Python3.5 中，引入了类型标注 <code>Type Hint</code> ，在 Python3.6 中又加入了函数参数的标注，包括实参和行参的标注</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> List,Dict</span><br><span class="line"></span><br><span class="line">primes: List[int] = []</span><br><span class="line"></span><br><span class="line">captain: str  <span class="comment"># 仅做类型标注，不初始化值</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    stats: Dict[str, int] = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span>,<span class="type">Dict</span></span><br><span class="line"></span><br><span class="line">primes: <span class="type">List</span>[<span class="built_in">int</span>] = []</span><br><span class="line"></span><br><span class="line">captain: <span class="built_in">str</span>  <span class="comment"># 仅做类型标注，不初始化值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    stats: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>] = &#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="数字文字中的下划线"><a href="#数字文字中的下划线" class="headerlink" title="数字文字中的下划线"></a>数字文字中的下划线</h2><p>Python3.6 中在数字值之间使用下划线改善可读性</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">1</span>_000_000_000_000_000</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">1_000_000_000_000_000</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>注意</strong>：</p>
 <ul>
 <li>单个下划线允许用在数码之间和任何数制指示符之后</li>
 <li>不可以两个下划线连在一起</li>
 <li>字符串格式化可以用 <code>_</code> 或 <code>_d</code> 来用下划线表示千分位分隔符<ul>
-<li><code>f&#39;{100000000:_}&#39;</code> 输出: <code>100_000_000</code></li>
-<li><code>f&#39;{100000000:_d}&#39;</code> 输出: <code>100_000_000</code></li>
+<li><code>f&#39;&#123;100000000:_&#125;&#39;</code> 输出: <code>100_000_000</code></li>
+<li><code>f&#39;&#123;100000000:_d&#125;&#39;</code> 输出: <code>100_000_000</code></li>
 </ul>
 </li>
 <li><code>_b</code> 、 <code>_o</code> 、 <code>_x</code> 可以让数字以二进制、八进制、十进制、十六进制每隔4个数码分割<ul>
-<li><code>f&#39;{100000000:_x}&#39;</code> 输出: <code>5f5_e100</code></li>
-<li><code>f&#39;{128:_b}&#39;</code> 输出: <code>1000_0000</code></li>
+<li><code>f&#39;&#123;100000000:_x&#125;&#39;</code> 输出: <code>5f5_e100</code></li>
+<li><code>f&#39;&#123;128:_b&#125;&#39;</code> 输出: <code>1000_0000</code></li>
 </ul>
 </li>
 </ul>
 <h2 id="secrets-生成安全随机数字"><a href="#secrets-生成安全随机数字" class="headerlink" title="secrets 生成安全随机数字"></a>secrets 生成安全随机数字</h2><p>Python3.6 中新增的 <code>secrets</code> 模块的主要目的是提供一种简单的方法来可靠地生成适用于管理秘密的加密强伪随机值，例如帐户身份验证、令牌等。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br><span class="line">secrets.token_bytes(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># b'\x12Z\xebb\xa0\xab\xca\xc3W\xbe\xfdCFr\x86\xcd'</span></span><br><span class="line"></span><br><span class="line">secrets.token_hex(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># a890afe1433b3044e1316fd7aa23787f</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br><span class="line">secrets.token_bytes(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># b&#x27;\x12Z\xebb\xa0\xab\xca\xc3W\xbe\xfdCFr\x86\xcd&#x27;</span></span><br><span class="line"></span><br><span class="line">secrets.token_hex(<span class="number">16</span>)</span><br><span class="line"><span class="comment"># a890afe1433b3044e1316fd7aa23787f</span></span><br></pre></td></tr></table></figure>
 
 <p>在 Python3.6 以下的版本则推荐使用 <code>os.urandom()</code></p>
 <h2 id="异步生成器"><a href="#异步生成器" class="headerlink" title="异步生成器"></a>异步生成器</h2><p>在 Python3.5 中引入了 <code>async</code> 和 <code>await</code> ，但是在 Python3.5 中无法在一个函数中同时使用 <code>await</code> 和 <code>yield</code> ，在 Python3.6 解决了这个问题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">ticker</span><span class="params">(delay, to)</span>:</span></span><br><span class="line">    <span class="string">"""Yield numbers from 0 to *to* every *delay* seconds."""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(to):</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(delay)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">ticker</span>(<span class="params">delay, to</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Yield numbers from 0 to *to* every *delay* seconds.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(to):</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(delay)</span><br></pre></td></tr></table></figure>
 
 <h2 id="异步推导"><a href="#异步推导" class="headerlink" title="异步推导"></a>异步推导</h2><p>添加了对在列表、集合与字典推导式和生成器表达式中使用 async for 的支持</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = [i <span class="keyword">async</span> <span class="keyword">for</span> i <span class="keyword">in</span> aiter() <span class="keyword">if</span> i % <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
@@ -321,191 +351,58 @@
     
     
 
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" rel="tag"># 更新日志</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/python_3_7_feature/" rel="prev" title="Python3.7 新特性">
-      <i class="fa fa-chevron-left"></i> Python3.7 新特性
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/hugo/" rel="next" title="Hugo博客搭建">
-      Hugo博客搭建 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/hugo/" rel="prev" title="Hugo博客搭建">
+                  <i class="fa fa-angle-left"></i> Hugo博客搭建
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/python_3_7_feature/" rel="next" title="Python3.7 新特性">
+                  Python3.7 新特性 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#f-string"><span class="nav-text">f-string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量注释的语法"><span class="nav-text">变量注释的语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字文字中的下划线"><span class="nav-text">数字文字中的下划线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#secrets-生成安全随机数字"><span class="nav-text">secrets 生成安全随机数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步生成器"><span class="nav-text">异步生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步推导"><span class="nav-text">异步推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">70</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
     </span>
-    <span title="站点总字数">220k</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
   </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -513,8 +410,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -523,72 +419,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

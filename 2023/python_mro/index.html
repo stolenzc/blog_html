@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="剖析 Python 中的 MRO 算法">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="剖析 Python 中的 MRO 算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 中的 MRO">
 <meta property="og:url" content="https://blog.stolenzc.com/2023/python_mro/index.html">
@@ -26,25 +28,20 @@
 <meta property="og:description" content="剖析 Python 中的 MRO 算法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-29T14:58:32.000Z">
-<meta property="article:modified_time" content="2024-07-05T04:01:05.961Z">
+<meta property="article:modified_time" content="2024-07-12T01:15:40.813Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="技术原理">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2023/python_mro/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Python 中的 MRO | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2023/python_mro/","path":"2023/python_mro/","title":"Python 中的 MRO"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 中的 MRO | stolen's blog</title>
   
 
 
@@ -52,57 +49,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -110,34 +89,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,121 +102,206 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-    </header>
+</header>
+        
+  
+  <aside class="sidebar">
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-MRO-%E7%AE%80%E4%BB%8B"><span class="nav-text">Python MRO 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFS-%E7%AE%97%E6%B3%95"><span class="nav-text">DFS 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E7%9A%84-DFS-%E7%AE%97%E6%B3%95"><span class="nav-text">改进的 DFS 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C3-%E7%AE%97%E6%B3%95"><span class="nav-text">C3 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%A4%BA%E4%BE%8B"><span class="nav-text">错误示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94"><span class="nav-text">问题解答</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#super-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">super 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%8F%90%E9%86%92"><span class="nav-text">最后提醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
+        </div>
+      </div>
+    </div>
 
     
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/python_mro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python 中的 MRO | stolen's blog">
+      <meta itemprop="description" content="剖析 Python 中的 MRO 算法">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Python 中的 MRO
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-03-29 22:58:32" itemprop="dateCreated datePublished" datetime="2023-03-29T22:58:32+08:00">2023-03-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2023-03-29 22:58:32" itemprop="dateCreated datePublished" datetime="2023-03-29T22:58:32+08:00">2023-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
-            </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+</div>
+
             <div class="post-description">剖析 Python 中的 MRO 算法</div>
-
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"A"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># B 直接继承 object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"B"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(C, B)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">D.show() <span class="comment"># A</span></span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;A&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># B 直接继承 object</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;B&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(C, B):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">D.show() <span class="comment"># A</span></span><br></pre></td></tr></table></figure>
 
 <p>继承图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    C--&gt;D;</span><br><span class="line">    B--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A--&gt;C;
+    C--&gt;D;
+    B--&gt;D;
+</code></pre>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"A"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 B 的定义继承自 A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">"B"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(C, B)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">D.show() <span class="comment"># B</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;A&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 B 的定义继承自 A</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;B&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(C, B):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">D.show() <span class="comment"># B</span></span><br></pre></td></tr></table></figure>
 
 <p>继承图</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;D;</span><br><span class="line">    C--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A--&gt;B;
+    A--&gt;C;
+    B--&gt;D;
+    C--&gt;D;</code></pre>
 
 <h2 id="Python-MRO-简介"><a href="#Python-MRO-简介" class="headerlink" title="Python MRO 简介"></a>Python MRO 简介</h2><p>Python 中的 MRO (Method Resolution Order 方法解析顺序)是指在多重继承的情况下，确定调用方法的顺序。</p>
 <p>Python 历史中主要存在过三种 MRO 算法，分别是 DFS 算法、改进的 DFS 算法、C3算法。</p>
@@ -277,23 +315,33 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 经典类的查看方法</span></span><br><span class="line"><span class="keyword">import</span> inspect</span><br><span class="line">inspect.getmro(D)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新式类的查看方法</span></span><br><span class="line">D.__mro__</span><br><span class="line">D.mro()</span><br><span class="line">inspect.getmro(D)</span><br></pre></td></tr></table></figure>
 
 <p>算法分析的关系代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(B, C)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(B, C):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
 <p>以上的类继承关系可以用下面的图表示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;D;</span><br><span class="line">    C--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A--&gt;B;
+    A--&gt;C;
+    B--&gt;D;
+    C--&gt;D;</code></pre>
 
 <h2 id="DFS-算法"><a href="#DFS-算法" class="headerlink" title="DFS 算法"></a>DFS 算法</h2><p>DFS 算法是 Python 2 中经典类的 MRO 算法，其基本思想是从左到右，深度优先遍历所有的父类，将遍历到的父类放入一个列表中，如果遍历到的父类已经在列表中，则跳过。</p>
 <p>将上面的类继承按照深度优先算法获取继承顺序为 <code>D, B, A, C, A</code>，重复类只保留第一个，所以得到的 MRO 为 <code>[D, B, A, C]</code></p>
 <h2 id="改进的-DFS-算法"><a href="#改进的-DFS-算法" class="headerlink" title="改进的 DFS 算法"></a>改进的 DFS 算法</h2><p>在 Python2.2 中，新式类的 MRO 算法改为了改进的 DFS 算法，其基本思想是从左到右，深度优先遍历所有的父类，将遍历到的父类放入一个列表中，如果遍历到的父类已经在列表中，将其移动到列表的最后。</p>
 <p>将上面的类继承按照深度优先算法获取继承顺序为 <code>D, B, A, C, A</code>，重复类只保留最后一个，所以得到的 MRO 为 <code>D, B, C, A</code></p>
-<h2 id="C3-算法"><a href="#C3-算法" class="headerlink" title="C3 算法"></a>C3 算法</h2><h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p><a href="https://zh.wikipedia.org/wiki/C3%E7%BA%BF%E6%80%A7%E5%8C%96" target="_blank" rel="noopener">C3 算法</a>才是本文的重点，C3 的名称是因为该算法实现了三个重要的一致性(consistent)属性</p>
+<h2 id="C3-算法"><a href="#C3-算法" class="headerlink" title="C3 算法"></a>C3 算法</h2><h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/C3%E7%BA%BF%E6%80%A7%E5%8C%96">C3 算法</a>才是本文的重点，C3 的名称是因为该算法实现了三个重要的一致性(consistent)属性</p>
 <ul>
 <li><p>基于一致性扩展的优先图(extended precedence graph)</p>
 <ul>
 <li><p>找到两个类的最小公共子类，然后寻找着这两个类到最小公共子类之间，两个类或者两个类的任意子类谁在最前面，谁就是应该被优先使用的类</p>
 </li>
 <li><p>如果B和C都是A的基类，B继承了D，C继承了E，那D和E的顺序是不受局部优先规则的制约的，需要使用一致性扩展的优先图来确定D和E的顺序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">  D--&gt;B;</span><br><span class="line">  E--&gt;B;</span><br><span class="line">  D--&gt;C;</span><br><span class="line">  F--&gt;C;</span><br><span class="line">  B--&gt;A;</span><br><span class="line">  C--&gt;A;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+  D--&gt;B;
+  E--&gt;B;
+  D--&gt;C;
+  F--&gt;C;
+  B--&gt;A;
+  C--&gt;A;</code></pre>
 
 <p>如果只有在 E 和 F 中实现了该方法，那边 A 应该使用 E 还是 F 就需要使用一致性扩展的优先图来确定</p>
 </li>
@@ -324,29 +372,51 @@
 </ul>
 </li>
 </ol>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    object--&gt;X;</span><br><span class="line">    object--&gt;Y;</span><br><span class="line">    X--&gt;A;</span><br><span class="line">    Y--&gt;A;</span><br><span class="line">    Y--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;C;</span><br></pre></td></tr></table></figure>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code class="highlight mermaid">graph TD;
+    object--&gt;X;
+    object--&gt;Y;
+    X--&gt;A;
+    Y--&gt;A;
+    Y--&gt;B;
+    A--&gt;C;
+    B--&gt;C;</code></pre>
 
-<figure class="highlight plain"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">X &#x3D; [X, object]</span><br><span class="line">Y &#x3D; [Y, object]</span><br><span class="line">A &#x3D; [A, X(), Y()]</span><br><span class="line">  &#x3D; [A, [X, object], [Y, object]]</span><br><span class="line">  &#x3D; [A, X, [object], [Y, object]]</span><br><span class="line">  &#x3D; [A, X, Y, [object], [object]]</span><br><span class="line">  &#x3D; [A, X, Y, object]</span><br><span class="line"></span><br><span class="line">B &#x3D; [B, Y()]</span><br><span class="line">  &#x3D; [B, [Y, object]]</span><br><span class="line">  &#x3D; [B, Y, [object]]</span><br><span class="line">  &#x3D; [B, Y, object]</span><br><span class="line"></span><br><span class="line">C &#x3D; [C, A(), B()]</span><br><span class="line">  &#x3D; [C, [A, X, Y, object], [B, Y, object]]</span><br><span class="line">  &#x3D; [C, A, [X, Y, object], [B, Y, object]]</span><br><span class="line">  &#x3D; [C, A, X, [Y, object], [B, Y, object]]</span><br><span class="line">  &#x3D; [C, A, X, B, [Y, object], [Y, object]]</span><br><span class="line">  &#x3D; [C, A, X, B, Y, [object], [object]]</span><br><span class="line">  &#x3D; [C, A, X, B, Y, object]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">X = [X, object]</span><br><span class="line">Y = [Y, object]</span><br><span class="line">A = [A, X(), Y()]</span><br><span class="line">  = [A, [X, object], [Y, object]]</span><br><span class="line">  = [A, X, [object], [Y, object]]</span><br><span class="line">  = [A, X, Y, [object], [object]]</span><br><span class="line">  = [A, X, Y, object]</span><br><span class="line"></span><br><span class="line">B = [B, Y()]</span><br><span class="line">  = [B, [Y, object]]</span><br><span class="line">  = [B, Y, [object]]</span><br><span class="line">  = [B, Y, object]</span><br><span class="line"></span><br><span class="line">C = [C, A(), B()]</span><br><span class="line">  = [C, [A, X, Y, object], [B, Y, object]]</span><br><span class="line">  = [C, A, [X, Y, object], [B, Y, object]]</span><br><span class="line">  = [C, A, X, [Y, object], [B, Y, object]]</span><br><span class="line">  = [C, A, X, B, [Y, object], [Y, object]]</span><br><span class="line">  = [C, A, X, B, Y, [object], [object]]</span><br><span class="line">  = [C, A, X, B, Y, object]</span><br></pre></td></tr></table></figure>
 
 <p>代码验证</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Y</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(X, Y)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(Y)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A, B)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">C.mro()</span><br><span class="line"><span class="comment"># [__main__.C, __main__.A, __main__.X, __main__.B, __main__.Y, object]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">X</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Y</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(X, Y):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">Y</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(A, B):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">C.mro()</span><br><span class="line"><span class="comment"># [__main__.C, __main__.A, __main__.X, __main__.B, __main__.Y, object]</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="错误示例"><a href="#错误示例" class="headerlink" title="错误示例"></a>错误示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    object--&gt;X;</span><br><span class="line">    object--&gt;Y;</span><br><span class="line">    X--&gt;A;</span><br><span class="line">    Y--&gt;A;</span><br><span class="line">    Y--&gt;B;</span><br><span class="line">    X--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;C;</span><br></pre></td></tr></table></figure>
+<h3 id="错误示例"><a href="#错误示例" class="headerlink" title="错误示例"></a>错误示例</h3><pre><code class="highlight mermaid">graph TD;
+    object--&gt;X;
+    object--&gt;Y;
+    X--&gt;A;
+    Y--&gt;A;
+    Y--&gt;B;
+    X--&gt;B;
+    A--&gt;C;
+    B--&gt;C;</code></pre>
 
-<figure class="highlight plain"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X &#x3D; [X, object]</span><br><span class="line">Y &#x3D; [Y, object]</span><br><span class="line">A &#x3D; [A, X(), Y()] &#x3D; [A, [X, object], [Y, object]] &#x3D; [A, X, [object], [Y, object]] &#x3D; [A, X, Y, [object], [object]] &#x3D; [A, X, Y, object]</span><br><span class="line">B &#x3D; [B, Y(), X()] &#x3D; [B, [Y, object], [X, object]] &#x3D; [B, Y, [object], [X, object]] &#x3D; [B, Y, X, [object], [object]] &#x3D; [B, Y, X, object]</span><br><span class="line">C &#x3D; [C, A(), B()] &#x3D; [C, [A, X, Y, object], [B, Y, X, object]] &#x3D; [C, A, [X, Y, object], [B, Y, X, object]] &#x3D; [C, A, B, [X, Y, object], [Y, X, object]]</span><br><span class="line">此时，无法找到符合条件的元素，所以抛出异常</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X = [X, object]</span><br><span class="line">Y = [Y, object]</span><br><span class="line">A = [A, X(), Y()] = [A, [X, object], [Y, object]] = [A, X, [object], [Y, object]] = [A, X, Y, [object], [object]] = [A, X, Y, object]</span><br><span class="line">B = [B, Y(), X()] = [B, [Y, object], [X, object]] = [B, Y, [object], [X, object]] = [B, Y, X, [object], [object]] = [B, Y, X, object]</span><br><span class="line">C = [C, A(), B()] = [C, [A, X, Y, object], [B, Y, X, object]] = [C, A, [X, Y, object], [B, Y, X, object]] = [C, A, B, [X, Y, object], [Y, X, object]]</span><br><span class="line">此时，无法找到符合条件的元素，所以抛出异常</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Y</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(X, Y)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(Y, X)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A, B)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># TypeError: Cannot create a consistent method resolution</span></span><br><span class="line"><span class="comment"># order (MRO) for bases X, Y</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">X</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Y</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(X, Y):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(Y, X):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(A, B):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># TypeError: Cannot create a consistent method resolution</span></span><br><span class="line"><span class="comment"># order (MRO) for bases X, Y</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="问题解答"><a href="#问题解答" class="headerlink" title="问题解答"></a>问题解答</h2><p>现在解答最开始的问题</p>
 <p>第一个代码块中输出 <code>A</code> 的原因</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    C--&gt;D;</span><br><span class="line">    B--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A--&gt;C;
+    C--&gt;D;
+    B--&gt;D;</code></pre>
 
-<figure class="highlight plain"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A &#x3D; [A, object]</span><br><span class="line">C &#x3D; [C, A()] &#x3D; [C, [A, object]] &#x3D; [C, A, object]</span><br><span class="line">B &#x3D; [B, object]</span><br><span class="line">D &#x3D; [D, C(), B()]</span><br><span class="line">  &#x3D; [D, [C, A, object], [B, object]]</span><br><span class="line">  &#x3D; [D, C, [A, object], [B, object]]</span><br><span class="line">  &#x3D; [D, C, A, [object], [B, object]]</span><br><span class="line">  &#x3D; [D, C, A, B, [object], [object]]</span><br><span class="line">  &#x3D; [D, C, A, B, object]</span><br><span class="line"></span><br><span class="line">D -&gt; C -&gt; A -&gt; B -&gt; object</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A = [A, object]</span><br><span class="line">C = [C, A()] = [C, [A, object]] = [C, A, object]</span><br><span class="line">B = [B, object]</span><br><span class="line">D = [D, C(), B()]</span><br><span class="line">  = [D, [C, A, object], [B, object]]</span><br><span class="line">  = [D, C, [A, object], [B, object]]</span><br><span class="line">  = [D, C, A, [object], [B, object]]</span><br><span class="line">  = [D, C, A, B, [object], [object]]</span><br><span class="line">  = [D, C, A, B, object]</span><br><span class="line"></span><br><span class="line">D -&gt; C -&gt; A -&gt; B -&gt; object</span><br></pre></td></tr></table></figure>
 
 <p>第二个代码块中输出 <code>B</code> 的原因</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    C--&gt;D;</span><br><span class="line">    B--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A--&gt;C;
+    A--&gt;B;
+    C--&gt;D;
+    B--&gt;D;</code></pre>
 
-<figure class="highlight plain"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A &#x3D; [A, object]</span><br><span class="line">C &#x3D; [C, A()] &#x3D; [C, [A, object]] &#x3D; [C, A, object]</span><br><span class="line">B &#x3D; [B, A()] &#x3D; [B, [A, object]] &#x3D; [B, A, object]</span><br><span class="line">D &#x3D; [D, C(), B()]</span><br><span class="line">  &#x3D; [D, [C, A, object], [B, A, object]]</span><br><span class="line">  &#x3D; [D, C, [A, object], [B, A, object]]</span><br><span class="line">  &#x3D; [D, C, B, [A, object], [A, object]]</span><br><span class="line">  &#x3D; [D, C, B, A, [object], [object]]</span><br><span class="line">  &#x3D; [D, C, B, A, object]</span><br><span class="line"></span><br><span class="line">D -&gt; C -&gt; B -&gt; A -&gt; object</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A = [A, object]</span><br><span class="line">C = [C, A()] = [C, [A, object]] = [C, A, object]</span><br><span class="line">B = [B, A()] = [B, [A, object]] = [B, A, object]</span><br><span class="line">D = [D, C(), B()]</span><br><span class="line">  = [D, [C, A, object], [B, A, object]]</span><br><span class="line">  = [D, C, [A, object], [B, A, object]]</span><br><span class="line">  = [D, C, B, [A, object], [A, object]]</span><br><span class="line">  = [D, C, B, A, [object], [object]]</span><br><span class="line">  = [D, C, B, A, object]</span><br><span class="line"></span><br><span class="line">D -&gt; C -&gt; B -&gt; A -&gt; object</span><br></pre></td></tr></table></figure>
 
 <h2 id="super-的使用"><a href="#super-的使用" class="headerlink" title="super 的使用"></a>super 的使用</h2><p><code>super([type, [type_or_object]])</code></p>
 <ul>
@@ -358,12 +428,16 @@
 <li>寻找这个 super 是在哪个类里面定义的，将这个类当做第一个参数传入 super</li>
 <li>寻找这个 super 是在哪个函数中定义的，将函数的第一个参数作为 super 的第二个参数</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admin</span><span class="params">(User)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, group)</span>:</span></span><br><span class="line">        <span class="comment">#--------------------------</span></span><br><span class="line">        <span class="comment"># 第一种写法</span></span><br><span class="line">        super().__init__(name)</span><br><span class="line">        <span class="comment"># 第二种写法</span></span><br><span class="line">        super(Admin, self).__init__(name)</span><br><span class="line">        <span class="comment">#--------------------------</span></span><br><span class="line">        self.group = group</span><br><span class="line"></span><br><span class="line">admin = Admin(<span class="string">"name"</span>, <span class="string">"finance"</span>)</span><br><span class="line"><span class="comment"># 第三种写法，类外使用</span></span><br><span class="line">super(Admin, admin).__init__(<span class="string">"stolen"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Admin</span>(<span class="title class_ inherited__">User</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, group</span>):</span><br><span class="line">        <span class="comment">#--------------------------</span></span><br><span class="line">        <span class="comment"># 第一种写法</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(name)</span><br><span class="line">        <span class="comment"># 第二种写法</span></span><br><span class="line">        <span class="built_in">super</span>(Admin, <span class="variable language_">self</span>).__init__(name)</span><br><span class="line">        <span class="comment">#--------------------------</span></span><br><span class="line">        <span class="variable language_">self</span>.group = group</span><br><span class="line"></span><br><span class="line">admin = Admin(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;finance&quot;</span>)</span><br><span class="line"><span class="comment"># 第三种写法，类外使用</span></span><br><span class="line"><span class="built_in">super</span>(Admin, admin).__init__(<span class="string">&quot;stolen&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>证明两个参数含义的代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"A"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().show()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"C"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span><span class="params">(B, C)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(self)</span>:</span></span><br><span class="line">        B.show(self)</span><br><span class="line"></span><br><span class="line">d = D()</span><br><span class="line">d.show() <span class="comment"># C</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;A&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>(<span class="title class_ inherited__">A</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;C&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>(B, C):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        B.show(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">d = D()</span><br><span class="line">d.show() <span class="comment"># C</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A-show--&gt;B;</span><br><span class="line">    A-show--&gt;C-show;</span><br><span class="line">    B--&gt;D;</span><br><span class="line">    C-show--&gt;D;</span><br></pre></td></tr></table></figure>
+<pre><code class="highlight mermaid">graph TD;
+    A-show--&gt;B;
+    A-show--&gt;C-show;
+    B--&gt;D;
+    C-show--&gt;D;</code></pre>
 
 <p>说明：</p>
 <ul>
@@ -374,10 +448,10 @@
 </ul>
 <h2 id="最后提醒"><a href="#最后提醒" class="headerlink" title="最后提醒"></a>最后提醒</h2><p>Python 的 MRO 从来没有使用过广度优先算法，只是很多情况下 C3 线性化的结果和广度优先算法的结果一致。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://www.python.org/download/releases/2.3/mro/" target="_blank" rel="noopener">Python MRO</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/C3%E7%BA%BF%E6%80%A7%E5%8C%96" target="_blank" rel="noopener">C3 线性化</a></li>
-<li><a href="https://www.cnblogs.com/qunxiadexiaoxiangjiao/p/8311429.html" target="_blank" rel="noopener">Python的方法解析顺序(MRO)</a></li>
-<li><a href="https://github.com/gaogaotiantian" target="_blank" rel="noopener">gaogaotiantian</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.python.org/download/releases/2.3/mro/">Python MRO</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/C3%E7%BA%BF%E6%80%A7%E5%8C%96">C3 线性化</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qunxiadexiaoxiangjiao/p/8311429.html">Python的方法解析顺序(MRO)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/gaogaotiantian">gaogaotiantian</a></li>
 </ul>
 
     </div>
@@ -386,191 +460,58 @@
     
     
 
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/" rel="tag"># 技术原理</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/python_metaclass/" rel="prev" title="Python 元类">
-      <i class="fa fa-chevron-left"></i> Python 元类
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/websocket/" rel="next" title="WebSocket 工作原理">
-      WebSocket 工作原理 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/websocket/" rel="prev" title="WebSocket 工作原理">
+                  <i class="fa fa-angle-left"></i> WebSocket 工作原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/python_metaclass/" rel="next" title="Python 元类">
+                  Python 元类 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题引入"><span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-MRO-简介"><span class="nav-text">Python MRO 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFS-算法"><span class="nav-text">DFS 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进的-DFS-算法"><span class="nav-text">改进的 DFS 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C3-算法"><span class="nav-text">C3 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法原理"><span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误示例"><span class="nav-text">错误示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解答"><span class="nav-text">问题解答</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#super-的使用"><span class="nav-text">super 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后提醒"><span class="nav-text">最后提醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">70</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
     </span>
-    <span title="站点总字数">220k</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
   </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -578,8 +519,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -588,72 +528,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>

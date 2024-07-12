@@ -2,23 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog2_32x32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog2_16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.stolenzc.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="PEP 526 Syntax for Variable Annotations 翻译">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.stolenzc.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="PEP 526 Syntax for Variable Annotations 翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PEP 526 -- 变量注解的语法">
 <meta property="og:url" content="https://blog.stolenzc.com/2023/pep-0526/index.html">
@@ -26,26 +28,21 @@
 <meta property="og:description" content="PEP 526 Syntax for Variable Annotations 翻译">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-23T14:57:42.000Z">
-<meta property="article:modified_time" content="2024-07-05T04:01:05.957Z">
+<meta property="article:modified_time" content="2024-07-12T01:15:40.809Z">
 <meta property="article:author" content="stolen">
 <meta property="article:tag" content="翻译">
 <meta property="article:tag" content="PEP">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://blog.stolenzc.com/2023/pep-0526/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>PEP 526 -- 变量注解的语法 | stolen's blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.stolenzc.com/2023/pep-0526/","path":"2023/pep-0526/","title":"PEP 526 -- 变量注解的语法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PEP 526 -- 变量注解的语法 | stolen's blog</title>
   
 
 
@@ -53,57 +50,39 @@
 
 
 
+
+
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">stolen's blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">stolen's blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">逆风的方向，更适合飞翔</p>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
         <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
@@ -111,34 +90,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -150,130 +103,207 @@
 
   <div class="search-pop-overlay">
     <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-    </header>
+</header>
+        
+  
+  <aside class="sidebar">
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81"><span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E6%B3%A8%E6%84%8F"><span class="nav-text">读者注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E7%94%B1%E8%AF%B4%E6%98%8E"><span class="nav-text">理由说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%98%AF%E7%9A%84%E7%90%86%E7%94%B1"><span class="nav-text">不是的理由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E8%8C%83"><span class="nav-text">规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-text">全局变量和局部变量的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%8F%98%E9%87%8F%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-text">类变量和实例变量的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">注解表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%85%81%E8%AE%B8%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="nav-text">不允许注解的地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AD%98%E6%A0%B9%E6%96%87%E4%BB%B6-stub-file-%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F%E6%B3%A8%E8%A7%A3"><span class="nav-text">在存根文件 (stub file) 中的变量注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E9%80%89%E7%9A%84%E4%BB%A3%E7%A0%81%E6%B3%A8%E8%A7%A3%E9%A3%8E%E6%A0%BC"><span class="nav-text">首选的代码注解风格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BA%93%E5%92%8C%E6%96%87%E6%A1%A3%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-text">标准库和文档的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-text">类型注解在运行时的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E9%80%94"><span class="nav-text">注解的其他用途</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%92%E7%BB%9D-%E6%8E%A8%E8%BF%9F%E7%9A%84%E6%8F%90%E6%A1%88"><span class="nav-text">拒绝&#x2F;推迟的提案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-text">向后兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9D%83"><span class="nav-text">版权</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="stolen"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">stolen</p>
+  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
   </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
+        </div>
+      </div>
+    </div>
 
     
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.stolenzc.com/2023/pep-0526/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="stolen">
-      <meta itemprop="description" content="一个热爱技术的Python开发者">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="stolen's blog">
+      <meta itemprop="description" content="一个热爱技术的Python开发者">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PEP 526 -- 变量注解的语法 | stolen's blog">
+      <meta itemprop="description" content="PEP 526 Syntax for Variable Annotations 翻译">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           PEP 526 -- 变量注解的语法
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-11-23 22:57:42" itemprop="dateCreated datePublished" datetime="2023-11-23T22:57:42+08:00">2023-11-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2023-11-23 22:57:42" itemprop="dateCreated datePublished" datetime="2023-11-23T22:57:42+08:00">2023-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-          <!--<br>-->
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>9.5k</span>
-            </span>
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.8k</span>
+    </span>
+</div>
+
             <div class="post-description">PEP 526 Syntax for Variable Annotations 翻译</div>
-
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
+    <div class="post-body" itemprop="articleBody"><h2 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h2><ul>
 <li>Python 版本：3.6</li>
 <li>发布时间：2016-08-09</li>
-<li>原文链接：<a href="https://peps.python.org/pep-0526/" target="_blank" rel="noopener">PEP 526 - Syntax for Variable Annotations</a></li>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://peps.python.org/pep-0526/">PEP 526 - Syntax for Variable Annotations</a></li>
 <li>翻译日期：2023-11-23</li>
 <li>翻译作者：<a href="mailto:stolenzc@88.com">联系或纠错</a></li>
 </ul>
-<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>本 PEP 已经被 Python 监管裁决者 (Guido) 临时性的通过了，更多通过的信息参阅 <a href="https://mail.python.org/pipermail/python-dev/2016-September/146282.html" target="_blank" rel="noopener">https://mail.python.org/pipermail/python-dev/2016-September/146282.html</a></p>
-<h2 id="读者注意"><a href="#读者注意" class="headerlink" title="读者注意"></a>读者注意</h2><p>这个 PEP 是在单独的仓库 <a href="https://github.com/phouse512/peps/tree/pep-0526" target="_blank" rel="noopener">https://github.com/phouse512/peps/tree/pep-0526</a> 中起草的。</p>
-<p>这个想法的初步的讨论在 <a href="https://github.com/python/typing/issues/258" target="_blank" rel="noopener">https://github.com/python/typing/issues/258</a></p>
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>本 PEP 已经被 Python 监管裁决者 (Guido) 临时性的通过了，更多通过的信息参阅 <a target="_blank" rel="noopener" href="https://mail.python.org/pipermail/python-dev/2016-September/146282.html">https://mail.python.org/pipermail/python-dev/2016-September/146282.html</a></p>
+<h2 id="读者注意"><a href="#读者注意" class="headerlink" title="读者注意"></a>读者注意</h2><p>这个 PEP 是在单独的仓库 <a target="_blank" rel="noopener" href="https://github.com/phouse512/peps/tree/pep-0526">https://github.com/phouse512/peps/tree/pep-0526</a> 中起草的。</p>
+<p>这个想法的初步的讨论在 <a target="_blank" rel="noopener" href="https://github.com/python/typing/issues/258">https://github.com/python/typing/issues/258</a></p>
 <p>在公开的论坛上提出异议之前，请至少先阅读一个这个 PEP 文末的关于被拒绝想法的部分。</p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 引入了类型提示，也称为类型注解。虽然它重点聚焦于函数的注解，但它也引入了通过类型注释来注解变量的概念：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 'primes' 是一个列表，其中的元素都是整数</span></span><br><span class="line">primes = []  <span class="comment"># type: List[int]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 'captain' 是一个字符串 (注意：初始化变量是错误的)</span></span><br><span class="line">captain = ...  <span class="comment"># type: str</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    <span class="comment"># 'stats' 是一个类变量</span></span><br><span class="line">    stats = &#123;&#125;  <span class="comment"># type: Dict[str, int]</span></span><br></pre></td></tr></table></figure>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0484/">PEP 484</a> 引入了类型提示，也称为类型注解。虽然它重点聚焦于函数的注解，但它也引入了通过类型注释来注解变量的概念：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#x27;primes&#x27; 是一个列表，其中的元素都是整数</span></span><br><span class="line">primes = []  <span class="comment"># type: <span class="type">List</span>[<span class="built_in">int</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x27;captain&#x27; 是一个字符串 (注意：初始化变量是错误的)</span></span><br><span class="line">captain = ...  <span class="comment"># type: <span class="built_in">str</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    <span class="comment"># &#x27;stats&#x27; 是一个类变量</span></span><br><span class="line">    stats = &#123;&#125;  <span class="comment"># type: <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]</span></span><br></pre></td></tr></table></figure>
 
 <p>这个 PEP 的目标是添加一个对 Python 变量 (也包括类变量和实例变量) 注解的语法来替代通过注释表达式注释。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">primes: List[int] = []</span><br><span class="line"></span><br><span class="line">captain: str  <span class="comment"># 注意：没有初始化值</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    stats: ClassVar[Dict[str, int]] = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">primes: <span class="type">List</span>[<span class="built_in">int</span>] = []</span><br><span class="line"></span><br><span class="line">captain: <span class="built_in">str</span>  <span class="comment"># 注意：没有初始化值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    stats: ClassVar[<span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]] = &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<p><a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 明确指出类型注释旨在帮助在复杂的情况下进行类型推断，并且此 PEP 也不会改变此意图。然而，由于类型注释在实际中也被采用在类变量和实例变量上，因此这个 PEP 也会讨论这些变量的类型注解。</p>
+<p><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0484/">PEP 484</a> 明确指出类型注释旨在帮助在复杂的情况下进行类型推断，并且此 PEP 也不会改变此意图。然而，由于类型注释在实际中也被采用在类变量和实例变量上，因此这个 PEP 也会讨论这些变量的类型注解。</p>
 <h2 id="理由说明"><a href="#理由说明" class="headerlink" title="理由说明"></a>理由说明</h2><p>尽管类型注释当前工作的很好，但实际上通过注释来传递类型信息有一些缺点：</p>
 <ul>
 <li><p>文本编辑器通常将类型注解和注释以不同的方式进行高亮。</p>
@@ -288,7 +318,7 @@
 <li><p>类型注释在 typeshed (译者注：Python标准库和Python内置程序的外部类型注释) 中被大量使用，使用变量注解语法来代替类型注释进行迁移将会提高存根的可读性。</p>
 </li>
 <li><p>在普通注释和类型注释一起使用的情况下，很难区分它们：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="literal">None</span>  <span class="comment"># type: Optional[str]  # 模块的路径</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="literal">None</span>  <span class="comment"># type: <span class="type">Optional</span>[<span class="built_in">str</span>]  # 模块的路径</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>除了尝试查找模块的源代码并在运行时解析它之外，不可能在运行时检索注释，至少可以说，这是不优雅的。</p>
 </li>
@@ -297,7 +327,7 @@
 <p>还应该强调的是，<strong>Python仍然是一个动态类型语言，即使按照惯例，作者也没有将类型提示作为强制的打算</strong>。类型注解不应该与静态类型语言的变量声明引起混淆。注解语法的目的是用简单的方式为三方攻击指定结构化元数据。</p>
 <p>本 PEP 并不要求类型检查器修改他们的检查规则。它只是提供了一种更易读的语法来替换类型注释。</p>
 <h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><p>类型注解可以被添加到赋值表达式中或者单独对变量作注解来被第三方类型检查器使用：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_var: int</span><br><span class="line">my_var = <span class="number">5</span>  <span class="comment"># 类型检查通过</span></span><br><span class="line">other_var: int = <span class="string">'a'</span>  <span class="comment"># 会被类型检查器标记为错误，但是运行时不会报错</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_var: <span class="built_in">int</span></span><br><span class="line">my_var = <span class="number">5</span>  <span class="comment"># 类型检查通过</span></span><br><span class="line">other_var: <span class="built_in">int</span> = <span class="string">&#x27;a&#x27;</span>  <span class="comment"># 会被类型检查器标记为错误，但是运行时不会报错</span></span><br></pre></td></tr></table></figure>
 
 <p>这个语法在 PEP 484 之外没有引入新的语法，所以以下三个表达式是等价的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var = value  <span class="comment"># type: annotation</span></span><br><span class="line">var: annotation; var = value</span><br><span class="line">var: annotation = value</span><br></pre></td></tr></table></figure>
@@ -305,106 +335,104 @@
 <p>下面我们具体来说说类型注解的语法在不同的上下文以及运行时的影响。</p>
 <p>我们依然建议类型检查器能够解释注解，但是是否遵循这些注解不是强制的 (这与 PEP 484 中的建议是一致的) 。</p>
 <h3 id="全局变量和局部变量的注解"><a href="#全局变量和局部变量的注解" class="headerlink" title="全局变量和局部变量的注解"></a>全局变量和局部变量的注解</h3><p>全局变量和局部变量的类型注解可以通过以下方式进行：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">some_number: int           <span class="comment"># 变量没有初始值</span></span><br><span class="line">some_list: List[int] = []  <span class="comment"># 变量有初始值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">some_number: <span class="built_in">int</span>           <span class="comment"># 变量没有初始值</span></span><br><span class="line">some_list: <span class="type">List</span>[<span class="built_in">int</span>] = []  <span class="comment"># 变量有初始值</span></span><br></pre></td></tr></table></figure>
 
 <p>允许没有初始值对变量做类型注解能够在条件分支中更容易使用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sane_world: bool</span><br><span class="line"><span class="keyword">if</span> <span class="number">2</span> + <span class="number">2</span> == <span class="number">4</span>:</span><br><span class="line">    sane_world = <span class="literal">True</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    sane_world = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sane_world: <span class="built_in">bool</span></span><br><span class="line"><span class="keyword">if</span> <span class="number">2</span> + <span class="number">2</span> == <span class="number">4</span>:</span><br><span class="line">    sane_world = <span class="literal">True</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    sane_world = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
 
 <p>请注意，尽管允许元组打包的语法，但不允许在元组解包时对变量的类型做注解：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 带有变量注解的元组打包语法</span></span><br><span class="line">t: Tuple[int, ...] = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">t: Tuple[int, ...] = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>  <span class="comment"># 这个语法在 Python3.8+ 的版本才支持</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带有变量注解的元组解包语法</span></span><br><span class="line">header: str</span><br><span class="line">kind: int</span><br><span class="line">body: Optional[List[str]]</span><br><span class="line">header, kind, body = message</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 带有变量注解的元组打包语法</span></span><br><span class="line">t: <span class="type">Tuple</span>[<span class="built_in">int</span>, ...] = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">t: <span class="type">Tuple</span>[<span class="built_in">int</span>, ...] = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>  <span class="comment"># 这个语法在 Python3.8+ 的版本才支持</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带有变量注解的元组解包语法</span></span><br><span class="line">header: <span class="built_in">str</span></span><br><span class="line">kind: <span class="built_in">int</span></span><br><span class="line">body: <span class="type">Optional</span>[<span class="type">List</span>[<span class="built_in">str</span>]]</span><br><span class="line">header, kind, body = message</span><br></pre></td></tr></table></figure>
 
 <p>省略初始值会导致变量未初始化：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: int</span><br><span class="line">print(a)  <span class="comment"># 会报出 NameError 错误</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: <span class="built_in">int</span></span><br><span class="line"><span class="built_in">print</span>(a)  <span class="comment"># 会报出 NameError 错误</span></span><br></pre></td></tr></table></figure>
 
 <p>然而，对局部变量做注解将会导致解释器始终将其作为局部变量：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    a: int</span><br><span class="line">    print(a)  <span class="comment"># 会报出 UnboundLocalError 错误</span></span><br><span class="line">    <span class="comment"># 如果将 a:int 注释掉，那么会报出 NameError 错误</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    a: <span class="built_in">int</span></span><br><span class="line">    <span class="built_in">print</span>(a)  <span class="comment"># 会报出 UnboundLocalError 错误</span></span><br><span class="line">    <span class="comment"># 如果将 a:int 注释掉，那么会报出 NameError 错误</span></span><br></pre></td></tr></table></figure>
 
 <p>同如下的代码一样：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="literal">False</span>:</span><br><span class="line">        a = <span class="number">0</span></span><br><span class="line">    print(a)  <span class="comment"># 会报出 UnboundLocalError 错误</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="literal">False</span>:</span><br><span class="line">        a = <span class="number">0</span></span><br><span class="line">    <span class="built_in">print</span>(a)  <span class="comment"># 会报出 UnboundLocalError 错误</span></span><br></pre></td></tr></table></figure>
 
 <p>虽然重复的类型注解会被忽略。但是静态类型检查器可能会对同一个变量的不痛类型注解报出警告：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: int</span><br><span class="line">a: str  <span class="comment"># 静态检查器可能会报出警告</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a: <span class="built_in">int</span></span><br><span class="line">a: <span class="built_in">str</span>  <span class="comment"># 静态检查器可能会报出警告</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="类变量和实例变量的注解"><a href="#类变量和实例变量的注解" class="headerlink" title="类变量和实例变量的注解"></a>类变量和实例变量的注解</h3><p>类型注解同样可以被用在类层级或类方法中的类变量或实例变量中。特别是，没有值的标记 <code>a: int</code> 允许注解在 <code>__init__</code> 或 <code>__new__</code> 中初始化的实例变量。推荐的语法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicStarship</span>:</span></span><br><span class="line">    captain: str = <span class="string">'Picard'</span>  <span class="comment"># 带默认值的实例变量</span></span><br><span class="line">    damage: int  <span class="comment"># 没有默认值的实例变量</span></span><br><span class="line">    stats: ClassVar[Dict[str, int]] = &#123;&#125;  <span class="comment"># 类变量</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BasicStarship</span>:</span><br><span class="line">    captain: <span class="built_in">str</span> = <span class="string">&#x27;Picard&#x27;</span>  <span class="comment"># 带默认值的实例变量</span></span><br><span class="line">    damage: <span class="built_in">int</span>  <span class="comment"># 没有默认值的实例变量</span></span><br><span class="line">    stats: ClassVar[<span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]] = &#123;&#125;  <span class="comment"># 类变量</span></span><br></pre></td></tr></table></figure>
 
 <p>这儿的 <code>ClassVar</code> 是一个在 <code>typing</code> 模块中定义的特殊的类，用来向静态类型检查器标识这个变量不应该在实例中被设置。</p>
 <p>请注意，无论嵌套级别如何， <code>ClassVar</code> 都不能包含任何类型变量：如果 T 是一个类型变量，那么 <code>ClassVar[T]</code> 和 <code>ClassVar[List[T]]</code> 都是不合法的。</p>
 <p>这需要用更多的例子来说明，在下面这个类中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    captain = <span class="string">'Picard'</span></span><br><span class="line">    stats = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, damage, captain=None)</span>:</span></span><br><span class="line">        self.damage = damage</span><br><span class="line">        <span class="keyword">if</span> captain:</span><br><span class="line">            self.captain = captain  <span class="comment"># 否则保持默认</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hit</span><span class="params">(self)</span>:</span></span><br><span class="line">        Starship.stats[<span class="string">'hits'</span>] = Starship.stats.get(<span class="string">'hits'</span>, <span class="number">0</span>) + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    captain = <span class="string">&#x27;Picard&#x27;</span></span><br><span class="line">    stats = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, damage, captain=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.damage = damage</span><br><span class="line">        <span class="keyword">if</span> captain:</span><br><span class="line">            <span class="variable language_">self</span>.captain = captain  <span class="comment"># 否则保持默认</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hit</span>(<span class="params">self</span>):</span><br><span class="line">        Starship.stats[<span class="string">&#x27;hits&#x27;</span>] = Starship.stats.get(<span class="string">&#x27;hits&#x27;</span>, <span class="number">0</span>) + <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p><code>stats</code> 旨在作为一个类变量 (跟踪许多不同比赛的统计数据) ，而 <code>captain</code> 是一个实例变量，在类中设置了默认值。这种差异可能不会被类型检查器发现，因为它们都在类中进行了初始化，但 <code>captain</code> 仅仅被用作实例变量的默认值，而 <code>stats</code> 是一个真正的类变量，它在所有的实例中被共享。</p>
 <p>由于两个类型都恰好在类中被初始化，使用被 <code>ClassVar[...]</code> 包裹的类型注解来标记它们对于区分类变量和实例变量是很有用。在这种情况下，类型检查器可以对在实例中相同名称的变量意外赋值做出标记。</p>
 <p>例如，对前面所讨论的类做注解：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    captain: str = <span class="string">'Picard'</span></span><br><span class="line">    damage: int</span><br><span class="line">    stats: ClassVar[Dict[str, int]] = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, damage: int, captain: str = None)</span>:</span></span><br><span class="line">        self.damage = damage</span><br><span class="line">        <span class="keyword">if</span> captain:</span><br><span class="line">            self.captain = captain  <span class="comment"># 否则用默认值</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hit</span><span class="params">(self)</span>:</span></span><br><span class="line">        Starship.stats[<span class="string">'hits'</span>] = Starship.stats.get(<span class="string">'hits'</span>, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enterprise_d = Starship(<span class="number">3000</span>)</span><br><span class="line">enterprise_d.stats = &#123;&#125; <span class="comment"># 类型检查器会在这儿标记一个错误</span></span><br><span class="line">Starship.stats = &#123;&#125; <span class="comment"># 这样是合法的</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    captain: <span class="built_in">str</span> = <span class="string">&#x27;Picard&#x27;</span></span><br><span class="line">    damage: <span class="built_in">int</span></span><br><span class="line">    stats: ClassVar[<span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]] = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, damage: <span class="built_in">int</span>, captain: <span class="built_in">str</span> = <span class="literal">None</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.damage = damage</span><br><span class="line">        <span class="keyword">if</span> captain:</span><br><span class="line">            <span class="variable language_">self</span>.captain = captain  <span class="comment"># 否则用默认值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hit</span>(<span class="params">self</span>):</span><br><span class="line">        Starship.stats[<span class="string">&#x27;hits&#x27;</span>] = Starship.stats.get(<span class="string">&#x27;hits&#x27;</span>, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enterprise_d = Starship(<span class="number">3000</span>)</span><br><span class="line">enterprise_d.stats = &#123;&#125; <span class="comment"># 类型检查器会在这儿标记一个错误</span></span><br><span class="line">Starship.stats = &#123;&#125; <span class="comment"># 这样是合法的</span></span><br></pre></td></tr></table></figure>
 
 <p>为了方便 (和约定) ，实例变量可以在 <code>__init__</code> 或其他方法中做注解，而不是在类中做注解。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Generic, TypeVar</span><br><span class="line">T = TypeVar(<span class="string">'T'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span><span class="params">(Generic[T])</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        self.content: T = content</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Generic</span>, TypeVar</span><br><span class="line">T = TypeVar(<span class="string">&#x27;T&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Box</span>(<span class="type">Generic</span>[T]):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, content</span>):</span><br><span class="line">        <span class="variable language_">self</span>.content: T = content</span><br></pre></td></tr></table></figure>
 
 <h3 id="注解表达式"><a href="#注解表达式" class="headerlink" title="注解表达式"></a>注解表达式</h3><p>注解的目标可以是任何有效的单一赋值目标，至少语法上是如此的。 (取决与类型检查器如何处理)：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cls</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">c = Cls()</span><br><span class="line">c.x: int = <span class="number">0</span>  <span class="comment"># 将 c.x 注解为 int</span></span><br><span class="line">c.y: int      <span class="comment"># 将 c.y 注解为 int</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line">d[<span class="string">"a"</span>]: int = <span class="number">0</span>  <span class="comment"># 将 d["a"] 注解为 int</span></span><br><span class="line">d[<span class="string">"b"</span>]: int      <span class="comment"># 将 d["b"] 注解为 int</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cls</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">c = Cls()</span><br><span class="line">c.x: <span class="built_in">int</span> = <span class="number">0</span>  <span class="comment"># 将 c.x 注解为 int</span></span><br><span class="line">c.y: <span class="built_in">int</span>      <span class="comment"># 将 c.y 注解为 int</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line">d[<span class="string">&quot;a&quot;</span>]: <span class="built_in">int</span> = <span class="number">0</span>  <span class="comment"># 将 d[&quot;a&quot;] 注解为 int</span></span><br><span class="line">d[<span class="string">&quot;b&quot;</span>]: <span class="built_in">int</span>      <span class="comment"># 将 d[&quot;b&quot;] 注解为 int</span></span><br></pre></td></tr></table></figure>
 
 <p>注意，即使是带括号的名称也被视为表达式，而不是简单的名称：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(x): int      <span class="comment"># 将 x 注解为 int，但是 (x) 会被编译器视为表达式</span></span><br><span class="line">(y): int = <span class="number">0</span>  <span class="comment"># 同上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(x): <span class="built_in">int</span>      <span class="comment"># 将 x 注解为 int，但是 (x) 会被编译器视为表达式</span></span><br><span class="line">(y): <span class="built_in">int</span> = <span class="number">0</span>  <span class="comment"># 同上</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="不允许注解的地方"><a href="#不允许注解的地方" class="headerlink" title="不允许注解的地方"></a>不允许注解的地方</h3><p>尝试在同一函数作用域中对 <code>global</code> 或 <code>nonlocal</code> 变量做注解都是不允许的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> x: int  <span class="comment"># SyntaxError</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">()</span>:</span></span><br><span class="line">    x: int  <span class="comment"># 同样也会报 SyntaxError</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    <span class="keyword">global</span> x: <span class="built_in">int</span>  <span class="comment"># SyntaxError</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">g</span>():</span><br><span class="line">    x: <span class="built_in">int</span>  <span class="comment"># 同样也会报 SyntaxError</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br></pre></td></tr></table></figure>
 
 <p>原因是 <code>global</code> 和 <code>nonlocal</code> 不是他们自己的变量，因此，类型注解属于拥有变量的作用域。</p>
 <p>只有单个赋值目标和单个右侧的值被允许。此外，注解不能在 <code>for</code> 或 <code>with</code> 中声明的变量，他们可以提前进行注解，类似于元组解包：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a: int</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> my_iter:</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">f: MyFile</span><br><span class="line"><span class="keyword">with</span> myfunc() <span class="keyword">as</span> f:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a: <span class="built_in">int</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> my_iter:</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">f: MyFile</span><br><span class="line"><span class="keyword">with</span> myfunc() <span class="keyword">as</span> f:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
 <h3 id="在存根文件-stub-file-中的变量注解"><a href="#在存根文件-stub-file-中的变量注解" class="headerlink" title="在存根文件 (stub file) 中的变量注解"></a>在存根文件 (stub file) 中的变量注解</h3><p>由于变量注解比类型注释可读性更好，所以在存根文件中的方式对所有 Python 版本都是首选的 (包括 Python2.7 ) 。注意，存根文件不会被 Python 解释器执行，因此使用变量注解不会导致错误。类型检查器应该支持所有 Python 的版本在存根文件中的变量注解。例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file lib.pyi</span></span><br><span class="line">ADDRESS: unicode = ...</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Error</span>:</span></span><br><span class="line">    cause: Union[str, unicode]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file lib.pyi</span></span><br><span class="line">ADDRESS: unicode = ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Error</span>:</span><br><span class="line">    cause: <span class="type">Union</span>[<span class="built_in">str</span>, unicode]</span><br></pre></td></tr></table></figure>
 
 <h3 id="首选的代码注解风格"><a href="#首选的代码注解风格" class="headerlink" title="首选的代码注解风格"></a>首选的代码注解风格</h3><p>对模块层级的变量、类和实例变量、局部变量的注解应该在冒号后面有一个空格。在冒号前面没有空格。如果存在右侧的赋值，那么等号的两边都应该有一个空格。例如：</p>
 <ul>
 <li><p>正确的风格</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code: int</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span>:</span></span><br><span class="line">    coords: Tuple[int, int]</span><br><span class="line">    label: str = <span class="string">'&lt;unknown&gt;`</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code: <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">    coords: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>]</span><br><span class="line">    label: <span class="built_in">str</span> = <span class="string">&#x27;&lt;unknown&gt;`</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>错误的风格</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code:int  <span class="comment"># 冒号后面没有空格</span></span><br><span class="line">code : int  <span class="comment"># 冒号前面有空格</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>:</span></span><br><span class="line">    result int=<span class="number">0</span>  <span class="comment"># 等号两边没有空格</span></span><br></pre></td></tr></table></figure>
-
-</li>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">code:<span class="built_in">int</span>  <span class="comment"># 冒号后面没有空格</span></span><br><span class="line">code : <span class="built_in">int</span>  <span class="comment"># 冒号前面有空格</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>:</span><br><span class="line">    result <span class="built_in">int</span>=<span class="number">0</span>  <span class="comment"># 等号两边没有空格</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="标准库和文档的修改"><a href="#标准库和文档的修改" class="headerlink" title="标准库和文档的修改"></a>标准库和文档的修改</h2><ul>
-<li>在 <code>typing</code> 模块中添加了一个新的的协作类型 <code>ClassVar[T_co]</code> 。它只接收一个应该是有效类型的参数。并用来注解不应该被设置为类实例的类变量。这是通过静态检查器来限制的，而不是运行时来限制。查阅 <a href="https://peps.python.org/pep-0526/#classvar" target="_blank" rel="noopener">classvar</a> (译者注：本 PEP 的其他位置) 部分了解关于 <code>ClassVar</code> 的示例与说明，并可以查看 <a href="https://peps.python.org/pep-0526/#pep-526-rejected" target="_blank" rel="noopener">rejected</a> 部分了解到 <code>ClassVar</code> 背后的更多原因。</li>
+<li>在 <code>typing</code> 模块中添加了一个新的的协作类型 <code>ClassVar[T_co]</code> 。它只接收一个应该是有效类型的参数。并用来注解不应该被设置为类实例的类变量。这是通过静态检查器来限制的，而不是运行时来限制。查阅 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0526/#classvar">classvar</a> (译者注：本 PEP 的其他位置) 部分了解关于 <code>ClassVar</code> 的示例与说明，并可以查看 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0526/#pep-526-rejected">rejected</a> 部分了解到 <code>ClassVar</code> 背后的更多原因。</li>
 <li><code>typing</code> 模块中的 <code>get_type_hints</code> 函数将被扩展，以便能够像函数一样在运行时获取到模块或类的类型注解。注解将会通过变量或参数与类型提示所组成的有序映射的形式返回，并评估向前引用。在类中将会返回一个在方法解析顺序 (MRO) 中构建注解的映射 (也可能是 <code>collections.ChainMap</code> ) 。</li>
-<li>使用注解的推荐指南将被添加进文档中，包括本 PEP 以及 <a href="https://peps.python.org/pep-0484/" target="_blank" rel="noopener">PEP 484</a> 中明确描述的教学概述。此外，用来将类型注释翻译为类型注解的脚本将会在发布后与标准库分开。</li>
+<li>使用注解的推荐指南将被添加进文档中，包括本 PEP 以及 <a target="_blank" rel="noopener" href="https://peps.python.org/pep-0484/">PEP 484</a> 中明确描述的教学概述。此外，用来将类型注释翻译为类型注解的脚本将会在发布后与标准库分开。</li>
 </ul>
 <h2 id="类型注解在运行时的效果"><a href="#类型注解在运行时的效果" class="headerlink" title="类型注解在运行时的效果"></a>类型注解在运行时的效果</h2><p>在对局部变量进行注解时，解释器会认为变量是一个局部变量，即使还没有进行赋值。局部变量的注解不会进行求值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    x: NonexistentName  <span class="comment"># No error.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>():</span><br><span class="line">    x: NonexistentName  <span class="comment"># No error.</span></span><br></pre></td></tr></table></figure>
 
 <p>但是，如果是模块或类层级的变量就会进行类型求值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x: NonexistentName  <span class="comment"># Error!</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span>:</span></span><br><span class="line">    var: NonexistentName  <span class="comment"># Error!</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x: NonexistentName  <span class="comment"># Error!</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">X</span>:</span><br><span class="line">    var: NonexistentName  <span class="comment"># Error!</span></span><br></pre></td></tr></table></figure>
 
 <p>此外，在模块或类的层级下，如果被当做注解的对象是一个简单的名称，那么会将名称与注解以有序映射的形式存储到模块或类（非私有）中的 <code>__annotations__</code> 属性中。如下示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Dict</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span>:</span></span><br><span class="line">    ...</span><br><span class="line">players: Dict[str, Player]</span><br><span class="line">__points: int</span><br><span class="line"></span><br><span class="line">print(__annotations__)</span><br><span class="line"><span class="comment"># prints: &#123;'players': typing.Dict[str, __main__.Player],</span></span><br><span class="line"><span class="comment">#          '_Player__points': &lt;class 'int'&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Player</span>:</span><br><span class="line">    ...</span><br><span class="line">players: <span class="type">Dict</span>[<span class="built_in">str</span>, Player]</span><br><span class="line">__points: <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(__annotations__)</span><br><span class="line"><span class="comment"># prints: &#123;&#x27;players&#x27;: typing.Dict[str, __main__.Player],</span></span><br><span class="line"><span class="comment">#          &#x27;_Player__points&#x27;: &lt;class &#x27;int&#x27;&gt;&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p><code>__annotations__</code> 是可写的，所以以下代码是允许的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__annotations__[<span class="string">'s'</span>] = str</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__annotations__[<span class="string">&#x27;s&#x27;</span>] = <span class="built_in">str</span></span><br></pre></td></tr></table></figure>
 
 <p>但尝试将 <code>__annotations__</code> 更新为有序映射之外的其他类型，就会得到一个 TypeError</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line">    __annotations__ = <span class="number">42</span></span><br><span class="line">    x: int = <span class="number">5</span>  <span class="comment"># raises TypeError</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>:</span><br><span class="line">    __annotations__ = <span class="number">42</span></span><br><span class="line">    x: <span class="built_in">int</span> = <span class="number">5</span>  <span class="comment"># raises TypeError</span></span><br></pre></td></tr></table></figure>
 
-<p>（请注意，对 ``<strong>annotations</strong>` 的赋值是罪魁祸首，Python 解释器会毫无疑问地接受它，但后续的类型注释期望它是 MutableMapping 并且会失败。）</p>
+<p>（请注意，对 &#96;&#96;<strong>annotations</strong>&#96; 的赋值是罪魁祸首，Python 解释器会毫无疑问地接受它，但后续的类型注释期望它是 MutableMapping 并且会失败。）</p>
 <p>在运行时获取注解的推荐方式是使用 <code>typing.get_type_hints</code> 方法；和所有双下划线的属性一样，任何未注明的 <code>__annotations__</code> 使用都可能在没有警告的情况下被破坏。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Dict, ClassVar, get_type_hints</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Starship</span>:</span></span><br><span class="line">    hitpoints: int = <span class="number">50</span></span><br><span class="line">    stats: ClassVar[Dict[str, int]] = &#123;&#125;</span><br><span class="line">    shield: int = <span class="number">100</span></span><br><span class="line">    captain: str</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, captain: str)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> get_type_hints(Starship) == &#123;<span class="string">'hitpoints'</span>: int,</span><br><span class="line">                                    <span class="string">'stats'</span>: ClassVar[Dict[str, int]],</span><br><span class="line">                                    <span class="string">'shield'</span>: int,</span><br><span class="line">                                    <span class="string">'captain'</span>: str&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> get_type_hints(Starship.__init__) == &#123;<span class="string">'captain'</span>: str,</span><br><span class="line">                                             <span class="string">'return'</span>: <span class="literal">None</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span>, ClassVar, get_type_hints</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Starship</span>:</span><br><span class="line">    hitpoints: <span class="built_in">int</span> = <span class="number">50</span></span><br><span class="line">    stats: ClassVar[<span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]] = &#123;&#125;</span><br><span class="line">    shield: <span class="built_in">int</span> = <span class="number">100</span></span><br><span class="line">    captain: <span class="built_in">str</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, captain: <span class="built_in">str</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> get_type_hints(Starship) == &#123;<span class="string">&#x27;hitpoints&#x27;</span>: <span class="built_in">int</span>,</span><br><span class="line">                                    <span class="string">&#x27;stats&#x27;</span>: ClassVar[<span class="type">Dict</span>[<span class="built_in">str</span>, <span class="built_in">int</span>]],</span><br><span class="line">                                    <span class="string">&#x27;shield&#x27;</span>: <span class="built_in">int</span>,</span><br><span class="line">                                    <span class="string">&#x27;captain&#x27;</span>: <span class="built_in">str</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> get_type_hints(Starship.__init__) == &#123;<span class="string">&#x27;captain&#x27;</span>: <span class="built_in">str</span>,</span><br><span class="line">                                             <span class="string">&#x27;return&#x27;</span>: <span class="literal">None</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <p>需要注意的是，如果无法在静态环境中找到注解，那么 <code>__annotations__</code> 字典将不会被创建。此外，将注解可用于局部环境的价值并不能抵消在每次函数调用时都必须创建和填充注解字典的成本。因此，函数级别的注解不会被求值或存储。</p>
 <h3 id="注解的其他用途"><a href="#注解的其他用途" class="headerlink" title="注解的其他用途"></a>注解的其他用途</h3><p>使用这个 PEP 的 Python 将不会反对：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alice: <span class="string">'well done'</span> = <span class="string">'A+'</span></span><br><span class="line">bob: <span class="string">'what a shame'</span> = <span class="string">'F-'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alice: <span class="string">&#x27;well done&#x27;</span> = <span class="string">&#x27;A+&#x27;</span></span><br><span class="line">bob: <span class="string">&#x27;what a shame&#x27;</span> = <span class="string">&#x27;F-&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>所以它将不会关心类型注解之外会引起报错的求值，类型检查器遇到时会将其标记，除非使用 <code># type: ignore</code> 或者 <code>@no_type_check</code> 来禁用。</p>
-<p>然而，由于 Python 不关心类型是什么，所以上述代码片段如果存在于全局模块或类层级中。那么 <code>__annotations__</code> 中将会存在 <code>{&#39;alice&#39;: &#39;well done&#39;, &#39;bob&#39;: &#39;what a shame&#39;}</code> 的键值对。</p>
+<p>然而，由于 Python 不关心类型是什么，所以上述代码片段如果存在于全局模块或类层级中。那么 <code>__annotations__</code> 中将会存在 <code>&#123;&#39;alice&#39;: &#39;well done&#39;, &#39;bob&#39;: &#39;what a shame&#39;&#125;</code> 的键值对。</p>
 <p>将这些注解存储起来也能用于其他的目的，但通过这个 PEP ，我们明确的建议将类型注解作为首选用途。</p>
-<h2 id="拒绝-推迟的提案"><a href="#拒绝-推迟的提案" class="headerlink" title="拒绝/推迟的提案"></a>拒绝/推迟的提案</h2><ul>
+<h2 id="拒绝-推迟的提案"><a href="#拒绝-推迟的提案" class="headerlink" title="拒绝&#x2F;推迟的提案"></a>拒绝&#x2F;推迟的提案</h2><ul>
 <li><p>我们到底该不该引入变量注释？在 PEP 484 的批准下，变量注释已经以类型注释的形式存在近两年了。他们被第三方类型检查器 (mypy，pytype，pycharm 等) 和使用类型检查的项目大量的使用。然而，使用注释语法有很多如理由说明中的缺点。本 PEP 并不涉及是否需要类型注解，而是关于此类类型注解的语法应该是怎样的</p>
 </li>
 <li><p>引入一个新关键字：选择一个好的关键字非常难，例如，不能使用 <code>var</code> 因为这是一个太常见的变量名；如果我们想把它用作类变量或全局变量，就不能使用 <code>local</code> 。其次无论我们选择什么，我们都需要 <code>__future__</code> 来导入</p>
 </li>
 <li><p>使用 <code>def</code> 作为关键字：这个提案将会是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">primes</span>:</span> List[int] = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">captain</span>:</span> str</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">primes</span>: <span class="type">List</span>[<span class="built_in">int</span>] = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">captain</span>: <span class="built_in">str</span></span><br></pre></td></tr></table></figure>
 
 <p>问题在于对于一些长久的 Python 程序员 (或工具) 来说， <code>def</code> 的含义是定义一个函数，并且这也不能让变量的定义变得更明确 (尽管这是很主观的)</p>
 </li>
@@ -418,7 +446,7 @@
 <li><p>用括号的形式注解 <code>(var: type)</code> ：它作为前面提到关于歧义的补救措施在 python-ideas 上被提出，它被拒绝的原因是这种语法会很麻烦，好处很小，并且可读性会变得更低。</p>
 </li>
 <li><p>允许在链式赋值中进行注解：它和元组解包一样会导致歧义和可读性的问题。例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x: int = y = <span class="number">1</span></span><br><span class="line">z = w: int = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x: <span class="built_in">int</span> = y = <span class="number">1</span></span><br><span class="line">z = w: <span class="built_in">int</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p><code>y</code> 和 <code>z</code> 的类型到底是什么这是不明确的，而且第二行语法解析也会很麻烦。</p>
 </li>
@@ -447,13 +475,13 @@
 <li><p>将 <code>__annotations__</code> 实现为一个描述器：提出该建议是为了禁止将 <code>__annotations__</code> 设置为空字典或者为 None。Guido 拒绝了这个提议，认为没有必要；相反如果当 <code>__annotations__</code> 不是一个映射的时候，对其更新值将会抛出一个 TypeError 异常。</p>
 </li>
 <li><p>以同样的方式对 global 或 nonlocal 做裸注解：被拒绝的提案更倾向于在函数体中出现不带赋值的注解时不进行任何评价。相比之下，PEP 暗示如果目标注解比单个名称更复杂，则应该在函数体内对其左边部分进行求值，以确保注解已被定义。例如，在本例中：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self)</span>:</span></span><br><span class="line">    slef.name: str</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">self</span>):</span><br><span class="line">    slef.name: <span class="built_in">str</span></span><br></pre></td></tr></table></figure>
 
 <p>  <code>slef</code> 应该被求值，这样如果它未被定义 (本例中很可能会出现这个情况) ，错误就会在运行时发现。这与在此进行初始化值的情况更相似，因此有望能减少意外的发生。 (同样需要注意的是如果检测的目标是 <code>self.name</code> (拼写正确的情况) ，优化编译器只要能证明 <code>self</code> 肯定会被定义，就没有义务评估 <code>self</code>)</p>
 </li>
 </ul>
 <h2 id="向后兼容性"><a href="#向后兼容性" class="headerlink" title="向后兼容性"></a>向后兼容性</h2><p>此 PEP 完全向后兼容</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>在 Python 3.6 中的实现可以在 <a href="https://github.com/ilevkivskyi/cpython/tree/pep-526" target="_blank" rel="noopener">https://github.com/ilevkivskyi/cpython/tree/pep-526</a> (译者注：该文件已无法被找到) 这个 GitHub 仓库中找到。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>在 Python 3.6 中的实现可以在 <a target="_blank" rel="noopener" href="https://github.com/ilevkivskyi/cpython/tree/pep-526">https://github.com/ilevkivskyi/cpython/tree/pep-526</a> (译者注：该文件已无法被找到) 这个 GitHub 仓库中找到。</p>
 <h2 id="版权"><a href="#版权" class="headerlink" title="版权"></a>版权</h2><p>本文档已置于公共领域。</p>
 
     </div>
@@ -462,17 +490,7 @@
     
     
 
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-----------------------（完）-----------------------</div>
-    
-</div>
-      
-    </div>
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
               <a href="/tags/PEP/" rel="tag"># PEP</a>
@@ -480,174 +498,51 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/python_float_round/" rel="prev" title="Python 中浮点数的舍入">
-      <i class="fa fa-chevron-left"></i> Python 中浮点数的舍入
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/go_14years/" rel="next" title="Go 的 14 岁">
-      Go 的 14 岁 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/go_14years/" rel="prev" title="Go 的 14 岁">
+                  <i class="fa fa-angle-left"></i> Go 的 14 岁
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/python_float_round/" rel="next" title="Python 中浮点数的舍入">
+                  Python 中浮点数的舍入 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Meta"><span class="nav-text">Meta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态"><span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读者注意"><span class="nav-text">读者注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理由说明"><span class="nav-text">理由说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不是的理由"><span class="nav-text">不是的理由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范"><span class="nav-text">规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局变量和局部变量的注解"><span class="nav-text">全局变量和局部变量的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类变量和实例变量的注解"><span class="nav-text">类变量和实例变量的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解表达式"><span class="nav-text">注解表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不允许注解的地方"><span class="nav-text">不允许注解的地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在存根文件-stub-file-中的变量注解"><span class="nav-text">在存根文件 (stub file) 中的变量注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首选的代码注解风格"><span class="nav-text">首选的代码注解风格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准库和文档的修改"><span class="nav-text">标准库和文档的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型注解在运行时的效果"><span class="nav-text">类型注解在运行时的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注解的其他用途"><span class="nav-text">注解的其他用途</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拒绝-推迟的提案"><span class="nav-text">拒绝&#x2F;推迟的提案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向后兼容性"><span class="nav-text">向后兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版权"><span class="nav-text">版权</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="stolen"
-      src="/images/header.jpg">
-  <p class="site-author-name" itemprop="name">stolen</p>
-  <div class="site-description" itemprop="description">一个热爱技术的Python开发者</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">70</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/stolenzc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stolenzc" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://weibo.com/u/3333060672" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;3333060672" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://www.stolenzc.com/" title="https:&#x2F;&#x2F;www.stolenzc.com" rel="noopener" target="_blank">个人网站</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://tools.stolenzc.com/" title="https:&#x2F;&#x2F;tools.stolenzc.com" rel="noopener" target="_blank">静态工具</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://stolenzc.gitee.io/" title="https:&#x2F;&#x2F;stolenzc.gitee.io" rel="noopener" target="_blank">gitee主页</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2020 – 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">stolen</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+  <div class="copyright">
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
     </span>
-    <span title="站点总字数">220k</span>
-</div>
-  <div class="powered-by" style="display:none">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+    <span class="author" itemprop="copyrightHolder">stolenzc</span>
   </div>
-
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-        
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">231k</span>
+  </span>
+</div>
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -655,8 +550,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -665,72 +559,48 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
+    </div>
+  </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
-<script src="/js/local-search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
-
-
-
-
-
-
-<script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : '[object Object]',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
-    });
-  }, window.mermaid);
-}
-</script>
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-  
+
+
+
 
 </body>
 </html>
